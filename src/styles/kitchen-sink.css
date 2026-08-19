@@ -1,0 +1,226 @@
+/* Reset & Base Kitchen Sink Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: 40px;
+}
+
+header {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-base);
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--text-brand);
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}
+
+.subtitle {
+  color: var(--text-muted);
+}
+
+/* Grids & Layouts */
+.grid-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Contrast Label */
+.contrast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.contrast-label {
+  font-size: 0.75rem;
+  font-family: monospace;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-base);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.contrast-label.pass {
+  border-color: var(--status-success-base);
+  color: var(--status-success-text);
+}
+
+.contrast-label.fail {
+  border-color: var(--status-danger-base);
+  color: var(--status-danger-text);
+}
+
+/* Swatch Component */
+.swatch {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.swatch-color {
+  height: 80px;
+  width: 100%;
+}
+
+.swatch-info {
+  padding: 12px;
+  font-size: 0.85rem;
+}
+
+.swatch-info strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.swatch-info span {
+  color: var(--text-tertiary);
+  font-family: monospace;
+}
+
+/* Surfaces */
+.surface-card {
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-base);
+}
+
+.surface-base { background-color: var(--bg-base); }
+.surface-panel { background-color: var(--bg-surface); }
+.surface-elevated { 
+  background-color: var(--bg-surface-elevated); 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid var(--border-strong);
+}
+
+/* Typography Scale */
+.text-sample { margin-bottom: 12px; display: block;}
+.text-sample.primary { color: var(--text-primary); font-size: 1.1rem; }
+.text-sample.secondary { color: var(--text-secondary); }
+.text-sample.tertiary { color: var(--text-tertiary); font-size: 0.9rem; }
+.text-sample.muted { color: var(--text-muted); font-size: 0.8rem; }
+.text-sample.brand { color: var(--text-brand); font-weight: bold; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: var(--focus-offset) solid var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.btn-primary {
+  background-color: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+}
+.btn-primary:hover { background-color: var(--action-primary-hover); }
+.btn-primary:active { background-color: var(--action-primary-active); }
+
+.btn-secondary {
+  background-color: var(--action-secondary-bg);
+  color: var(--action-secondary-fg);
+  border-color: var(--border-base);
+}
+.btn-secondary:hover { background-color: var(--action-secondary-hover); }
+.btn-secondary:active { background-color: var(--action-secondary-active); }
+
+.btn-subtle {
+  background-color: var(--action-subtle-bg);
+  color: var(--action-subtle-fg);
+}
+.btn-subtle:hover { background-color: var(--action-subtle-hover); color: var(--text-primary); }
+
+/* Badges / Status */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+/* Solid Badges */
+.badge-success { background-color: var(--status-success-bg); color: var(--status-success-fg); border-color: var(--status-success-border); }
+.badge-warning { background-color: var(--status-warning-bg); color: var(--status-warning-fg); border-color: var(--status-warning-border); }
+.badge-danger { background-color: var(--status-danger-bg); color: var(--status-danger-fg); border-color: var(--status-danger-border); }
+.badge-info { background-color: var(--status-info-bg); color: var(--status-info-fg); border-color: var(--status-info-border); }
+
+/* Subtle Badges */
+.badge-success-subtle { background-color: var(--status-success-subtle); color: var(--status-success-text); border-color: var(--status-success-border); }
+.badge-warning-subtle { background-color: var(--status-warning-subtle); color: var(--status-warning-text); border-color: var(--status-warning-border); }
+.badge-danger-subtle { background-color: var(--status-danger-subtle); color: var(--status-danger-text); border-color: var(--status-danger-border); }
+.badge-info-subtle { background-color: var(--status-info-subtle); color: var(--status-info-text); border-color: var(--status-info-border); }
+
+/* Tags */
+.badge-tag-purple { background-color: var(--tag-purple-subtle); color: var(--tag-purple-text); border-color: var(--tag-purple-border); }
+.badge-tag-pink { background-color: var(--tag-pink-subtle); color: var(--tag-pink-text); border-color: var(--tag-pink-border); }
+.badge-tag-teal { background-color: var(--tag-teal-subtle); color: var(--tag-teal-text); border-color: var(--tag-teal-border); }
+.badge-tag-indigo { background-color: var(--tag-indigo-subtle); color: var(--tag-indigo-text); border-color: var(--tag-indigo-border); }
+
+/* Charts */
+.chart-bar-container {
+  display: flex;
+  align-items: flex-end;
+  height: 150px;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--bg-surface);
+  border-radius: 8px;
+  border: 1px solid var(--border-base);
+}
+
+.chart-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Sink - Tem Como: Joinha DS</title>
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/kitchen-sink.css">
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.setAttribute('data-theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+      }
+      // Re-run contrast checker after theme changes
+      setTimeout(checkContrast, 50);
+    }
+
+    // Relative luminance calculation for sRGB
+    function getsRGBLuminance(r, g, b) {
+      let a = [r, g, b].map(function (v) {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    // Contrast ratio calculation
+    function getContrastRatio(l1, l2) {
+      const lighter = Math.max(l1, l2);
+      const darker = Math.min(l1, l2);
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    // Fallback and parser using Canvas for bulletproof any-to-sRGB conversion (including OKLCH)
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    function parseColorToRGB(colorString) {
+      ctx.clearRect(0, 0, 1, 1);
+      ctx.fillStyle = colorString;
+      ctx.fillRect(0, 0, 1, 1);
+      const data = ctx.getImageData(0, 0, 1, 1).data;
+      return { r: data[0], g: data[1], b: data[2] };
+    }
+
+    function checkContrast() {
+      const elements = document.querySelectorAll('[data-contrast-check]');
+      elements.forEach(el => {
+        const computed = window.getComputedStyle(el);
+        const bgMatch = parseColorToRGB(computed.backgroundColor);
+        const fgMatch = parseColorToRGB(computed.color);
+
+        const bgLum = getsRGBLuminance(bgMatch.r, bgMatch.g, bgMatch.b);
+        const fgLum = getsRGBLuminance(fgMatch.r, fgMatch.g, fgMatch.b);
+
+        const ratio = getContrastRatio(bgLum, fgLum);
+        
+        let label = el.nextElementSibling;
+        if (!label || !label.classList.contains('contrast-label')) {
+          label = document.createElement('div');
+          label.className = 'contrast-label';
+          el.parentNode.insertBefore(label, el.nextSibling);
+        }
+
+        const isLargeText = el.classList.contains('btn'); // buttons have larger text weight
+        const minRatio = isLargeText ? 3.0 : 4.5;
+        const pass = ratio >= minRatio;
+
+        label.textContent = `${ratio.toFixed(2)}:1 - ${pass ? 'PASS' : 'FAIL'}`;
+        label.classList.toggle('pass', pass);
+        label.classList.toggle('fail', !pass);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', checkContrast);
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>Tem Como: Joinha DS</h1>
+    <p class="subtitle">Design System Kitchen Sink - Acessibilidade WCAG 2.2</p>
+    <button class="btn btn-secondary" style="margin-top: 20px;" onclick="toggleTheme()" data-contrast-check="true">Alternar Tema (Dark/Light)</button>
+  </header>
+
+  <main>
+    <h2>🎯 Actions & Buttons</h2>
+    <div class="surface-card surface-panel flex-row">
+      <div class="contrast-container">
+        <button class="btn btn-primary" data-contrast-check="true">Primary Action</button>
+      </div>
+      <div class="contrast-container">
+        <button class="btn btn-secondary" data-contrast-check="true">Secondary Action</button>
+      </div>
+      <div class="contrast-container">
+        <button class="btn btn-subtle" data-contrast-check="true">Subtle Action</button>
+      </div>
+    </div>
+
+    <h2>🏷️ Badges & Status</h2>
+    <div class="subtitle" style="margin-bottom: 12px;">Status Solid (Bg Forte, Texto Escuro/Claro)</div>
+    <div class="surface-card surface-panel flex-row" style="margin-bottom: 24px;">
+      <div class="contrast-container"><div class="badge badge-success" data-contrast-check="true">Success</div></div>
+      <div class="contrast-container"><div class="badge badge-warning" data-contrast-check="true">Warning</div></div>
+      <div class="contrast-container"><div class="badge badge-danger" data-contrast-check="true">Danger</div></div>
+      <div class="contrast-container"><div class="badge badge-info" data-contrast-check="true">Info</div></div>
+    </div>
+
+    <div class="subtitle" style="margin-bottom: 12px;">Status Subtle (Bg Lavado, Texto Forte)</div>
+    <div class="surface-card surface-panel flex-row" style="margin-bottom: 24px;">
+      <div class="contrast-container"><div class="badge badge-success-subtle" data-contrast-check="true">Success</div></div>
+      <div class="contrast-container"><div class="badge badge-warning-subtle" data-contrast-check="true">Warning</div></div>
+      <div class="contrast-container"><div class="badge badge-danger-subtle" data-contrast-check="true">Danger</div></div>
+      <div class="contrast-container"><div class="badge badge-info-subtle" data-contrast-check="true">Info</div></div>
+    </div>
+
+    <div class="subtitle" style="margin-bottom: 12px;">Categorical Tags</div>
+    <div class="surface-card surface-panel flex-row">
+      <div class="contrast-container"><div class="badge badge-tag-purple" data-contrast-check="true">Design</div></div>
+      <div class="contrast-container"><div class="badge badge-tag-pink" data-contrast-check="true">Marketing</div></div>
+      <div class="contrast-container"><div class="badge badge-tag-teal" data-contrast-check="true">Development</div></div>
+      <div class="contrast-container"><div class="badge badge-tag-indigo" data-contrast-check="true">Management</div></div>
+    </div>
+
+    <h2>📐 Surfaces & Elevations</h2>
+    <div class="grid-cards">
+      <div class="surface-card surface-base" data-contrast-check="true">
+        <div class="text-sample primary">--bg-base c/ --text-primary</div>
+      </div>
+      <div class="surface-card surface-panel" data-contrast-check="true">
+        <div class="text-sample secondary">--bg-surface c/ --text-secondary</div>
+      </div>
+      <div class="surface-card surface-elevated" data-contrast-check="true">
+        <div class="text-sample tertiary">--bg-surface-elevated c/ --text-tertiary</div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

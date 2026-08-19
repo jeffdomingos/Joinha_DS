@@ -1,0 +1,267 @@
+/* 
+  Tem Como: Joinha DS 
+  Architecture: Base OKLCH Design Tokens 
+*/
+
+:root {
+  /* ========================================================
+     1. PRIMITIVE TOKENS
+     ======================================================== */
+
+  /* --- BRAND (Hue ~53, Chroma ~0.17) --- */
+  --tc-brand-50: oklch(96% 0.02 53);
+  --tc-brand-100: oklch(92% 0.04 53);
+  --tc-brand-200: oklch(86% 0.08 53);
+  --tc-brand-300: oklch(80% 0.12 53);
+  --tc-brand-400: oklch(74% 0.15 53);
+  --tc-brand-500: oklch(67% 0.17 53); /* Base Brand: #e27100 */
+  --tc-brand-600: oklch(58% 0.15 53);
+  --tc-brand-700: oklch(48% 0.12 53);
+  --tc-brand-800: oklch(38% 0.09 53);
+  --tc-brand-900: oklch(28% 0.06 53);
+  --tc-brand-950: oklch(18% 0.03 53);
+
+  /* --- NEUTRALS (Hue ~53, Chroma 0.002 - 0.006) --- */
+  /* Warm grays matching the brand hue to avoid pure black/white */
+  --tc-neutral-0: oklch(99% 0.001 53);
+  --tc-neutral-50: oklch(97% 0.002 53);
+  --tc-neutral-100: oklch(93% 0.003 53);
+  --tc-neutral-200: oklch(88% 0.004 53);
+  --tc-neutral-300: oklch(80% 0.004 53);
+  --tc-neutral-400: oklch(70% 0.005 53);
+  --tc-neutral-500: oklch(60% 0.006 53);
+  --tc-neutral-600: oklch(50% 0.006 53);
+  --tc-neutral-700: oklch(40% 0.005 53);
+  --tc-neutral-800: oklch(30% 0.004 53);
+  --tc-neutral-900: oklch(20% 0.003 53);
+  --tc-neutral-950: oklch(14% 0.002 53);
+  --tc-neutral-1000: oklch(10% 0.002 53);
+
+  /* --- STATUS: SUCCESS (Hue ~145) --- */
+  --tc-success-subtle: oklch(25% 0.04 145);
+  --tc-success-base: oklch(45% 0.15 145);
+  --tc-success-strong: oklch(55% 0.15 145);
+  --tc-success-fg: oklch(95% 0.03 145);
+  --tc-success-text: oklch(85% 0.08 145);
+
+  /* --- STATUS: WARNING (Hue ~85) --- */
+  --tc-warning-subtle: oklch(25% 0.04 85);
+  --tc-warning-base: oklch(45% 0.16 85);
+  --tc-warning-strong: oklch(55% 0.16 85);
+  --tc-warning-fg: oklch(95% 0.03 85);
+  --tc-warning-text: oklch(90% 0.08 85);
+
+  /* --- STATUS: DANGER (Hue ~25) --- */
+  --tc-danger-subtle: oklch(25% 0.04 25);
+  --tc-danger-base: oklch(45% 0.18 25);
+  --tc-danger-strong: oklch(55% 0.18 25);
+  --tc-danger-fg: oklch(95% 0.03 25);
+  --tc-danger-text: oklch(88% 0.08 25);
+
+  /* --- STATUS: INFO (Hue ~240) --- */
+  --tc-info-subtle: oklch(25% 0.04 240);
+  --tc-info-base: oklch(45% 0.16 240);
+  --tc-info-strong: oklch(55% 0.16 240);
+  --tc-info-fg: oklch(95% 0.03 240);
+  --tc-info-text: oklch(85% 0.08 240);
+
+  /* --- CATEGORICAL TAGS --- */
+  --tc-tag-purple-subtle: oklch(25% 0.04 300);
+  --tc-tag-purple-base: oklch(45% 0.16 300);
+  --tc-tag-purple-fg: oklch(95% 0.03 300);
+  --tc-tag-purple-text: oklch(85% 0.08 300);
+
+  --tc-tag-pink-subtle: oklch(25% 0.04 340);
+  --tc-tag-pink-base: oklch(45% 0.16 340);
+  --tc-tag-pink-fg: oklch(95% 0.03 340);
+  --tc-tag-pink-text: oklch(85% 0.08 340);
+
+  --tc-tag-teal-subtle: oklch(25% 0.04 190);
+  --tc-tag-teal-base: oklch(45% 0.16 190);
+  --tc-tag-teal-fg: oklch(95% 0.03 190);
+  --tc-tag-teal-text: oklch(85% 0.08 190);
+
+  --tc-tag-indigo-subtle: oklch(25% 0.04 270);
+  --tc-tag-indigo-base: oklch(45% 0.16 270);
+  --tc-tag-indigo-fg: oklch(95% 0.03 270);
+  --tc-tag-indigo-text: oklch(85% 0.08 270);
+
+  /* --- CHARTS / DATA VIZ --- */
+  --tc-chart-1: oklch(67% 0.17 53); /* Brand */
+  --tc-chart-2: oklch(70% 0.15 190);
+  --tc-chart-3: oklch(65% 0.15 320);
+  --tc-chart-4: oklch(75% 0.15 85);
+  --tc-chart-5: oklch(65% 0.15 145);
+  --tc-chart-6: oklch(72% 0.15 280);
+
+  /* ========================================================
+     2. SEMANTIC TOKENS (Dark Mode Default)
+     ======================================================== */
+
+  /* GLOBAL ACCESSIBILITY */
+  --focus-ring: var(--tc-brand-500);
+  --focus-offset: 2px;
+
+  /* BACKGROUNDS */
+  --bg-app: var(--tc-neutral-1000);
+  --bg-base: var(--tc-neutral-1000);
+  --bg-surface: var(--tc-neutral-950);
+  --bg-surface-elevated: var(--tc-neutral-900);
+  --bg-surface-hover: var(--tc-neutral-800);
+
+  /* TEXT (Paired with Backgrounds) */
+  --text-primary: var(--tc-neutral-50);
+  --text-secondary: var(--tc-neutral-300);
+  --text-tertiary: var(--tc-neutral-500);
+  --text-muted: var(--tc-neutral-600);
+  --text-inverse: var(--tc-neutral-950);
+  --text-brand: var(--tc-brand-400);
+
+  /* BORDERS */
+  --border-subtle: var(--tc-neutral-900);
+  --border-base: var(--tc-neutral-800);
+  --border-strong: var(--tc-neutral-700);
+  --border-focus: var(--border-focus);
+
+  /* ACTIONS / BUTTONS (Solid Paring) */
+  --action-primary-bg: var(--tc-brand-500);
+  --action-primary-hover: var(--tc-brand-400);
+  --action-primary-active: var(--tc-brand-600);
+  --action-primary-fg: var(--tc-neutral-0);
+
+  --action-secondary-bg: var(--tc-neutral-800);
+  --action-secondary-hover: var(--tc-neutral-700);
+  --action-secondary-active: var(--tc-neutral-900);
+  --action-secondary-fg: var(--tc-neutral-100);
+
+  --action-subtle-bg: transparent;
+  --action-subtle-hover: var(--tc-neutral-900);
+  --action-subtle-active: var(--tc-neutral-800);
+  --action-subtle-fg: var(--tc-neutral-300);
+
+  /* STATUS SEMANTICS (Solid & Subtle Pairing) */
+  --status-success-bg: var(--tc-success-base);
+  --status-success-fg: var(--tc-success-fg);
+  --status-success-subtle: var(--tc-success-subtle);
+  --status-success-text: var(--tc-success-text);
+  --status-success-border: var(--tc-success-base);
+
+  --status-warning-bg: var(--tc-warning-base);
+  --status-warning-fg: var(--tc-warning-fg);
+  --status-warning-subtle: var(--tc-warning-subtle);
+  --status-warning-text: var(--tc-warning-text);
+  --status-warning-border: var(--tc-warning-base);
+
+  --status-danger-bg: var(--tc-danger-base);
+  --status-danger-fg: var(--tc-danger-fg);
+  --status-danger-subtle: var(--tc-danger-subtle);
+  --status-danger-text: var(--tc-danger-text);
+  --status-danger-border: var(--tc-danger-base);
+
+  --status-info-bg: var(--tc-info-base);
+  --status-info-fg: var(--tc-info-fg);
+  --status-info-subtle: var(--tc-info-subtle);
+  --status-info-text: var(--tc-info-text);
+  --status-info-border: var(--tc-info-base);
+  
+  /* TAG SEMANTICS (Solid & Subtle Pairing) */
+  --tag-purple-bg: var(--tc-tag-purple-base);
+  --tag-purple-fg: var(--tc-tag-purple-fg);
+  --tag-purple-subtle: var(--tc-tag-purple-subtle);
+  --tag-purple-text: var(--tc-tag-purple-text);
+  --tag-purple-border: var(--tc-tag-purple-base);
+
+  --tag-pink-bg: var(--tc-tag-pink-base);
+  --tag-pink-fg: var(--tc-tag-pink-fg);
+  --tag-pink-subtle: var(--tc-tag-pink-subtle);
+  --tag-pink-text: var(--tc-tag-pink-text);
+  --tag-pink-border: var(--tc-tag-pink-base);
+
+  --tag-teal-bg: var(--tc-tag-teal-base);
+  --tag-teal-fg: var(--tc-tag-teal-fg);
+  --tag-teal-subtle: var(--tc-tag-teal-subtle);
+  --tag-teal-text: var(--tc-tag-teal-text);
+  --tag-teal-border: var(--tc-tag-teal-base);
+
+  --tag-indigo-bg: var(--tc-tag-indigo-base);
+  --tag-indigo-fg: var(--tc-tag-indigo-fg);
+  --tag-indigo-subtle: var(--tc-tag-indigo-subtle);
+  --tag-indigo-text: var(--tc-tag-indigo-text);
+  --tag-indigo-border: var(--tc-tag-indigo-base);
+
+  /* CHART SEMANTICS */
+  --chart-1: var(--tc-chart-1);
+  --chart-2: var(--tc-chart-2);
+  --chart-3: var(--tc-chart-3);
+  --chart-4: var(--tc-chart-4);
+  --chart-5: var(--tc-chart-5);
+  --chart-6: var(--tc-chart-6);
+}
+
+/* ========================================================
+   3. LIGHT MODE OVERRIDES
+   ======================================================== */
+.light, [data-theme="light"] {
+  /* BACKGROUNDS */
+  --bg-app: var(--tc-neutral-0);
+  --bg-base: var(--tc-neutral-0);
+  --bg-surface: var(--tc-neutral-50);
+  --bg-surface-elevated: var(--tc-neutral-0);
+  --bg-surface-hover: var(--tc-neutral-100);
+
+  /* TEXT */
+  --text-primary: var(--tc-neutral-950);
+  --text-secondary: var(--tc-neutral-700);
+  --text-tertiary: var(--tc-neutral-500);
+  --text-muted: var(--tc-neutral-400);
+  --text-inverse: var(--tc-neutral-0);
+  --text-brand: var(--tc-brand-600);
+
+  /* BORDERS */
+  --border-subtle: var(--tc-neutral-100);
+  --border-base: var(--tc-neutral-200);
+  --border-strong: var(--tc-neutral-300);
+  --border-focus: var(--tc-brand-500);
+
+  /* ACTIONS / BUTTONS */
+  --action-primary-bg: var(--tc-brand-500);
+  --action-primary-hover: var(--tc-brand-600);
+  --action-primary-active: var(--tc-brand-700);
+  --action-primary-fg: var(--tc-neutral-0);
+
+  --action-secondary-bg: var(--tc-neutral-100);
+  --action-secondary-hover: var(--tc-neutral-200);
+  --action-secondary-active: var(--tc-neutral-300);
+  --action-secondary-fg: var(--tc-neutral-900);
+
+  --action-subtle-bg: transparent;
+  --action-subtle-hover: var(--tc-neutral-50);
+  --action-subtle-active: var(--tc-neutral-100);
+  --action-subtle-fg: var(--tc-neutral-700);
+
+  /* STATUS SEMANTICS (Light versions) */
+  --status-success-subtle: oklch(95% 0.02 145);
+  --status-success-text: oklch(35% 0.1 145);
+
+  --status-warning-subtle: oklch(95% 0.04 85);
+  --status-warning-text: oklch(40% 0.1 85);
+
+  --status-danger-subtle: oklch(95% 0.03 25);
+  --status-danger-text: oklch(40% 0.15 25);
+
+  --status-info-subtle: oklch(95% 0.03 240);
+  --status-info-text: oklch(35% 0.1 240);
+
+  /* TAG SEMANTICS (Light versions) */
+  --tag-purple-subtle: oklch(95% 0.03 300);
+  --tag-purple-text: oklch(35% 0.1 300);
+
+  --tag-pink-subtle: oklch(95% 0.03 340);
+  --tag-pink-text: oklch(35% 0.1 340);
+
+  --tag-teal-subtle: oklch(95% 0.03 190);
+  --tag-teal-text: oklch(35% 0.1 190);
+
+  --tag-indigo-subtle: oklch(95% 0.03 270);
+  --tag-indigo-text: oklch(35% 0.1 270);
+}

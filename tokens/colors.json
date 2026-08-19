@@ -1,0 +1,203 @@
+{
+  "brand": {
+    "50": "oklch(96% 0.02 53)",
+    "100": "oklch(92% 0.04 53)",
+    "200": "oklch(86% 0.08 53)",
+    "300": "oklch(80% 0.12 53)",
+    "400": "oklch(74% 0.15 53)",
+    "500": "oklch(67% 0.17 53)",
+    "600": "oklch(58% 0.15 53)",
+    "700": "oklch(48% 0.12 53)",
+    "800": "oklch(38% 0.09 53)",
+    "900": "oklch(28% 0.06 53)",
+    "950": "oklch(18% 0.03 53)"
+  },
+  "neutral": {
+    "0": "oklch(99% 0.001 53)",
+    "50": "oklch(97% 0.002 53)",
+    "100": "oklch(93% 0.003 53)",
+    "200": "oklch(88% 0.004 53)",
+    "300": "oklch(80% 0.004 53)",
+    "400": "oklch(70% 0.005 53)",
+    "500": "oklch(60% 0.006 53)",
+    "600": "oklch(50% 0.006 53)",
+    "700": "oklch(40% 0.005 53)",
+    "800": "oklch(30% 0.004 53)",
+    "900": "oklch(20% 0.003 53)",
+    "950": "oklch(14% 0.002 53)",
+    "1000": "oklch(10% 0.002 53)"
+  },
+  "status": {
+    "success": {
+      "subtle": "oklch(25% 0.04 145)",
+      "base": "oklch(45% 0.15 145)",
+      "strong": "oklch(55% 0.15 145)",
+      "fg": "oklch(95% 0.03 145)",
+      "text": "oklch(85% 0.08 145)"
+    },
+    "warning": {
+      "subtle": "oklch(25% 0.04 85)",
+      "base": "oklch(45% 0.16 85)",
+      "strong": "oklch(55% 0.16 85)",
+      "fg": "oklch(95% 0.03 85)",
+      "text": "oklch(90% 0.08 85)"
+    },
+    "danger": {
+      "subtle": "oklch(25% 0.04 25)",
+      "base": "oklch(45% 0.18 25)",
+      "strong": "oklch(55% 0.18 25)",
+      "fg": "oklch(95% 0.03 25)",
+      "text": "oklch(88% 0.08 25)"
+    },
+    "info": {
+      "subtle": "oklch(25% 0.04 240)",
+      "base": "oklch(45% 0.16 240)",
+      "strong": "oklch(55% 0.16 240)",
+      "fg": "oklch(95% 0.03 240)",
+      "text": "oklch(85% 0.08 240)"
+    }
+  },
+  "tag": {
+    "purple": {
+      "subtle": "oklch(25% 0.04 300)",
+      "base": "oklch(45% 0.16 300)",
+      "fg": "oklch(95% 0.03 300)",
+      "text": "oklch(85% 0.08 300)"
+    },
+    "pink": {
+      "subtle": "oklch(25% 0.04 340)",
+      "base": "oklch(45% 0.16 340)",
+      "fg": "oklch(95% 0.03 340)",
+      "text": "oklch(85% 0.08 340)"
+    },
+    "teal": {
+      "subtle": "oklch(25% 0.04 190)",
+      "base": "oklch(45% 0.16 190)",
+      "fg": "oklch(95% 0.03 190)",
+      "text": "oklch(85% 0.08 190)"
+    },
+    "indigo": {
+      "subtle": "oklch(25% 0.04 270)",
+      "base": "oklch(45% 0.16 270)",
+      "fg": "oklch(95% 0.03 270)",
+      "text": "oklch(85% 0.08 270)"
+    }
+  },
+  "chart": {
+    "1": "oklch(67% 0.17 53)",
+    "2": "oklch(70% 0.15 190)",
+    "3": "oklch(65% 0.15 320)",
+    "4": "oklch(75% 0.15 85)",
+    "5": "oklch(65% 0.15 145)",
+    "6": "oklch(72% 0.15 280)"
+  },
+  "semantic": {
+    "dark": {
+      "accessibility": {
+        "focusRing": "{brand.500}",
+        "focusOffset": "2px"
+      },
+      "bg": {
+        "app": "{neutral.1000}",
+        "base": "{neutral.1000}",
+        "surface": "{neutral.950}",
+        "surfaceElevated": "{neutral.900}",
+        "surfaceHover": "{neutral.800}"
+      },
+      "text": {
+        "primary": "{neutral.50}",
+        "secondary": "{neutral.300}",
+        "tertiary": "{neutral.500}",
+        "muted": "{neutral.600}",
+        "inverse": "{neutral.950}",
+        "brand": "{brand.400}"
+      },
+      "border": {
+        "subtle": "{neutral.900}",
+        "base": "{neutral.800}",
+        "strong": "{neutral.700}",
+        "focus": "{brand.500}"
+      },
+      "action": {
+        "primary": {
+          "bg": "{brand.500}",
+          "hover": "{brand.400}",
+          "active": "{brand.600}",
+          "fg": "{neutral.0}"
+        },
+        "secondary": {
+          "bg": "{neutral.800}",
+          "hover": "{neutral.700}",
+          "active": "{neutral.900}",
+          "fg": "{neutral.100}"
+        },
+        "subtle": {
+          "bg": "transparent",
+          "hover": "{neutral.900}",
+          "active": "{neutral.800}",
+          "fg": "{neutral.300}"
+        }
+      },
+      "status": {
+        "success": {
+          "bg": "{status.success.base}",
+          "fg": "{status.success.fg}",
+          "subtle": "{status.success.subtle}",
+          "text": "{status.success.text}",
+          "border": "{status.success.base}"
+        },
+        "warning": {
+          "bg": "{status.warning.base}",
+          "fg": "{status.warning.fg}",
+          "subtle": "{status.warning.subtle}",
+          "text": "{status.warning.text}",
+          "border": "{status.warning.base}"
+        },
+        "danger": {
+          "bg": "{status.danger.base}",
+          "fg": "{status.danger.fg}",
+          "subtle": "{status.danger.subtle}",
+          "text": "{status.danger.text}",
+          "border": "{status.danger.base}"
+        },
+        "info": {
+          "bg": "{status.info.base}",
+          "fg": "{status.info.fg}",
+          "subtle": "{status.info.subtle}",
+          "text": "{status.info.text}",
+          "border": "{status.info.base}"
+        }
+      },
+      "tag": {
+        "purple": {
+          "bg": "{tag.purple.base}",
+          "fg": "{tag.purple.fg}",
+          "subtle": "{tag.purple.subtle}",
+          "text": "{tag.purple.text}",
+          "border": "{tag.purple.base}"
+        },
+        "pink": {
+          "bg": "{tag.pink.base}",
+          "fg": "{tag.pink.fg}",
+          "subtle": "{tag.pink.subtle}",
+          "text": "{tag.pink.text}",
+          "border": "{tag.pink.base}"
+        },
+        "teal": {
+          "bg": "{tag.teal.base}",
+          "fg": "{tag.teal.fg}",
+          "subtle": "{tag.teal.subtle}",
+          "text": "{tag.teal.text}",
+          "border": "{tag.teal.base}"
+        },
+        "indigo": {
+          "bg": "{tag.indigo.base}",
+          "fg": "{tag.indigo.fg}",
+          "subtle": "{tag.indigo.subtle}",
+          "text": "{tag.indigo.text}",
+          "border": "{tag.indigo.base}"
+        }
+      }
+    }
+  }
+}

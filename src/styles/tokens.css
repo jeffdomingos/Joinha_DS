@@ -23,21 +23,21 @@
   --tc-brand-900: oklch(28% 0.06 53);
   --tc-brand-950: oklch(18% 0.03 53);
 
-  /* --- NEUTRALS (Hue ~53, Chroma 0.002 - 0.006) --- */
-  /* Warm grays matching the brand hue to avoid pure black/white */
-  --tc-neutral-0: oklch(99% 0.001 53);
-  --tc-neutral-50: oklch(97% 0.002 53);
-  --tc-neutral-100: oklch(93% 0.003 53);
-  --tc-neutral-200: oklch(88% 0.004 53);
-  --tc-neutral-300: oklch(80% 0.004 53);
-  --tc-neutral-400: oklch(70% 0.005 53);
-  --tc-neutral-500: oklch(60% 0.006 53);
-  --tc-neutral-600: oklch(50% 0.006 53);
-  --tc-neutral-700: oklch(40% 0.005 53);
-  --tc-neutral-800: oklch(30% 0.004 53);
-  --tc-neutral-900: oklch(20% 0.003 53);
-  --tc-neutral-950: oklch(14% 0.002 53);
-  --tc-neutral-1000: oklch(10% 0.002 53);
+  /* --- NEUTRALS (Hue ~53, Chroma "quase invisível") --- */
+  /* Warm grays matching the brand hue but drastically desaturated to feel professional */
+  --tc-neutral-0: oklch(99% 0.0005 53);
+  --tc-neutral-50: oklch(97% 0.0005 53);
+  --tc-neutral-100: oklch(93% 0.001 53);
+  --tc-neutral-200: oklch(88% 0.001 53);
+  --tc-neutral-300: oklch(80% 0.001 53);
+  --tc-neutral-400: oklch(70% 0.0015 53);
+  --tc-neutral-500: oklch(60% 0.0015 53);
+  --tc-neutral-600: oklch(50% 0.0015 53);
+  --tc-neutral-700: oklch(40% 0.0015 53);
+  --tc-neutral-800: oklch(30% 0.001 53);
+  --tc-neutral-900: oklch(20% 0.001 53);
+  --tc-neutral-950: oklch(14% 0.0005 53);
+  --tc-neutral-1000: oklch(10% 0.0005 53);
 
   /* --- STATUS: SUCCESS (Hue ~145) --- */
   --tc-success-subtle: oklch(25% 0.04 145);

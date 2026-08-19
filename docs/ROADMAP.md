@@ -1,5 +1,8 @@
 # 🗺️ Roadmap e Visão Estratégica: Tem Como - Joinha DS
 
+**Desenvolvedor/Designer:** Jeff Domingos
+**Objetivo:** Design System Base para projetos pessoais e profissionais do Jeff Domingos
+
 Este documento registra a visão, propósito e o plano de evolução do **Tem Como: Joinha DS**, consolidando todas as decisões arquiteturais da nossa fundação.
 
 ## 1. Propósito e Visão do Design System

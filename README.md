@@ -1,5 +1,8 @@
 # 👍 Tem Como: Joinha DS
 
+**Desenvolvedor/Designer:** Jeff Domingos
+**Objetivo:** Design System Base para projetos pessoais e profissionais do Jeff Domingos
+
 O **Tem Como: Joinha DS** é um Design System *Agent-Native*, projetado sob medida para garantir consistência visual, agilidade e acabamento profissional premium a ferramentas de gestão, dashboards analíticos e produtos SaaS desenvolvidos via *vibecoding* (com IA).
 
 ## 🌟 Principais Características

@@ -3,6 +3,8 @@
   Architecture: Base OKLCH Design Tokens 
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
 :root {
   /* ========================================================
      1. PRIMITIVE TOKENS
@@ -93,6 +95,30 @@
   --tc-chart-4: oklch(75% 0.15 85);
   --tc-chart-5: oklch(65% 0.15 145);
   --tc-chart-6: oklch(72% 0.15 280);
+
+  /* --- TYPOGRAPHY --- */
+  --font-sans: 'Cabin Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --text-xs-size: 0.75rem;
+  --text-xs-height: 1rem;
+  --text-sm-size: 0.875rem;
+  --text-sm-height: 1.25rem;
+  --text-base-size: 1rem;
+  --text-base-height: 1.5rem;
+  --text-lg-size: 1.125rem;
+  --text-lg-height: 1.75rem;
+  --text-xl-size: 1.25rem;
+  --text-xl-height: 1.75rem;
+  --text-2xl-size: 1.5rem;
+  --text-2xl-height: 2rem;
+  --text-3xl-size: 1.875rem;
+  --text-3xl-height: 2.25rem;
 
   /* ========================================================
      2. SEMANTIC TOKENS (Dark Mode Default)

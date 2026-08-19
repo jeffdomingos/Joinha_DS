@@ -13,6 +13,20 @@ O sistema opera em duas camadas estruturais:
 
 ---
 
+## 🔤 Tipografia e Escalas
+
+O Joinha DS utiliza duas famílias tipográficas altamente otimizadas para leitura densa e exibição de dados:
+
+1. **Sans (Cabin Variable):** Fonte padrão para toda a interface (UI, títulos, botões, descrições). Acessada via `var(--font-sans)`.
+2. **Mono (JetBrains Mono Variable):** Exclusiva para dados tabulares em Data Tables, numerais estritos, blocos de código e chaves de API. Acessada via `var(--font-mono)`.
+
+### Regras de Escala Modular e Unidades
+- **Obrigatoriedade do `rem`:** Todos os tamanhos de fonte (`font-size`) e espaçamentos (`margin`, `padding`, `gap`) devem ser em `rem`. Isso garante que o zoom de acessibilidade do navegador (WCAG 2.2) escale a interface fluidamente sem quebrar a proporção.
+- **Exceção para Bordas e Focus:** Espessura de bordas e focus rings (`border-width`, `outline-width`, `box-shadow`) devem ser em `px` fixos (ex: `1px`, `2px`) para manter a nitidez visual e evitar falhas de subpixel rendering.
+- **Numerais Tabulares (`tabular-nums`):** Sempre que exibir dados financeiros, relatórios ou contadores em tabelas ou listas, utilize a classe `.tabular-nums` (ou a propriedade `font-variant-numeric: tabular-nums`) junto da fonte Mono para garantir o alinhamento de colunas numéricas.
+
+---
+
 ## 🏗️ Convenções de Uso em SaaS
 
 Ferramentas SaaS exigem hierarquia visual clara e controle rígido de contraste. Siga estas regras:
@@ -61,6 +75,7 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 3. **Não crie novos tons de cinza.** O sistema já possui a escala de neutros aquecidos ideal. Não introduza preto (`#000`) ou branco puro sem verificar se há um token equivalente (ex: `--tc-neutral-1000` ou `--tc-neutral-0`).
 4. Ao construir gráficos (Charts), use as variáveis `--chart-1` até `--chart-6` sequencialmente.
 5. Ao categorizar dados neutros, prefira a família `--tag-*` em vez de sobrecarregar as cores funcionais de `--status-*`.
+6. **Obrigatoriedade Tipográfica:** Sempre use a escala semântica em `rem` (`var(--text-sm-size)` / `var(--text-sm-height)`) e aplique `tabular-nums` em colunas numéricas de relatórios SaaS.
 
 ## ♿ Acessibilidade e Conformidade WCAG 2.2
 

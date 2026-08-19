@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kitchen Sink - Tem Como: Joinha DS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/styles/tokens.css">
   <link rel="stylesheet" href="src/styles/kitchen-sink.css">
   <script>
@@ -89,6 +92,50 @@
   </header>
 
   <main>
+    <h2>🔤 Tipografia & Escala (rem)</h2>
+    <div class="surface-card surface-panel" style="margin-bottom: 24px;">
+      <div class="subtitle" style="margin-bottom: 12px;">Escala Sans (Cabin Variable)</div>
+      <div class="font-sans">
+        <div class="text-3xl font-bold">text-3xl: 1.875rem / 30px</div>
+        <div class="text-2xl font-bold">text-2xl: 1.5rem / 24px</div>
+        <div class="text-xl font-semibold">text-xl: 1.25rem / 20px</div>
+        <div class="text-lg font-semibold">text-lg: 1.125rem / 18px</div>
+        <div class="text-base font-medium">text-base: 1rem / 16px (Padrão)</div>
+        <div class="text-sm font-regular text-sample secondary">text-sm: 0.875rem / 14px (UI Base)</div>
+        <div class="text-xs font-regular text-sample tertiary">text-xs: 0.75rem / 12px (Metadados)</div>
+      </div>
+    </div>
+    
+    <div class="surface-card surface-panel">
+      <div class="subtitle" style="margin-bottom: 12px;">Dados Financeiros & API (JetBrains Mono + Tabular Nums)</div>
+      <table style="width: 100%; border-collapse: collapse; text-align: right;" class="font-mono text-sm tabular-nums">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-base); color: var(--text-secondary);">
+            <th style="text-align: left; padding: 8px;">Transação (ID)</th>
+            <th style="padding: 8px;">Valor USD</th>
+            <th style="padding: 8px;">Variação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border-subtle);">
+            <td style="text-align: left; padding: 8px;">tx_10928301</td>
+            <td style="padding: 8px;">$14,500.00</td>
+            <td style="padding: 8px; color: var(--status-success-text);">+ 12.50%</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-subtle);">
+            <td style="text-align: left; padding: 8px;">tx_10928302</td>
+            <td style="padding: 8px;">$1,102.50</td>
+            <td style="padding: 8px; color: var(--status-danger-text);">- 0.05%</td>
+          </tr>
+          <tr>
+            <td style="text-align: left; padding: 8px;">tx_10928303</td>
+            <td style="padding: 8px;">$98,111.99</td>
+            <td style="padding: 8px; color: var(--status-success-text);">+142.10%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <h2>🎯 Actions & Buttons</h2>
     <div class="surface-card surface-panel flex-row">
       <div class="contrast-container">

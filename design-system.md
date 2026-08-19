@@ -75,7 +75,8 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 3. **Não crie novos tons de cinza.** O sistema já possui a escala de neutros aquecidos ideal. Não introduza preto (`#000`) ou branco puro sem verificar se há um token equivalente (ex: `--tc-neutral-1000` ou `--tc-neutral-0`).
 4. Ao construir gráficos (Charts), use as variáveis `--chart-1` até `--chart-6` sequencialmente.
 5. Ao categorizar dados neutros, prefira a família `--tag-*` em vez de sobrecarregar as cores funcionais de `--status-*`.
-6. **Obrigatoriedade Tipográfica:** Sempre use a escala semântica em `rem` (`var(--text-sm-size)` / `var(--text-sm-height)`) e aplique `tabular-nums` em colunas numéricas de relatórios SaaS.
+6. **Obrigatoriedade Tipográfica:** É **ESTRITAMENTE PROIBIDO** criar classes avulsas de `font-size` isoladas da escala ou do respectivo `line-height`. Utilize sempre a arquitetura de 3 camadas através das classes utilitárias semânticas (Camada 3) como `.type-body-default`, `.type-ui-base`, `.type-heading-page`, etc.
+7. **Colunas Numéricas e Relatórios:** Use SEMPRE `.type-data-mono` (ou aplique `tabular-nums` com a fonte JetBrains Mono) para alinhar valores financeiros e contadores em Dashboards.
 
 ## ♿ Acessibilidade e Conformidade WCAG 2.2
 

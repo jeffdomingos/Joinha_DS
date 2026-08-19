@@ -92,48 +92,61 @@
   </header>
 
   <main>
-    <h2>🔤 Tipografia & Escala (rem)</h2>
-    <div class="surface-card surface-panel" style="margin-bottom: 24px;">
-      <div class="subtitle" style="margin-bottom: 12px;">Escala Sans (Cabin Variable)</div>
-      <div class="font-sans">
-        <div class="text-3xl font-bold">text-3xl: 1.875rem / 30px</div>
-        <div class="text-2xl font-bold">text-2xl: 1.5rem / 24px</div>
-        <div class="text-xl font-semibold">text-xl: 1.25rem / 20px</div>
-        <div class="text-lg font-semibold">text-lg: 1.125rem / 18px</div>
-        <div class="text-base font-medium">text-base: 1rem / 16px (Padrão)</div>
-        <div class="text-sm font-regular text-sample secondary">text-sm: 0.875rem / 14px (UI Base)</div>
-        <div class="text-xs font-regular text-sample tertiary">text-xs: 0.75rem / 12px (Metadados)</div>
+    <h2>🔤 Tipografia: Semântica de Camada 3 (.type-*)</h2>
+    
+    <div class="grid-cards" style="margin-bottom: 24px;">
+      <!-- Métrica / Display -->
+      <div class="surface-card surface-panel">
+        <div class="type-heading-section" style="color: var(--text-primary); margin-bottom: 8px;">Receita Recorrente (MRR)</div>
+        <div class="type-display-metric" style="color: var(--status-success-text); margin-bottom: 4px;">$ 14,502.50</div>
+        <div class="type-ui-dense" style="color: var(--text-secondary);">+ 12.5% em relação ao mês anterior</div>
+      </div>
+      
+      <!-- Cabeçalho de Módulo -->
+      <div class="surface-card surface-panel">
+        <div class="type-label-caps" style="color: var(--text-brand); margin-bottom: 8px;">Configurações</div>
+        <div class="type-heading-page" style="color: var(--text-primary); margin-bottom: 4px;">Integrações de API</div>
+        <div class="type-body-default" style="color: var(--text-secondary);">Gerencie as chaves de acesso para conectar outros serviços.</div>
       </div>
     </div>
     
-    <div class="surface-card surface-panel">
-      <div class="subtitle" style="margin-bottom: 12px;">Dados Financeiros & API (JetBrains Mono + Tabular Nums)</div>
-      <table style="width: 100%; border-collapse: collapse; text-align: right;" class="font-mono text-sm tabular-nums">
-        <thead>
-          <tr style="border-bottom: 1px solid var(--border-base); color: var(--text-secondary);">
-            <th style="text-align: left; padding: 8px;">Transação (ID)</th>
-            <th style="padding: 8px;">Valor USD</th>
-            <th style="padding: 8px;">Variação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--border-subtle);">
-            <td style="text-align: left; padding: 8px;">tx_10928301</td>
-            <td style="padding: 8px;">$14,500.00</td>
-            <td style="padding: 8px; color: var(--status-success-text);">+ 12.50%</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border-subtle);">
-            <td style="text-align: left; padding: 8px;">tx_10928302</td>
-            <td style="padding: 8px;">$1,102.50</td>
-            <td style="padding: 8px; color: var(--status-danger-text);">- 0.05%</td>
-          </tr>
-          <tr>
-            <td style="text-align: left; padding: 8px;">tx_10928303</td>
-            <td style="padding: 8px;">$98,111.99</td>
-            <td style="padding: 8px; color: var(--status-success-text);">+142.10%</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="grid-cards" style="margin-bottom: 40px;">
+      <!-- Tabela Densa de Dados -->
+      <div class="surface-card surface-panel">
+        <div class="type-heading-item" style="color: var(--text-primary); margin-bottom: 16px;">Últimas Transações</div>
+        <table style="width: 100%; border-collapse: collapse; text-align: right;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-base); color: var(--text-secondary);">
+              <th style="text-align: left; padding: 8px;" class="type-label-caps">ID Transação</th>
+              <th style="padding: 8px;" class="type-label-caps">Valor USD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="text-align: left; padding: 8px;" class="type-ui-dense">tx_10928301</td>
+              <td style="padding: 8px; color: var(--status-success-text);" class="type-data-mono">$ 1,102.50</td>
+            </tr>
+            <tr>
+              <td style="text-align: left; padding: 8px;" class="type-ui-dense">tx_10928302</td>
+              <td style="padding: 8px; color: var(--status-danger-text);" class="type-data-mono">-$ 400.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bloco de Código / API -->
+      <div class="surface-card surface-elevated">
+        <div class="type-ui-base" style="color: var(--text-primary); margin-bottom: 12px;">Payload de Resposta (JSON)</div>
+        <div class="type-code-inline" style="background-color: var(--bg-app); padding: 16px; border-radius: 6px; color: var(--text-secondary); border: 1px solid var(--border-base);">
+{
+  "status": "success",
+  "data": {
+    "userId": "usr_998371X",
+    "isActive": true
+  }
+}
+        </div>
+      </div>
     </div>
 
     <h2>🎯 Actions & Buttons</h2>

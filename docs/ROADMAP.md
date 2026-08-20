@@ -98,4 +98,17 @@ Arquitetura de layout avançada para ERPs, CRMs e UIs de altíssima densidade de
 * [x] **Painéis Redimensionáveis Master-Detail (`<ResizablePanelGroup />`):** Primitivo baseado em `react-resizable-panels` com alça tátil (*grab handle*), persistência de largura no `localStorage` e colapso responsivo.
 * [x] **Floating Action HUD & Dock (`<FloatingToolbar />`):** Menu flutuante glassmorphic persistente com atalhos de densidade, tema, busca `⌘K`, onboarding e colapso ergonômico.
 
+---
+
+## 7. 🔮 Próximo Passo — Fase 8: XAI (Explainable AI) & Padrões Human-in-the-Loop (HITL)
+
+Projetado para construir confiança, transparência e controle humano em aplicações SaaS orientadas por Inteligência Artificial e Agentes Autônomos:
+
+* [ ] **Medidor de Confiança & Rastreamento de Raciocínio (`<ConfidenceMeter />` + `<ReasoningTrace />`):** Indicador visual de acurácia da IA (ex.: *98% de Confiança / Baseado em 4 fontes*) com acordeão colapsável do raciocínio lógico (*Chain-of-Thought*).
+* [ ] **Banner de Aprovação HITL & Interceptação de Ações Críticas (`<HITLApprovalBanner />`):** Interface de revisão humana para ações de alto impacto propostas por agentes (ex.: pagamentos em lote, exclusão de dados, emissão fiscal) com ações explícitas de *Aprovar*, *Rejeitar* ou *Editar Parâmetros*.
+* [ ] **Visualizador de Diffs e Propostas de IA (`<AIDiffViewer />`):** Comparador visual lado a lado (*side-by-side*) ou unificado destacando alterações sugeridas pelo modelo em textos, códigos ou tabelas.
+* [ ] **Fluxo de Pensamento e Estado do Agente (`<AgentStatusHUD />`):** Indicador de status em tempo real com estados animados (*Pensando...*, *Consultando Banco de Dados*, *Aguardando Decisão Humana*).
+* [ ] **Widget de Feedback e Correção de Alucinação (`<AIFeedbackWidget />`):** Micro-ações de feedback tátil (*Thumbs Up/Down*, *Reportar Alucinação*, *Refinar Prompt In-Place*).
+
+
 

@@ -39,8 +39,86 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Tag } from "@/components/ui/tag"
+import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+const mockSubscriptions: DataTableRecord[] = [
+  {
+    id: "SUB-8942",
+    customer: { name: "Jefferson Domingos", email: "jefferson@temcomo.design" },
+    plan: "Enterprise",
+    status: "active",
+    mrr: 4890.0,
+    billingCycle: "Annual",
+    joinedDate: "2024-01-15",
+  },
+  {
+    id: "SUB-8943",
+    customer: { name: "TechCorp Labs", email: "finance@techcorp.io" },
+    plan: "Pro",
+    status: "active",
+    mrr: 1250.0,
+    billingCycle: "Monthly",
+    joinedDate: "2024-02-01",
+  },
+  {
+    id: "SUB-8944",
+    customer: { name: "DevFlow Inc.", email: "billing@devflow.co" },
+    plan: "Enterprise",
+    status: "trialing",
+    mrr: 3500.0,
+    billingCycle: "Monthly",
+    joinedDate: "2024-03-10",
+  },
+  {
+    id: "SUB-8945",
+    customer: { name: "Studio Aurora", email: "contato@studioaurora.br" },
+    plan: "Starter",
+    status: "active",
+    mrr: 450.0,
+    billingCycle: "Monthly",
+    joinedDate: "2024-03-14",
+  },
+  {
+    id: "SUB-8946",
+    customer: { name: "HyperScale Soluções", email: "admin@hyperscale.com" },
+    plan: "Custom",
+    status: "past_due",
+    mrr: 8200.0,
+    billingCycle: "Annual",
+    joinedDate: "2023-11-20",
+  },
+  {
+    id: "SUB-8947",
+    customer: { name: "Norte Digital", email: "financeiro@nortedigital.pt" },
+    plan: "Pro",
+    status: "canceled",
+    mrr: 990.0,
+    billingCycle: "Monthly",
+    joinedDate: "2023-09-05",
+  },
+  {
+    id: "SUB-8948",
+    customer: { name: "Vortex Analytics", email: "ops@vortex.ai" },
+    plan: "Enterprise",
+    status: "active",
+    mrr: 6400.0,
+    billingCycle: "Annual",
+    joinedDate: "2024-02-18",
+  },
+  {
+    id: "SUB-8949",
+    customer: { name: "Nexus Fintech", email: "pagamentos@nexuspay.com" },
+    plan: "Pro",
+    status: "trialing",
+    mrr: 1890.0,
+    billingCycle: "Monthly",
+    joinedDate: "2024-03-22",
+  },
+]
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
@@ -355,6 +433,68 @@ function App() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Badges & Tags Showcase */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-border pb-2">
+            <TagIcon className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold">Badges & Categorical Tags</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Status Badges */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border flex flex-col gap-4">
+              <span className="type-ui-dense font-semibold text-muted-foreground">Status Badges (com Accessible Dots)</span>
+              <div className="flex flex-wrap gap-2.5 items-center">
+                <Badge variant="success" dot>Ativo</Badge>
+                <Badge variant="info" dot>Em Teste</Badge>
+                <Badge variant="warning" dot>Pendente</Badge>
+                <Badge variant="danger" dot>Falha / Erro</Badge>
+                <Badge variant="neutral" dot>Neutro</Badge>
+              </div>
+              <span className="type-ui-dense font-semibold text-muted-foreground pt-2">Solid Variant (Alto Impacto)</span>
+              <div className="flex flex-wrap gap-2.5 items-center">
+                <Badge variant="success-solid">Pago</Badge>
+                <Badge variant="info-solid">Novo</Badge>
+                <Badge variant="warning-solid">Atenção</Badge>
+                <Badge variant="danger-solid">Crítico</Badge>
+              </div>
+            </div>
+
+            {/* Categorical Tags */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border flex flex-col gap-4">
+              <span className="type-ui-dense font-semibold text-muted-foreground">Categorical Tags (Tokens --tag-*)</span>
+              <div className="flex flex-wrap gap-2.5 items-center">
+                <Tag variant="purple">Enterprise</Tag>
+                <Tag variant="teal">Developer</Tag>
+                <Tag variant="pink">Designer</Tag>
+                <Tag variant="indigo">Marketing</Tag>
+                <Tag variant="gray">General</Tag>
+              </div>
+              <span className="type-ui-dense font-semibold text-muted-foreground pt-2">Sizes (sm / default / lg)</span>
+              <div className="flex flex-wrap gap-2.5 items-center">
+                <Tag variant="purple" size="sm">Small Tag</Tag>
+                <Tag variant="teal" size="default">Default Tag</Tag>
+                <Tag variant="pink" size="lg">Large Tag</Tag>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Dense Data Table Section */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-2">
+            <div className="flex items-center gap-2">
+              <Database className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-semibold">Dense Data Table (SaaS Management)</h2>
+            </div>
+            <span className="text-xs text-muted-foreground font-mono">
+              h-10 density · JetBrains Mono · WCAG Compliant
+            </span>
+          </div>
+
+          <DataTable data={mockSubscriptions} />
         </section>
       </div>
       <Toaster />

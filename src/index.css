@@ -136,6 +136,34 @@
       ) border-box !important;
   }
 
+  .border-gradient-primary {
+    border: 1px solid transparent !important;
+    background: 
+      linear-gradient(var(--action-primary-bg), var(--action-primary-bg)) padding-box,
+      linear-gradient(
+        135deg, 
+        var(--btn-primary-border-start) 0%, 
+        var(--btn-primary-border-start) 10%,
+        var(--btn-primary-border-mid) 35%, 
+        var(--btn-primary-border-end) 50%,
+        var(--btn-primary-border-end) 100%
+      ) border-box !important;
+  }
+
+  .border-gradient-destructive {
+    border: 1px solid transparent !important;
+    background: 
+      linear-gradient(var(--status-danger-bg), var(--status-danger-bg)) padding-box,
+      linear-gradient(
+        135deg, 
+        var(--btn-destructive-border-start) 0%, 
+        var(--btn-destructive-border-start) 10%,
+        var(--btn-destructive-border-mid) 35%, 
+        var(--btn-destructive-border-end) 50%,
+        var(--btn-destructive-border-end) 100%
+      ) border-box !important;
+  }
+
   .border-gradient-sunken {
     border: 1px solid transparent !important;
     box-shadow: var(--tc-input-inner-shadow, inset 1px 2px 3px 0 oklch(0% 0 0 / 0.20));

@@ -211,6 +211,7 @@
   --bg-surface-elevated: var(--tc-neutral-900);  /* Dropdowns / Menus / Popovers: L=22% */
   --bg-surface-modal: var(--tc-neutral-850);     /* Modais / Diálogos: L=26% */
   --bg-surface-hover: var(--tc-neutral-800);     /* Hover / Toast: L=30% */
+  --surface-current: var(--bg-surface);          /* Contextual Surface Inheritance */
 
   /* PHYSICAL SURFACE HIGHLIGHT (Chanfro de luz superior 1px) */
   --surface-highlight: inset 0 1px 0 0 oklch(100% 0 0 / 0.07);

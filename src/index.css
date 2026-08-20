@@ -164,17 +164,31 @@
 }
 
 @layer utilities {
+  /* Contextual Surface Current cascade */
+  .bg-background, .bg-base, [data-surface="base"] {
+    --surface-current: var(--bg-app);
+  }
+  .bg-surface, .surface-card, .bg-surface-card, [data-surface="surface"] {
+    --surface-current: var(--bg-surface);
+  }
+  .bg-surface-elevated, .bg-popover, .dropdown-content, [data-surface="elevated"] {
+    --surface-current: var(--bg-surface-elevated);
+  }
+  .bg-surface-modal, .dialog-content, [data-surface="modal"] {
+    --surface-current: var(--bg-surface-modal);
+  }
+
   .border-gradient-subtle {
     border: 1px solid transparent !important;
     background: 
-      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      linear-gradient(var(--surface-current, var(--bg-surface)), var(--surface-current, var(--bg-surface))) padding-box,
       radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
   }
 
   .border-gradient-outline {
     border: 1px solid transparent !important;
     background: 
-      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      linear-gradient(var(--surface-current, var(--bg-surface)), var(--surface-current, var(--bg-surface))) padding-box,
       radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
   }
 

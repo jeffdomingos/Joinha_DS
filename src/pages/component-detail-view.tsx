@@ -832,7 +832,7 @@ export function ComponentDetailView({
             {/* Canvas Stage with density wrapper */}
             <div
               data-density={density}
-              className="p-8 sm:p-12 min-h-[260px] flex items-center justify-center bg-(--bg-base) border-t border-border/40"
+              className="p-8 sm:p-12 min-h-[260px] flex items-center justify-center bg-base bg-(--bg-base) border-t border-border/40"
             >
               {renderLiveComponent()}
             </div>

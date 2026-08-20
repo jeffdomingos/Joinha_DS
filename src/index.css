@@ -148,22 +148,18 @@
   
   .elevation-1 {
     box-shadow: var(--tc-shadow-sm);
-    background-image: linear-gradient(135deg, oklch(100% 0 0 / 0.01), transparent 60%);
   }
   
   .elevation-2 {
     box-shadow: var(--tc-shadow-md);
-    background-image: linear-gradient(135deg, oklch(100% 0 0 / 0.015), transparent 60%);
   }
   
   .elevation-3 {
     box-shadow: var(--tc-shadow-lg);
-    background-image: linear-gradient(135deg, oklch(100% 0 0 / 0.02), transparent 60%);
   }
 
   .elevation-4 {
     box-shadow: var(--tc-shadow-xl);
-    background-image: linear-gradient(135deg, oklch(100% 0 0 / 0.025), transparent 60%);
   }
   
   /* --- MOTION & MICRO-INTERACTIONS --- */

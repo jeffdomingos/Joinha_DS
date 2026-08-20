@@ -201,8 +201,8 @@ export function Sidebar({
                         ? "w-10 h-10 justify-center p-0"
                         : "w-full justify-between px-2.5 py-2 gap-3",
                       isActive
-                        ? "bg-primary/10 text-primary font-semibold border-primary/25 shadow-sm"
-                        : "border-transparent text-muted-foreground hover:text-foreground hover:bg-surface-hover hover:border-border/50"
+                        ? "bg-primary/10 text-primary font-semibold border-primary/30 shadow-sm"
+                        : "border-transparent bg-transparent text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-transparent"
                     )}
                   >
                     <div className={cn("flex items-center min-w-0", !collapsed && "gap-3")}>

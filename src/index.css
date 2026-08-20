@@ -122,11 +122,6 @@
 }
 
 @layer utilities {
-  .surface-highlight {
-    --tc-inner-shadow: inset 1px 1px 0 0 oklch(100% 0 0 / 0.18);
-    box-shadow: var(--tc-drop-shadow, 0 0 #0000), var(--tc-inner-shadow);
-  }
-  
   .border-gradient-subtle {
     border: 1px solid transparent !important;
     background: 
@@ -146,23 +141,19 @@
   }
   
   .elevation-1 {
-    --tc-drop-shadow: var(--tc-shadow-sm);
-    box-shadow: var(--tc-drop-shadow), var(--tc-inner-shadow, 0 0 #0000);
+    box-shadow: var(--tc-shadow-sm);
   }
   
   .elevation-2 {
-    --tc-drop-shadow: var(--tc-shadow-md);
-    box-shadow: var(--tc-drop-shadow), var(--tc-inner-shadow, 0 0 #0000);
+    box-shadow: var(--tc-shadow-md);
   }
   
   .elevation-3 {
-    --tc-drop-shadow: var(--tc-shadow-lg);
-    box-shadow: var(--tc-drop-shadow), var(--tc-inner-shadow, 0 0 #0000);
+    box-shadow: var(--tc-shadow-lg);
   }
 
   .elevation-4 {
-    --tc-drop-shadow: var(--tc-shadow-xl);
-    box-shadow: var(--tc-drop-shadow), var(--tc-inner-shadow, 0 0 #0000);
+    box-shadow: var(--tc-shadow-xl);
   }
   
   /* --- MOTION & MICRO-INTERACTIONS --- */

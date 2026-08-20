@@ -46,7 +46,6 @@ function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
   const [hasBorder, setHasBorder] = useState(true)
   const [hasGradientBorder, setHasGradientBorder] = useState(true)
-  const [hasHighlight, setHasHighlight] = useState(false)
   const [hasElevation, setHasElevation] = useState(true)
   const [hasGlow, setHasGlow] = useState(false)
 
@@ -65,7 +64,6 @@ function App() {
     !hasBorder && "!border-0 !border-transparent !bg-none",
     hasBorder && !hasGradientBorder && "border border-border",
     hasBorder && hasGradientBorder && "border-gradient-subtle",
-    hasHighlight && "surface-highlight",
     hasElevation && "elevation-2",
     hasGlow && "brand-glow"
   )
@@ -105,9 +103,9 @@ function App() {
             <h2 className="text-lg font-semibold text-foreground m-0">Surface & Lighting Lab (Comparador de Efeitos)</h2>
           </div>
           <p className="type-ui-base text-muted-foreground">
-            Ligue e desligue cada camada de acabamento para testar a combinação ideal e avaliar o impacto do chanfro e das bordas:
+            Ligue e desligue cada camada de acabamento para testar a combinação ideal de bordas e elevações:
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-6 pt-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2">
             <label className="flex items-center gap-3 cursor-pointer select-none">
               <Switch checked={hasBorder} onCheckedChange={setHasBorder} />
               <div className="flex flex-col">
@@ -121,14 +119,6 @@ function App() {
               <div className="flex flex-col">
                 <span className="type-ui-dense font-semibold">Borda Gradiente</span>
                 <span className="text-xs text-muted-foreground">.border-gradient-subtle</span>
-              </div>
-            </label>
-
-            <label className="flex items-center gap-3 cursor-pointer select-none">
-              <Switch checked={hasHighlight} onCheckedChange={setHasHighlight} />
-              <div className="flex flex-col">
-                <span className="type-ui-dense font-semibold">Chanfro Interno</span>
-                <span className="text-xs text-muted-foreground">.surface-highlight</span>
               </div>
             </label>
 

@@ -110,6 +110,18 @@ Projetado para construir confiança, transparência e controle humano em aplica�
 * [x] **Fluxo de Pensamento e Estado do Agente (`<AgentStatusHUD />`):** Indicador de status em tempo real com estados animados (*Pensando...*, *Consultando Banco de Dados*, *Aguardando Decisão Humana*).
 * [x] **Widget de Feedback e Correção de Alucinação (`<AIFeedbackWidget />`):** Micro-ações de feedback tátil (*Thumbs Up/Down*, *Reportar Alucinação*, *Refinar Prompt In-Place*).
 
+---
+
+## 8. 🟢 Fase 9: Plataforma de Documentação Oficial (Wiki & Live Labs) (Concluída)
+
+Refatoração arquitetural e criação da plataforma de documentação oficial 100% *dogfooded* com os componentes do Joinha DS:
+
+* [x] **Modularização em 3 Grandes Vistas (`DashboardView`, `DocsWikiView`, `ComponentLabView`):** Separação clara entre a aplicação SaaS executiva de referência, a Wiki oficial de design e o laboratório de testes.
+* [x] **Wiki & Compêndio de Design (`DocsWikiView`):** Documentação viva com visualizador interativo de tokens em OKLCH, elevação Dark-First em 5 níveis, escala tipográfica e acessibilidade WCAG 2.2 AA.
+* [x] **Laboratório Interativo de Componentes (`ComponentLabView`):** Explorador com filtro por 6 categorias, busca em tempo real entre os 50 componentes, sandbox tátil de propriedades e comando oficial de instalação via CLI do Shadcn (`npx shadcn add ...`).
+* [x] **Roteamento Global & Navegação Unificada:** Sincronização em tempo real entre Header, Sidebar, FloatingToolbar HUD e Command Palette (`⌘K`).
+
+
 
 
 

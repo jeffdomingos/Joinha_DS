@@ -14,7 +14,8 @@ import {
   Plus,
   LogOut,
   Building2,
-  FolderDot,
+  BookOpen,
+  Layers,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -47,7 +48,7 @@ export interface NavGroup {
 
 const defaultNavGroups: NavGroup[] = [
   {
-    groupLabel: "Visão Geral",
+    groupLabel: "Aplicação SaaS",
     items: [
       { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
       { id: "analytics", label: "Analytics & MRR", icon: BarChart3 },
@@ -60,7 +61,24 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "Operações & SaaS",
+    groupLabel: "Joinha Design System",
+    items: [
+      {
+        id: "docs",
+        label: "Wiki & Documentação",
+        icon: BookOpen,
+        badge: { text: "v1.0", variant: "info" },
+      },
+      {
+        id: "lab",
+        label: "Component Lab",
+        icon: Layers,
+        badge: { text: "50", variant: "neutral" },
+      },
+    ],
+  },
+  {
+    groupLabel: "Configurações",
     items: [
       {
         id: "billing",
@@ -68,14 +86,7 @@ const defaultNavGroups: NavGroup[] = [
         icon: CreditCard,
         badge: { text: "Ativo", variant: "success" },
       },
-      { id: "projects", label: "Projetos", icon: FolderDot },
-    ],
-  },
-  {
-    groupLabel: "Configurações",
-    items: [
       { id: "settings", label: "Geral", icon: Settings },
-      { id: "security", label: "Segurança", icon: Shield },
       { id: "api", label: "API & Webhooks", icon: Code2 },
     ],
   },

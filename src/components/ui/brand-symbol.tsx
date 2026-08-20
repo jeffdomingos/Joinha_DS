@@ -28,7 +28,7 @@ export function BrandSymbol({ className, variant = "raw", ...props }: BrandSymbo
 
   if (variant === "badge") {
     return (
-      <div className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/25 border border-primary/40">
+      <div className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-brand-mark text-primary-foreground shadow-lg shadow-brand-mark/25 border border-brand-mark/40">
         {React.cloneElement(svgElement, { className: cn("h-10 w-auto text-white fill-white", className) })}
       </div>
     )

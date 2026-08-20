@@ -75,7 +75,7 @@ export function DocsWikiView({
             <Tag color="pink" size="sm">WCAG 2.2 AA</Tag>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-bold font-display tracking-tight text-foreground">
+          <h1 className="text-2xl sm:text-4xl font-bold font-display tracking-tight text-heading">
             Documentação Oficial & Compêndio de Engenharia
           </h1>
 
@@ -125,7 +125,7 @@ export function DocsWikiView({
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-muted-foreground" />
-                <h3 className="text-base font-bold font-display text-foreground">Escala Tipográfica Hierárquica</h3>
+                <h3 className="text-base font-bold font-display text-heading">Escala Tipográfica Hierárquica</h3>
               </div>
               <Badge variant="neutral" size="sm">3 Famílias Especializadas</Badge>
             </div>
@@ -173,7 +173,7 @@ export function DocsWikiView({
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Palette className="w-4 h-4 text-muted-foreground" />
-                <h3 className="text-base font-bold font-display text-foreground">Cores Primárias de Marca (Laranja OKLCH)</h3>
+                <h3 className="text-base font-bold font-display text-heading">Cores Primárias de Marca (Laranja OKLCH)</h3>
               </div>
               <span className="text-xs text-muted-foreground font-sans">Clique para copiar o token</span>
             </div>
@@ -202,7 +202,7 @@ export function DocsWikiView({
           {/* Semantic Status Colors */}
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
-              <h3 className="text-base font-bold font-display text-foreground">Cores Semânticas de Estado (Jewel Tones)</h3>
+              <h3 className="text-base font-bold font-display text-heading">Cores Semânticas de Estado (Jewel Tones)</h3>
               <Badge variant="success" size="sm">WCAG 2.2 AA Garantido</Badge>
             </div>
 
@@ -229,7 +229,7 @@ export function DocsWikiView({
 
           {/* Surface Elevations */}
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
+            <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Superfícies Dark-First & Elevação
             </h3>
 
@@ -251,7 +251,7 @@ export function DocsWikiView({
 
           {/* Border Radius Tokens */}
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
+            <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Tokens de Raio de Borda (Corner Radius)
             </h3>
 
@@ -300,7 +300,7 @@ export function DocsWikiView({
       {activeSection === "docs-layout" && (
         <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
+            <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Matriz de Densidade Paramétrica (`data-density`)
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -329,7 +329,7 @@ export function DocsWikiView({
           </div>
 
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
+            <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Container Queries (`@container`) vs. Media Queries
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -364,7 +364,7 @@ export function DocsWikiView({
       {activeSection === "docs-xai" && (
         <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
+            <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Ergonomia de Confiança & Padrões Human-in-the-Loop
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -433,7 +433,7 @@ export function DocsWikiView({
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-muted-foreground" />
-                <h3 className="text-base font-bold font-display text-foreground">Instalação Modular via CLI Oficial</h3>
+                <h3 className="text-base font-bold font-display text-heading">Instalação Modular via CLI Oficial</h3>
               </div>
               <Badge variant="info" size="sm">Shadcn Compatible</Badge>
             </div>

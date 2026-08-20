@@ -11,8 +11,10 @@
   --color-ring: var(--focus-ring);
   --color-background: var(--bg-app);
   --color-foreground: var(--text-primary);
+  --color-heading: var(--text-heading);
   
-  --color-primary: var(--accent-action);            /* brand-500: CTA hero, Checkbox, Switch */
+  --color-brand-mark: var(--brand-mark);            /* brand-500 puro: logo/símbolo apenas */
+  --color-primary: var(--accent-action);            /* brand-600: CTA hero, Checkbox, Switch */
   --color-primary-ui: var(--accent-ui);             /* brand-400: ícone anchor nav, hover */
   --color-primary-subtle: var(--accent-subtle);     /* brand-300: focus ring, borda sub-item */
   --color-primary-foreground: var(--action-primary-fg);
@@ -207,6 +209,7 @@
   h1, h2, h3, h4, .font-display {
     font-family: var(--tc-font-display);
     letter-spacing: -0.015em;
+    color: var(--text-heading);
   }
 
   /* Apple Dynamic Optical Tracking: Small text opens up for razor-sharp clarity */

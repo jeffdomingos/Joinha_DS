@@ -943,7 +943,7 @@ export function ComponentLabView({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
           <div className="flex flex-wrap items-center gap-2.5">
-            <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-heading">
               Laboratório Interativo de Componentes
             </h1>
             <Badge variant="info" size="sm">{componentCatalog.length} Componentes</Badge>
@@ -1065,7 +1065,7 @@ export function ComponentLabView({
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold font-display text-foreground">{item.name}</h3>
+                    <h3 className="text-sm font-bold font-display text-heading">{item.name}</h3>
                     <Badge variant="neutral" size="sm" className="text-[10px] py-0 px-1.5">
                       {item.categoryLabel}
                     </Badge>
@@ -1121,7 +1121,7 @@ export function ComponentLabView({
             <Search className="w-6 h-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-base font-bold font-display text-foreground">
+            <h3 className="text-base font-bold font-display text-heading">
               Nenhum componente encontrado
             </h3>
             <p className="text-xs text-muted-foreground max-w-sm mx-auto">
@@ -1148,7 +1148,7 @@ export function ComponentLabView({
         <section className="space-y-4 pt-6 border-t border-border">
           <div className="flex items-center justify-between pb-2">
             <div>
-              <h2 className="text-lg font-bold font-display tracking-tight text-foreground">
+              <h2 className="text-lg font-bold font-display tracking-tight text-heading">
                 Sandbox: Controles de Superfície e Efeitos Ópticos
               </h2>
               <p className="text-xs text-muted-foreground mt-0.5">
@@ -1184,7 +1184,7 @@ export function ComponentLabView({
         <section className="space-y-4 pt-6 border-t border-border">
           <div className="flex items-center justify-between pb-2">
             <div>
-              <h2 className="text-lg font-bold font-display tracking-tight text-foreground">
+              <h2 className="text-lg font-bold font-display tracking-tight text-heading">
                 Painéis Redimensionáveis Master-Detail (Split Panes)
               </h2>
               <p className="text-xs text-muted-foreground mt-0.5">
@@ -1248,7 +1248,7 @@ export function ComponentLabView({
                   <div className="space-y-4">
                     <div className="flex items-center justify-between border-b border-border/80 pb-3">
                       <div>
-                        <h4 className="text-sm font-bold font-display text-foreground">
+                        <h4 className="text-sm font-bold font-display text-heading">
                           Editor de Assinatura: {selectedRecordId}
                         </h4>
                         <span className="text-xs text-muted-foreground">Painel detalhado com suporte a Container Queries</span>
@@ -1301,7 +1301,7 @@ export function ComponentLabView({
             <div>
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary" />
-                <h2 className="text-lg font-bold font-display tracking-tight text-foreground">
+                <h2 className="text-lg font-bold font-display tracking-tight text-heading">
                   XAI (Explainable AI) & Human-in-the-Loop (HITL)
                 </h2>
                 {hitlDecision && (

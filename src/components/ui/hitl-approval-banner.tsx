@@ -98,7 +98,7 @@ export function HITLApprovalBanner({
             )}
           </div>
 
-          <h3 id="hitl-banner-title" className="text-sm sm:text-base font-bold font-display tracking-tight text-foreground">
+          <h3 id="hitl-banner-title" className="text-sm sm:text-base font-bold font-display tracking-tight text-heading">
             {title}
           </h3>
 

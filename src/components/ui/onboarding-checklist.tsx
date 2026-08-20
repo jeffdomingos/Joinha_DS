@@ -67,7 +67,7 @@ export function OnboardingChecklist({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-xs font-semibold font-display tracking-tight text-foreground">
+                <h3 className="text-xs font-semibold font-display tracking-tight text-heading">
                   {title}
                 </h3>
                 {isAllDone ? (

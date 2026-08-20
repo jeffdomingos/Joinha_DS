@@ -81,7 +81,7 @@ export function TourSpotlight({
                 <Badge variant="info" size="sm" className="font-sans font-medium text-xs">
                   {currentStepIndex + 1} de {steps.length}
                 </Badge>
-                <h3 className="text-sm font-semibold font-display text-foreground tracking-tight">
+                <h3 className="text-sm font-semibold font-display text-heading tracking-tight">
                   {currentStep.title}
                 </h3>
               </div>

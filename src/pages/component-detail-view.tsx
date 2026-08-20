@@ -1043,7 +1043,7 @@ export function ComponentDetailView({
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2.5">
-              <h1 className="type-heading-page text-2xl font-bold tracking-tight text-foreground font-display">
+              <h1 className="type-heading-page text-2xl font-bold tracking-tight text-heading font-display">
                 {metadata.name}
               </h1>
               <Badge variant="info" size="sm" className="font-mono text-[10px]">
@@ -1215,13 +1215,13 @@ export function ComponentDetailView({
           {/* Use Cases / Variations Gallery */}
           {metadata.examples && metadata.examples.length > 0 && (
             <div className="space-y-4">
-              <h3 className="type-heading-section text-sm font-bold text-foreground">Exemplos & Casos de Uso</h3>
+              <h3 className="type-heading-section text-sm font-bold text-heading">Exemplos & Casos de Uso</h3>
               <div className="grid grid-cols-1 gap-4">
                 {metadata.examples.map((ex, idx) => (
                   <div key={idx} className="p-4 rounded-(--tc-radius-lg) border border-border bg-surface-card space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="space-y-0.5">
-                        <h4 className="type-heading-card text-xs font-semibold text-foreground">{ex.title}</h4>
+                        <h4 className="type-heading-card text-xs font-semibold text-heading">{ex.title}</h4>
                         {ex.description && (
                           <p className="type-body-sm text-[11px] text-muted-foreground">{ex.description}</p>
                         )}
@@ -1250,7 +1250,7 @@ export function ComponentDetailView({
         <TabsContent value="code" className="space-y-6">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
-              <h3 className="type-heading-card text-sm font-bold text-foreground">Declaração de Importação</h3>
+              <h3 className="type-heading-card text-sm font-bold text-heading">Declaração de Importação</h3>
               <Button
                 variant="ghost"
                 size="sm"
@@ -1268,7 +1268,7 @@ export function ComponentDetailView({
 
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
-              <h3 className="type-heading-card text-sm font-bold text-foreground">Exemplo Completo de Uso</h3>
+              <h3 className="type-heading-card text-sm font-bold text-heading">Exemplo Completo de Uso</h3>
               <Button
                 variant="ghost"
                 size="sm"
@@ -1289,7 +1289,7 @@ export function ComponentDetailView({
         <TabsContent value="props" className="space-y-6">
           <div className="rounded-(--tc-radius-xl) border border-border bg-surface-card overflow-hidden">
             <div className="p-4 border-b border-border bg-surface/50">
-              <h3 className="type-heading-card text-sm font-bold text-foreground">Tabela de Propriedades (TypeScript Props)</h3>
+              <h3 className="type-heading-card text-sm font-bold text-heading">Tabela de Propriedades (TypeScript Props)</h3>
             </div>
 
             <Table>
@@ -1341,7 +1341,7 @@ export function ComponentDetailView({
 
             {metadata.accessibility.keyboardShortcuts && (
               <div className="space-y-2 pt-2">
-                <h4 className="type-heading-card text-xs font-bold text-foreground flex items-center gap-1.5">
+                <h4 className="type-heading-card text-xs font-bold text-heading flex items-center gap-1.5">
                   <Keyboard className="w-3.5 h-3.5 text-primary" />
                   Navegação e Atalhos por Teclado
                 </h4>
@@ -1358,7 +1358,7 @@ export function ComponentDetailView({
 
             {metadata.accessibility.ariaAttributes && (
               <div className="space-y-2 pt-2">
-                <h4 className="type-heading-card text-xs font-bold text-foreground">Atributos ARIA Implementados</h4>
+                <h4 className="type-heading-card text-xs font-bold text-heading">Atributos ARIA Implementados</h4>
                 <div className="divide-y divide-border/60 border border-border/80 rounded-lg overflow-hidden bg-surface">
                   {metadata.accessibility.ariaAttributes.map((aria, idx) => (
                     <div key={idx} className="p-3 flex items-center justify-between text-xs">
@@ -1376,7 +1376,7 @@ export function ComponentDetailView({
         {metadata.subComponents && metadata.subComponents.length > 0 && (
           <TabsContent value="anatomy" className="space-y-6">
             <div className="p-4 rounded-(--tc-radius-xl) border border-border bg-surface/40 space-y-1">
-              <h3 className="type-heading-card text-sm font-bold text-foreground flex items-center gap-2">
+              <h3 className="type-heading-card text-sm font-bold text-heading flex items-center gap-2">
                 <Layers className="w-4 h-4 text-muted-foreground" />
                 <span>Hierarquia Atômica & Compound Components</span>
               </h3>

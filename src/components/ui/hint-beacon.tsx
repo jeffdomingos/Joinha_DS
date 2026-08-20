@@ -60,7 +60,7 @@ export function HintBeacon({
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-1.5 text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              <h4 className="text-xs font-semibold font-display tracking-tight text-foreground">
+              <h4 className="text-xs font-semibold font-display tracking-tight text-heading">
                 {title}
               </h4>
             </div>

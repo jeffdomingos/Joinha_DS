@@ -204,13 +204,19 @@
   --focus-ring: var(--tc-brand-300);  /* Subtle focus ring — distinto mas não vibra como o CTA */
   --focus-offset: 2px;
 
-  /* ACCENT HIERARCHY (Os Três Laranjas)
-     brand-500 (C=0.17) → CTA hero / confirmação explícita (Checkbox, Switch)
-     brand-600 (C=0.15) → Seleção sólida UI (sem uso direto por enquanto, reservado)
+  /* BRAND MARK (Laranjão Puro — Exclusivo de Marca)
+     brand-500 (C=0.17, pico de chroma da escala) fica reservado ao logo/símbolo.
+     Nenhum elemento de interface usa mais o C=0.17 puro — o teto de saturação
+     da UI passa a ser brand-600 (C=0.15), preservando o laranjão como sinal
+     de identidade, não de interação. */
+  --brand-mark: var(--tc-brand-500); /* oklch(67% 0.17 53) — BrandSymbol / logo apenas */
+
+  /* ACCENT HIERARCHY (Os Três Laranjas de Interface)
+     brand-600 (C=0.15) → CTA hero / confirmação explícita (Checkbox, Switch)
      brand-400 (C=0.15) → Ícone anchor de orientação, hover de nav item
      brand-300 (C=0.12) → Focus ring, borda de sub-item ativo
   */
-  --accent-action:  var(--tc-brand-500); /* oklch(67% 0.17 53) — Botão CTA, Checkbox */
+  --accent-action:  var(--tc-brand-600); /* oklch(58% 0.15 53) — Botão CTA, Checkbox */
   --accent-ui:      var(--tc-brand-400); /* oklch(74% 0.15 53) — Ícone anchor, hover nav */
   --accent-subtle:  var(--tc-brand-300); /* oklch(80% 0.12 53) — Focus ring, borda sub-item */
 
@@ -230,6 +236,7 @@
   --radius: var(--tc-radius-md);
 
   /* TEXT (Paired with Backgrounds) */
+  --text-heading: var(--tc-neutral-50);   /* L=96% — pico de branco reservado a headings/valores métricos */
   --text-primary: var(--tc-neutral-100);  /* L=93% — off-white, evita halation */
   --text-secondary: var(--tc-neutral-300);
   --text-tertiary: var(--tc-neutral-500);
@@ -242,20 +249,20 @@
   --border-base: oklch(30% 0.012 53);
   --border-strong: oklch(34% 0.015 53);
   --border-elevated: oklch(34% 0.015 53);
-  --border-focus: var(--tc-brand-500);
+  --border-focus: var(--accent-action);
   --border-gradient-start: oklch(100% 0 0 / 0.18);
   --border-gradient-mid: var(--border-base);
   --border-gradient-end: oklch(26% 0.010 53);
   --tc-input-inner-shadow: inset 1px 2px 3px 0 oklch(0% 0 0 / 0.40);
 
   /* ACTIONS / BUTTONS (Solid Paring) */
-  --action-primary-bg: var(--accent-action);      /* CTA hero: brand-500 sólido */
-  --action-primary-hover: var(--tc-brand-400);
-  --action-primary-active: var(--tc-brand-600);
+  --action-primary-bg: var(--accent-action);      /* CTA hero: brand-600 sólido */
+  --action-primary-hover: oklch(63% 0.15 53);     /* meio-passo entre 600 e 500 — nunca toca C=0.17 */
+  --action-primary-active: var(--tc-brand-700);
   --action-primary-fg: var(--tc-neutral-0);
   --btn-primary-border-start: var(--tc-brand-300);
-  --btn-primary-border-mid: var(--tc-brand-500);
-  --btn-primary-border-end: var(--tc-brand-600);
+  --btn-primary-border-mid: var(--tc-brand-600);
+  --btn-primary-border-end: var(--tc-brand-700);
 
   --btn-destructive-border-start: oklch(62% 0.18 25);
   --btn-destructive-border-mid: var(--tc-danger-base);
@@ -355,6 +362,7 @@
   --surface-highlight: none;
 
   /* TEXT */
+  --text-heading: oklch(12% 0.010 53);
   --text-primary: oklch(18% 0.010 53);
   --text-secondary: oklch(42% 0.012 53);
   --text-tertiary: oklch(55% 0.014 53);
@@ -367,16 +375,16 @@
   --border-base: oklch(88% 0.008 53);
   --border-strong: oklch(84% 0.012 53);
   --border-elevated: oklch(84% 0.012 53);
-  --border-focus: var(--tc-brand-500);
+  --border-focus: var(--accent-action);
   --border-gradient-start: var(--border-subtle);
   --border-gradient-mid: var(--border-base);
   --border-gradient-end: var(--border-strong);
   --tc-input-inner-shadow: inset 1px 2px 3px 0 oklch(0% 0 0 / 0.07);
 
   /* ACTIONS / BUTTONS */
-  --action-primary-bg: var(--tc-brand-500);
-  --action-primary-hover: var(--tc-brand-600);
-  --action-primary-active: var(--tc-brand-700);
+  --action-primary-bg: var(--accent-action);
+  --action-primary-hover: var(--tc-brand-700);
+  --action-primary-active: var(--tc-brand-800);
   --action-primary-fg: var(--tc-neutral-0);
 
   --action-secondary-bg: var(--tc-neutral-100);

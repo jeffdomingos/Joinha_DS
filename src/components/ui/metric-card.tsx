@@ -25,7 +25,7 @@ export const MetricCardValue = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cn("type-display-metric text-foreground text-2xl sm:text-3xl", className)}
+    className={cn("type-display-metric text-heading text-2xl sm:text-3xl", className)}
     {...props}
   />
 ))

@@ -210,7 +210,7 @@ export function SidebarBrandHeader({
 }: SidebarBrandHeaderProps) {
   return (
     <div className={cn("w-full flex items-center gap-3 p-1.5", collapsed && "justify-center px-0")}>
-      <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1 shadow-xs">
+      <div className="w-8 h-8 rounded-(--tc-radius-md) bg-brand-mark flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1 shadow-xs">
         <BrandSymbol variant="white" className="w-5.5 h-5.5" />
       </div>
       {!collapsed && (
@@ -478,7 +478,7 @@ export function Sidebar({
                 )}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display text-sm shrink-0 shadow-xs">
+                  <div className="w-7 h-7 rounded-(--tc-radius-md) bg-brand-mark flex items-center justify-center text-primary-foreground font-bold font-display text-sm shrink-0 shadow-xs">
                     J
                   </div>
                   {!collapsed && (

@@ -179,7 +179,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-base font-bold font-display text-foreground">
+              <h2 className="text-base font-bold font-display text-heading">
                 Template de Exemplo: SaaS Executive Dashboard
               </h2>
               <Badge variant="info" size="sm">Template Live</Badge>
@@ -291,7 +291,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
         <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
-              <h3 className="type-heading-item font-semibold text-foreground">
+              <h3 className="type-heading-item font-semibold text-heading">
                 Evolução da Receita (MRR vs. Projeção)
               </h3>
               <span className="text-xs text-muted-foreground">
@@ -354,7 +354,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
         <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-0.5">
-              <h3 className="type-heading-item font-semibold text-foreground">
+              <h3 className="type-heading-item font-semibold text-heading">
                 Aquisição de Assinantes por Canal
               </h3>
               <span className="text-xs text-muted-foreground">
@@ -415,7 +415,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-muted-foreground" />
-            <h4 className="text-sm font-bold font-display text-foreground">
+            <h4 className="text-sm font-bold font-display text-heading">
               Explore o Joinha Design System
             </h4>
           </div>

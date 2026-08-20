@@ -853,7 +853,7 @@ export function ComponentDetailView({
             {/* 1. Símbolo Branco sobre Fundo Laranja Padrão */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-primary shadow-lg shadow-primary/25 border border-primary/40 flex items-center justify-center">
-                <BrandSymbol variant="white" className="h-12 w-auto" />
+                <BrandSymbol variant="white" className="w-12 h-12" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Laranja</span>
             </div>
@@ -861,7 +861,7 @@ export function ComponentDetailView({
             {/* 2. Símbolo Branco em Fundo Escuro */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-background border border-border flex items-center justify-center">
-                <BrandSymbol variant="white" className="h-12 w-auto" />
+                <BrandSymbol variant="white" className="w-12 h-12" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Escuro</span>
             </div>
@@ -869,7 +869,7 @@ export function ComponentDetailView({
             {/* 3. Símbolo Laranja Monocromático */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-surface-elevated border border-border flex items-center justify-center">
-                <BrandSymbol variant="orange" className="h-12 w-auto" />
+                <BrandSymbol variant="orange" className="w-12 h-12" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Laranja Monocromático</span>
             </div>

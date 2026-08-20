@@ -211,7 +211,7 @@ export function SidebarBrandHeader({
   return (
     <div className={cn("w-full flex items-center gap-3 p-1.5", collapsed && "justify-center px-0")}>
       <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1 shadow-xs">
-        <BrandSymbol className="h-5.5 w-auto text-primary-foreground" />
+        <BrandSymbol variant="white" className="w-5.5 h-5.5" />
       </div>
       {!collapsed && (
         <div className="flex flex-col min-w-0">

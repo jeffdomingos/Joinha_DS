@@ -256,6 +256,16 @@
         "sidebar",
         "header"
       ]
+    },
+    {
+      "name": "brand-symbol",
+      "type": "registry:ui",
+      "title": "Brand Symbol",
+      "description": "Official Tem Como logo symbol vector primitive with responsive sizing and fill support.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
     }
   ]
 }

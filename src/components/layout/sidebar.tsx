@@ -12,7 +12,6 @@ import {
   ChevronsUpDown,
   Check,
   Plus,
-  Sparkles,
   LogOut,
   Building2,
   FolderDot,
@@ -27,6 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { BrandSymbol } from "@/components/ui/brand-symbol"
 import { Tag } from "@/components/ui/tag"
 import { cn } from "@/lib/utils"
 
@@ -125,7 +125,7 @@ export function Sidebar({
             >
               {/* Brand Avatar */}
               <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0">
-                <Sparkles className="w-4 h-4 text-primary-foreground" />
+                <BrandSymbol className="w-4 h-4 text-primary-foreground" />
               </div>
 
               {!collapsed && (

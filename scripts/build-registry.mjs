@@ -324,6 +324,21 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "brand-symbol",
+    type: "registry:ui",
+    title: "Brand Symbol",
+    description: "Official Tem Como logo symbol vector primitive with responsive sizing and fill support.",
+    dependencies: [],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/brand-symbol.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/brand-symbol.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

@@ -230,7 +230,7 @@
   --radius: var(--tc-radius-md);
 
   /* TEXT (Paired with Backgrounds) */
-  --text-primary: var(--tc-neutral-50);
+  --text-primary: var(--tc-neutral-100);  /* L=93% — off-white, evita halation */
   --text-secondary: var(--tc-neutral-300);
   --text-tertiary: var(--tc-neutral-500);
   --text-muted: var(--tc-neutral-600);

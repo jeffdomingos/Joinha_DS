@@ -7,7 +7,6 @@ import {
   Plus,
   ChevronRight,
   Menu,
-  SlidersHorizontal,
   Terminal,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -29,8 +28,6 @@ export interface HeaderProps {
   onOpenMobileMenu?: () => void
   theme: "dark" | "light"
   onToggleTheme: () => void
-  densityMode?: "default" | "compact" | "comfortable"
-  onDensityChange?: (mode: "default" | "compact" | "comfortable") => void
   onOpenCommand?: () => void
   showNotifications?: boolean
   showNewAction?: boolean
@@ -47,8 +44,6 @@ export function Header({
   onOpenMobileMenu,
   theme,
   onToggleTheme,
-  densityMode = "default",
-  onDensityChange,
   onOpenCommand,
   showNotifications = false,
   showNewAction = false,
@@ -102,7 +97,7 @@ export function Header({
         </nav>
       </div>
 
-      {/* Right: Search + Density + Theme + Real DS Actions */}
+      {/* Right: Search + Theme + CLI + GitHub */}
       <div className="flex items-center gap-2 sm:gap-3 h-full">
         {/* Quick Search Input */}
         <div
@@ -118,52 +113,6 @@ export function Header({
           <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border bg-muted px-1.5 font-mono text-[9px] font-medium text-muted-foreground opacity-100">
             ⌘K
           </kbd>
-        </div>
-
-        {/* Global Density Mode Switcher */}
-        <div className="hidden sm:flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface-card border border-border">
-          <span className="text-[10px] font-mono text-muted-foreground px-2 flex items-center gap-1">
-            <SlidersHorizontal className="w-3 h-3 text-muted-foreground" />
-          </span>
-          <button
-            type="button"
-            onClick={() => onDensityChange?.("compact")}
-            className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
-              densityMode === "compact"
-                ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-            title="Densidade Compacta (32px / Fiscal)"
-          >
-            Compact
-          </button>
-          <button
-            type="button"
-            onClick={() => onDensityChange?.("default")}
-            className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
-              densityMode === "default"
-                ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-            title="Densidade Padrão (40px / SaaS)"
-          >
-            Default
-          </button>
-          <button
-            type="button"
-            onClick={() => onDensityChange?.("comfortable")}
-            className={cn(
-              "px-2 py-1 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
-              densityMode === "comfortable"
-                ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-            title="Densidade Confortável (48px / Executiva)"
-          >
-            Comfortable
-          </button>
         </div>
 
         {/* Theme Toggle */}

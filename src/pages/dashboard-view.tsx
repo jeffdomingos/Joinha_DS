@@ -1,3 +1,4 @@
+import * as React from "react"
 import {
   DollarSign,
   Users,
@@ -7,11 +8,14 @@ import {
   Database,
   ArrowUpRight,
   Sparkles,
+  SlidersHorizontal,
 } from "lucide-react"
 import { MetricCard } from "@/components/ui/metric-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 import {
   ChartContainer,
   ChartTooltip,
@@ -163,10 +167,12 @@ export interface DashboardViewProps {
 }
 
 export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardViewProps) {
+  const [templateDensity, setTemplateDensity] = React.useState<"compact" | "default" | "comfortable">("default")
+
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-300">
-      {/* Template Header Disclaimer Banner */}
-      <div className="p-4 sm:p-5 rounded-(--tc-radius-xl) bg-surface-card border border-primary/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Template Header Disclaimer Banner with Scoped Density Controls */}
+      <div className="p-4 sm:p-5 rounded-(--tc-radius-xl) bg-surface-card border border-primary/30 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xs">
         <div className="flex items-start gap-3.5">
           <div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5">
             <Sparkles className="w-5 h-5" />
@@ -179,24 +185,69 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
               <Badge variant="info" size="sm">Template Live</Badge>
             </div>
             <p className="text-xs text-muted-foreground mt-1 max-w-2xl leading-relaxed">
-              Esta visualização demonstra como os componentes do <strong>Joinha DS</strong> (Metric Cards, Sparklines Bézier, Recharts e DataTable) se comportam em harmonia em uma aplicação SaaS real e reagem à matriz de densidade.
+              Esta visualização demonstra como os componentes do <strong>Joinha DS</strong> se comportam em harmonia em uma aplicação SaaS real e reagem à densidade isolada do template.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          {onNavigateToDocs && (
-            <Button variant="outline" size="sm" onClick={onNavigateToDocs} className="text-xs">
-              Ver Wiki & Tokens
-            </Button>
-          )}
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          {/* Template Density Switcher */}
+          <div className="inline-flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface border border-border">
+            <span className="text-[10px] font-mono text-muted-foreground px-2 flex items-center gap-1">
+              <SlidersHorizontal className="w-3 h-3 text-muted-foreground" />
+              <span>Densidade:</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => { setTemplateDensity("compact"); toast.info("Densidade do Template: Compact (32px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                templateDensity === "compact"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Compact (32px)"
+            >
+              Compact
+            </button>
+            <button
+              type="button"
+              onClick={() => { setTemplateDensity("default"); toast.info("Densidade do Template: Default (40px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                templateDensity === "default"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Default (40px)"
+            >
+              Default
+            </button>
+            <button
+              type="button"
+              onClick={() => { setTemplateDensity("comfortable"); toast.info("Densidade do Template: Comfortable (48px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                templateDensity === "comfortable"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Comfortable (48px)"
+            >
+              Comfortable
+            </button>
+          </div>
+
           {onNavigateToLab && (
-            <Button variant="primary" size="sm" onClick={onNavigateToLab} className="text-xs font-semibold">
-              Explorar 50 Componentes
+            <Button variant="outline" size="sm" onClick={onNavigateToLab} className="text-xs">
+              Explorar Componentes
             </Button>
           )}
         </div>
       </div>
+
+      {/* Scoped Density Container for Template */}
+      <div data-density={templateDensity} className="space-y-8">
 
       {/* 1. Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -387,6 +438,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
             </Button>
           )}
         </div>
+      </div>
       </div>
     </div>
   )

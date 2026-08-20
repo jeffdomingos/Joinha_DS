@@ -41,7 +41,6 @@ export function App() {
   const [activeNavItem, setActiveNavItem] = useState("docs-overview")
   const [labCategory, setLabCategory] = useState<string>("all")
   const [openCommand, setOpenCommand] = useState(false)
-  const [densityMode, setDensityMode] = useState<"default" | "compact" | "comfortable">("default")
 
   // Onboarding states
   const [isTourOpen, setIsTourOpen] = useState(false)
@@ -58,7 +57,7 @@ export function App() {
     {
       id: "step-2",
       title: "Testar a Matriz de Densidade Paramétrica",
-      description: "Alterne entre os modos Compact (32px), Default (40px) e Comfortable (48px).",
+      description: "Alterne entre os modos Compact (32px), Default (40px) e Comfortable (48px) no Lab.",
       completed: true,
     },
     {
@@ -90,13 +89,9 @@ export function App() {
     },
     {
       title: "Matriz de Densidade Paramétrica",
-      description: "Controle globalmente o espaçamento de tabelas e formulários via Compact (32px), Default (40px) e Comfortable (48px).",
+      description: "Controle o espaçamento de tabelas e formulários no Lab e Templates via Compact, Default e Comfortable.",
     },
   ]
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-density", densityMode)
-  }, [densityMode])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -169,8 +164,6 @@ export function App() {
     <AppLayout
       theme={theme}
       onToggleTheme={toggleTheme}
-      densityMode={densityMode}
-      onDensityChange={setDensityMode}
       onOpenCommand={() => setOpenCommand(true)}
       breadcrumbs={getBreadcrumbs()}
       activeNavItem={activeNavItem}
@@ -280,18 +273,14 @@ export function App() {
             </CommandItem>
           </CommandGroup>
 
-          <CommandGroup heading="Controle de Densidade">
-            <CommandItem onSelect={() => { setDensityMode("compact"); setOpenCommand(false); toast.info("Densidade Compacta (32px)"); }}>
-              <Sliders className="mr-2 h-4 w-4" />
-              <span>Ativar Densidade Compacta (32px)</span>
+          <CommandGroup heading="Diretrizes de Densidade">
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-layout"); setOpenCommand(false); toast.info("Abrindo Guia de Densidade & Layout"); }}>
+              <Sliders className="mr-2 h-4 w-4 text-primary" />
+              <span>Documentação: Matriz de Densidade Paramétrica (32px, 40px, 48px)</span>
             </CommandItem>
-            <CommandItem onSelect={() => { setDensityMode("default"); setOpenCommand(false); toast.info("Densidade Padrão (40px)"); }}>
-              <Sliders className="mr-2 h-4 w-4" />
-              <span>Ativar Densidade Padrão (40px)</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setDensityMode("comfortable"); setOpenCommand(false); toast.info("Densidade Confortável (48px)"); }}>
-              <Sliders className="mr-2 h-4 w-4" />
-              <span>Ativar Densidade Confortável (48px)</span>
+            <CommandItem onSelect={() => { setViewMode("lab"); setActiveNavItem("lab-all"); setOpenCommand(false); toast.info("Abrindo Component Lab"); }}>
+              <Layers className="mr-2 h-4 w-4 text-primary" />
+              <span>Testar Densidade ao Vivo no Component Lab</span>
             </CommandItem>
           </CommandGroup>
 

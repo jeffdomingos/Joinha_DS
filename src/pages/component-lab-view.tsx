@@ -5,6 +5,7 @@ import {
   Copy,
   RotateCcw,
   Info,
+  SlidersHorizontal,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -124,6 +125,7 @@ export function ComponentLabView({
 }: ComponentLabViewProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedCategory, setSelectedCategory] = React.useState<string>(initialCategory)
+  const [labDensity, setLabDensity] = React.useState<"compact" | "default" | "comfortable">("default")
 
   React.useEffect(() => {
     if (initialCategory) {
@@ -1006,8 +1008,8 @@ export function ComponentLabView({
         </div>
       </div>
 
-      {/* Filter Counter Status */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
+      {/* Filter & Density Control Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-muted-foreground px-1">
         <span>
           Mostrando <strong className="text-foreground">{filteredComponents.length}</strong> de{" "}
           <strong className="text-foreground">{componentCatalog.length}</strong> componentes
@@ -1015,21 +1017,73 @@ export function ComponentLabView({
             <span> correspondentes a &quot;<span className="text-primary font-mono">{searchQuery}</span>&quot;</span>
           )}
         </span>
-        {(selectedCategory !== "all" || searchQuery) && (
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory("all")
-              setSearchQuery("")
-            }}
-            className="flex items-center gap-1 text-primary hover:underline font-medium cursor-pointer"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Resetar filtros</span>
-          </button>
-        )}
+
+        <div className="flex items-center gap-3">
+          {/* Scoped Lab Density Switcher */}
+          <div className="inline-flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface-card border border-border">
+            <span className="text-[10px] font-mono text-muted-foreground px-2 flex items-center gap-1">
+              <SlidersHorizontal className="w-3 h-3 text-muted-foreground" />
+              <span>Densidade:</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => { setLabDensity("compact"); toast.info("Densidade do Lab: Compact (32px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                labDensity === "compact"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Compact (32px)"
+            >
+              Compact
+            </button>
+            <button
+              type="button"
+              onClick={() => { setLabDensity("default"); toast.info("Densidade do Lab: Default (40px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                labDensity === "default"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Default (40px)"
+            >
+              Default
+            </button>
+            <button
+              type="button"
+              onClick={() => { setLabDensity("comfortable"); toast.info("Densidade do Lab: Comfortable (48px)"); }}
+              className={cn(
+                "px-2 py-0.5 text-[11px] font-medium rounded-(--tc-radius-sm) transition-colors cursor-pointer",
+                labDensity === "comfortable"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Comfortable (48px)"
+            >
+              Comfortable
+            </button>
+          </div>
+
+          {(selectedCategory !== "all" || searchQuery) && (
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedCategory("all")
+                setSearchQuery("")
+              }}
+              className="flex items-center gap-1 text-primary hover:underline font-medium cursor-pointer"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Resetar</span>
+            </button>
+          )}
+        </div>
       </div>
 
+      {/* Scoped Density Wrapper for Component Sandbox */}
+      <div data-density={labDensity} className="space-y-12">
       {/* DYNAMIC FILTERED COMPONENT CARDS GRID */}
       {filteredComponents.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1345,6 +1399,7 @@ export function ComponentLabView({
           </div>
         </section>
       )}
+      </div>
 
       {/* Persona Selector Modal */}
       <PersonaSelector

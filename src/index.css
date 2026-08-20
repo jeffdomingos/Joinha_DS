@@ -131,7 +131,6 @@
 
   .border-gradient-outline {
     position: relative;
-    background: transparent !important;
     border: 1px solid transparent !important;
   }
   .border-gradient-outline::before {

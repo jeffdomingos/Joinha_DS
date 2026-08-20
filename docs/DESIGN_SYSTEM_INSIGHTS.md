@@ -151,10 +151,32 @@ Baseado no estudo e diretrizes de design do **UX Design Institute (2025)**, esta
 
 ---
 
-## 9. Arquitetura de Distribuição e Filosofia Agent-Native
+## 9. Enterprise Layout Engine, Container Queries & Matriz de Densidade Paramétrica
+
+Para interfaces de ERP, CRM e softwares analíticos densos, o design de layout abandonou telas estáticas adaptadas via media queries em favor de 5 pilares de orquestração arquitetural:
+
+### 1. Componentes Context-Aware com Container Queries (`@container`)
+- O componente reage ao espaço do seu container pai (`container-type: inline-size`), e não ao tamanho do viewport (`@media`).
+- O mesmo widget se auto-reorganiza perfeitamente seja em uma coluna lateral estreita de `320px`, em uma gaveta modal ou no grid central de `1400px`.
+
+### 2. Algoritmo de Grid Fluido com `auto-fit` e `minmax()`
+- Grids de KPIs utilizam o cálculo matemático `repeat(auto-fit, minmax(min(100%, 280px), 1fr))`, eliminando quebras abruptas de breakpoints arbitrários (`sm`, `md`, `lg`).
+
+### 3. Painéis Redimensionáveis Master-Detail (Split Panes)
+- Permite a visualização contínua de registros à esquerda com edição profunda em tempo real à direita (`<ResizablePanelGroup />`), com persistência de largura no `localStorage` e colapso responsivo para gaveta (*Drawer*).
+
+### 4. Alinhamento Cruzado com CSS `subgrid`
+- Elimina o desalinhamento vertical em formulários corporativos multi-seção fazendo com que fieldsets independentes compartilhem as colunas do grid mestre.
+
+### 5. Matriz de Densidade Paramétrica (`data-density`)
+- Modula globalmente a densidade na raiz do DOM (`<html data-density="compact | default | comfortable">`), adaptando alturas de linha (`32px` vs `40px` vs `48px`), paddings e tamanhos tipográficos para atender desde operadores fiscais até executivos sem duplicar código.
+
+---
+
+## 10. Arquitetura de Distribuição e Filosofia Agent-Native
 
 1. **GitHub Template:** Estruturado com `.github/template.yml` para clonagem e bootstrap instantâneo de novos SaaS.
-2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 38+ componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
+2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 40+ componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
 3. **Fonte Única de Verdade (`design-system.md`):** Regras explícitas com restrições invioláveis para que Agentes de IA (Claude, GPT, Gemini) gerem telas e componentes com 100% de conformidade, sem inventar cores hexadecimais ou quebrar hierarquias visuais.
 
 ---
@@ -164,4 +186,5 @@ Baseado no estudo e diretrizes de design do **UX Design Institute (2025)**, esta
 *Joinha Design System — Construído com rigor de engenharia, precisão óptica e excelência estética.*
 
 </div>
+
 

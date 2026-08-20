@@ -88,6 +88,7 @@ import { BannerAnnouncement } from "@/components/ui/banner-announcement"
 import { OnboardingChecklist, type OnboardingStep } from "@/components/ui/onboarding-checklist"
 import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
 import { PersonaSelector } from "@/components/ui/persona-selector"
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -300,6 +301,12 @@ function App() {
       description: "Explore 40+ componentes modulares com suporte a Dark Mode, acessibilidade e tokens OKLCH.",
     },
   ]
+  const [densityMode, setDensityMode] = useState<"default" | "compact" | "comfortable">("default")
+  const [selectedRecordId, setSelectedRecordId] = useState<string>("SUB-8941")
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-density", densityMode)
+  }, [densityMode])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -372,28 +379,63 @@ function App() {
           </p>
         </div>
 
-        {/* View Mode Toggle Switch */}
-        <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border shrink-0 self-start sm:self-auto gap-1">
-          <Button
-            variant="navItem"
-            size="sm"
-            isActive={viewMode === "dashboard"}
-            onClick={() => setViewMode("dashboard")}
-            className="h-8 px-3 text-xs gap-1.5 cursor-pointer font-medium"
-          >
-            <LayoutDashboard className="w-3.5 h-3.5" />
-            Dashboard SaaS
-          </Button>
-          <Button
-            variant="navItem"
-            size="sm"
-            isActive={viewMode === "components"}
-            onClick={() => setViewMode("components")}
-            className="h-8 px-3 text-xs gap-1.5 cursor-pointer font-medium"
-          >
-            <Layers className="w-3.5 h-3.5" />
-            Componentes & Lab
-          </Button>
+        {/* Right side controls: Density Switcher & View Switcher */}
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start sm:self-auto">
+          {/* Parametric Density Switcher */}
+          <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border gap-1">
+            <span className="text-[11px] font-mono text-muted-foreground px-2 hidden md:inline">Densidade:</span>
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={densityMode === "compact"}
+              onClick={() => { setDensityMode("compact"); toast.info("Densidade Compacta ativada (32px / Fiscal)"); }}
+              className="h-7 px-2.5 text-[11px] cursor-pointer"
+            >
+              Compact
+            </Button>
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={densityMode === "default"}
+              onClick={() => { setDensityMode("default"); toast.info("Densidade Padrão ativada (40px / SaaS)"); }}
+              className="h-7 px-2.5 text-[11px] cursor-pointer"
+            >
+              Default
+            </Button>
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={densityMode === "comfortable"}
+              onClick={() => { setDensityMode("comfortable"); toast.info("Densidade Confortável ativada (48px / Executiva)"); }}
+              className="h-7 px-2.5 text-[11px] cursor-pointer"
+            >
+              Comfortable
+            </Button>
+          </div>
+
+          {/* View Mode Toggle Switch */}
+          <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border gap-1">
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={viewMode === "dashboard"}
+              onClick={() => setViewMode("dashboard")}
+              className="h-7 px-3 text-xs gap-1.5 cursor-pointer font-medium"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              Dashboard SaaS
+            </Button>
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={viewMode === "components"}
+              onClick={() => setViewMode("components")}
+              className="h-7 px-3 text-xs gap-1.5 cursor-pointer font-medium"
+            >
+              <Layers className="w-3.5 h-3.5" />
+              Componentes & Lab
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -2089,6 +2131,156 @@ function App() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Enterprise Layout Engine & Painéis Resizable (Fase 7) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <LayoutDashboard className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Enterprise Layout Engine & Painéis Resizable
+                </h2>
+                <Badge variant="success" size="sm">Fase 7 · Enterprise Specs</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Arquitetura Master-Detail com split panes redimensionáveis (`react-resizable-panels`), Container Queries (`@container`) e persistência ergonômica.
+              </p>
+            </div>
+          </div>
+
+          {/* Resizable Master-Detail Split Pane Demo */}
+          <div className="rounded-(--tc-radius-xl) border border-border bg-surface-card overflow-hidden shadow-2xl [box-shadow:var(--surface-highlight)]">
+            <div className="p-4 border-b border-border/80 bg-surface/50 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-foreground font-display">
+                  Split Pane Master-Detail Interativo
+                </span>
+                <Badge variant="neutral" size="sm" className="font-mono">
+                  Arraste a barra central ⟷
+                </Badge>
+              </div>
+              <span className="text-[11px] font-mono text-muted-foreground">
+                Densidade Ativa: <strong className="text-primary capitalize">{densityMode}</strong>
+              </span>
+            </div>
+
+            <div className="h-[420px] w-full bg-background/50">
+              <ResizablePanelGroup direction="horizontal" className="min-h-full">
+                {/* Left Panel: Master List */}
+                <ResizablePanel defaultSize={58} minSize={35}>
+                  <div className="h-full flex flex-col p-4 overflow-y-auto">
+                    <div className="flex items-center justify-between pb-3">
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        Assinaturas & Clientes (Master List)
+                      </span>
+                      <Badge variant="neutral" size="sm">4 registros</Badge>
+                    </div>
+
+                    <div className="space-y-2">
+                      {[
+                        { id: "SUB-8941", customer: "Acme Corporation", plan: "Enterprise", mrr: "R$ 4.200", status: "Ativo", email: "billing@acme.com" },
+                        { id: "SUB-8942", customer: "Nexus Fintech", plan: "Pro SaaS", mrr: "R$ 1.890", status: "Ativo", email: "ops@nexusfin.io" },
+                        { id: "SUB-8943", customer: "Vortex Logística", plan: "Growth", mrr: "R$ 890", status: "Pendente", email: "contato@vortex.log" },
+                        { id: "SUB-8944", customer: "Starlight Media", plan: "Enterprise", mrr: "R$ 6.450", status: "Ativo", email: "finance@starlight.co" },
+                      ].map((item) => (
+                        <div
+                          key={item.id}
+                          onClick={() => setSelectedRecordId(item.id)}
+                          className={cn(
+                            "flex items-center justify-between p-3 rounded-(--tc-radius-md) border cursor-pointer transition-all duration-150 ease-(--tc-ease-smooth)",
+                            selectedRecordId === item.id
+                              ? "bg-primary/10 border-primary/60 shadow-xs"
+                              : "bg-surface/60 border-border hover:border-border-strong hover:bg-surface"
+                          )}
+                        >
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-semibold text-foreground">{item.customer}</span>
+                              <Badge variant={item.status === "Ativo" ? "success" : "warning"} size="sm">
+                                {item.status}
+                              </Badge>
+                            </div>
+                            <span className="text-[11px] text-muted-foreground font-mono">{item.id} · {item.email}</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-xs font-bold text-foreground font-mono">{item.mrr}</span>
+                            <span className="text-[10px] text-muted-foreground block">{item.plan}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </ResizablePanel>
+
+                {/* Resizable Divider Handle */}
+                <ResizableHandle withHandle />
+
+                {/* Right Panel: Detail Editor & Context-Aware Card */}
+                <ResizablePanel defaultSize={42} minSize={25}>
+                  <div className="h-full flex flex-col p-4 bg-surface-elevated/40 overflow-y-auto cq-card-container">
+                    <div className="flex items-center justify-between pb-3 border-b border-border">
+                      <div>
+                        <span className="text-xs font-semibold text-foreground font-display">
+                          Painel de Inspeção & Edição
+                        </span>
+                        <span className="text-[10px] text-muted-foreground block">
+                          ID: {selectedRecordId}
+                        </span>
+                      </div>
+                      <Badge variant="info" size="sm">Live Editor</Badge>
+                    </div>
+
+                    <div className="mt-4 space-y-3.5">
+                      <div>
+                        <label className="text-[11px] font-medium text-muted-foreground block mb-1">
+                          Organização
+                        </label>
+                        <Input defaultValue={selectedRecordId === "SUB-8941" ? "Acme Corporation" : "Nexus Fintech"} />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="text-[11px] font-medium text-muted-foreground block mb-1">
+                            Plano
+                          </label>
+                          <Input defaultValue="Enterprise" />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-medium text-muted-foreground block mb-1">
+                            Ciclo
+                          </label>
+                          <Input defaultValue="Anual (12m)" />
+                        </div>
+                      </div>
+
+                      {/* Context-Aware Container Query Widget */}
+                      <div className="p-3 rounded-md bg-surface border border-border/80">
+                        <span className="text-[10px] font-mono text-primary font-bold block mb-1">
+                          @container Auto-Adaptável
+                        </span>
+                        <div className="flex items-center justify-between cq-stack-on-narrow gap-2">
+                          <span className="text-xs text-muted-foreground">Consumo de Cotas de API</span>
+                          <span className="text-xs font-bold text-foreground font-mono">84.200 / 100k reqs</span>
+                        </div>
+                        <Progress value={84} variant="warning" className="h-1.5 mt-2" />
+                      </div>
+
+                      <div className="pt-2 flex items-center justify-end gap-2 border-t border-border/80">
+                        <Button variant="ghost" size="sm" onClick={() => toast.info("Edição cancelada")}>
+                          Descartar
+                        </Button>
+                        <Button variant="primary" size="sm" onClick={() => toast.success(`Registro ${selectedRecordId} salvo com sucesso!`)}>
+                          Salvar Alterações
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </ResizablePanel>
+              </ResizablePanelGroup>
             </div>
           </div>
         </section>

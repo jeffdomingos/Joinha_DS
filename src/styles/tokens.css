@@ -383,3 +383,47 @@
   --skeleton-bg-base: oklch(92% 0.006 53);
   --skeleton-shimmer-highlight: oklch(96% 0.004 53);
 }
+
+/* ========================================================
+   PARAMETRIC DENSITY TOKENS (Enterprise Density Matrix)
+   ======================================================== */
+:root,
+[data-density="default"] {
+  --tc-density-mode: "default";
+  --tc-table-row-h: 2.5rem;       /* 40px */
+  --tc-table-cell-py: 0.625rem;   /* 10px */
+  --tc-table-cell-px: 1rem;       /* 16px */
+  --tc-input-h: 2.375rem;         /* 38px */
+  --tc-input-px: 0.875rem;        /* 14px */
+  --tc-input-py: 0.5rem;          /* 8px */
+  --tc-card-p: 1.5rem;            /* 24px */
+  --tc-form-stack-gap: 1.25rem;   /* 20px */
+  --tc-density-font-size: 0.8125rem; /* 13px */
+}
+
+[data-density="compact"] {
+  --tc-density-mode: "compact";
+  --tc-table-row-h: 2rem;         /* 32px - Operational / Fiscal */
+  --tc-table-cell-py: 0.25rem;    /* 4px */
+  --tc-table-cell-px: 0.625rem;   /* 10px */
+  --tc-input-h: 1.875rem;         /* 30px */
+  --tc-input-px: 0.625rem;        /* 10px */
+  --tc-input-py: 0.25rem;         /* 4px */
+  --tc-card-p: 1rem;              /* 16px */
+  --tc-form-stack-gap: 0.75rem;   /* 12px */
+  --tc-density-font-size: 0.75rem;   /* 12px */
+}
+
+[data-density="comfortable"] {
+  --tc-density-mode: "comfortable";
+  --tc-table-row-h: 3rem;         /* 48px - Executive / Settings */
+  --tc-table-cell-py: 0.875rem;   /* 14px */
+  --tc-table-cell-px: 1.25rem;    /* 20px */
+  --tc-input-h: 2.75rem;          /* 44px */
+  --tc-input-py: 0.625rem;        /* 10px */
+  --tc-input-px: 1rem;            /* 16px */
+  --tc-card-p: 1.875rem;          /* 30px */
+  --tc-form-stack-gap: 1.5rem;    /* 24px */
+  --tc-density-font-size: 0.875rem;  /* 14px */
+}
+

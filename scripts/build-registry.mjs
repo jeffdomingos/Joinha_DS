@@ -669,6 +669,21 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "resizable",
+    type: "registry:ui",
+    title: "Resizable Panels",
+    description: "Accessible resizable panel groups and split-panes with keyboard support and tactile grab handles.",
+    dependencies: ["react-resizable-panels", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/resizable.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/resizable.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

@@ -367,3 +367,28 @@ h2 {
     background: var(--skeleton-bg-base) !important;
   }
 }
+
+/* ========================================================
+   Enterprise Layout & Container Query Utilities
+   ======================================================== */
+.kpi-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+}
+
+.cq-card-container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+@container card (max-width: 320px) {
+  .cq-stack-on-narrow {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .cq-hide-on-narrow {
+    display: none !important;
+  }
+}
+

@@ -255,33 +255,27 @@ function App() {
         </div>
 
         {/* View Mode Toggle Switch */}
-        <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border shrink-0 self-start sm:self-auto">
-          <button
-            type="button"
+        <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border shrink-0 self-start sm:self-auto gap-1">
+          <Button
+            variant="navItem"
+            size="sm"
+            isActive={viewMode === "dashboard"}
             onClick={() => setViewMode("dashboard")}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
-              viewMode === "dashboard"
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
-            )}
+            className="h-8 px-3 text-xs gap-1.5 cursor-pointer font-medium"
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
             Dashboard SaaS
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant="navItem"
+            size="sm"
+            isActive={viewMode === "components"}
             onClick={() => setViewMode("components")}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
-              viewMode === "components"
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
-            )}
+            className="h-8 px-3 text-xs gap-1.5 cursor-pointer font-medium"
           >
             <Layers className="w-3.5 h-3.5" />
             Componentes & Lab
-          </button>
+          </Button>
         </div>
       </div>
 

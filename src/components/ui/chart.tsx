@@ -314,6 +314,8 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentPr
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
+          const color = itemConfig?.color || item.color
+
           return (
             <div
               key={String(item.value)}
@@ -327,7 +329,7 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentPr
                 <div
                   className="h-2 w-2 shrink-0 rounded-full"
                   style={{
-                    backgroundColor: item.color,
+                    backgroundColor: color,
                   }}
                 />
               )}

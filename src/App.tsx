@@ -628,9 +628,9 @@ function App() {
                     Valores acumulados nos últimos 6 meses
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-(--status-success-subtle) px-2 py-0.5 rounded-(--tc-radius-sm) border border-(--status-success-border) whitespace-nowrap shrink-0">
+                <Badge variant="success" size="sm" className="whitespace-nowrap shrink-0 font-semibold">
                   <TrendingUp className="w-3.5 h-3.5" /> +72.2% H1
-                </span>
+                </Badge>
               </div>
 
               <ChartContainer config={revenueChartConfig} className="h-[240px] w-full">

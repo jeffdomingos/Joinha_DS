@@ -177,6 +177,12 @@ Para interfaces de ERP, CRM e softwares analíticos densos, o design de layout a
 ### 5. Matriz de Densidade Paramétrica (`data-density`)
 - Modula globalmente a densidade na raiz do DOM (`<html data-density="compact | default | comfortable">`), adaptando alturas de linha (`32px` vs `40px` vs `48px`), paddings e tamanhos tipográficos para atender desde operadores fiscais até executivos sem duplicar código.
 
+### 6. Diretriz Canônica de Aplicação do Símbolo da Marca (`BrandSymbol`)
+O símbolo do Joinha (`BrandSymbol`) obedece a 3 regras estritas de aplicação visual:
+- **Aplicação Primária (Laranja Padrão):** O símbolo é renderizado preferencialmente em **BRANCO** (`text-white`) sobre o fundo Laranja Padrão da Marca (`bg-primary` / `oklch(67% 0.17 53)`).
+- **Aplicação em Superfície Escura:** Quando aplicado sobre fundos escuros e cartões de interface, o símbolo é preferencialmente renderizado em **BRANCO** (`variant="white"` / `text-white`).
+- **Aplicação Monocromática:** O preenchimento em Laranja puro (`text-primary`) é utilizado como variação secundária.
+
 ---
 
 ## 10. XAI (Explainable AI), Padrões Human-in-the-Loop (HITL) & Ergonomia de Confiança

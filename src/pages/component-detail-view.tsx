@@ -849,8 +849,30 @@ export function ComponentDetailView({
       /* --- 4. ONBOARDING & ADOÇÃO --- */
       case "brand-symbol":
         return (
-          <div className="p-6 rounded-2xl bg-surface border border-border flex items-center justify-center">
-            <BrandSymbol className="h-16 w-auto text-primary" />
+          <div className="flex flex-wrap items-center justify-center gap-6 p-6 rounded-2xl bg-surface border border-border">
+            {/* 1. Símbolo Branco sobre Fundo Laranja Padrão */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-4 rounded-2xl bg-primary shadow-lg shadow-primary/25 border border-primary/40 flex items-center justify-center">
+                <BrandSymbol variant="white" className="h-12 w-auto" />
+              </div>
+              <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Laranja</span>
+            </div>
+
+            {/* 2. Símbolo Branco em Fundo Escuro */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-4 rounded-2xl bg-background border border-border flex items-center justify-center">
+                <BrandSymbol variant="white" className="h-12 w-auto" />
+              </div>
+              <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Escuro</span>
+            </div>
+
+            {/* 3. Símbolo Laranja Monocromático */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="p-4 rounded-2xl bg-surface-elevated border border-border flex items-center justify-center">
+                <BrandSymbol variant="orange" className="h-12 w-auto" />
+              </div>
+              <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Laranja Monocromático</span>
+            </div>
           </div>
         )
       case "onboarding-checklist":

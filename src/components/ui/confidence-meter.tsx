@@ -2,6 +2,7 @@ import * as React from "react"
 import { Sparkles, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp, Database, ExternalLink, Clock } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
 
 export interface ConfidenceMeterProps extends React.HTMLAttributes<HTMLDivElement> {
   score: number // 0 to 100
@@ -68,12 +69,7 @@ export function ConfidenceMeter({
       </div>
 
       {showBar && (
-        <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-elevated">
-          <div
-            className={cn("h-full rounded-full transition-all duration-500 ease-out", variant.bg)}
-            style={{ width: `${Math.min(100, Math.max(0, score))}%` }}
-          />
-        </div>
+        <Progress value={Math.min(100, Math.max(0, score))} className="mt-2.5 h-1.5" />
       )}
     </div>
   )

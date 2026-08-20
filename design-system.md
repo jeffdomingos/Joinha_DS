@@ -41,20 +41,48 @@ O Joinha DS utiliza duas famílias tipográficas altamente otimizadas para leitu
 
 ---
 
+## 🌓 Engenharia do Dark Mode Escalável (OKLCH - Modelo Four Zero Three)
+
+No Dark Mode, sombras pretas perdem contraste físico contra o fundo escuro. A profundidade (eixo Z) é obtida aumentando gradualmente a **luminância ($L$) da superfície**, aplicando **chanfro de luz física superior (`--surface-highlight`)** e reforçando **strokes delimitadores**:
+
+### A Escala de Elevação das Superfícies (OKLCH)
+```
+[ Canvas Base ]   → L = 14%  (oklch(14% 0.008 53) — O mais distante e escuro, nunca #000)
+       │
+[ Painel / Card ] → L = 18%  (oklch(18% 0.010 53) — Cards de conteúdo, Sidebar e Tabelas)
+       │
+[ Menu Suspenso ] → L = 22%  (oklch(22% 0.012 53) — Dropdowns, Popovers, Tooltips)
+       │
+[ Janela Modal ]  → L = 26%  (oklch(26% 0.014 53) — Diálogos, Modais, Command Palette ⌘K)
+       │
+[ Toast / Alerta] → L = 30%  (oklch(30% 0.014 53) — O elemento mais próximo no z-index)
+```
+
+### O Segredo do "Chroma Tinting" (Neutros Aquecidos)
+Superfícies pretas puras (`#000000`) ou cinzas neutros puros ($C = 0$) geram uma sensação plástica e estéril. O Joinha DS injeta uma fração sutil da cor da marca ($h \approx 53$) na escala de cinzas:
+* **Fórmula do Neutro Dark Mode:** `oklch(L% 0.008..0.014 53)`
+  * $L$ (Luminância): Controla a elevação (14% a 30%).
+  * $C$ (Croma): Mantido fixo entre `0.008` e `0.014` para dar calor sem desviar a cor para marrom.
+  * $h$ (Matiz): `53` (o mesmo ângulo do Laranja da marca).
+
+---
+
 ## 🏗️ Convenções de Uso em SaaS
 
 Ferramentas SaaS exigem hierarquia visual clara e controle rígido de contraste. Siga estas regras:
 
 ### Superfícies e Fundos (Backgrounds)
-- `--bg-base`: Use para o fundo principal da aplicação (ex: `body` ou container root). Em Dark Mode, é a cor mais escura.
-- `--bg-surface`: Use para painéis principais, sidebars ou grandes áreas de conteúdo.
-- `--bg-surface-elevated`: Use para cards, dropdowns, modais e elementos sobrepostos (`z-index` maior).
-- `--bg-surface-hover`: Use para estados de hover em linhas de tabelas ou blocos clicáveis.
+- `--bg-base`: Fundo principal da tela / Canvas (`L = 14%` no Dark, `97%` no Light).
+- `--bg-surface`: Painéis principais, sidebars e cards de dados (`L = 18%` no Dark, `100%` no Light).
+- `--bg-surface-elevated`: Dropdowns, popovers e menus suspensos (`L = 22%` no Dark).
+- `--bg-surface-modal`: Janelas modais e diálogos de confirmação (`L = 26%` no Dark).
+- `--bg-surface-hover`: Estados de hover e toasts flutuantes (`L = 30%` no Dark).
+- `--surface-highlight`: Chanfro físico superior de 1px (`inset 0 1px 0 0 oklch(100% 0 0 / 0.07)` no Dark, `none` no Light).
 
 ### Textos e Tipografia
-- `--text-primary`: Textos principais, títulos e dados cruciais.
-- `--text-secondary`: Rótulos, descrições secundárias, subtítulos.
-- `--text-tertiary` / `--text-muted`: Placeholders, textos auxiliares e dados desativados.
+- `--text-primary`: Textos principais, títulos e dados cruciais (Contraste $\ge 13:1$).
+- `--text-secondary`: Rótulos, descrições secundárias, subtítulos (Contraste $\ge 7:1$).
+- `--text-tertiary` / `--text-muted`: Placeholders, textos auxiliares e dados desativados (Contraste $\ge 4.5:1$).
 - `--text-inverse`: Texto em botões ou áreas com fundo claro contrastante.
 
 ### Botões e Ações (Actions)

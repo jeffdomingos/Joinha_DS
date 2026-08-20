@@ -22,21 +22,22 @@
   --tc-brand-900: oklch(28% 0.06 53);
   --tc-brand-950: oklch(18% 0.03 53);
 
-  /* --- NEUTRALS (Hue ~53, Chroma sutil) --- */
-  /* Warm grays with a very subtle hint of brand warmth (sweet spot) */
-  --tc-neutral-0: oklch(99% 0.001 53);
-  --tc-neutral-50: oklch(97% 0.001 53);
-  --tc-neutral-100: oklch(93% 0.0015 53);
-  --tc-neutral-200: oklch(88% 0.002 53);
-  --tc-neutral-300: oklch(80% 0.002 53);
-  --tc-neutral-400: oklch(70% 0.0025 53);
-  --tc-neutral-500: oklch(60% 0.003 53);
-  --tc-neutral-600: oklch(50% 0.003 53);
-  --tc-neutral-700: oklch(40% 0.0025 53);
-  --tc-neutral-800: oklch(30% 0.002 53);
-  --tc-neutral-900: oklch(20% 0.0015 53);
-  --tc-neutral-950: oklch(14% 0.001 53);
-  --tc-neutral-1000: oklch(10% 0.001 53);
+  /* --- NEUTRALS (Hue ~53, Chroma calibrado: 0.008 a 0.014 no escuro) --- */
+  /* Warm grays with perceptual brand warmth sweet spot (Four Zero Three model) */
+  --tc-neutral-0: oklch(99% 0.004 53);
+  --tc-neutral-50: oklch(96% 0.005 53);
+  --tc-neutral-100: oklch(93% 0.006 53);
+  --tc-neutral-200: oklch(88% 0.008 53);
+  --tc-neutral-300: oklch(78% 0.010 53);
+  --tc-neutral-400: oklch(70% 0.010 53);
+  --tc-neutral-500: oklch(62% 0.012 53);
+  --tc-neutral-600: oklch(50% 0.010 53);
+  --tc-neutral-700: oklch(40% 0.012 53);
+  --tc-neutral-800: oklch(30% 0.014 53);   /* Hover / Toast: L=30% */
+  --tc-neutral-850: oklch(26% 0.014 53);   /* Modais / Diálogos: L=26% */
+  --tc-neutral-900: oklch(22% 0.012 53);   /* Dropdowns / Menus: L=22% */
+  --tc-neutral-950: oklch(18% 0.010 53);   /* Cards / Sidebar: L=18% */
+  --tc-neutral-1000: oklch(14% 0.008 53);  /* Canvas Base: L=14% */
 
   /* --- STATUS: SUCCESS (Hue ~145) --- */
   --tc-success-subtle: oklch(25% 0.04 145);
@@ -175,12 +176,16 @@
   --focus-ring: var(--tc-brand-500);
   --focus-offset: 2px;
 
-  /* BACKGROUNDS */
-  --bg-app: var(--tc-neutral-1000);
-  --bg-base: var(--tc-neutral-1000);
-  --bg-surface: var(--tc-neutral-950);
-  --bg-surface-elevated: var(--tc-neutral-900);
-  --bg-surface-hover: var(--tc-neutral-800);
+  /* BACKGROUNDS (Elevação por Luminância - Modelo Four Zero Three) */
+  --bg-app: var(--tc-neutral-1000);              /* Canvas Base: L=14% */
+  --bg-base: var(--tc-neutral-1000);             /* Canvas Base: L=14% */
+  --bg-surface: var(--tc-neutral-950);           /* Cards / Sidebar / Tabelas: L=18% */
+  --bg-surface-elevated: var(--tc-neutral-900);  /* Dropdowns / Menus / Popovers: L=22% */
+  --bg-surface-modal: var(--tc-neutral-850);     /* Modais / Diálogos: L=26% */
+  --bg-surface-hover: var(--tc-neutral-800);     /* Hover / Toast: L=30% */
+
+  /* PHYSICAL SURFACE HIGHLIGHT (Chanfro de luz superior 1px) */
+  --surface-highlight: inset 0 1px 0 0 oklch(100% 0 0 / 0.07);
 
   /* Global Structural Semantics */
   --radius: var(--tc-radius-md);
@@ -194,13 +199,14 @@
   --text-brand: var(--tc-brand-400);
 
   /* BORDERS */
-  --border-subtle: var(--tc-neutral-900);
-  --border-base: var(--tc-neutral-800);
-  --border-strong: var(--tc-neutral-700);
-  --border-focus: var(--border-focus);
+  --border-subtle: oklch(26% 0.010 53);
+  --border-base: oklch(30% 0.012 53);
+  --border-strong: oklch(34% 0.015 53);
+  --border-elevated: oklch(34% 0.015 53);
+  --border-focus: var(--tc-brand-500);
   --border-gradient-start: oklch(100% 0 0 / 0.18);
   --border-gradient-mid: var(--border-base);
-  --border-gradient-end: var(--tc-neutral-900);
+  --border-gradient-end: oklch(26% 0.010 53);
   --tc-input-inner-shadow: inset 1px 2px 3px 0 oklch(0% 0 0 / 0.40);
 
   /* ACTIONS / BUTTONS (Solid Paring) */
@@ -294,24 +300,29 @@
 .light, [data-theme="light"] {
   color-scheme: light;
   /* BACKGROUNDS */
-  --bg-app: var(--tc-neutral-0);
-  --bg-base: var(--tc-neutral-0);
-  --bg-surface: var(--tc-neutral-50);
-  --bg-surface-elevated: var(--tc-neutral-0);
-  --bg-surface-hover: var(--tc-neutral-100);
+  --bg-app: oklch(97% 0.006 53);
+  --bg-base: oklch(97% 0.006 53);
+  --bg-surface: oklch(100% 0 0);
+  --bg-surface-elevated: oklch(100% 0 0);
+  --bg-surface-modal: oklch(100% 0 0);
+  --bg-surface-hover: oklch(94% 0.006 53);
+
+  /* PHYSICAL SURFACE HIGHLIGHT */
+  --surface-highlight: none;
 
   /* TEXT */
-  --text-primary: var(--tc-neutral-950);
-  --text-secondary: var(--tc-neutral-700);
-  --text-tertiary: var(--tc-neutral-600);
-  --text-muted: var(--tc-neutral-600);
-  --text-inverse: var(--tc-neutral-0);
+  --text-primary: oklch(18% 0.010 53);
+  --text-secondary: oklch(42% 0.012 53);
+  --text-tertiary: oklch(55% 0.014 53);
+  --text-muted: oklch(55% 0.014 53);
+  --text-inverse: oklch(99% 0.004 53);
   --text-brand: var(--tc-brand-600);
 
   /* BORDERS */
-  --border-subtle: var(--tc-neutral-100);
-  --border-base: var(--tc-neutral-200);
-  --border-strong: var(--tc-neutral-300);
+  --border-subtle: oklch(90% 0.008 53);
+  --border-base: oklch(88% 0.008 53);
+  --border-strong: oklch(84% 0.012 53);
+  --border-elevated: oklch(84% 0.012 53);
   --border-focus: var(--tc-brand-500);
   --border-gradient-start: var(--border-subtle);
   --border-gradient-mid: var(--border-base);

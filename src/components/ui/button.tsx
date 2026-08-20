@@ -15,7 +15,7 @@ const buttonVariants = cva(
         destructive: "border-gradient-destructive text-destructive-foreground font-semibold hover:brightness-110 shadow-sm",
         outline: "border-gradient-outline text-foreground hover:brightness-115 shadow-xs",
         ghost: "hover:bg-foreground/[0.06] hover:text-foreground",
-        navItem: "border border-transparent bg-transparent text-muted-foreground hover:border-primary-ui/50 hover:text-primary-ui hover:bg-transparent data-[active=true]:bg-surface-hover data-[active=true]:text-foreground data-[active=true]:font-semibold data-[active=true]:border-border-strong data-[active=true]:shadow-xs",
+        navItem: "border border-transparent bg-transparent text-muted-foreground hover:text-primary-ui hover:bg-transparent data-[active=true]:bg-surface-hover data-[active=true]:text-foreground data-[active=true]:font-semibold data-[active=true]:border-border-strong data-[active=true]:shadow-xs",
       },
       size: {
         default: "h-(--tc-control-h-md) px-(--tc-control-px-md)",

@@ -12,6 +12,14 @@ import { Tag } from "./tag"
 import { Button } from "./button"
 import { Input } from "./input"
 import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./pagination"
+import {
   Select,
   SelectTrigger,
   SelectValue,
@@ -32,8 +40,6 @@ import {
   ArrowDown,
   Search,
   MoreHorizontal,
-  ChevronLeft,
-  ChevronRight,
   FilterX,
   FileEdit,
   Copy,
@@ -423,31 +429,44 @@ export function DataTable({ data, className }: DataTableProps) {
             </Select>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage <= 1}
-              aria-label="Página anterior"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </Button>
-            <span className="px-2 font-medium">
-              {currentPage} / {totalPages}
-            </span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage >= totalPages}
-              aria-label="Próxima página"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          </div>
+          <Pagination className="w-auto mx-0">
+            <PaginationContent className="gap-1">
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (currentPage > 1) setCurrentPage((p) => p - 1)
+                  }}
+                  className={currentPage <= 1 ? "pointer-events-none opacity-40" : ""}
+                />
+              </PaginationItem>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    href="#"
+                    isActive={currentPage === pageNum}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setCurrentPage(pageNum)
+                    }}
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (currentPage < totalPages) setCurrentPage((p) => p + 1)
+                  }}
+                  className={currentPage >= totalPages ? "pointer-events-none opacity-40" : ""}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>

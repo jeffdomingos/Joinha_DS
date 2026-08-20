@@ -958,7 +958,27 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     examples: [
       {
         title: "Tabela de Clientes",
-        code: `<DataTable columns={[]} data={[]} />`,
+        code: `<DataTable data={sampleData} />`,
+      },
+    ],
+    subComponents: [
+      {
+        name: "DataTable",
+        level: "organism",
+        description: "Container mestre de dados com toolbar de busca, filtros e ordenação.",
+        tokensUsed: ["--surface-card", "--border-base", ".type-ui-base"],
+      },
+      {
+        name: "Table / TableHeader / TableRow",
+        level: "atom",
+        description: "Estrutura semântica de cabeçalhos e linhas com alinhamento numérico tabular.",
+        tokensUsed: [".type-label-sm", "--text-muted"],
+      },
+      {
+        name: "Pagination (Sub-componente)",
+        level: "molecule",
+        description: "Controle oficial de paginação integrado ao rodapé com links de página e salto rápido.",
+        tokensUsed: ["<Pagination>", "<PaginationLink>", "<PaginationPrevious>", "<PaginationNext>"],
       },
     ],
   },

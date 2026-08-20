@@ -12,7 +12,6 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
   LayoutDashboard,
@@ -137,29 +136,43 @@ export function App() {
     }
   }
 
-  const breadcrumbMap = {
-    docs: [
-      { label: "Joinha DS" },
-      { label: "Documentação Oficial" },
-      { label: "Tokens & Diretrizes" },
-    ],
-    lab: [
-      { label: "Joinha DS" },
-      { label: "Component Lab" },
-      { label: "50 Componentes" },
-    ],
-    "templates-dashboard": [
-      { label: "Joinha DS" },
-      { label: "Templates de Exemplo" },
-      { label: "SaaS Executive Dashboard" },
-    ],
+  const getBreadcrumbs = () => {
+    switch (activeNavItem) {
+      case "docs-overview":
+        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Visão Geral & Filosofia" }]
+      case "docs-tokens":
+        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Tokens de Design & OKLCH" }]
+      case "docs-layout":
+        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Enterprise Layout & Densidade" }]
+      case "docs-xai":
+        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Padrões XAI & HITL" }]
+      case "docs-cli":
+        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Instalação via Shadcn CLI" }]
+      case "lab-primitives":
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Primitivos & Controles (18)" }]
+      case "lab-layout":
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Navegação & Layout (10)" }]
+      case "lab-data":
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Visualização de Dados (7)" }]
+      case "lab-onboarding":
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Onboarding & Adoção (5)" }]
+      case "lab-xai":
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "XAI & HITL (5)" }]
+      case "template-dashboard":
+        return [{ label: "Joinha DS" }, { label: "Templates" }, { label: "SaaS Executive Dashboard" }]
+      default:
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Todos os 50 Componentes" }]
+    }
   }
 
   return (
     <AppLayout
       theme={theme}
       onToggleTheme={toggleTheme}
-      breadcrumbs={breadcrumbMap[viewMode]}
+      densityMode={densityMode}
+      onDensityChange={setDensityMode}
+      onOpenCommand={() => setOpenCommand(true)}
+      breadcrumbs={getBreadcrumbs()}
       activeNavItem={activeNavItem}
       onSelectNavItem={handleSelectNav}
       onNewAction={() => {
@@ -168,98 +181,32 @@ export function App() {
         toast.success("Comando CLI do Registro copiado!", { description: cmd })
       }}
     >
-      {/* Top Hero / Header Control Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5 mb-8">
-        <div>
-          <div className="flex flex-wrap items-center gap-2.5">
-            <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
-              {viewMode === "docs" && "Joinha Design System — Wiki & Docs"}
-              {viewMode === "lab" && "Laboratório de Componentes"}
-              {viewMode === "templates-dashboard" && "Template: SaaS Executive Dashboard"}
-            </h1>
-            {viewMode === "docs" && <Badge variant="info" size="sm">v1.0.0 Oficial</Badge>}
-            {viewMode === "lab" && <Badge variant="info" size="sm">50 Componentes</Badge>}
-            {viewMode === "templates-dashboard" && <Badge variant="success" size="sm">Template Live</Badge>}
-          </div>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-            {viewMode === "docs" && "Fundamentos de design, tokens em OKLCH, 5 níveis de elevação, acessibilidade e compêndio de engenharia."}
-            {viewMode === "lab" && "Explore os 50 componentes modulares, teste variantes interativamente e copie comandos CLI."}
-            {viewMode === "templates-dashboard" && "Aplicação SaaS de referência 100% construída com componentes do Joinha DS para validação de composição e densidade."}
-          </p>
+      {/* Top Hero Header */}
+      <div className="border-b border-border pb-5 mb-8">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
+            {viewMode === "docs" && "Joinha Design System — Documentação"}
+            {viewMode === "lab" && "Laboratório de Componentes (Live Labs)"}
+            {viewMode === "templates-dashboard" && "Template: SaaS Executive Dashboard"}
+          </h1>
+          {viewMode === "docs" && <Badge variant="info" size="sm">v1.0.0 Oficial</Badge>}
+          {viewMode === "lab" && <Badge variant="info" size="sm">50 Componentes</Badge>}
+          {viewMode === "templates-dashboard" && <Badge variant="success" size="sm">Template Live</Badge>}
         </div>
-
-        {/* Top Controls & Navigation Switcher */}
-        <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start sm:self-auto">
-          {/* Density Matrix Switcher */}
-          <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border gap-1">
-            <span className="text-[11px] font-mono text-muted-foreground px-2 hidden md:inline">Densidade:</span>
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={densityMode === "compact"}
-              onClick={() => { setDensityMode("compact"); toast.info("Densidade Compacta ativada (32px)"); }}
-              className="h-7 px-2.5 text-[11px] cursor-pointer"
-            >
-              Compact
-            </Button>
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={densityMode === "default"}
-              onClick={() => { setDensityMode("default"); toast.info("Densidade Padrão ativada (40px)"); }}
-              className="h-7 px-2.5 text-[11px] cursor-pointer"
-            >
-              Default
-            </Button>
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={densityMode === "comfortable"}
-              onClick={() => { setDensityMode("comfortable"); toast.info("Densidade Confortável ativada (48px)"); }}
-              className="h-7 px-2.5 text-[11px] cursor-pointer"
-            >
-              Comfortable
-            </Button>
-          </div>
-
-          {/* Primary View Toggle */}
-          <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border gap-1">
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={viewMode === "docs"}
-              onClick={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); }}
-              className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Documentação</span>
-            </Button>
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={viewMode === "lab"}
-              onClick={() => { setViewMode("lab"); setActiveNavItem("lab-all"); }}
-              className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Component Lab</span>
-            </Button>
-            <Button
-              variant="navItem"
-              size="sm"
-              isActive={viewMode === "templates-dashboard"}
-              onClick={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); }}
-              className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              <span>Exemplo SaaS</span>
-            </Button>
-          </div>
-        </div>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-3xl">
+          {viewMode === "docs" && "Fundamentos de design, tokens em OKLCH, física de luz dark-first, padrões XAI e compêndio de engenharia."}
+          {viewMode === "lab" && "Explore os 50 componentes modulares, teste variantes interativamente e copie comandos de instalação via CLI."}
+          {viewMode === "templates-dashboard" && "Aplicação SaaS de referência 100% construída com componentes do Joinha DS para validação de composição e densidade."}
+        </p>
       </div>
 
       {/* Main View Router */}
-      {viewMode === "docs" && <DocsWikiView />}
+      {viewMode === "docs" && (
+        <DocsWikiView
+          activeSection={activeNavItem}
+          onNavigateSection={handleSelectNav}
+        />
+      )}
 
       {viewMode === "lab" && (
         <ComponentLabView

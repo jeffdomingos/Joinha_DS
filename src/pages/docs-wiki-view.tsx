@@ -13,11 +13,18 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { toast } from "sonner"
 
-export function DocsWikiView() {
+export interface DocsWikiViewProps {
+  activeSection?: string
+  onNavigateSection?: (sectionId: string) => void
+}
+
+export function DocsWikiView({
+  activeSection = "docs-overview",
+  onNavigateSection,
+}: DocsWikiViewProps) {
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text)
     toast.success(`Copiado: ${label}`, { description: text })
@@ -78,33 +85,9 @@ export function DocsWikiView() {
         </div>
       </div>
 
-      {/* Main Tabs Hub */}
-      <Tabs defaultValue="foundations" className="space-y-6">
-        <TabsList className="grid grid-cols-2 sm:grid-cols-5 w-full bg-surface-card border border-border p-1">
-          <TabsTrigger value="foundations" className="gap-1.5 text-xs">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Fundamentos</span>
-          </TabsTrigger>
-          <TabsTrigger value="tokens" className="gap-1.5 text-xs">
-            <Palette className="w-3.5 h-3.5" />
-            <span>Tokens de Design</span>
-          </TabsTrigger>
-          <TabsTrigger value="layout" className="gap-1.5 text-xs">
-            <LayoutGrid className="w-3.5 h-3.5" />
-            <span>Enterprise Layout</span>
-          </TabsTrigger>
-          <TabsTrigger value="xai" className="gap-1.5 text-xs">
-            <Bot className="w-3.5 h-3.5" />
-            <span>XAI & HITL</span>
-          </TabsTrigger>
-          <TabsTrigger value="cli" className="gap-1.5 text-xs">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>Shadcn CLI</span>
-          </TabsTrigger>
-        </TabsList>
-
-        {/* 1. FUNDAMENTOS */}
-        <TabsContent value="foundations" className="space-y-6">
+      {/* Main Content Sections */}
+      {(activeSection === "docs-overview" || !activeSection.startsWith("docs-")) && (
+        <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
               <div className="flex items-center gap-2 text-primary font-bold font-display text-sm">
@@ -167,10 +150,24 @@ export function DocsWikiView() {
               </div>
             </div>
           </div>
-        </TabsContent>
 
-        {/* 2. TOKENS DE DESIGN */}
-        <TabsContent value="tokens" className="space-y-6">
+          <div className="flex justify-end pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-tokens")}
+              className="gap-2 cursor-pointer"
+            >
+              <span>Próximo: Tokens de Design</span>
+              <Palette className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {/* 2. TOKENS DE DESIGN */}
+      {activeSection === "docs-tokens" && (
+        <section className="space-y-6 animate-in fade-in-50 duration-200">
           {/* Brand Colors Grid */}
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
@@ -275,10 +272,33 @@ export function DocsWikiView() {
               ))}
             </div>
           </div>
-        </TabsContent>
 
-        {/* 3. ENTERPRISE LAYOUT */}
-        <TabsContent value="layout" className="space-y-6">
+          <div className="flex justify-between pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-overview")}
+              className="gap-2 cursor-pointer"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Anterior: Visão Geral</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-layout")}
+              className="gap-2 cursor-pointer"
+            >
+              <span>Próximo: Enterprise Layout</span>
+              <LayoutGrid className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {/* 3. ENTERPRISE LAYOUT */}
+      {activeSection === "docs-layout" && (
+        <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
               Matriz de Densidade Paramétrica (`data-density`)
@@ -316,10 +336,33 @@ export function DocsWikiView() {
               Componentes de ERP e SaaS moderno vivem em múltiplos contextos (sidebar de 320px, modal de 600px ou grid principal de 1400px). Classes como `.cq-card` reagem à largura do container pai (`inline-size`), garantindo que o card se auto-adapte sem depender do viewport da janela.
             </p>
           </div>
-        </TabsContent>
 
-        {/* 4. XAI & HITL */}
-        <TabsContent value="xai" className="space-y-6">
+          <div className="flex justify-between pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-tokens")}
+              className="gap-2 cursor-pointer"
+            >
+              <Palette className="w-3.5 h-3.5" />
+              <span>Anterior: Tokens de Design</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-xai")}
+              className="gap-2 cursor-pointer"
+            >
+              <span>Próximo: Padrões XAI & HITL</span>
+              <Bot className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {/* 4. XAI & HITL */}
+      {activeSection === "docs-xai" && (
+        <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <h3 className="text-base font-bold font-display text-foreground border-b border-border/80 pb-3">
               Ergonomia de Confiança & Padrões Human-in-the-Loop
@@ -359,10 +402,33 @@ export function DocsWikiView() {
               </Accordion>
             </div>
           </div>
-        </TabsContent>
 
-        {/* 5. SHADCN CLI */}
-        <TabsContent value="cli" className="space-y-6">
+          <div className="flex justify-between pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-layout")}
+              className="gap-2 cursor-pointer"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Anterior: Enterprise Layout</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-cli")}
+              className="gap-2 cursor-pointer"
+            >
+              <span>Próximo: Instalação via CLI</span>
+              <Terminal className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {/* 5. SHADCN CLI */}
+      {activeSection === "docs-cli" && (
+        <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
@@ -408,8 +474,20 @@ export function DocsWikiView() {
               </div>
             </div>
           </div>
-        </TabsContent>
-      </Tabs>
+
+          <div className="flex justify-start pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigateSection?.("docs-xai")}
+              className="gap-2 cursor-pointer"
+            >
+              <Bot className="w-3.5 h-3.5" />
+              <span>Anterior: Padrões XAI & HITL</span>
+            </Button>
+          </div>
+        </section>
+      )}
     </div>
   )
 }

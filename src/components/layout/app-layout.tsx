@@ -8,6 +8,9 @@ export interface AppLayoutProps {
   breadcrumbs?: Array<{ label: string; href?: string }>
   theme: "dark" | "light"
   onToggleTheme: () => void
+  densityMode?: "default" | "compact" | "comfortable"
+  onDensityChange?: (mode: "default" | "compact" | "comfortable") => void
+  onOpenCommand?: () => void
   onNewAction?: () => void
   activeNavItem?: string
   onSelectNavItem?: (id: string) => void
@@ -22,6 +25,9 @@ export function AppLayout({
   breadcrumbs,
   theme,
   onToggleTheme,
+  densityMode = "default",
+  onDensityChange,
+  onOpenCommand,
   onNewAction,
   activeNavItem = "dashboard",
   onSelectNavItem,
@@ -80,6 +86,9 @@ export function AppLayout({
           onOpenMobileMenu={() => setMobileOpen(true)}
           theme={theme}
           onToggleTheme={onToggleTheme}
+          densityMode={densityMode}
+          onDensityChange={onDensityChange}
+          onOpenCommand={onOpenCommand}
           onNewAction={onNewAction}
         />
 

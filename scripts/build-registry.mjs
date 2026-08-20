@@ -534,6 +534,66 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "avatar",
+    type: "registry:ui",
+    title: "Avatar",
+    description: "An image element with a fallback for representing the user, plus an AvatarGroup component.",
+    dependencies: ["@radix-ui/react-avatar"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/avatar.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/avatar.tsx"),
+      },
+    ],
+  },
+  {
+    name: "progress",
+    type: "registry:ui",
+    title: "Progress",
+    description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    dependencies: ["@radix-ui/react-progress", "class-variance-authority"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/progress.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/progress.tsx"),
+      },
+    ],
+  },
+  {
+    name: "empty-state",
+    type: "registry:ui",
+    title: "Empty State",
+    description: "Illustrated placeholder state for empty dashboards, tables, or search queries.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/empty-state.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/empty-state.tsx"),
+      },
+    ],
+  },
+  {
+    name: "command",
+    type: "registry:ui",
+    title: "Command Palette",
+    description: "Fast, composable, unstyled command menu for React (Linear/Raycast style).",
+    dependencies: ["cmdk", "lucide-react", "@radix-ui/react-dialog"],
+    registryDependencies: ["utils", "dialog"],
+    files: [
+      {
+        path: "components/ui/command.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/command.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

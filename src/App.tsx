@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
@@ -70,6 +70,19 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination"
+import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
+import { EmptyState } from "@/components/ui/empty-state"
+import {
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+} from "@/components/ui/command"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -226,6 +239,18 @@ function App() {
   const [sliderValue, setSliderValue] = useState([65])
   const [selectedPlan, setSelectedPlan] = useState("pro")
   const [termsAccepted, setTermsAccepted] = useState(true)
+  const [openCommand, setOpenCommand] = useState(false)
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpenCommand((open) => !open)
+      }
+    }
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark"
@@ -1746,8 +1771,209 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* Exibição de Dados & Produtividade (Lote 4) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Exibição de Dados & Produtividade
+                </h2>
+                <Badge variant="info" size="sm">Fase 5 · Lote 4</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Avatares individuais e empilhados, medidores de progresso por cota, telas de Empty State e Command Palette (⌘K).
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 1. Avatars & Progress Bars (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Avatars */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Avatares & Grupos Empilhados</span>
+                  <Badge variant="neutral" size="sm">AvatarGroup</Badge>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">Equipe de Engenharia</span>
+                    <AvatarGroup max={4} total={7}>
+                      <Avatar>
+                        <AvatarFallback className="bg-primary/10 text-primary">JD</AvatarFallback>
+                      </Avatar>
+                      <Avatar>
+                        <AvatarFallback className="bg-success/10 text-success">MC</AvatarFallback>
+                      </Avatar>
+                      <Avatar>
+                        <AvatarFallback className="bg-info/10 text-info">AL</AvatarFallback>
+                      </Avatar>
+                      <Avatar>
+                        <AvatarFallback className="bg-warning/10 text-warning">TS</AvatarFallback>
+                      </Avatar>
+                    </AvatarGroup>
+                  </div>
+
+                  <div className="flex items-center gap-3 pt-2">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback className="bg-primary text-primary-foreground font-bold">TC</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">Tem Como Enterprise</span>
+                      <span className="text-[11px] text-muted-foreground">workspace@temcomo.com.br</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Bars */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Medidores de Cota (Progress)</span>
+                  <Badge variant="neutral" size="sm">Semântico</Badge>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Armazenamento em Nuvem</span>
+                      <span className="font-mono text-foreground font-semibold">32% (3.2 GB / 10 GB)</span>
+                    </div>
+                    <Progress value={32} variant="default" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Taxa de Sucesso dos Webhooks</span>
+                      <span className="font-mono text-success font-semibold">99.4% (Operação Normal)</span>
+                    </div>
+                    <Progress value={99.4} variant="success" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Consumo de Créditos de IA</span>
+                      <span className="font-mono text-warning font-semibold">82% (Limite Próximo)</span>
+                    </div>
+                    <Progress value={82} variant="warning" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Uso de Memória do Cluster</span>
+                      <span className="font-mono text-destructive font-semibold">94% (Alerta Crítico)</span>
+                    </div>
+                    <Progress value={94} variant="danger" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Empty State & Command Palette Card (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Command Palette Interactive Box */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Command Palette (⌘K / Ctrl+K)</span>
+                  <Badge variant="info" size="sm" className="hidden sm:inline-flex">Raycast / Linear Style</Badge>
+                </div>
+
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Menu de busca global e execução de comandos rápidos acionado via teclado ou pelo botão abaixo:
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="outline"
+                    className="gap-2 flex-1 justify-between text-muted-foreground border-border hover:border-primary/50"
+                    onClick={() => setOpenCommand(true)}
+                  >
+                    <span className="text-xs">Buscar comandos, telas ou clientes...</span>
+                    <div className="flex items-center gap-1">
+                      <Kbd size="sm">⌘</Kbd>
+                      <Kbd size="sm">K</Kbd>
+                    </div>
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => setOpenCommand(true)}>
+                    Abrir Menu
+                  </Button>
+                </div>
+              </div>
+
+              {/* Empty State */}
+              <EmptyState
+                title="Nenhum Registro Encontrado"
+                description="Não encontramos nenhuma fatura com os filtros selecionados. Tente ajustar o período ou limpar a busca."
+                action={
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" size="sm">Limpar Filtros</Button>
+                    <Button variant="primary" size="sm">+ Criar Nova Fatura</Button>
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        </section>
         </div>
       )}
+
+      {/* Global Command Palette Dialog (⌘K) */}
+      <CommandDialog open={openCommand} onOpenChange={setOpenCommand}>
+        <CommandInput placeholder="Digite um comando ou busque no SaaS..." />
+        <CommandList>
+          <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
+          <CommandGroup heading="Navegação Rápida">
+            <CommandItem onSelect={() => { setViewMode("dashboard"); setOpenCommand(false); toast.info("Navegando para o Dashboard"); }}>
+              <LayoutDashboard className="mr-2 h-4 w-4 text-primary" />
+              <span>Dashboard Analítico</span>
+              <CommandShortcut>⌘D</CommandShortcut>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("components"); setOpenCommand(false); toast.info("Navegando para o Component Lab"); }}>
+              <Layers className="mr-2 h-4 w-4 text-primary" />
+              <span>Laboratório de Componentes (Kitchen Sink)</span>
+              <CommandShortcut>⌘L</CommandShortcut>
+            </CommandItem>
+            <CommandItem onSelect={() => { toggleTheme(); setOpenCommand(false); }}>
+              <Sparkles className="mr-2 h-4 w-4 text-primary" />
+              <span>Alternar Tema (Dark / Light)</span>
+              <CommandShortcut>⌘T</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+
+          <CommandSeparator />
+
+          <CommandGroup heading="Ações de Workspace">
+            <CommandItem onSelect={() => { setOpenCommand(false); toast.success("Novo Workspace pronto para criação!"); }}>
+              <Users className="mr-2 h-4 w-4 text-success" />
+              <span>Criar Novo Workspace</span>
+              <CommandShortcut>⌥N</CommandShortcut>
+            </CommandItem>
+            <CommandItem onSelect={() => { setOpenCommand(false); toast.info("Exportando dados em CSV..."); }}>
+              <Download className="mr-2 h-4 w-4 text-info" />
+              <span>Exportar Faturamento (CSV)</span>
+              <CommandShortcut>⇧E</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+
+          <CommandSeparator />
+
+          <CommandGroup heading="Clientes Recentes">
+            <CommandItem onSelect={() => { setOpenCommand(false); toast.info("Abrindo Acme Corp"); }}>
+              <Target className="mr-2 h-4 w-4 text-muted-foreground" />
+              <span>Acme Corporation (Enterprise)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setOpenCommand(false); toast.info("Abrindo Nexus Fintech"); }}>
+              <Target className="mr-2 h-4 w-4 text-muted-foreground" />
+              <span>Nexus Fintech (Pro)</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+
       <Toaster />
     </AppLayout>
   )

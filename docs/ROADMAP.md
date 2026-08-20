@@ -69,8 +69,8 @@ Organizado em 4 lotes temáticos para implementação incremental:
 * [x] **Separator / Divider (`<Separator />`):** Divisórias horizontais/verticais com suporte a label central.
 * [x] **Standalone Pagination (`<Pagination />`):** Controlador de paginação isolado com seletor de linhas e salto de página.
 
-### 📦 Lote 4: Exibição de Dados & Produtividade
-* [ ] **Avatar & AvatarGroup (`<Avatar />` + `<AvatarGroup />`):** Foto, iniciais, status dot e empilhamento com contador `+N`.
-* [ ] **Progress Bar (`<Progress />`):** Barra de progresso linear com cores semânticas de cota (Verde / Amarelo / Vermelho).
-* [ ] **Empty State (`<EmptyState />`):** Estado vazio padrão para buscas e tabelas sem dados.
-* [ ] **Command Palette (`<Command />` / `⌘K`):** Menu modal de busca fuzzy e ações rápidas estilo Raycast/Linear.
+### 🟢 Lote 4: Exibição de Dados & Produtividade (Concluído)
+* [x] **Avatar & AvatarGroup (`<Avatar />` + `<AvatarGroup />`):** Foto, iniciais, status dot e empilhamento com contador `+N`.
+* [x] **Progress Bar (`<Progress />`):** Barra de progresso linear com cores semânticas de cota (Verde / Amarelo / Vermelho).
+* [x] **Empty State (`<EmptyState />`):** Estado vazio padrão para buscas e tabelas sem dados.
+* [x] **Command Palette (`<Command />` / `⌘K`):** Menu modal de busca fuzzy e ações rápidas estilo Raycast/Linear.

@@ -424,6 +424,58 @@
         "utils",
         "button"
       ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "An image element with a fallback for representing the user, plus an AvatarGroup component.",
+      "dependencies": [
+        "@radix-ui/react-avatar"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      "dependencies": [
+        "@radix-ui/react-progress",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "Illustrated placeholder state for empty dashboards, tables, or search queries.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "Fast, composable, unstyled command menu for React (Linear/Raycast style).",
+      "dependencies": [
+        "cmdk",
+        "lucide-react",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "utils",
+        "dialog"
+      ]
     }
   ]
 }

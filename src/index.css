@@ -175,6 +175,16 @@
       linear-gradient(var(--bg-app), var(--bg-app)) padding-box,
       radial-gradient(100% 100% at 100% 100%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
   }
+
+  /* Sonner Stacked Depth Physics */
+  [data-sonner-toast]:not([data-front="true"]) {
+    filter: brightness(0.68) saturate(0.85);
+    transition: filter var(--tc-duration-fast) var(--tc-ease-smooth), transform var(--tc-duration-fast) var(--tc-ease-smooth), opacity var(--tc-duration-fast) var(--tc-ease-smooth);
+  }
+
+  [data-sonner-toast][data-index="2"]:not([data-front="true"]) {
+    filter: brightness(0.48) saturate(0.7);
+  }
   
   .brand-glow {
     box-shadow: 0 4px 16px 0 oklch(67% 0.17 53 / 0.22);

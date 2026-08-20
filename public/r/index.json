@@ -561,6 +561,20 @@
       "registryDependencies": [
         "utils"
       ]
+    },
+    {
+      "name": "floating-toolbar",
+      "type": "registry:ui",
+      "title": "Floating Toolbar / Dock",
+      "description": "Floating action HUD with glassmorphism, tooltips, density controls and collapsible states.",
+      "dependencies": [
+        "@radix-ui/react-tooltip",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "tooltip"
+      ]
     }
   ]
 }

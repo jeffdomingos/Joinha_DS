@@ -89,6 +89,7 @@ import { OnboardingChecklist, type OnboardingStep } from "@/components/ui/onboar
 import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
 import { PersonaSelector } from "@/components/ui/persona-selector"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
+import { FloatingToolbar, FloatingToolbarItem, FloatingToolbarSeparator } from "@/components/ui/floating-toolbar"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -109,7 +110,7 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Database, Tag as TagIcon, DollarSign, Users, Target, Activity, TrendingUp, LayoutDashboard, Layers } from "lucide-react"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Database, Tag as TagIcon, DollarSign, Users, Target, Activity, TrendingUp, LayoutDashboard, Layers, Sun, Moon, Compass, ListTodo, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const revenueChartConfig = {
@@ -2373,6 +2374,83 @@ function App() {
           onDismiss={() => setIsDockedChecklistOpen(false)}
         />
       )}
+
+      {/* Global Floating Action HUD / Dock */}
+      <FloatingToolbar position="bottom-center">
+        {/* Density controls */}
+        <FloatingToolbarItem
+          icon={<span className="text-[11px] font-bold font-mono">CPT</span>}
+          label="Densidade Compacta (32px / Fiscal)"
+          shortcut="1"
+          active={densityMode === "compact"}
+          onClick={() => {
+            setDensityMode("compact")
+            toast.info("Densidade Compacta ativada (32px)")
+          }}
+        />
+        <FloatingToolbarItem
+          icon={<span className="text-[11px] font-bold font-mono">DFT</span>}
+          label="Densidade Padrão (40px / SaaS)"
+          shortcut="2"
+          active={densityMode === "default"}
+          onClick={() => {
+            setDensityMode("default")
+            toast.info("Densidade Padrão ativada (40px)")
+          }}
+        />
+        <FloatingToolbarItem
+          icon={<span className="text-[11px] font-bold font-mono">COM</span>}
+          label="Densidade Confortável (48px / Executiva)"
+          shortcut="3"
+          active={densityMode === "comfortable"}
+          onClick={() => {
+            setDensityMode("comfortable")
+            toast.info("Densidade Confortável ativada (48px)")
+          }}
+        />
+
+        <FloatingToolbarSeparator />
+
+        {/* Quick Search */}
+        <FloatingToolbarItem
+          icon={<Search className="w-4 h-4" />}
+          label="Command Palette"
+          shortcut="⌘K"
+          onClick={() => setOpenCommand(true)}
+        />
+
+        {/* Theme switcher */}
+        <FloatingToolbarItem
+          icon={theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          label={`Alternar para modo ${theme === "dark" ? "Claro" : "Escuro"}`}
+          shortcut="⌘T"
+          onClick={toggleTheme}
+        />
+
+        <FloatingToolbarSeparator />
+
+        {/* Onboarding Checklist toggle */}
+        <FloatingToolbarItem
+          icon={<ListTodo className="w-4 h-4" />}
+          label={isDockedChecklistOpen ? "Ocultar Checklist Flutuante" : "Exibir Checklist de Ativação"}
+          active={isDockedChecklistOpen}
+          badge="4"
+          onClick={() => {
+            setIsDockedChecklistOpen(!isDockedChecklistOpen)
+            toast.info(isDockedChecklistOpen ? "Checklist ocultado" : "Checklist ativado no canto!")
+          }}
+        />
+
+        {/* Tour trigger */}
+        <FloatingToolbarItem
+          icon={<Compass className="w-4 h-4" />}
+          label="Iniciar Tour Guiado"
+          onClick={() => {
+            setCurrentTourStep(0)
+            setIsTourOpen(true)
+          }}
+        />
+      </FloatingToolbar>
 
       <Toaster />
     </AppLayout>

@@ -684,6 +684,21 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "floating-toolbar",
+    type: "registry:ui",
+    title: "Floating Toolbar / Dock",
+    description: "Floating action HUD with glassmorphism, tooltips, density controls and collapsible states.",
+    dependencies: ["@radix-ui/react-tooltip", "lucide-react"],
+    registryDependencies: ["utils", "tooltip"],
+    files: [
+      {
+        path: "components/ui/floating-toolbar.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/floating-toolbar.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

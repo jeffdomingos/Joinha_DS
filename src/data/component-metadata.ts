@@ -12,6 +12,15 @@ export interface ComponentExample {
   code: string
 }
 
+export interface SubComponentDefinition {
+  name: string
+  level: "atom" | "molecule" | "organism"
+  description: string
+  tokensUsed?: string[]
+  props?: PropDefinition[]
+  usageCode?: string
+}
+
 export interface AccessibilityGuide {
   role?: string
   keyboardShortcuts?: Array<{ key: string; action: string }>
@@ -32,6 +41,7 @@ export interface ComponentMetadata {
   props: PropDefinition[]
   accessibility: AccessibilityGuide
   examples: ComponentExample[]
+  subComponents?: SubComponentDefinition[]
   highlights?: string[]
 }
 
@@ -88,63 +98,238 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     ],
   },
 
-  input: {
-    id: "input",
-    name: "Input",
-    cliName: "input",
-    category: "primitives",
-    categoryLabel: "Primitivos & Controles",
-    description: "Campo de entrada de texto com suporte a estados de foco perceptual, validação visual, prefixos e compatibilidade com formulários controlados.",
-    importStatement: `import { Input } from "@/components/ui/input"`,
-    usageCode: `<Input placeholder="Digite seu e-mail corporativo..." />`,
+  sidebar: {
+    id: "sidebar",
+    name: "Sidebar",
+    cliName: "sidebar",
+    category: "nav_layout",
+    categoryLabel: "Navegação & Layout",
+    description: "Barra lateral de navegação modular em Compound Components com suporte a colapso para 64px, seções atômicas e tokens tipográficos.",
+    importStatement: `import {
+  Sidebar,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarBrandHeader,
+  SidebarUserProfile,
+} from "@/components/layout/sidebar"`,
+    usageCode: `<Sidebar collapsed={false} onToggleCollapse={() => {}}>
+  <SidebarGroup>
+    <SidebarGroupLabel>Documentação</SidebarGroupLabel>
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton isActive icon={BookOpen}>
+          Visão Geral
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  </SidebarGroup>
+</Sidebar>`,
     props: [
-      { name: "type", type: "string", defaultValue: '"text"', description: "Tipo do campo HTML (text, email, password, number, search)." },
-      { name: "placeholder", type: "string", defaultValue: "undefined", description: "Texto indicativo de preenchimento." },
-      { name: "disabled", type: "boolean", defaultValue: "false", description: "Desativa digitação no campo." },
+      { name: "collapsed", type: "boolean", defaultValue: "false", description: "Define se o menu lateral está expandido (256px) ou recolhido (64px)." },
+      { name: "onToggleCollapse", type: "() => void", defaultValue: "undefined", description: "Função disparada ao clicar no botão de expandir/recolher." },
+      { name: "activeItem", type: "string", defaultValue: '"dashboard"', description: "ID do item de navegação atualmente selecionado." },
+      { name: "onSelectItem", type: "(id: string) => void", defaultValue: "undefined", description: "Callback disparado ao clicar em qualquer item da sidebar." },
+      { name: "brandTitle", type: "string", defaultValue: '"Joinha DS"', description: "Título exibido no cabeçalho da marca." },
     ],
     accessibility: {
-      keyboardShortcuts: [
-        { key: "Tab", action: "Navega para o campo de texto." },
-      ],
+      role: "navigation",
       ariaAttributes: [
-        { attribute: "aria-invalid", purpose: "Sinaliza erros de validação a leitores de tela." },
+        { attribute: "aria-label", purpose: "Rotula a região como 'Menu Lateral Principal' para leitores de tela." },
       ],
       wcagLevel: "AA",
     },
+    subComponents: [
+      {
+        name: "Sidebar",
+        level: "organism",
+        description: "Container estrutural principal com superfície elevada OKLCH, elevação e transição fluida.",
+        tokensUsed: ["--bg-surface-elevated", "--border", "--tc-ease-smooth"],
+      },
+      {
+        name: "SidebarGroupLabel",
+        level: "atom",
+        description: "Átomo tipográfico de título de categoria de navegação.",
+        tokensUsed: [".type-label-sm", "--text-muted"],
+        usageCode: `<SidebarGroupLabel>Primitivos (18)</SidebarGroupLabel>`,
+      },
+      {
+        name: "SidebarMenuButton",
+        level: "atom",
+        description: "Átomo de botão interativo de navegação com suporte a seleção ativa (isActive), ícones e badges.",
+        tokensUsed: ["Button variant=navItem", "--border-focus", "--tc-radius-md"],
+        props: [
+          { name: "isActive", type: "boolean", defaultValue: "false", description: "Aplica indicador tátil de seleção ativa em Laranja Primário." },
+          { name: "icon", type: "React.ComponentType", defaultValue: "undefined", description: "Ícone temático exibido à esquerda." },
+          { name: "badge", type: "{ text: string, variant?: string }", defaultValue: "undefined", description: "Pílula de contagem ou status." },
+        ],
+        usageCode: `<SidebarMenuButton isActive icon={Box} badge={{ text: "18" }}>
+  Primitivos & Controles
+</SidebarMenuButton>`,
+      },
+      {
+        name: "SidebarMenuSubButton",
+        level: "atom",
+        description: "Átomo de botão de segundo nível para submenus aninhados com borda de árvore.",
+        tokensUsed: [".type-body-sm", "--spacing-6", "--border"],
+        usageCode: `<SidebarMenuSubButton isActive badgeText="button">
+  Button
+</SidebarMenuSubButton>`,
+      },
+      {
+        name: "SidebarBrandHeader",
+        level: "molecule",
+        description: "Molécula do topo com logotipo BrandSymbol, título tipográfico e badge de versão.",
+        tokensUsed: ["BrandSymbol", "Badge", ".type-heading-card"],
+        usageCode: `<SidebarBrandHeader brandTitle="Joinha DS" brandSubtitle="Design System v1.0" />`,
+      },
+      {
+        name: "SidebarUserProfile",
+        level: "molecule",
+        description: "Molécula de rodapé com avatar de usuário, dados de conta e menu dropdown.",
+        tokensUsed: ["DropdownMenu", "--tc-radius-full", ".type-body-sm"],
+        usageCode: `<SidebarUserProfile userName="Jefferson D." userEmail="jeff@temcomo.design" />`,
+      },
+    ],
     examples: [
       {
-        title: "Input com Placeholder",
-        code: `<Input type="email" placeholder="nome@empresa.com" />`,
+        title: "Sidebar em Modo Expandido",
+        code: `<Sidebar collapsed={false} onToggleCollapse={() => {}} activeItem="comp-button" />`,
       },
     ],
   },
 
-  "data-table": {
-    id: "data-table",
-    name: "DataTable",
-    cliName: "data-table",
-    category: "data_viz",
-    categoryLabel: "Visualização de Dados",
-    description: "Tabela de dados corporativa de alta densidade com paginação, filtros, seleção em lote, ordenação de colunas e suporte à matriz de densidade.",
-    importStatement: `import { DataTable } from "@/components/ui/data-table"`,
-    usageCode: `<DataTable
-  records={mockTenants}
-  onSearch={(q) => console.log(q)}
+  header: {
+    id: "header",
+    name: "Header",
+    cliName: "header",
+    category: "nav_layout",
+    categoryLabel: "Navegação & Layout",
+    description: "Cabeçalho global fixo com suporte a breadcrumbs dinâmicos, gatilho de busca com atalho ⌘K, alternador de tema e ações de contexto.",
+    importStatement: `import {
+  Header,
+  HeaderBreadcrumbs,
+  HeaderCommandTrigger,
+  HeaderThemeToggle,
+} from "@/components/layout/header"`,
+    usageCode: `<Header
+  breadcrumbs={[{ label: "Joinha DS" }, { label: "Componentes" }]}
+  theme="dark"
+  onToggleTheme={() => {}}
+  onOpenCommand={() => {}}
 />`,
     props: [
-      { name: "records", type: "DataTableRecord[]", defaultValue: "[]", description: "Array de registros a serem renderizados." },
-      { name: "onSearch", type: "(query: string) => void", defaultValue: "undefined", description: "Callback disparado na busca de registros." },
-      { name: "onSelectRows", type: "(ids: string[]) => void", defaultValue: "undefined", description: "Callback de seleção de linhas." },
+      { name: "breadcrumbs", type: "Array<{ label: string, href?: string }>", defaultValue: "[]", description: "Trilha de navegação exibida no canto esquerdo." },
+      { name: "theme", type: '"dark" | "light"', defaultValue: '"dark"', description: "Tema ativo na interface." },
+      { name: "onToggleTheme", type: "() => void", defaultValue: "undefined", description: "Função de alternância Dark/Light." },
+      { name: "onOpenCommand", type: "() => void", defaultValue: "undefined", description: "Callback de abertura da Command Palette (⌘K)." },
     ],
     accessibility: {
-      role: "table",
+      role: "banner",
       wcagLevel: "AA",
-      notes: "Headers acessíveis com escopo `col`, células com alto contraste e navegação por teclado.",
     },
+    subComponents: [
+      {
+        name: "Header",
+        level: "organism",
+        description: "Barra superior com blur backdrop, sticky navigation e z-index 20.",
+        tokensUsed: ["--bg-surface", "--border", "backdrop-blur-md"],
+      },
+      {
+        name: "HeaderBreadcrumbs",
+        level: "molecule",
+        description: "Trilha de navegação hierárquica conectada por chevrons sutis.",
+        tokensUsed: [".type-body-sm", "--text-muted"],
+        usageCode: `<HeaderBreadcrumbs breadcrumbs={[{ label: "Home" }, { label: "Componentes" }]} />`,
+      },
+      {
+        name: "HeaderCommandTrigger",
+        level: "atom",
+        description: "Gatilho de busca rápida integrado ao átomo Kbd (⌘K) oficial do DS.",
+        tokensUsed: ["Kbd", "Input", "--border-focus"],
+        usageCode: `<HeaderCommandTrigger onClick={handleOpenSearch} />`,
+      },
+      {
+        name: "HeaderThemeToggle",
+        level: "atom",
+        description: "Alternador tátil de tema Dark/Light com ícones semânticos de sol e lua.",
+        tokensUsed: ["Button variant=outline", "--status-warning"],
+        usageCode: `<HeaderThemeToggle theme="dark" onToggleTheme={toggleTheme} />`,
+      },
+    ],
     examples: [
       {
-        title: "Tabela com Paginação e Filtros",
-        code: `<DataTable records={tenantsList} />`,
+        title: "Header com Breadcrumbs",
+        code: `<Header breadcrumbs={[{ label: "Painel" }, { label: "Métricas" }]} theme="dark" onToggleTheme={() => {}} />`,
+      },
+    ],
+  },
+
+  "metric-card": {
+    id: "metric-card",
+    name: "MetricCard",
+    cliName: "metric-card",
+    category: "data_viz",
+    categoryLabel: "Visualização de Dados",
+    description: "Card executivo de métricas e KPIs com suporte a Sparklines Bézier integradas, indicadores de tendência e cálculo de metas.",
+    importStatement: `import {
+  MetricCard,
+  MetricCardTitle,
+  MetricCardValue,
+  MetricCardDelta,
+} from "@/components/ui/metric-card"`,
+    usageCode: `<MetricCard
+  title="Receita Recorrente (MRR)"
+  value="R$ 48.920"
+  change={{ value: "+14.2%", trend: "up" }}
+  sparklineData={[28, 31, 35, 40, 48.9]}
+/>`,
+    props: [
+      { name: "title", type: "string", defaultValue: "undefined", description: "Rótulo superior da métrica." },
+      { name: "value", type: "string | number", defaultValue: "undefined", description: "Valor principal exibido em destaque hero." },
+      { name: "change", type: "{ value: string, trend: 'up' | 'down', period?: string }", defaultValue: "undefined", description: "Indicador de variação percentual." },
+      { name: "sparklineData", type: "number[]", defaultValue: "undefined", description: "Série temporal para renderização do gráfico de linha." },
+    ],
+    accessibility: {
+      wcagLevel: "AA",
+    },
+    subComponents: [
+      {
+        name: "MetricCard",
+        level: "molecule",
+        description: "Card container executivo de KPI com elevação e gradientes sutis.",
+        tokensUsed: ["--surface-card", "--border-gradient-subtle", "--tc-radius-lg"],
+      },
+      {
+        name: "MetricCardTitle",
+        level: "atom",
+        description: "Rótulo semântico da métrica com token de corpo reduzido.",
+        tokensUsed: [".type-body-sm", "--text-muted"],
+        usageCode: `<MetricCardTitle>Taxa de Conversão</MetricCardTitle>`,
+      },
+      {
+        name: "MetricCardValue",
+        level: "atom",
+        description: "Átomo tipográfico numérico em destaque com números tabulares.",
+        tokensUsed: [".type-display-metric", "--tc-font-display"],
+        usageCode: `<MetricCardValue>98.4%</MetricCardValue>`,
+      },
+      {
+        name: "MetricCardDelta",
+        level: "atom",
+        description: "Átomo indicador de variação percentual positiva, negativa ou neutra com ícones semânticos.",
+        tokensUsed: ["--status-success-subtle", "--status-danger-subtle"],
+        usageCode: `<MetricCardDelta value="+12.4%" trend="up" period="vs. mês anterior" />`,
+      },
+    ],
+    examples: [
+      {
+        title: "Card Financeiro com Gráfico",
+        code: `<MetricCard title="Novos Clientes" value="1.420" sparklineData={[10, 15, 22, 29]} />`,
       },
     ],
   },
@@ -155,73 +340,49 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     cliName: "confidence-meter",
     category: "xai_hitl",
     categoryLabel: "XAI & HITL",
-    description: "Indicador perceptual do score de certeza e probabilidade de predições de modelos de IA, com micro-gradiente semântico e breakdown de fatores.",
+    description: "Componente XAI para calibragem de confiança probabilística de agentes inteligentes com rastreamento de raciocínio (Chain-of-Thought).",
     importStatement: `import { ConfidenceMeter, ReasoningTrace } from "@/components/ui/confidence-meter"`,
     usageCode: `<ConfidenceMeter
   score={94}
-  label="Score de Certeza do Modelo"
-  source="FinGPT-Enterprise-v4"
+  label="Confiança do Agente"
+  sourceCount={5}
 />`,
     props: [
-      { name: "score", type: "number (0-100)", defaultValue: "undefined", description: "Percentual de confiança do modelo.", required: true },
-      { name: "label", type: "string", defaultValue: '"Confiança do Modelo"', description: "Rótulo explicativo da métrica." },
-      { name: "source", type: "string", defaultValue: "undefined", description: "Nome do modelo de Machine Learning ou agente gerador." },
+      { name: "score", type: "number (0-100)", defaultValue: "undefined", description: "Score percentual de confiança da inferência.", required: true },
+      { name: "label", type: "string", defaultValue: '"Confiança da IA"', description: "Rótulo textual do medidor." },
+      { name: "showBar", type: "boolean", defaultValue: "true", description: "Renderiza a barra de progresso colorida." },
+      { name: "sourceCount", type: "number", defaultValue: "undefined", description: "Quantidade de documentos/fontes de Grounding." },
+      { name: "compact", type: "boolean", defaultValue: "false", description: "Modo condensado para tabelas ou listas densas." },
     ],
     accessibility: {
       role: "meter",
       ariaAttributes: [
-        { attribute: "aria-valuenow", purpose: "Valor numérico atual da certeza (0 a 100)." },
-        { attribute: "aria-valuemin", purpose: "Valor mínimo do medidor (0)." },
-        { attribute: "aria-valuemax", purpose: "Valor máximo do medidor (100)." },
+        { attribute: "aria-valuenow", purpose: "Comunica o valor percentual atual da confiança." },
+        { attribute: "aria-valuemin", purpose: "Define o valor mínimo (0)." },
+        { attribute: "aria-valuemax", purpose: "Define o valor máximo (100)." },
       ],
       wcagLevel: "AA",
+      notes: "Classificação automática em 3 faixas OKLCH: Alta (≥90%), Média (70-89%) e Baixa (<70%).",
     },
-    examples: [
+    subComponents: [
       {
-        title: "Confiança Alta vs. Moderada",
-        code: `<div className="space-y-4">
-  <ConfidenceMeter score={96} source="Retenção ML v3" />
-  <ConfidenceMeter score={72} source="Análise Preditiva" />
-</div>`,
+        name: "ConfidenceMeter",
+        level: "molecule",
+        description: "Widget calibrador de confiança de IA com cálculo automático de severidade.",
+        tokensUsed: ["Badge", "--status-success", "--status-warning", "--status-danger"],
+      },
+      {
+        name: "ReasoningTrace",
+        level: "molecule",
+        description: "Visualizador de Chain-of-Thought expansível com etapas de raciocínio, latência e fontes.",
+        tokensUsed: [".type-code-inline", "Badge", "--border"],
+        usageCode: `<ReasoningTrace steps={[{ title: "Análise de Sentimento", status: "done", durationMs: 120 }]} />`,
       },
     ],
-  },
-
-  "hitl-approval-banner": {
-    id: "hitl-approval-banner",
-    name: "HITLApprovalBanner",
-    cliName: "hitl-approval-banner",
-    category: "xai_hitl",
-    categoryLabel: "XAI & HITL",
-    description: "Banner de interceptação de operações críticas por IA para confirmação explícita de operadores humanos (Human-in-the-Loop).",
-    importStatement: `import { HITLApprovalBanner } from "@/components/ui/hitl-approval-banner"`,
-    usageCode: `<HITLApprovalBanner
-  severity="warning"
-  title="Reajuste Contratual Proposto"
-  description="O agente detectou risco de churn e preparou 15% de desconto."
-  onApprove={() => console.log('Aprovado')}
-  onReject={() => console.log('Rejeitado')}
-/>`,
-    props: [
-      { name: "title", type: "string", defaultValue: "undefined", description: "Título da proposta gerada pela IA.", required: true },
-      { name: "description", type: "string", defaultValue: "undefined", description: "Detalhamento do impacto da ação." },
-      { name: "severity", type: '"warning" | "danger" | "info"', defaultValue: '"warning"', description: "Nível de criticidade da ação." },
-      { name: "onApprove", type: "() => void", defaultValue: "undefined", description: "Callback de aprovação do operador humano." },
-      { name: "onReject", type: "() => void", defaultValue: "undefined", description: "Callback de rejeição da proposta." },
-    ],
-    accessibility: {
-      role: "alertdialog",
-      wcagLevel: "AA",
-    },
     examples: [
       {
-        title: "Interceptação de Alto Impacto",
-        code: `<HITLApprovalBanner
-  title="Exclusão de Backup Antigo"
-  severity="danger"
-  onApprove={handleApprove}
-  onReject={handleReject}
-/>`,
+        title: "Alta Confiança com Fontes",
+        code: `<ConfidenceMeter score={96} sourceCount={8} />`,
       },
     ],
   },
@@ -254,221 +415,6 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
       {
         title: "Diff de JSON",
         code: `<AIDiffViewer title="payload.json" diffs={sampleDiffs} />`,
-      },
-    ],
-  },
-
-  "metric-card": {
-    id: "metric-card",
-    name: "MetricCard",
-    cliName: "metric-card",
-    category: "data_viz",
-    categoryLabel: "Visualização de Dados",
-    description: "Card executivo de métricas e KPIs com suporte a Sparklines Bézier integradas, indicadores de tendência e cálculo de metas.",
-    importStatement: `import { MetricCard } from "@/components/ui/metric-card"`,
-    usageCode: `<MetricCard
-  title="Receita Recorrente (MRR)"
-  value="R$ 48.920"
-  change={{ value: "+14.2%", trend: "up" }}
-  sparklineData={[28, 31, 35, 40, 48.9]}
-/>`,
-    props: [
-      { name: "title", type: "string", defaultValue: "undefined", description: "Rótulo superior da métrica." },
-      { name: "value", type: "string | number", defaultValue: "undefined", description: "Valor principal exibido em destaque hero." },
-      { name: "change", type: "{ value: string, trend: 'up' | 'down', period?: string }", defaultValue: "undefined", description: "Indicador de variação percentual." },
-      { name: "sparklineData", type: "number[]", defaultValue: "undefined", description: "Série temporal para renderização do gráfico de linha." },
-    ],
-    accessibility: {
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Card Financeiro com Gráfico",
-        code: `<MetricCard title="Novos Clientes" value="1.420" sparklineData={[10, 15, 22, 29]} />`,
-      },
-    ],
-  },
-
-  chart: {
-    id: "chart",
-    name: "Chart",
-    cliName: "chart",
-    category: "data_viz",
-    categoryLabel: "Visualização de Dados",
-    description: "Wrapper padronizado de visualização de dados sobre o Recharts com suporte a temas OKLCH, tooltips inteligentes e legendas interativas.",
-    importStatement: `import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"`,
-    usageCode: `<ChartContainer config={chartConfig} className="h-[250px]">
-  <AreaChart data={data}>
-    <Area dataKey="mrr" stroke="var(--chart-1)" fill="var(--chart-1)" fillOpacity={0.2} />
-  </AreaChart>
-</ChartContainer>`,
-    props: [
-      { name: "config", type: "ChartConfig", defaultValue: "{}", description: "Dicionário de séries, cores e rótulos do gráfico." },
-      { name: "className", type: "string", defaultValue: "undefined", description: "Classes utilitárias de altura e dimensionamento." },
-    ],
-    accessibility: {
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Gráfico de Área com Gradiente",
-        code: `<ChartContainer config={config}><AreaChart data={data} /></ChartContainer>`,
-      },
-    ],
-  },
-
-  "tour-spotlight": {
-    id: "tour-spotlight",
-    name: "TourSpotlight",
-    cliName: "tour-spotlight",
-    category: "onboarding",
-    categoryLabel: "Onboarding UX",
-    description: "Sistema de onboarding guiado e tour interativo com spotlight escurecido, micro-animações, progresso e ancoragem dinâmica em elementos da interface.",
-    importStatement: `import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"`,
-    usageCode: `<TourSpotlight
-  isOpen={isTourOpen}
-  onClose={() => setIsTourOpen(false)}
-  steps={tourSteps}
-/>`,
-    props: [
-      { name: "isOpen", type: "boolean", defaultValue: "false", description: "Controla a visibilidade do modal de tour." },
-      { name: "steps", type: "TourStep[]", defaultValue: "[]", description: "Lista de etapas com título, descrição e alvo." },
-      { name: "onClose", type: "() => void", defaultValue: "undefined", description: "Callback de encerramento do tour." },
-    ],
-    accessibility: {
-      role: "dialog",
-      keyboardShortcuts: [
-        { key: "Escape", action: "Fecha o tour guiado imediatamente." },
-        { key: "ArrowRight / ArrowLeft", action: "Avança ou recua os passos do tour." },
-      ],
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Tour de Boas-Vindas",
-        code: `<TourSpotlight isOpen={open} steps={steps} onClose={handleClose} />`,
-      },
-    ],
-  },
-
-  "onboarding-checklist": {
-    id: "onboarding-checklist",
-    name: "OnboardingChecklist",
-    cliName: "onboarding-checklist",
-    category: "onboarding",
-    categoryLabel: "Onboarding UX",
-    description: "Checklist persistente e dockable de ativação de produto e conclusão de etapas para novos usuários corporativos.",
-    importStatement: `import { OnboardingChecklist } from "@/components/ui/onboarding-checklist"`,
-    usageCode: `<OnboardingChecklist
-  steps={checklistSteps}
-  onToggleStep={(id) => handleToggle(id)}
-/>`,
-    props: [
-      { name: "steps", type: "OnboardingStep[]", defaultValue: "[]", description: "Passos da lista com status de conclusão." },
-      { name: "onToggleStep", type: "(id: string) => void", defaultValue: "undefined", description: "Callback ao marcar/desmarcar item." },
-    ],
-    accessibility: {
-      role: "region",
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Checklist com Barra de Progresso",
-        code: `<OnboardingChecklist steps={steps} onToggleStep={toggle} />`,
-      },
-    ],
-  },
-
-  tabs: {
-    id: "tabs",
-    name: "Tabs",
-    cliName: "tabs",
-    category: "nav_layout",
-    categoryLabel: "Navegação & Layout",
-    description: "Abas de alternância de conteúdo baseadas em Radix UI com suporte a navegação por teclado e animação de seleção suave.",
-    importStatement: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"`,
-    usageCode: `<Tabs defaultValue="tab1">
-  <TabsList>
-    <TabsTrigger value="tab1">Geral</TabsTrigger>
-    <TabsTrigger value="tab2">Avançado</TabsTrigger>
-  </TabsList>
-  <TabsContent value="tab1">Conteúdo Geral</TabsContent>
-  <TabsContent value="tab2">Configurações Avançadas</TabsContent>
-</Tabs>`,
-    props: [
-      { name: "defaultValue", type: "string", defaultValue: "undefined", description: "Valor da aba selecionada por padrão." },
-      { name: "value", type: "string", defaultValue: "undefined", description: "Valor controlado da aba ativa." },
-      { name: "onValueChange", type: "(val: string) => void", defaultValue: "undefined", description: "Callback disparado na troca de aba." },
-    ],
-    accessibility: {
-      role: "tablist",
-      keyboardShortcuts: [
-        { key: "ArrowLeft / ArrowRight", action: "Navega entre as abas ativas." },
-        { key: "Home / End", action: "Salta para a primeira ou última aba." },
-      ],
-      ariaAttributes: [
-        { attribute: "aria-selected", purpose: "Indica a aba selecionada no momento." },
-        { attribute: "aria-controls", purpose: "Vincula o gatilho da aba ao painel de conteúdo correspondente." },
-      ],
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Abas Simples",
-        code: `<Tabs defaultValue="conta"><TabsList><TabsTrigger value="conta">Conta</TabsTrigger></TabsList></Tabs>`,
-      },
-    ],
-  },
-
-  dialog: {
-    id: "dialog",
-    name: "Dialog",
-    cliName: "dialog",
-    category: "primitives",
-    categoryLabel: "Primitivos & Controles",
-    description: "Janela modal com backdrop desfocado, bloqueio de scroll de fundo e gerenciamento rigoroso de foco para fluxos de decisão.",
-    importStatement: `import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter
-} from "@/components/ui/dialog"`,
-    usageCode: `<Dialog>
-  <DialogTrigger asChild>
-    <Button variant="outline">Abrir Modal</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Confirmar Exclusão</DialogTitle>
-      <DialogDescription>Esta ação é irreversível.</DialogDescription>
-    </DialogHeader>
-    <DialogFooter>
-      <Button variant="primary">Confirmar</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>`,
-    props: [
-      { name: "open", type: "boolean", defaultValue: "undefined", description: "Estado de abertura controlado do modal." },
-      { name: "onOpenChange", type: "(open: boolean) => void", defaultValue: "undefined", description: "Callback disparado na abertura/fechamento." },
-    ],
-    accessibility: {
-      role: "dialog",
-      keyboardShortcuts: [
-        { key: "Escape", action: "Fecha o modal e restaura o foco no elemento acionador." },
-        { key: "Tab", action: "Aprisiona o foco dentro do conteúdo do modal (*Focus Trap*)." },
-      ],
-      ariaAttributes: [
-        { attribute: "aria-modal", purpose: "Informa que a janela é modal para leitores de tela." },
-      ],
-      wcagLevel: "AA",
-    },
-    examples: [
-      {
-        title: "Modal com Formulário",
-        code: `<Dialog><DialogTrigger>Abrir</DialogTrigger><DialogContent><DialogHeader><DialogTitle>Editar</DialogTitle></DialogHeader></DialogContent></Dialog>`,
       },
     ],
   },

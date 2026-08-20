@@ -327,6 +327,15 @@ export function ComponentDetailView({
             <ShieldCheck className="w-3.5 h-3.5 text-success" />
             <span>Acessibilidade</span>
           </TabsTrigger>
+          {metadata.subComponents && metadata.subComponents.length > 0 && (
+            <TabsTrigger value="anatomy" className="text-xs gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-primary" />
+              <span>Anatomia & Sub-componentes</span>
+              <Badge variant="neutral" size="sm" className="text-[9px] px-1 py-0 h-4 font-mono">
+                {metadata.subComponents.length}
+              </Badge>
+            </TabsTrigger>
+          )}
         </TabsList>
 
         {/* 1. PREVIEW & PLAYGROUND */}
@@ -550,6 +559,119 @@ export function ComponentDetailView({
             )}
           </div>
         </TabsContent>
+
+        {/* 5. ANATOMIA ATÔMICA & SUB-COMPONENTES */}
+        {metadata.subComponents && metadata.subComponents.length > 0 && (
+          <TabsContent value="anatomy" className="space-y-6">
+            <div className="p-4 rounded-(--tc-radius-xl) border border-border bg-surface/40 space-y-1">
+              <h3 className="type-heading-card text-sm font-bold text-foreground flex items-center gap-2">
+                <Layers className="w-4 h-4 text-primary" />
+                <span>Hierarquia Atômica & Compound Components</span>
+              </h3>
+              <p className="type-body-sm text-xs text-muted-foreground">
+                O componente <strong>{metadata.name}</strong> é estruturado a partir de átomos e moléculas modulares, permitindo composição flexível e vinculação estrita a tokens de design.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              {metadata.subComponents.map((sub, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-(--tc-radius-lg) border border-border bg-surface-card p-5 space-y-3 hover:border-primary/40 transition-colors shadow-xs"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold text-sm text-primary">
+                        &lt;{sub.name} /&gt;
+                      </span>
+                      <Badge
+                        variant={
+                          sub.level === "atom"
+                            ? "info"
+                            : sub.level === "molecule"
+                            ? "warning"
+                            : "success"
+                        }
+                        size="sm"
+                        className="text-[10px] uppercase font-semibold font-sans"
+                      >
+                        {sub.level === "atom" ? "Átomo" : sub.level === "molecule" ? "Molécula" : "Organismo"}
+                      </Badge>
+                    </div>
+
+                    {sub.tokensUsed && sub.tokensUsed.length > 0 && (
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="type-label-xs text-muted-foreground text-[10px]">Tokens:</span>
+                        {sub.tokensUsed.map((tok, tIdx) => (
+                          <code
+                            key={tIdx}
+                            className="font-mono text-[10px] bg-surface px-1.5 py-0.5 rounded border border-border text-foreground font-semibold"
+                          >
+                            {tok}
+                          </code>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="type-body-sm text-xs text-muted-foreground">
+                    {sub.description}
+                  </p>
+
+                  {sub.usageCode && (
+                    <div className="space-y-1.5 pt-1">
+                      <div className="flex items-center justify-between">
+                        <span className="type-label-xs text-[10px] text-muted-foreground">Exemplo de Composição:</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleCopyCode(sub.usageCode!)}
+                          className="h-6 px-2 text-[11px] gap-1 cursor-pointer font-sans"
+                        >
+                          <Copy className="w-3 h-3" />
+                          <span>Copiar</span>
+                        </Button>
+                      </div>
+                      <pre className="p-3 rounded-md bg-surface font-mono text-xs text-foreground border border-border/80 overflow-x-auto">
+                        <code>{sub.usageCode}</code>
+                      </pre>
+                    </div>
+                  )}
+
+                  {sub.props && sub.props.length > 0 && (
+                    <div className="space-y-1.5 pt-2">
+                      <span className="type-label-xs text-[10px] text-muted-foreground">Props do Sub-componente:</span>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-[140px]">Prop</TableHead>
+                            <TableHead className="w-[180px]">Tipo</TableHead>
+                            <TableHead>Descrição</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {sub.props.map((p, pIdx) => (
+                            <TableRow key={pIdx}>
+                              <TableCell className="font-mono font-bold text-primary text-xs">
+                                {p.name}
+                              </TableCell>
+                              <TableCell className="font-mono text-muted-foreground text-[11px]">
+                                {p.type}
+                              </TableCell>
+                              <TableCell className="text-foreground text-xs font-sans">
+                                {p.description}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        )}
       </Tabs>
 
       {/* Footer Navigation (Previous / Next Component) */}

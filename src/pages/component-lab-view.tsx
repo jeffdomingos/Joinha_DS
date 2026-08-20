@@ -6,6 +6,7 @@ import {
   RotateCcw,
   Info,
   SlidersHorizontal,
+  ArrowRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -116,12 +117,14 @@ export interface ComponentLabViewProps {
   initialCategory?: string
   onStartTour?: () => void
   onOpenCommand?: () => void
+  onSelectComponent?: (id: string) => void
 }
 
 export function ComponentLabView({
   initialCategory = "all",
   onStartTour,
   onOpenCommand,
+  onSelectComponent,
 }: ComponentLabViewProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedCategory, setSelectedCategory] = React.useState<string>(initialCategory)
@@ -1089,15 +1092,23 @@ export function ComponentLabView({
                 {item.renderPreview(helpers)}
               </div>
 
-              {/* CLI Command Line Footer */}
-              <div className="flex items-center justify-between pt-1 border-t border-border/60 text-[11px] font-mono text-muted-foreground">
-                <span className="truncate">npx shadcn add {item.cliName}</span>
+              {/* CLI Command Line & Doc Link Footer */}
+              <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs">
+                <button
+                  type="button"
+                  onClick={() => onSelectComponent?.(`comp-${item.cliName}`)}
+                  className="text-primary hover:underline font-semibold cursor-pointer text-xs flex items-center gap-1 group/link"
+                >
+                  <span>Ver Documentação & API</span>
+                  <ArrowRight className="w-3 h-3 transition-transform group-hover/link:translate-x-0.5" />
+                </button>
                 <button
                   type="button"
                   onClick={() => copyCliCommand(item.cliName)}
-                  className="text-primary hover:underline font-sans text-xs font-semibold cursor-pointer shrink-0 ml-2"
+                  className="text-muted-foreground hover:text-foreground font-mono text-[10px] px-1.5 py-0.5 rounded border border-border/70 hover:border-border cursor-pointer transition-colors"
+                  title={`Copiar npx shadcn add ${item.cliName}`}
                 >
-                  Copiar
+                  CLI
                 </button>
               </div>
             </div>

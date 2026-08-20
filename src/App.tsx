@@ -33,11 +33,14 @@ import {
 import { DashboardView } from "@/pages/dashboard-view"
 import { DocsWikiView } from "@/pages/docs-wiki-view"
 import { ComponentLabView } from "@/pages/component-lab-view"
+import { ComponentDetailView } from "@/pages/component-detail-view"
+import { getComponentMetadata } from "@/data/component-metadata"
 
 export function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
-  const [viewMode, setViewMode] = useState<"docs" | "lab" | "templates-dashboard">("docs")
+  const [viewMode, setViewMode] = useState<"docs" | "lab" | "component" | "templates-dashboard">("docs")
   const [activeNavItem, setActiveNavItem] = useState("docs-overview")
+  const [selectedComponentId, setSelectedComponentId] = useState("button")
   const [labCategory, setLabCategory] = useState<string>("all")
   const [openCommand, setOpenCommand] = useState(false)
 
@@ -115,7 +118,11 @@ export function App() {
 
   const handleSelectNav = (id: string) => {
     setActiveNavItem(id)
-    if (id.startsWith("docs-") || id === "docs") {
+    if (id.startsWith("comp-")) {
+      const cleanId = id.replace("comp-", "")
+      setSelectedComponentId(cleanId)
+      setViewMode("component")
+    } else if (id.startsWith("docs-") || id === "docs") {
       setViewMode("docs")
     } else if (id.startsWith("lab-") || id === "lab") {
       setViewMode("lab")
@@ -131,6 +138,15 @@ export function App() {
   }
 
   const getBreadcrumbs = () => {
+    if (viewMode === "component") {
+      const meta = getComponentMetadata(selectedComponentId)
+      return [
+        { label: "Joinha DS" },
+        { label: "Componentes" },
+        { label: meta.categoryLabel },
+        { label: meta.name },
+      ]
+    }
     switch (activeNavItem) {
       case "docs-overview":
         return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Visão Geral & Filosofia" }]
@@ -155,7 +171,7 @@ export function App() {
       case "template-dashboard":
         return [{ label: "Joinha DS" }, { label: "Templates" }, { label: "SaaS Executive Dashboard" }]
       default:
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Todos os 50 Componentes" }]
+        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Galeria Geral (50)" }]
     }
   }
 
@@ -184,6 +200,15 @@ export function App() {
             setIsTourOpen(true)
           }}
           onOpenCommand={() => setOpenCommand(true)}
+          onSelectComponent={handleSelectNav}
+        />
+      )}
+
+      {viewMode === "component" && (
+        <ComponentDetailView
+          componentId={selectedComponentId}
+          onNavigateComponent={(newId) => handleSelectNav(`comp-${newId}`)}
+          onNavigateToLab={() => handleSelectNav("lab-all")}
         />
       )}
 
@@ -223,33 +248,48 @@ export function App() {
             </CommandItem>
           </CommandGroup>
 
-          <CommandGroup heading="Laboratório de Componentes">
+          <CommandGroup heading="Páginas Dedicadas de Componentes (Populares)">
+            <CommandItem onSelect={() => { handleSelectNav("comp-button"); setOpenCommand(false); }}>
+              <Box className="mr-2 h-4 w-4 text-primary" />
+              <span>Button (Botão Tátil & Variantes)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-data-table"); setOpenCommand(false); }}>
+              <BarChart3 className="mr-2 h-4 w-4 text-primary" />
+              <span>DataTable (Tabela Corporativa com Densidade)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-confidence-meter"); setOpenCommand(false); }}>
+              <Sparkles className="mr-2 h-4 w-4 text-primary" />
+              <span>ConfidenceMeter (Score Perceptual de IA)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-hitl-approval-banner"); setOpenCommand(false); }}>
+              <Sparkles className="mr-2 h-4 w-4 text-primary" />
+              <span>HITLApprovalBanner (Confirmação Humana)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-ai-diff-viewer"); setOpenCommand(false); }}>
+              <Sparkles className="mr-2 h-4 w-4 text-primary" />
+              <span>AIDiffViewer (Visualizador de Diffs)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-tour-spotlight"); setOpenCommand(false); }}>
+              <Compass className="mr-2 h-4 w-4 text-primary" />
+              <span>TourSpotlight (Onboarding Guiado)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { handleSelectNav("comp-dialog"); setOpenCommand(false); }}>
+              <Box className="mr-2 h-4 w-4 text-primary" />
+              <span>Dialog (Modal Acessível Radix)</span>
+            </CommandItem>
+          </CommandGroup>
+
+          <CommandGroup heading="Laboratório & Galeria">
             <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("all"); setActiveNavItem("lab-all"); setOpenCommand(false); }}>
               <Layers className="mr-2 h-4 w-4 text-primary" />
-              <span>Explorador Geral (Todos os 50 Componentes)</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("primitives"); setActiveNavItem("lab-primitives"); setOpenCommand(false); }}>
-              <Box className="mr-2 h-4 w-4" />
-              <span>Primitivos & Controles de Formulário (18)</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("nav_layout"); setActiveNavItem("lab-layout"); setOpenCommand(false); }}>
-              <LayoutGrid className="mr-2 h-4 w-4" />
-              <span>Navegação, Sheets & Resizable Split Panes (10)</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("data_viz"); setActiveNavItem("lab-data"); setOpenCommand(false); }}>
-              <BarChart3 className="mr-2 h-4 w-4" />
-              <span>Visualização de Dados & Recharts (7)</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("xai_hitl"); setActiveNavItem("lab-xai"); setOpenCommand(false); }}>
-              <Sparkles className="mr-2 h-4 w-4 text-primary" />
-              <span>XAI (Confidence, Trace, HITL Banner, Diff Viewer) (5)</span>
+              <span>Galeria Geral (Todos os 50 Componentes)</span>
             </CommandItem>
           </CommandGroup>
 
           <CommandGroup heading="Templates de Referência">
             <CommandItem onSelect={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); setOpenCommand(false); toast.info("Template SaaS Aberto"); }}>
               <LayoutDashboard className="mr-2 h-4 w-4 text-success" />
-              <span>Template: SaaS Executive Dashboard</span>
+              <span>SaaS Executive Dashboard (Template Live)</span>
             </CommandItem>
           </CommandGroup>
 

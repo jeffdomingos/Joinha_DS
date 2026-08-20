@@ -57,11 +57,11 @@ Organizado em 4 lotes temáticos para implementação incremental:
 * [x] **Alert / Banner (`<Alert />`):** Banners semânticos (Default, Info, Success, Warning, Danger) para mensagens in-page.
 * [x] **Sheet / Drawer (`<Sheet />`):** Painel lateral deslizante (*slide-over*) para inspeção profunda de registros e edição rápida.
 
-### 📦 Lote 2: Controles de Entrada & Formulários Ricos
-* [ ] **Checkbox (`<Checkbox />`):** Caixa de seleção com suporte a estado indeterminado para seleção em lote em Data Tables.
-* [ ] **Textarea (`<Textarea />`):** Entrada de texto multilinha para descrições, prompts de IA e anotações.
-* [ ] **Radio Group & Choice Cards (`<RadioGroup />`):** Seleção exclusiva com suporte a cards interativos de planos e faturamento.
-* [ ] **Slider (`<Slider />`):** Controle deslizante de valores/ranges numéricos e limites de planos.
+### 🟢 Lote 2: Controles de Entrada & Formulários Ricos (Concluído)
+* [x] **Checkbox (`<Checkbox />`):** Caixa de seleção com suporte a estado indeterminado para seleção em lote em Data Tables.
+* [x] **Textarea (`<Textarea />`):** Entrada de texto multilinha para descrições, prompts de IA e anotações.
+* [x] **Radio Group & Choice Cards (`<RadioGroup />`):** Seleção exclusiva com suporte a cards interativos de planos e faturamento.
+* [x] **Slider (`<Slider />`):** Controle deslizante de valores/ranges numéricos e limites de planos.
 
 ### 📦 Lote 3: Navegação, Abas & Estruturação
 * [ ] **Tabs / Segmented Control (`<Tabs />`):** Abas com transição suave e indicador de seleção ativo.

@@ -414,6 +414,66 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "checkbox",
+    type: "registry:ui",
+    title: "Checkbox",
+    description: "Accessible control allowing the user to toggle between checked and not-checked options with indeterminate support.",
+    dependencies: ["@radix-ui/react-checkbox", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/checkbox.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/checkbox.tsx"),
+      },
+    ],
+  },
+  {
+    name: "textarea",
+    type: "registry:ui",
+    title: "Textarea",
+    description: "Multiline text input component with subtle focus ring and OKLCH elevation.",
+    dependencies: [],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/textarea.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/textarea.tsx"),
+      },
+    ],
+  },
+  {
+    name: "radio-group",
+    type: "registry:ui",
+    title: "Radio Group",
+    description: "Set of checkable buttons—known as radio buttons—where no more than one can be checked at a time.",
+    dependencies: ["@radix-ui/react-radio-group", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/radio-group.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/radio-group.tsx"),
+      },
+    ],
+  },
+  {
+    name: "slider",
+    type: "registry:ui",
+    title: "Slider",
+    description: "An input where the user selects a value from within a given range.",
+    dependencies: ["@radix-ui/react-slider"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/slider.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/slider.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

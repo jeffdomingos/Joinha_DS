@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "title": "Textarea",
+  "description": "Multiline text input component with subtle focus ring and OKLCH elevation.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/textarea.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface TextareaProps\n  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}\n\nconst Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(\n  ({ className, ...props }, ref) => {\n    return (\n      <textarea\n        className={cn(\n          \"flex min-h-[80px] w-full rounded-(--tc-radius-md) border border-border bg-(--bg-surface) px-3 py-2 text-sm text-foreground shadow-xs placeholder:text-muted-foreground transition-all duration-200 ease-(--tc-ease-smooth) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 hover:border-border/80\",\n          className\n        )}\n        ref={ref}\n        {...props}\n      />\n    )\n  }\n)\nTextarea.displayName = \"Textarea\"\n\nexport { Textarea }\n"
+    }
+  ]
+}

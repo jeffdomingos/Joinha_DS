@@ -54,6 +54,10 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Textarea } from "@/components/ui/textarea"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Slider } from "@/components/ui/slider"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -207,6 +211,9 @@ function App() {
   const [hasElevation, setHasElevation] = useState(true)
   const [hasGlow, setHasGlow] = useState(false)
   const [isSkeletonLoading, setIsSkeletonLoading] = useState(true)
+  const [sliderValue, setSliderValue] = useState([65])
+  const [selectedPlan, setSelectedPlan] = useState("pro")
+  const [termsAccepted, setTermsAccepted] = useState(true)
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark"
@@ -1418,6 +1425,165 @@ function App() {
               </div>
             </div>
           </TooltipProvider>
+        </section>
+
+        {/* Controles de Entrada & Formulários Ricos (Lote 2) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Settings className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Controles de Entrada & Formulários Ricos
+                </h2>
+                <Badge variant="info" size="sm">Fase 5 · Lote 2</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Controles táteis para fluxos de checkout, configurações de workspace, filtros quantitativos e campos de texto multilinha.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 1. Choice Cards / Radio Group (5 cols) */}
+            <div className="lg:col-span-5 p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-border">
+                <span className="type-ui-dense font-semibold text-foreground">Choice Cards (Radio Group)</span>
+                <Badge variant="neutral" size="sm">Seleção de Plano</Badge>
+              </div>
+
+              <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan} className="gap-3">
+                {[
+                  {
+                    id: "starter",
+                    title: "Starter",
+                    price: "R$ 99/mês",
+                    desc: "Até 3 membros, suporte básico e 10k requisições/mês.",
+                    badge: "Básico",
+                  },
+                  {
+                    id: "pro",
+                    title: "Pro Business",
+                    price: "R$ 299/mês",
+                    desc: "Membros ilimitados, webhooks em tempo real e 100k requisições.",
+                    badge: "Mais Popular",
+                  },
+                  {
+                    id: "enterprise",
+                    title: "Enterprise Custom",
+                    price: "R$ 899/mês",
+                    desc: "SLA garantido de 99.99%, SSO SAML e IP dedicado exclusivo.",
+                    badge: "Escala",
+                  },
+                ].map((plan) => (
+                  <label
+                    key={plan.id}
+                    className={cn(
+                      "flex items-start gap-3 p-4 rounded-(--tc-radius-md) border bg-surface-elevated/40 cursor-pointer transition-all duration-200 ease-(--tc-ease-smooth) hover:border-primary/50",
+                      selectedPlan === plan.id
+                        ? "border-primary/70 bg-primary/5 [box-shadow:0_0_12px_oklch(67%_0.17_53_/_0.15)]"
+                        : "border-border"
+                    )}
+                  >
+                    <RadioGroupItem value={plan.id} id={plan.id} className="mt-1" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-semibold text-sm text-foreground">{plan.title}</span>
+                        <span className="font-mono text-xs font-bold text-primary">{plan.price}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{plan.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </RadioGroup>
+            </div>
+
+            {/* 2. Textarea, Slider & Checkboxes (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Textarea */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Entrada Multilinha (Textarea)</span>
+                  <span className="text-[11px] font-mono text-muted-foreground">min-h-[80px]</span>
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-foreground">Prompt de IA / Descrição da Automação</label>
+                  <Textarea
+                    placeholder="Escreva as instruções ou parâmetros para execução do agente..."
+                    defaultValue="Você é um assistente sênior de infraestrutura. Analise os logs do cluster Kubernetes e gere alertas para consumo de memória acima de 85%."
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              {/* Slider & Range Control */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Controle Deslizante (Slider)</span>
+                  <span className="font-mono text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                    {sliderValue[0]}% de Cota
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>Limite de Alerta Mínimo (0%)</span>
+                    <span>Capacidade Total (100%)</span>
+                  </div>
+                  <Slider
+                    value={sliderValue}
+                    onValueChange={setSliderValue}
+                    max={100}
+                    step={1}
+                    className="w-full"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Quando o consumo ultrapassar <strong className="text-foreground">{sliderValue[0]}%</strong>, a equipe de engenharia receberá um webhook automático no Slack.
+                  </p>
+                </div>
+              </div>
+
+              {/* Checkbox Group */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Caixas de Seleção (Checkbox)</span>
+                  <Badge variant="neutral" size="sm">Acessibilidade Radix</Badge>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <Checkbox checked={termsAccepted} onCheckedChange={(val) => setTermsAccepted(!!val)} className="mt-0.5" />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">Notificações por Email</span>
+                      <span className="text-[11px] text-muted-foreground">Receba relatórios diários de MRR</span>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <Checkbox defaultChecked className="mt-0.5" />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">Autenticação 2FA Obrigatória</span>
+                      <span className="text-[11px] text-muted-foreground">Exigir chave TOTP de todos os membros</span>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <Checkbox checked="indeterminate" className="mt-0.5" />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">Seleção em Lote (Indeterminada)</span>
+                      <span className="text-[11px] text-muted-foreground">12 de 35 registros selecionados</span>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-not-allowed opacity-50 select-none">
+                    <Checkbox disabled className="mt-0.5" />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">Backup em Nuvem Privada</span>
+                      <span className="text-[11px] text-muted-foreground">Exclusivo para plano Enterprise</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
         </div>
       )}

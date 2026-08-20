@@ -172,9 +172,9 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-300">
       {/* Template Header Disclaimer Banner with Scoped Density Controls */}
-      <div className="p-4 sm:p-5 rounded-(--tc-radius-xl) bg-surface-card border border-primary/30 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xs">
+      <div className="p-4 sm:p-5 rounded-(--tc-radius-xl) bg-surface-card border border-border flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xs">
         <div className="flex items-start gap-3.5">
-          <div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5">
+          <div className="p-2.5 rounded-lg bg-surface-hover text-muted-foreground border border-border shrink-0 mt-0.5">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
@@ -399,7 +399,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Database className="w-5 h-5 text-primary" />
+            <Database className="w-5 h-5 text-muted-foreground" />
             <h2 className="text-xl font-semibold font-display">Tabela de Gestão de Clientes</h2>
           </div>
           <span className="text-xs text-muted-foreground font-sans">
@@ -414,7 +414,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
       <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-(--bg-surface-elevated)/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary" />
+            <Sparkles className="w-4 h-4 text-muted-foreground" />
             <h4 className="text-sm font-bold font-display text-foreground">
               Explore o Joinha Design System
             </h4>

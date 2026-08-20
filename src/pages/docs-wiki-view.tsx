@@ -90,8 +90,8 @@ export function DocsWikiView({
         <section className="space-y-6 animate-in fade-in-50 duration-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
-              <div className="flex items-center gap-2 text-primary font-bold font-display text-sm">
-                <Palette className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
+                <Palette className="w-4 h-4 text-muted-foreground" />
                 1. Espaço de Cores OKLCH
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -100,8 +100,8 @@ export function DocsWikiView({
             </div>
 
             <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
-              <div className="flex items-center gap-2 text-primary font-bold font-display text-sm">
-                <Layers className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
+                <Layers className="w-4 h-4 text-muted-foreground" />
                 2. Elevação Dark-First (5 Níveis)
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -110,8 +110,8 @@ export function DocsWikiView({
             </div>
 
             <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
-              <div className="flex items-center gap-2 text-primary font-bold font-display text-sm">
-                <ShieldCheck className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
+                <ShieldCheck className="w-4 h-4 text-muted-foreground" />
                 3. Acessibilidade WCAG 2.2 AA
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -124,7 +124,7 @@ export function DocsWikiView({
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
-                <Type className="w-4 h-4 text-primary" />
+                <Type className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-base font-bold font-display text-foreground">Escala Tipográfica Hierárquica</h3>
               </div>
               <Badge variant="neutral" size="sm">3 Famílias Especializadas</Badge>
@@ -132,19 +132,19 @@ export function DocsWikiView({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Display / Títulos</span>
+                <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Display / Títulos</span>
                 <p className="text-2xl font-bold font-display text-foreground tracking-tight">Cabin (Gill Sans)</p>
                 <p className="text-xs text-muted-foreground">Títulos de páginas, cabeçalhos de seções e valores numéricos em destaque hero.</p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Interface / Corpo</span>
+                <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Interface / Corpo</span>
                 <p className="text-xl font-medium font-sans text-foreground">Plus Jakarta Sans</p>
                 <p className="text-xs text-muted-foreground">Textos corridos, botões, formulários, badges, tags e células de tabelas.</p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Dados / Numérico</span>
+                <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Dados / Numérico</span>
                 <p className="text-xl font-bold font-mono text-foreground">JetBrains Mono</p>
                 <p className="text-xs text-muted-foreground">Colunas financeiras tabulares, identificadores (IDs), atalhos de teclado e código.</p>
               </div>
@@ -172,7 +172,7 @@ export function DocsWikiView({
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
-                <Palette className="w-4 h-4 text-primary" />
+                <Palette className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-base font-bold font-display text-foreground">Cores Primárias de Marca (Laranja OKLCH)</h3>
               </div>
               <span className="text-xs text-muted-foreground font-sans">Clique para copiar o token</span>
@@ -432,7 +432,7 @@ export function DocsWikiView({
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-primary" />
+                <Terminal className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-base font-bold font-display text-foreground">Instalação Modular via CLI Oficial</h3>
               </div>
               <Badge variant="info" size="sm">Shadcn Compatible</Badge>
@@ -444,7 +444,7 @@ export function DocsWikiView({
 
             <div className="space-y-3 font-mono text-xs">
               <div className="p-3 rounded-lg bg-surface border border-border/80 space-y-1.5">
-                <span className="text-[11px] font-sans font-semibold text-primary block">1. Configurar Tokens do Joinha DS:</span>
+                <span className="text-[11px] font-sans font-semibold text-foreground block">1. Configurar Tokens do Joinha DS:</span>
                 <div className="flex items-center justify-between bg-surface-card p-2 rounded border border-border/60 text-muted-foreground">
                   <code>npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/tokens.json</code>
                   <Button
@@ -459,7 +459,7 @@ export function DocsWikiView({
               </div>
 
               <div className="p-3 rounded-lg bg-surface border border-border/80 space-y-1.5">
-                <span className="text-[11px] font-sans font-semibold text-primary block">2. Instalar Componente Individual (ex: Button):</span>
+                <span className="text-[11px] font-sans font-semibold text-foreground block">2. Instalar Componente Individual (ex: Button):</span>
                 <div className="flex items-center justify-between bg-surface-card p-2 rounded border border-border/60 text-muted-foreground">
                   <code>npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/button.json</code>
                   <Button

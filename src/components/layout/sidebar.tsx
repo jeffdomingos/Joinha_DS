@@ -509,7 +509,7 @@ export function Sidebar({
                   className="flex items-center justify-between gap-2 p-2 rounded-(--tc-radius-sm) cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-primary" />
+                    <Building2 className="w-4 h-4 text-muted-foreground" />
                     <div className="flex flex-col">
                       <span className="font-medium text-xs">{ws.name}</span>
                       <span className="type-body-sm text-[10px] text-muted-foreground">{ws.plan}</span>
@@ -519,8 +519,8 @@ export function Sidebar({
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="gap-2 cursor-pointer text-primary">
-                <Plus className="w-4 h-4" />
+              <DropdownMenuItem className="gap-2 cursor-pointer text-foreground">
+                <Plus className="w-4 h-4 text-muted-foreground" />
                 <span className="text-xs font-semibold">Novo Workspace</span>
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -1073,7 +1073,7 @@ export function ComponentDetailView({
             )}
 
             <div className="flex items-center gap-2 bg-surface p-1.5 pl-3 rounded-(--tc-radius-md) border border-border shadow-xs">
-              <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
+              <Terminal className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
               <code className="type-code-inline text-[11px] text-muted-foreground truncate max-w-[220px] sm:max-w-xs select-all">
                 npx shadcn@latest add {metadata.cliName}
               </code>
@@ -1103,7 +1103,7 @@ export function ComponentDetailView({
         {/* Component When to Use & Usage Recommendation Hub */}
         {metadata.whenToUse && (
           <div className="p-3.5 rounded-(--tc-radius-lg) border border-border/80 bg-surface/60 flex items-start gap-3 mt-3">
-            <div className="p-1.5 rounded-md bg-primary/10 text-primary shrink-0 mt-0.5">
+            <div className="p-1.5 rounded-md bg-surface-hover text-muted-foreground border border-border shrink-0 mt-0.5">
               <Compass className="w-4 h-4" />
             </div>
             <div className="space-y-0.5">
@@ -1377,7 +1377,7 @@ export function ComponentDetailView({
           <TabsContent value="anatomy" className="space-y-6">
             <div className="p-4 rounded-(--tc-radius-xl) border border-border bg-surface/40 space-y-1">
               <h3 className="type-heading-card text-sm font-bold text-foreground flex items-center gap-2">
-                <Layers className="w-4 h-4 text-primary" />
+                <Layers className="w-4 h-4 text-muted-foreground" />
                 <span>Hierarquia Atômica & Compound Components</span>
               </h3>
               <p className="type-body-sm text-xs text-muted-foreground">

@@ -443,9 +443,6 @@
 /* --------------------------------------------------------
    1. COMPACT MODE (Fiscal / Operacional / Alta Densidade)
    -------------------------------------------------------- */
-[data-density="compact"] {
-  font-size: 0.8125rem;
-}
 
 /* Tables & DataGrids */
 [data-density="compact"] table th {
@@ -583,9 +580,6 @@
 /* --------------------------------------------------------
    2. COMFORTABLE MODE (Executivo / Telas Leves / Espaçoso)
    -------------------------------------------------------- */
-[data-density="comfortable"] {
-  font-size: 0.9375rem;
-}
 
 /* Tables & DataGrids */
 [data-density="comfortable"] table th {

@@ -177,13 +177,22 @@
   }
 
   /* Sonner Stacked Depth Physics */
-  [data-sonner-toast]:not([data-front="true"]) {
-    filter: brightness(0.68) saturate(0.85);
+  [data-sonner-toast] {
     transition: filter var(--tc-duration-fast) var(--tc-ease-smooth), transform var(--tc-duration-fast) var(--tc-ease-smooth), opacity var(--tc-duration-fast) var(--tc-ease-smooth);
   }
 
-  [data-sonner-toast][data-index="2"]:not([data-front="true"]) {
+  [data-sonner-toaster]:not([data-expanded="true"]):not(:hover) [data-sonner-toast]:not([data-front="true"]) {
+    filter: brightness(0.68) saturate(0.85);
+  }
+
+  [data-sonner-toaster]:not([data-expanded="true"]):not(:hover) [data-sonner-toast][data-index="2"]:not([data-front="true"]) {
     filter: brightness(0.48) saturate(0.7);
+  }
+
+  /* Full color restoration when hovered / expanded */
+  [data-sonner-toaster][data-expanded="true"] [data-sonner-toast],
+  [data-sonner-toaster]:hover [data-sonner-toast] {
+    filter: brightness(1) saturate(1) !important;
   }
   
   .brand-glow {

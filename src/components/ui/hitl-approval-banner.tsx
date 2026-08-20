@@ -78,45 +78,46 @@ export function HITLApprovalBanner({
       )}
       {...props}
     >
-      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-        <div className="flex items-start gap-3.5 min-w-0 flex-1">
-          <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border", config.bg, config.border)}>
-            <Icon className="h-5 w-5 text-foreground" />
-          </div>
-
-          <div className="space-y-1.5 min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={config.badge} size="sm" className="gap-1 font-semibold shrink-0">
-                <Lock className="h-2.5 w-2.5" />
-                {config.badgeText}
-              </Badge>
-              <span className="text-[11px] font-mono text-muted-foreground truncate">· {actionType}</span>
-              {resourceCount !== undefined && (
-                <Badge variant="neutral" size="sm" className="font-mono text-[10px] shrink-0">
-                  {resourceCount} recursos afetados
-                </Badge>
-              )}
-            </div>
-
-            <h3 id="hitl-banner-title" className="text-sm sm:text-base font-bold font-display tracking-tight text-foreground">
-              {title}
-            </h3>
-
-            <p className="text-xs text-muted-foreground leading-relaxed max-w-2xl">
-              {description}
-            </p>
-
-            {impactSummary && (
-              <div className="mt-2.5 inline-block rounded-md bg-surface p-2.5 text-xs text-foreground font-mono border border-border/80">
-                <strong className="text-primary font-sans font-semibold">Impacto Estimado: </strong>
-                {impactSummary}
-              </div>
-            )}
-          </div>
+      {/* Top Section: Icon & Explanatory Content */}
+      <div className="flex items-start gap-3.5 w-full">
+        <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border mt-0.5", config.bg, config.border)}>
+          <Icon className="h-5 w-5 text-foreground" />
         </div>
 
-        {/* Action Controls */}
-        <div className="flex flex-wrap items-center justify-start sm:justify-end gap-2 shrink-0 pt-2 md:pt-0">
+        <div className="space-y-1.5 flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant={config.badge} size="sm" className="gap-1 font-semibold shrink-0">
+              <Lock className="h-2.5 w-2.5" />
+              {config.badgeText}
+            </Badge>
+            <span className="text-[11px] font-mono text-muted-foreground">· {actionType}</span>
+            {resourceCount !== undefined && (
+              <Badge variant="neutral" size="sm" className="font-mono text-[10px] shrink-0">
+                {resourceCount} recursos afetados
+              </Badge>
+            )}
+          </div>
+
+          <h3 id="hitl-banner-title" className="text-sm sm:text-base font-bold font-display tracking-tight text-foreground">
+            {title}
+          </h3>
+
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            {description}
+          </p>
+
+          {impactSummary && (
+            <div className="mt-2.5 inline-block rounded-md bg-surface p-2.5 text-xs text-foreground font-mono border border-border/80">
+              <strong className="text-primary font-sans font-semibold">Impacto Estimado: </strong>
+              {impactSummary}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Action Controls Footer */}
+      {(onEdit || onReject || onApprove) && (
+        <div className="mt-4 pt-3 border-t border-border/40 flex flex-wrap items-center justify-end gap-2.5 w-full">
           {onEdit && (
             <Button
               variant="outline"
@@ -156,7 +157,7 @@ export function HITLApprovalBanner({
             </Button>
           )}
         </div>
-      </div>
+      )}
     </div>
   )
 }

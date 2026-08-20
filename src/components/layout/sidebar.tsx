@@ -124,8 +124,8 @@ export function Sidebar({
               )}
             >
               {/* Brand Avatar */}
-              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0">
-                <BrandSymbol className="w-4 h-4 text-primary-foreground" />
+              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1">
+                <BrandSymbol className="h-5.5 w-auto text-primary-foreground" />
               </div>
 
               {!collapsed && (

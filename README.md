@@ -14,7 +14,7 @@
 
 <br />
 
-[✨ Usar como Template](https://github.com/jeffdomingos/Joinha_DS/generate) · [📖 Diretrizes de Design (`design-system.md`)](./design-system.md) · [🗺️ Roadmap](./docs/ROADMAP.md)
+[✨ Usar como Template](https://github.com/jeffdomingos/Joinha_DS/generate) · [📖 Diretrizes de Design (`design-system.md`)](./design-system.md) · [💎 Compêndio de Engenharia & Breakthroughs](./docs/DESIGN_SYSTEM_INSIGHTS.md) · [🗺️ Roadmap](./docs/ROADMAP.md)
 
 </div>
 

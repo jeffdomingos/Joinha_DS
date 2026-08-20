@@ -86,6 +86,43 @@
   to { opacity: 0; scale: 0.96; }
 }
 
+/* Sheet Drawer Slide Keyframes (GPU Accelerated translate) */
+@keyframes sheetSlideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes sheetSlideOutRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes sheetSlideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes sheetSlideOutLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes sheetSlideInTop {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes sheetSlideOutTop {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes sheetSlideInBottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes sheetSlideOutBottom {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
 @layer components {
   .dropdown-content[data-state="open"] {
     animation: microFadeIn var(--tc-duration-fast) var(--tc-ease-spring) forwards;
@@ -94,10 +131,12 @@
     animation: microFadeOut var(--tc-duration-fast) var(--tc-ease-smooth) forwards;
   }
   
-  .dialog-overlay[data-state="open"] {
+  .dialog-overlay[data-state="open"],
+  .sheet-overlay[data-state="open"] {
     animation: overlayFadeIn var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
   }
-  .dialog-overlay[data-state="closed"] {
+  .dialog-overlay[data-state="closed"],
+  .sheet-overlay[data-state="closed"] {
     animation: overlayFadeOut var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
   }
   
@@ -106,6 +145,35 @@
   }
   .dialog-content[data-state="closed"] {
     animation: dialogZoomOut var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
+  }
+
+  /* Sheet Dynamic Direction Animations */
+  .sheet-right[data-state="open"] {
+    animation: sheetSlideInRight 320ms var(--tc-ease-spring) forwards;
+  }
+  .sheet-right[data-state="closed"] {
+    animation: sheetSlideOutRight 200ms var(--tc-ease-smooth) forwards;
+  }
+
+  .sheet-left[data-state="open"] {
+    animation: sheetSlideInLeft 320ms var(--tc-ease-spring) forwards;
+  }
+  .sheet-left[data-state="closed"] {
+    animation: sheetSlideOutLeft 200ms var(--tc-ease-smooth) forwards;
+  }
+
+  .sheet-top[data-state="open"] {
+    animation: sheetSlideInTop 320ms var(--tc-ease-spring) forwards;
+  }
+  .sheet-top[data-state="closed"] {
+    animation: sheetSlideOutTop 200ms var(--tc-ease-smooth) forwards;
+  }
+
+  .sheet-bottom[data-state="open"] {
+    animation: sheetSlideInBottom 320ms var(--tc-ease-spring) forwards;
+  }
+  .sheet-bottom[data-state="closed"] {
+    animation: sheetSlideOutBottom 200ms var(--tc-ease-smooth) forwards;
   }
 }
 

@@ -354,6 +354,66 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "tooltip",
+    type: "registry:ui",
+    title: "Tooltip",
+    description: "Floating accessible tooltip popup anchored to trigger elements.",
+    dependencies: ["@radix-ui/react-tooltip"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/tooltip.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/tooltip.tsx"),
+      },
+    ],
+  },
+  {
+    name: "kbd",
+    type: "registry:ui",
+    title: "Kbd",
+    description: "Tactile keyboard key representation with monospace font and physical surface styling.",
+    dependencies: ["class-variance-authority"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/kbd.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/kbd.tsx"),
+      },
+    ],
+  },
+  {
+    name: "alert",
+    type: "registry:ui",
+    title: "Alert",
+    description: "Semantic banner component for inline feedback, errors, tips, and warnings.",
+    dependencies: ["class-variance-authority"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/alert.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/alert.tsx"),
+      },
+    ],
+  },
+  {
+    name: "sheet",
+    type: "registry:ui",
+    title: "Sheet",
+    description: "Side slide-over drawer panel for deep inspection and off-canvas forms.",
+    dependencies: ["@radix-ui/react-dialog", "class-variance-authority", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/sheet.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/sheet.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

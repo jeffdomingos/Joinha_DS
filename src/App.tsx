@@ -42,6 +42,18 @@ import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"
+import { Kbd } from "@/components/ui/kbd"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -1183,6 +1195,229 @@ function App() {
               </div>
             )}
           </div>
+        </section>
+
+        {/* Overlays, Teclado & Feedback (Lote 1) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Layers className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Overlays, Teclado & Feedback
+                </h2>
+                <Badge variant="info" size="sm">Fase 5 · Lote 1</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Primitivos essenciais de interação física: Tooltips com micro-setas, teclas Kbd, banners semânticos de Alert e gaveta lateral Sheet.
+              </p>
+            </div>
+          </div>
+
+          <TooltipProvider delayDuration={150}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+              {/* 1. Alerts & Banners */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Banners Semânticos (Alert)</span>
+                  <Badge variant="neutral" size="sm">5 Variantes</Badge>
+                </div>
+
+                <div className="space-y-3">
+                  <Alert variant="default">
+                    <Info className="h-4 w-4" />
+                    <AlertTitle>Atualização de Sistema</AlertTitle>
+                    <AlertDescription>
+                      Novos tokens de OKLCH e componentes da Fase 5 foram carregados com sucesso.
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert variant="info">
+                    <Info className="h-4 w-4" />
+                    <AlertTitle>Dica de Produtividade</AlertTitle>
+                    <AlertDescription>
+                      Você pode usar atalhos como <Kbd size="sm">⌘</Kbd> + <Kbd size="sm">K</Kbd> para abrir a busca global a qualquer momento.
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert variant="success">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <AlertTitle>Fatura Paga com Sucesso</AlertTitle>
+                    <AlertDescription>
+                      O pagamento do plano Enterprise foi processado via webhook da Stripe.
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert variant="warning">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertTitle>Limite de Requisições Próximo</AlertTitle>
+                    <AlertDescription>
+                      Seu workspace atingiu 85% da cota mensal de chamadas da API.
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>Falha de Autenticação</AlertTitle>
+                    <AlertDescription>
+                      A chave de API informada expirou ou foi revogada pelo administrador.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </div>
+
+              {/* 2. Tooltips, Kbd & Sheet Drawer */}
+              <div className="space-y-6">
+                {/* Tooltips & Kbd Shortcuts */}
+                <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-border">
+                    <span className="type-ui-dense font-semibold text-foreground">Tooltips & Teclas Kbd</span>
+                    <Badge variant="info" size="sm">Atalhos Físicos</Badge>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Passe o mouse sobre os botões para visualizar os tooltips com elevação Surface 3 e teclas Kbd embutidas.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="sm">
+                          Salvar Registro
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="flex items-center gap-2">
+                        <span>Salvar alterações</span>
+                        <div className="flex items-center gap-0.5">
+                          <Kbd size="sm">⌘</Kbd>
+                          <Kbd size="sm">S</Kbd>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="secondary" size="icon" className="h-9 w-9">
+                          <Download className="w-4 h-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="flex items-center gap-1.5">
+                        <span>Exportar CSV</span>
+                        <Kbd size="sm">⇧E</Kbd>
+                      </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive">
+                          <Trash className="w-4 h-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="flex items-center gap-1.5">
+                        <span className="text-destructive font-medium">Excluir Registro</span>
+                        <Kbd size="sm">⌫</Kbd>
+                      </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="primary" size="sm">
+                          Novo Workspace
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="flex items-center gap-1.5">
+                        <span>Criar espaço</span>
+                        <div className="flex items-center gap-0.5">
+                          <Kbd size="sm">⌥</Kbd>
+                          <Kbd size="sm">N</Kbd>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+
+                  <div className="pt-2 border-t border-border flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">Tamanhos de Tecla Kbd:</span>
+                    <div className="flex items-center gap-2">
+                      <Kbd size="sm">sm</Kbd>
+                      <Kbd size="default">default</Kbd>
+                      <Kbd size="lg">lg</Kbd>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sheet / Drawer Interactive Trigger */}
+                <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-border">
+                    <span className="type-ui-dense font-semibold text-foreground">Painel Lateral (Sheet / Drawer)</span>
+                    <Badge variant="success" size="sm">Slide-over</Badge>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Painel deslizante no eixo Z com elevação Surface 3 para inspeção profunda e edição rápida sem troca de página.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="outline" className="gap-2">
+                          <FileEdit className="w-4 h-4 text-primary" />
+                          Inspecionar Cliente (Gaveta Direita)
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side="right" className="w-full sm:max-w-md flex flex-col">
+                        <SheetHeader>
+                          <div className="flex items-center gap-2">
+                            <Tag variant="purple" size="sm">Enterprise</Tag>
+                            <Badge variant="success" size="sm">Ativo</Badge>
+                          </div>
+                          <SheetTitle className="pt-2">Acme Corporation</SheetTitle>
+                          <SheetDescription>
+                            Detalhes cadastrais, histórico de faturamento e chaves de integração do cliente.
+                          </SheetDescription>
+                        </SheetHeader>
+
+                        <div className="py-6 space-y-4 flex-1 overflow-y-auto">
+                          <div className="p-3.5 rounded-(--tc-radius-md) bg-surface border border-border space-y-2">
+                            <span className="text-xs font-semibold text-foreground">Informações de Contato</span>
+                            <div className="text-xs text-muted-foreground space-y-1">
+                              <p><strong>Email:</strong> financeiro@acme.com</p>
+                              <p><strong>CNPJ:</strong> 12.345.678/0001-90</p>
+                              <p><strong>MRR:</strong> R$ 4.200,00 / mês</p>
+                            </div>
+                          </div>
+
+                          <div className="p-3.5 rounded-(--tc-radius-md) bg-surface border border-border space-y-2">
+                            <span className="text-xs font-semibold text-foreground">Uso da Cota de API</span>
+                            <div className="space-y-1.5">
+                              <div className="flex justify-between text-xs text-muted-foreground">
+                                <span>Requisições gastas</span>
+                                <span className="font-mono text-foreground font-semibold">84.200 / 100.000</span>
+                              </div>
+                              <div className="w-full h-2 rounded-full bg-surface-elevated overflow-hidden">
+                                <div className="h-full bg-primary rounded-full" style={{ width: "84.2%" }} />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <label className="text-xs font-semibold text-foreground">Anotações Internas</label>
+                            <Input defaultValue="Cliente prioritário. Contrato anual renovado em Março." />
+                          </div>
+                        </div>
+
+                        <SheetFooter>
+                          <Button variant="outline" size="sm">Fechar</Button>
+                          <Button variant="primary" size="sm" onClick={() => toast.success("Dados do cliente atualizados com sucesso!")}>
+                            Salvar Alterações
+                          </Button>
+                        </SheetFooter>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TooltipProvider>
         </section>
         </div>
       )}

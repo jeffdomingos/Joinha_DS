@@ -42,3 +42,35 @@ Este documento registra a visão, propósito e o plano de evolução do **Tem Co
 * [x] Criação do layout base consolidado de SaaS (Sidebar expansível, Header global e Área principal de Conteúdo).
 * [x] Configuração do repositório como um GitHub Template (`Use this template`) pronto para clonagem e início imediato de projetos.
 * [x] Estruturação de um Registry JSON no padrão Shadcn, possibilitando a instalação modular de componentes diretamente via CLI (ex: `npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/button.json`).
+* [x] Inclusão do Símbolo oficial da marca Tem Como (`BrandSymbol`) e Favicon nativo.
+* [x] Implementação de Skeleton Screens com Shimmer Direcional (NN/g + OKLCH Model).
+
+---
+
+## 4. Próxima Etapa — Fase 5: Expansão do Catálogo de Componentes SaaS
+
+Organizado em 4 lotes temáticos para implementação incremental:
+
+### 🟢 Lote 1: Overlays, Teclado & Feedback (Concluído)
+* [x] **Tooltip (`<Tooltip />`):** Balão flutuante acessível com micro-setas e delay calibrado para botões de ícone e atalhos.
+* [x] **Kbd (`<Kbd />`):** Tecla física para atalhos (`⌘`, `K`, `Shift`, `Esc`) com chanfro e elevação de superfície.
+* [x] **Alert / Banner (`<Alert />`):** Banners semânticos (Default, Info, Success, Warning, Danger) para mensagens in-page.
+* [x] **Sheet / Drawer (`<Sheet />`):** Painel lateral deslizante (*slide-over*) para inspeção profunda de registros e edição rápida.
+
+### 📦 Lote 2: Controles de Entrada & Formulários Ricos
+* [ ] **Checkbox (`<Checkbox />`):** Caixa de seleção com suporte a estado indeterminado para seleção em lote em Data Tables.
+* [ ] **Textarea (`<Textarea />`):** Entrada de texto multilinha para descrições, prompts de IA e anotações.
+* [ ] **Radio Group & Choice Cards (`<RadioGroup />`):** Seleção exclusiva com suporte a cards interativos de planos e faturamento.
+* [ ] **Slider (`<Slider />`):** Controle deslizante de valores/ranges numéricos e limites de planos.
+
+### 📦 Lote 3: Navegação, Abas & Estruturação
+* [ ] **Tabs / Segmented Control (`<Tabs />`):** Abas com transição suave e indicador de seleção ativo.
+* [ ] **Accordion (`<Accordion />`):** Seções colapsáveis com animação fluida para configurações e FAQs.
+* [ ] **Separator / Divider (`<Separator />`):** Divisórias horizontais/verticais com suporte a label central.
+* [ ] **Standalone Pagination (`<Pagination />`):** Controlador de paginação isolado com seletor de linhas e salto de página.
+
+### 📦 Lote 4: Exibição de Dados & Produtividade
+* [ ] **Avatar & AvatarGroup (`<Avatar />` + `<AvatarGroup />`):** Foto, iniciais, status dot e empilhamento com contador `+N`.
+* [ ] **Progress Bar (`<Progress />`):** Barra de progresso linear com cores semânticas de cota (Verde / Amarelo / Vermelho).
+* [ ] **Empty State (`<EmptyState />`):** Estado vazio padrão para buscas e tabelas sem dados.
+* [ ] **Command Palette (`<Command />` / `⌘K`):** Menu modal de busca fuzzy e ações rápidas estilo Raycast/Linear.

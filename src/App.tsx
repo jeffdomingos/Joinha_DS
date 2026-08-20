@@ -619,7 +619,7 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
             {/* Interactive Area Chart (Revenue Trajectory) */}
             <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <div className="flex flex-col gap-0.5">
                   <h3 className="type-heading-item font-semibold text-foreground">
                     Evolução da Receita (MRR vs. Projeção)
@@ -628,13 +628,13 @@ function App() {
                     Valores acumulados nos últimos 6 meses
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-(--status-success-subtle) px-2 py-0.5 rounded-(--tc-radius-sm) border border-(--status-success-border)">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-(--status-success-subtle) px-2 py-0.5 rounded-(--tc-radius-sm) border border-(--status-success-border) whitespace-nowrap shrink-0">
                   <TrendingUp className="w-3.5 h-3.5" /> +72.2% H1
                 </span>
               </div>
 
               <ChartContainer config={revenueChartConfig} className="h-[240px] w-full">
-                <AreaChart data={revenueData} margin={{ left: -20, right: 10, top: 10, bottom: 0 }}>
+                <AreaChart data={revenueData} margin={{ left: 6, right: 12, top: 10, bottom: 0 }}>
                   <defs>
                     <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.4} />
@@ -653,10 +653,11 @@ function App() {
                     tickMargin={8}
                   />
                   <YAxis
+                    width={60}
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(val) => `R$ ${val / 1000}k`}
-                    tickMargin={8}
+                    tickMargin={4}
                   />
                   <ChartTooltip
                     cursor={{ stroke: "var(--border-strong)", strokeWidth: 1 }}
@@ -701,7 +702,7 @@ function App() {
               </div>
 
               <ChartContainer config={channelChartConfig} className="h-[240px] w-full">
-                <BarChart data={channelData} margin={{ left: -20, right: 10, top: 10, bottom: 0 }}>
+                <BarChart data={channelData} margin={{ left: 0, right: 12, top: 10, bottom: 0 }}>
                   <CartesianGrid vertical={false} strokeDasharray="3 3" />
                   <XAxis
                     dataKey="channel"
@@ -710,9 +711,11 @@ function App() {
                     tickMargin={8}
                   />
                   <YAxis
+                    width={40}
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={8}
+                    tickFormatter={(val) => `${val / 1000}k`}
+                    tickMargin={4}
                   />
                   <ChartTooltip
                     cursor={{ fill: "var(--bg-surface-hover)" }}

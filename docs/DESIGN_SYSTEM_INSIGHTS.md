@@ -113,6 +113,12 @@ O brilho luminoso laranja (*glow*) foi estritamente restringido:
 - **Proibido:** Espalhar glows em botões comuns, cards diários ou tabelas.
 - **Permitido:** Exclusivo para momentos *hero* de alta conversão (ex: card de Upgrade de Plano, Destaque de IA).
 
+### 4. Padrão Universal de Outline & Herança Contextual de Superfície (`--surface-current`)
+Para eliminar artefatos de máscara recortada e disparidades de luminância em botões ou elementos de contorno (*Outline*):
+- **Origem da Luz:** Ponto radial vindo do canto superior esquerdo (`radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%)`).
+- **Herança Dinâmica de Miolo:** O preenchimento interno (`padding-box`) consome a variável CSS de ambiente `--surface-current`.
+- **Fusão Perfeita com o Pai:** O elemento herda a cor exata do container onde estiver inserido (Canvas $L=14\%$, Cards $L=18\%$, Dropdowns $L=22\%$, Modais $L=26\%$), sem máscaras de recorte e sem cantos escurecidos.
+
 ---
 
 ## 6. Física de Movimento e Micro-Interações

@@ -22,7 +22,7 @@ const Separator = React.forwardRef<
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-(--bg-surface) px-2.5 font-mono text-[10px] text-muted-foreground font-semibold tracking-wider">
+            <span className="bg-(--bg-surface) px-2.5 font-sans text-[11px] text-muted-foreground font-semibold tracking-wider">
               {label || children}
             </span>
           </div>

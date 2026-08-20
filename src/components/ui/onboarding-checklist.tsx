@@ -108,9 +108,9 @@ export function OnboardingChecklist({
 
         {/* Progress Bar */}
         <div className="mt-3 space-y-1">
-          <div className="flex justify-between text-[10px] font-mono text-muted-foreground">
+          <div className="flex justify-between text-xs font-sans text-muted-foreground">
             <span>{completedCount} de {steps.length} etapas concluídas</span>
-            <span className="font-bold text-primary">{progressPercent}%</span>
+            <span className="font-bold text-primary font-mono">{progressPercent}%</span>
           </div>
           <Progress value={progressPercent} variant={isAllDone ? "success" : "default"} className="h-1.5" />
         </div>

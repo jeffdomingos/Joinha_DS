@@ -951,9 +951,10 @@ export function ComponentLabView({
         {/* Action Controls */}
         <div className="flex items-center gap-2">
           {onOpenCommand && (
-            <Button variant="outline" size="sm" onClick={onOpenCommand} className="gap-1.5 text-xs font-mono">
+            <Button variant="outline" size="sm" onClick={onOpenCommand} className="gap-1.5 text-xs font-sans">
               <Search className="w-3.5 h-3.5" />
-              <span>⌘K Buscar</span>
+              <span>Buscar Componente</span>
+              <kbd className="font-mono text-[10px] bg-muted/80 px-1 py-0.5 rounded border border-border/60 text-muted-foreground">⌘K</kbd>
             </Button>
           )}
           {onStartTour && (
@@ -1049,7 +1050,7 @@ export function ComponentLabView({
                     variant="ghost"
                     size="sm"
                     onClick={() => copyCliCommand(item.cliName)}
-                    className="h-7 px-2 text-[11px] font-mono gap-1 text-muted-foreground hover:text-foreground"
+                    className="h-7 px-2 text-[11px] font-sans font-medium gap-1 text-muted-foreground hover:text-foreground"
                     title={`Copiar comando npx shadcn add ${item.cliName}`}
                   >
                     <Copy className="w-3 h-3" />
@@ -1173,7 +1174,7 @@ export function ComponentLabView({
                     <span className="text-xs font-bold font-display uppercase tracking-wider text-muted-foreground">
                       Lista Mestre (4 Registros)
                     </span>
-                    <Badge variant="neutral" size="sm" className="font-mono text-[10px]">ERP</Badge>
+                    <Badge variant="neutral" size="sm" className="font-sans font-medium text-[10px]">ERP</Badge>
                   </div>
 
                   <div className="mt-3 space-y-1.5 overflow-y-auto flex-1 pr-1">
@@ -1236,7 +1237,7 @@ export function ComponentLabView({
                       </div>
 
                       <div className="p-3 rounded-md bg-surface border border-border/80">
-                        <span className="text-[10px] font-mono text-primary font-bold block mb-1">@container Auto-Adaptável</span>
+                        <span className="text-[10px] font-sans font-bold text-primary block mb-1">@container Auto-Adaptável</span>
                         <div className="flex items-center justify-between gap-2 text-xs">
                           <span className="text-muted-foreground">Consumo de Cotas de API</span>
                           <span className="font-bold text-foreground font-mono">84.200 / 100k reqs</span>

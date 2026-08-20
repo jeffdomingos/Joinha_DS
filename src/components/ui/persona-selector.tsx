@@ -102,7 +102,7 @@ export function PersonaSelector({
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-semibold text-xs text-foreground">{persona.title}</span>
                     {persona.recommendedFor && (
-                      <span className="text-[10px] font-mono text-primary font-bold px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                      <span className="text-[10px] font-sans font-semibold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
                         {persona.recommendedFor}
                       </span>
                     )}

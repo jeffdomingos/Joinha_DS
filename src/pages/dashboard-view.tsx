@@ -351,7 +351,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
             <Database className="w-5 h-5 text-primary" />
             <h2 className="text-xl font-semibold font-display">Tabela de Gestão de Clientes</h2>
           </div>
-          <span className="text-xs text-muted-foreground font-mono">
+          <span className="text-xs text-muted-foreground font-sans">
             Ordenação, filtros e paginação nativa
           </span>
         </div>

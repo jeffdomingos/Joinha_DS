@@ -149,19 +149,19 @@ export function DocsWikiView() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-mono uppercase text-primary font-bold tracking-wider">Display / Títulos</span>
+                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Display / Títulos</span>
                 <p className="text-2xl font-bold font-display text-foreground tracking-tight">Cabin (Gill Sans)</p>
                 <p className="text-xs text-muted-foreground">Títulos de páginas, cabeçalhos de seções e valores numéricos em destaque hero.</p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-mono uppercase text-primary font-bold tracking-wider">Interface / Corpo</span>
+                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Interface / Corpo</span>
                 <p className="text-xl font-medium font-sans text-foreground">Plus Jakarta Sans</p>
                 <p className="text-xs text-muted-foreground">Textos corridos, botões, formulários, badges, tags e células de tabelas.</p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
-                <span className="text-[10px] font-mono uppercase text-primary font-bold tracking-wider">Dados / Numérico</span>
+                <span className="text-[10px] font-sans uppercase text-primary font-semibold tracking-wider">Dados / Numérico</span>
                 <p className="text-xl font-bold font-mono text-foreground">JetBrains Mono</p>
                 <p className="text-xs text-muted-foreground">Colunas financeiras tabulares, identificadores (IDs), atalhos de teclado e código.</p>
               </div>
@@ -178,7 +178,7 @@ export function DocsWikiView() {
                 <Palette className="w-4 h-4 text-primary" />
                 <h3 className="text-base font-bold font-display text-foreground">Cores Primárias de Marca (Laranja OKLCH)</h3>
               </div>
-              <span className="text-xs text-muted-foreground font-mono">Clique para copiar o token</span>
+              <span className="text-xs text-muted-foreground font-sans">Clique para copiar o token</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

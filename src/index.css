@@ -119,9 +119,11 @@
   /* --- MOTION & MICRO-INTERACTIONS --- */
   .micro-press {
     transition: transform var(--tc-duration-instant) var(--tc-ease-smooth), background-color var(--tc-duration-instant) var(--tc-ease-smooth);
+    transform: translateZ(0); /* Hardware acceleration to prevent sub-pixel icon jumping */
+    backface-visibility: hidden;
   }
   .micro-press:active:not(:disabled) {
-    transform: scale(0.98);
+    transform: scale(0.98) translateZ(0);
   }
   
   .micro-hover-lift {

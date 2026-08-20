@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
 import { AppLayout } from "@/components/layout/app-layout"
-import { FloatingToolbar, FloatingToolbarItem, FloatingToolbarSeparator } from "@/components/ui/floating-toolbar"
 import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
 import { OnboardingChecklist, type OnboardingStep } from "@/components/ui/onboarding-checklist"
 import {
@@ -19,9 +18,7 @@ import {
   LayoutDashboard,
   BookOpen,
   Layers,
-  Search,
   Sun,
-  Moon,
   Compass,
   ListTodo,
   Sliders,
@@ -395,105 +392,6 @@ export function App() {
           onDismiss={() => setIsDockedChecklistOpen(false)}
         />
       )}
-
-      {/* Global Floating Action HUD / Dock */}
-      <FloatingToolbar position="bottom-center">
-        {/* Density controls */}
-        <FloatingToolbarItem
-          icon={<span className="text-[11px] font-bold font-mono">CPT</span>}
-          label="Densidade Compacta (32px / Fiscal)"
-          shortcut="1"
-          active={densityMode === "compact"}
-          onClick={() => {
-            setDensityMode("compact")
-            toast.info("Densidade Compacta ativada (32px)")
-          }}
-        />
-        <FloatingToolbarItem
-          icon={<span className="text-[11px] font-bold font-mono">DFT</span>}
-          label="Densidade Padrão (40px / SaaS)"
-          shortcut="2"
-          active={densityMode === "default"}
-          onClick={() => {
-            setDensityMode("default")
-            toast.info("Densidade Padrão ativada (40px)")
-          }}
-        />
-        <FloatingToolbarItem
-          icon={<span className="text-[11px] font-bold font-mono">COM</span>}
-          label="Densidade Confortável (48px / Executiva)"
-          shortcut="3"
-          active={densityMode === "comfortable"}
-          onClick={() => {
-            setDensityMode("comfortable")
-            toast.info("Densidade Confortável ativada (48px)")
-          }}
-        />
-
-        <FloatingToolbarSeparator />
-
-        {/* View Switchers */}
-        <FloatingToolbarItem
-          icon={<BookOpen className="w-4 h-4" />}
-          label="Ver Documentação & Wiki"
-          active={viewMode === "docs"}
-          onClick={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); }}
-        />
-        <FloatingToolbarItem
-          icon={<Layers className="w-4 h-4" />}
-          label="Ver Component Lab (50)"
-          active={viewMode === "lab"}
-          onClick={() => { setViewMode("lab"); setActiveNavItem("lab-all"); }}
-        />
-        <FloatingToolbarItem
-          icon={<LayoutDashboard className="w-4 h-4" />}
-          label="Ver Template SaaS de Exemplo"
-          active={viewMode === "templates-dashboard"}
-          onClick={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); }}
-        />
-
-        <FloatingToolbarSeparator />
-
-        {/* Quick Search */}
-        <FloatingToolbarItem
-          icon={<Search className="w-4 h-4" />}
-          label="Command Palette"
-          shortcut="⌘K"
-          onClick={() => setOpenCommand(true)}
-        />
-
-        {/* Theme switcher */}
-        <FloatingToolbarItem
-          icon={theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          label={`Alternar para modo ${theme === "dark" ? "Claro" : "Escuro"}`}
-          shortcut="⌘T"
-          onClick={toggleTheme}
-        />
-
-        <FloatingToolbarSeparator />
-
-        {/* Onboarding Checklist toggle */}
-        <FloatingToolbarItem
-          icon={<ListTodo className="w-4 h-4" />}
-          label={isDockedChecklistOpen ? "Ocultar Checklist Flutuante" : "Exibir Checklist de Ativação"}
-          active={isDockedChecklistOpen}
-          badge="4"
-          onClick={() => {
-            setIsDockedChecklistOpen(!isDockedChecklistOpen)
-            toast.info(isDockedChecklistOpen ? "Checklist ocultado" : "Checklist ativado no canto!")
-          }}
-        />
-
-        {/* Tour trigger */}
-        <FloatingToolbarItem
-          icon={<Compass className="w-4 h-4" />}
-          label="Iniciar Tour Guiado"
-          onClick={() => {
-            setCurrentTourStep(0)
-            setIsTourOpen(true)
-          }}
-        />
-      </FloatingToolbar>
 
       <Toaster />
     </AppLayout>

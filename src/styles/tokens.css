@@ -446,13 +446,19 @@
 
 /* Tables & DataGrids */
 [data-density="compact"] table th {
-  padding: 0.25rem 0.625rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
   height: 2rem !important;
   font-size: 0.75rem !important;
 }
 
 [data-density="compact"] table td {
-  padding: 0.25rem 0.625rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
   height: 2rem !important;
   font-size: 0.75rem !important;
   line-height: 1.15rem !important;
@@ -467,59 +473,29 @@
 
 [data-density="compact"] table td [class*="badge"],
 [data-density="compact"] table td [class*="Badge"] {
-  padding: 0 0.375rem !important;
-  font-size: 0.65rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  font-size: 0.6875rem !important;
   height: 1.125rem !important;
 }
 
-/* Form Inputs, Selects, and Triggers */
+/* Form Inputs & Selects: Only alter vertical bounds, preserving pl/pr icon offsets */
 [data-density="compact"] input:not([type="checkbox"]):not([type="radio"]),
 [data-density="compact"] select,
-[data-density="compact"] textarea,
 [data-density="compact"] [role="combobox"] {
-  height: 1.875rem !important;
-  min-height: 1.875rem !important;
-  padding: 0.2rem 0.5rem !important;
+  height: 2rem !important;
+  min-height: 2rem !important;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
   font-size: 0.75rem !important; /* 12px - WCAG 2.2 floor */
-  border-radius: var(--tc-radius-sm) !important;
 }
 
-[data-density="compact"] label {
-  font-size: 0.75rem !important; /* 12px - WCAG 2.2 floor */
-  margin-bottom: 0.125rem !important;
-}
-
-/* Buttons */
-[data-density="compact"] button:not([class*="floating-toolbar"]):not([class*="w-8"]):not([class*="w-7"]):not([class*="w-6"]):not([class*="h-6"]):not([class*="h-7"]) {
-  height: 1.875rem !important;
-  padding-left: 0.625rem !important;
-  padding-right: 0.625rem !important;
-  font-size: 0.75rem !important; /* 12px */
-  gap: 0.375rem !important;
-}
-
-[data-density="compact"] button[class*="size=\"sm\""],
-[data-density="compact"] button.h-7,
-[data-density="compact"] button.h-8 {
-  height: 1.625rem !important;
-  padding-left: 0.5rem !important;
-  padding-right: 0.5rem !important;
-  font-size: 0.75rem !important; /* 12px */
-}
-
-/* Cards & Surfaces (Excluding Layout containers like aside/header) */
-[data-density="compact"] aside {
-  padding: 0 !important;
-}
-
+/* Cards & Metric Cards */
 [data-density="compact"] .surface-card:not(aside),
-[data-density="compact"] .metric-card,
-[data-density="compact"] div[class*="bg-surface-card"]:not(aside),
-[data-density="compact"] div[class*="rounded-(--tc-radius-xl)"][class*="border"] {
-  padding: 0.875rem !important;
+[data-density="compact"] .metric-card {
+  padding: 0.875rem 1rem !important;
 }
 
-/* Metric Cards Inner Typography */
 [data-density="compact"] .metric-card [class*="text-2xl"],
 [data-density="compact"] .metric-card [class*="text-3xl"] {
   font-size: 1.375rem !important;
@@ -531,49 +507,10 @@
   margin-bottom: 0.25rem !important;
 }
 
-/* Tabs & Navigation Controls */
-[data-density="compact"] [role="tablist"] {
-  height: 2rem !important;
-  padding: 0.125rem !important;
-}
-
-[data-density="compact"] [role="tab"] {
-  height: 1.75rem !important;
-  padding: 0.125rem 0.5rem !important;
-  font-size: 0.75rem !important;
-}
-
-/* Sidebar Nav Items */
-[data-density="compact"] aside nav button,
-[data-density="compact"] aside button {
-  height: 2rem !important;
-  padding-top: 0.25rem !important;
-  padding-bottom: 0.25rem !important;
-  padding-left: 0.5rem !important;
-  padding-right: 0.5rem !important;
-  font-size: 0.75rem !important;
-  gap: 0.5rem !important;
-}
-
-/* Grid & Stack Gaps */
-[data-density="compact"] .space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: 0.875rem !important;
-  margin-bottom: 0 !important;
-}
-
-[data-density="compact"] .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: 0.5rem !important;
-  margin-bottom: 0 !important;
-}
-
-[data-density="compact"] .gap-6 {
-  gap: 0.875rem !important;
-}
-
-[data-density="compact"] .gap-4 {
-  gap: 0.625rem !important;
+/* Layout Stacks (Forms and Data Lists) */
+[data-density="compact"] form.space-y-4 > :not([hidden]) ~ :not([hidden]),
+[data-density="compact"] .form-group.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.625rem !important;
 }
 
 
@@ -583,13 +520,19 @@
 
 /* Tables & DataGrids */
 [data-density="comfortable"] table th {
-  padding: 0.875rem 1.25rem !important;
+  padding-top: 0.875rem !important;
+  padding-bottom: 0.875rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
   height: 3.25rem !important;
   font-size: 0.875rem !important;
 }
 
 [data-density="comfortable"] table td {
-  padding: 0.875rem 1.25rem !important;
+  padding-top: 0.875rem !important;
+  padding-bottom: 0.875rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
   height: 3.25rem !important;
   font-size: 0.875rem !important;
   line-height: 1.5rem !important;
@@ -602,45 +545,23 @@
   font-size: 0.8125rem !important;
 }
 
-/* Form Inputs, Selects, and Triggers */
+/* Form Inputs & Selects: Only alter vertical bounds, preserving pl/pr icon offsets */
 [data-density="comfortable"] input:not([type="checkbox"]):not([type="radio"]),
 [data-density="comfortable"] select,
-[data-density="comfortable"] textarea,
 [data-density="comfortable"] [role="combobox"] {
-  height: 2.875rem !important;
-  min-height: 2.875rem !important;
-  padding: 0.625rem 1rem !important;
-  font-size: 0.875rem !important;
-  border-radius: var(--tc-radius-lg) !important;
-}
-
-[data-density="comfortable"] label {
-  font-size: 0.8125rem !important;
-  margin-bottom: 0.375rem !important;
-}
-
-/* Buttons */
-[data-density="comfortable"] button:not([class*="floating-toolbar"]):not([class*="w-8"]):not([class*="w-7"]):not([class*="w-6"]) {
   height: 2.75rem !important;
-  padding-left: 1.25rem !important;
-  padding-right: 1.25rem !important;
+  min-height: 2.75rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
   font-size: 0.875rem !important;
-  gap: 0.625rem !important;
 }
 
-/* Cards & Surfaces */
-[data-density="comfortable"] aside {
-  padding: 0 !important;
-}
-
+/* Cards & Metric Cards */
 [data-density="comfortable"] .surface-card:not(aside),
-[data-density="comfortable"] .metric-card,
-[data-density="comfortable"] div[class*="bg-surface-card"]:not(aside),
-[data-density="comfortable"] div[class*="rounded-(--tc-radius-xl)"][class*="border"] {
-  padding: 2rem !important;
+[data-density="comfortable"] .metric-card {
+  padding: 1.875rem 2rem !important;
 }
 
-/* Metric Cards Inner Typography */
 [data-density="comfortable"] .metric-card [class*="text-2xl"],
 [data-density="comfortable"] .metric-card [class*="text-3xl"] {
   font-size: 2.25rem !important;
@@ -652,36 +573,4 @@
   margin-bottom: 1rem !important;
 }
 
-/* Tabs & Navigation Controls */
-[data-density="comfortable"] [role="tablist"] {
-  height: 2.875rem !important;
-  padding: 0.25rem !important;
-}
-
-[data-density="comfortable"] [role="tab"] {
-  height: 2.375rem !important;
-  padding: 0.375rem 1rem !important;
-  font-size: 0.875rem !important;
-}
-
-/* Grid & Stack Gaps */
-[data-density="comfortable"] .space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: 2rem !important;
-  margin-bottom: 0 !important;
-}
-
-[data-density="comfortable"] .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: 1.5rem !important;
-  margin-bottom: 0 !important;
-}
-
-[data-density="comfortable"] .gap-6 {
-  gap: 2rem !important;
-}
-
-[data-density="comfortable"] .gap-4 {
-  gap: 1.5rem !important;
-}
 

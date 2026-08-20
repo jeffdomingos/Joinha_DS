@@ -483,12 +483,12 @@
   height: 1.875rem !important;
   min-height: 1.875rem !important;
   padding: 0.2rem 0.5rem !important;
-  font-size: 0.75rem !important;
+  font-size: 0.75rem !important; /* 12px - WCAG 2.2 floor */
   border-radius: var(--tc-radius-sm) !important;
 }
 
 [data-density="compact"] label {
-  font-size: 0.6875rem !important;
+  font-size: 0.75rem !important; /* 12px - WCAG 2.2 floor */
   margin-bottom: 0.125rem !important;
 }
 
@@ -497,7 +497,7 @@
   height: 1.875rem !important;
   padding-left: 0.625rem !important;
   padding-right: 0.625rem !important;
-  font-size: 0.75rem !important;
+  font-size: 0.75rem !important; /* 12px */
   gap: 0.375rem !important;
 }
 
@@ -507,7 +507,7 @@
   height: 1.625rem !important;
   padding-left: 0.5rem !important;
   padding-right: 0.5rem !important;
-  font-size: 0.6875rem !important;
+  font-size: 0.75rem !important; /* 12px */
 }
 
 /* Cards & Surfaces (Excluding Layout containers like aside/header) */

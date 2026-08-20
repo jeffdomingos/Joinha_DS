@@ -113,6 +113,29 @@ import {
   TableCell,
 } from "@/components/ui/table"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination"
+import { EmptyState } from "@/components/ui/empty-state"
+import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
+import { FloatingToolbar, FloatingToolbarItem, FloatingToolbarSeparator } from "@/components/ui/floating-toolbar"
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandItem,
+  CommandGroup,
+  CommandSeparator,
+} from "@/components/ui/command"
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
+import { AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip } from "recharts"
 import {
   COMPONENT_METADATA_MAP,
   getComponentMetadata,
@@ -139,6 +162,9 @@ export function ComponentDetailView({
   const [density, setDensity] = React.useState<"compact" | "default" | "comfortable">("default")
   const [isPersonaModalOpen, setIsPersonaModalOpen] = React.useState(false)
   const [activePersona, setActivePersona] = React.useState("developer")
+  const [isTourOpen, setIsTourOpen] = React.useState(false)
+  const [tourStepIdx, setTourStepIdx] = React.useState(0)
+  const [paginationPage, setPaginationPage] = React.useState(2)
 
   const metadata: ComponentMetadata = getComponentMetadata(componentId)
 
@@ -479,6 +505,275 @@ export function ComponentDetailView({
             <span className="type-body-sm text-xs font-medium text-muted-foreground">Seção Inferior</span>
           </div>
         )
+      case "app-layout":
+        return (
+          <div className="w-full max-w-2xl rounded-xl border border-border overflow-hidden bg-background shadow-lg text-xs">
+            <div className="flex h-60 w-full">
+              {/* Mini Sidebar */}
+              <div className="w-44 border-r border-border bg-surface p-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 px-1">
+                    <BrandSymbol className="h-5 w-auto text-primary" />
+                    <span className="font-bold text-[11px] font-display text-foreground">Joinha DS</span>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="px-2 py-1 rounded-md bg-primary/10 text-primary font-medium flex items-center gap-2">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Dashboard</span>
+                    </div>
+                    <div className="px-2 py-1 rounded-md text-muted-foreground hover:bg-surface-hover flex items-center gap-2 cursor-pointer">
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>Componentes</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1.5 rounded-md bg-surface-elevated flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center font-bold text-[9px] text-primary">JD</div>
+                  <div className="truncate text-[10px] text-muted-foreground">jeff@joinha.ds</div>
+                </div>
+              </div>
+              {/* Mini Main Area */}
+              <div className="flex-1 flex flex-col bg-base">
+                {/* Mini Header */}
+                <div className="h-10 border-b border-border px-4 flex items-center justify-between bg-surface/50">
+                  <span className="text-muted-foreground text-[10px]">AppLayout &gt; Overview</span>
+                  <Badge variant="success" size="sm" className="text-[9px]">Produção</Badge>
+                </div>
+                {/* Mini Content */}
+                <div className="p-4 flex-1 space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="p-2.5 rounded-lg bg-surface border border-border space-y-1">
+                      <span className="text-[10px] text-muted-foreground">MRR Total</span>
+                      <div className="font-mono font-bold text-foreground">R$ 48.920</div>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-surface border border-border space-y-1">
+                      <span className="text-[10px] text-muted-foreground">Agentes Ativos</span>
+                      <div className="font-mono font-bold text-success">14 Online</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      case "pagination":
+        return (
+          <div className="w-full max-w-md p-4 rounded-xl bg-surface border border-border flex flex-col items-center gap-3">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPaginationPage(p => Math.max(1, p - 1))
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    isActive={paginationPage === 1}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPaginationPage(1)
+                    }}
+                  >
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    isActive={paginationPage === 2}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPaginationPage(2)
+                    }}
+                  >
+                    2
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    isActive={paginationPage === 3}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPaginationPage(3)
+                    }}
+                  >
+                    3
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPaginationPage(p => Math.min(10, p + 1))
+                    }}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+            <span className="type-body-sm text-[11px] text-muted-foreground font-mono">
+              Página ativa: <strong className="text-primary">{paginationPage}</strong> de 10
+            </span>
+          </div>
+        )
+      case "empty-state":
+        return (
+          <div className="w-full max-w-md">
+            <EmptyState
+              title="Nenhum Registro Encontrado"
+              description="Não encontramos nenhum item correspondente aos filtros atuais. Tente ajustar os parâmetros."
+              action={
+                <Button variant="primary" size="sm" onClick={() => toast.success("Ação disparada")}>
+                  Criar Primeiro Registro
+                </Button>
+              }
+            />
+          </div>
+        )
+      case "floating-toolbar":
+        return (
+          <div className="relative w-full h-32 flex items-center justify-center p-4 rounded-xl bg-surface border border-border overflow-hidden">
+            <FloatingToolbar position="bottom-center">
+              <FloatingToolbarItem
+                icon={<Copy className="w-3.5 h-3.5" />}
+                label="Copiar Itens"
+                shortcut="⌘C"
+                onClick={() => toast.info("Itens copiados")}
+              />
+              <FloatingToolbarSeparator />
+              <FloatingToolbarItem
+                icon={<Sparkles className="w-3.5 h-3.5 text-primary" />}
+                label="Aplicar IA"
+                shortcut="⌘I"
+                onClick={() => toast.success("Processamento IA iniciado")}
+              />
+            </FloatingToolbar>
+          </div>
+        )
+      case "command":
+        return (
+          <div className="w-full max-w-md rounded-xl border border-border overflow-hidden shadow-lg bg-surface-modal">
+            <Command className="border-0">
+              <CommandInput placeholder="Digite um comando ou busque..." />
+              <CommandList>
+                <CommandGroup heading="Ações Rápidas">
+                  <CommandItem onSelect={() => toast.info("Criar Projeto")}>
+                    <Sparkles className="w-3.5 h-3.5 mr-2 text-primary" />
+                    <span>Criar Novo Projeto</span>
+                  </CommandItem>
+                  <CommandItem onSelect={() => toast.info("Ver Documentação")}>
+                    <BookOpen className="w-3.5 h-3.5 mr-2 text-muted-foreground" />
+                    <span>Consultar Tokens OKLCH</span>
+                  </CommandItem>
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Configurações">
+                  <CommandItem onSelect={() => toast.info("Alternar Tema")}>
+                    <span>Alternar Tema de Cor</span>
+                  </CommandItem>
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </div>
+        )
+
+      /* --- 3. VISUALIZAÇÃO DE DADOS --- */
+      case "data-table": {
+        const sampleDataTableData: DataTableRecord[] = [
+          {
+            id: "CUST-001",
+            customer: { name: "Jefferson Domingos", email: "jeff@joinha.ds" },
+            plan: "Enterprise",
+            status: "active",
+            mrr: 12400,
+            billingCycle: "Annual",
+            joinedDate: "2024-01-15",
+          },
+          {
+            id: "CUST-002",
+            customer: { name: "Beatriz Silveira", email: "beatriz@acme.ai" },
+            plan: "Pro",
+            status: "active",
+            mrr: 4800,
+            billingCycle: "Monthly",
+            joinedDate: "2024-03-22",
+          },
+          {
+            id: "CUST-003",
+            customer: { name: "Carlos Eduardo", email: "carlos@fintech.io" },
+            plan: "Starter",
+            status: "trialing",
+            mrr: 1200,
+            billingCycle: "Monthly",
+            joinedDate: "2024-08-10",
+          },
+          {
+            id: "CUST-004",
+            customer: { name: "Mariana Costa", email: "mariana@corp.com" },
+            plan: "Enterprise",
+            status: "past_due",
+            mrr: 8900,
+            billingCycle: "Annual",
+            joinedDate: "2023-11-05",
+          },
+        ]
+        return (
+          <div className="w-full">
+            <DataTable data={sampleDataTableData} />
+          </div>
+        )
+      }
+      case "chart": {
+        const sampleChartData = [
+          { month: "Jan", ops: 120, latencia: 45 },
+          { month: "Fev", ops: 180, latencia: 42 },
+          { month: "Mar", ops: 240, latencia: 38 },
+          { month: "Abr", ops: 310, latencia: 35 },
+          { month: "Mai", ops: 450, latencia: 30 },
+          { month: "Jun", ops: 580, latencia: 28 },
+        ]
+        const chartConfig: ChartConfig = {
+          ops: {
+            label: "Operações / min",
+            color: "oklch(67% 0.17 53)",
+          },
+          latencia: {
+            label: "Latência (ms)",
+            color: "oklch(75% 0.10 180)",
+          },
+        }
+        return (
+          <div className="w-full max-w-lg p-4 rounded-xl bg-surface border border-border space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="type-heading-card text-xs font-bold text-foreground">Taxa de Execução & Latência</span>
+              <Badge variant="success" size="sm">Tempo Real</Badge>
+            </div>
+            <ChartContainer config={chartConfig} className="h-48 w-full">
+              <AreaChart data={sampleChartData}>
+                <defs>
+                  <linearGradient id="fillOps" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="oklch(67% 0.17 53)" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="oklch(67% 0.17 53)" stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="month" stroke="var(--text-muted)" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="var(--text-muted)" fontSize={10} tickLine={false} axisLine={false} />
+                <RechartsTooltip />
+                <Area type="monotone" dataKey="ops" stroke="oklch(67% 0.17 53)" strokeWidth={2} fill="url(#fillOps)" />
+              </AreaChart>
+            </ChartContainer>
+          </div>
+        )
+      }
 
       /* --- 3. VISUALIZAÇÃO DE DADOS --- */
       case "metric-card":
@@ -590,6 +885,45 @@ export function ComponentDetailView({
             />
           </div>
         )
+      case "tour-spotlight": {
+        const sampleTourSteps: TourStep[] = [
+          {
+            title: "Bem-vindo ao Joinha DS",
+            description: "Explore os 50 componentes com modo escuro nativo e design tokens OKLCH.",
+            position: "center",
+          },
+          {
+            title: "Troca de Densidade",
+            description: "Alterne entre os modos Compacto, Padrão e Confortável em 1 clique.",
+            position: "bottom",
+          },
+          {
+            title: "Copiar CLI",
+            description: "Adicione qualquer componente ao seu projeto usando npx shadcn add.",
+            position: "top",
+          },
+        ]
+        return (
+          <div className="flex flex-col items-center gap-3">
+            <Button variant="primary" onClick={() => { setIsTourOpen(true); setTourStepIdx(0); }}>
+              <Sparkles className="w-4 h-4 mr-1.5" />
+              Iniciar Tour Guiado (Spotlight)
+            </Button>
+            <TourSpotlight
+              steps={sampleTourSteps}
+              currentStepIndex={tourStepIdx}
+              isOpen={isTourOpen}
+              onNext={() => setTourStepIdx(idx => Math.min(sampleTourSteps.length - 1, idx + 1))}
+              onPrev={() => setTourStepIdx(idx => Math.max(0, idx - 1))}
+              onClose={() => setIsTourOpen(false)}
+              onComplete={() => {
+                setIsTourOpen(false)
+                toast.success("Tour concluído com sucesso!")
+              }}
+            />
+          </div>
+        )
+      }
       case "persona-selector":
         return (
           <div className="flex flex-col items-center gap-3">

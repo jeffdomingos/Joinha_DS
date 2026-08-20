@@ -42,7 +42,8 @@ import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon } from "lucide-react"
+import { MetricCard } from "@/components/ui/metric-card"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon, BarChart3, DollarSign, Users, Target, Activity } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const mockSubscriptions: DataTableRecord[] = [
@@ -495,6 +496,61 @@ function App() {
           </div>
 
           <DataTable data={mockSubscriptions} />
+        </section>
+
+        {/* Analytics & Metric Cards (Data Viz Series) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-2">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-semibold">Metric Cards & Data Viz Series (--chart-*)</h2>
+            </div>
+            <span className="text-xs text-muted-foreground font-mono">
+              OKLCH Perceptual Series · Smooth SVG Sparklines
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* KPI 1: MRR (Chart 1 - Laranja Brand) */}
+            <MetricCard
+              title="Receita Recorrente (MRR)"
+              value="R$ 48.920"
+              chartVariant={1}
+              icon={<DollarSign className="w-4 h-4" />}
+              change={{ value: "+14.2%", trend: "up", period: "vs mês anterior" }}
+              sparklineData={[28, 31, 35, 33, 40, 44, 48.9]}
+            />
+
+            {/* KPI 2: Clientes Ativos (Chart 2 - Ciano) */}
+            <MetricCard
+              title="Assinantes Ativos"
+              value="1.428"
+              chartVariant={2}
+              icon={<Users className="w-4 h-4" />}
+              change={{ value: "+8.6%", trend: "up", period: "vs mês anterior" }}
+              sparklineData={[1100, 1160, 1220, 1280, 1340, 1390, 1428]}
+            />
+
+            {/* KPI 3: Meta Trimestral (Chart 3 - Magenta) */}
+            <MetricCard
+              title="Meta Q1 (ARR)"
+              value="84.5%"
+              chartVariant={3}
+              icon={<Target className="w-4 h-4" />}
+              change={{ value: "+5.1%", trend: "up", period: "acima da projeção" }}
+              targetProgress={84.5}
+            />
+
+            {/* KPI 4: Taxa de Churn (Chart 4 - Âmbar) */}
+            <MetricCard
+              title="Taxa de Churn"
+              value="1.2%"
+              chartVariant={4}
+              icon={<Activity className="w-4 h-4" />}
+              change={{ value: "-0.4%", trend: "down", period: "vs mês anterior", isPositive: true }}
+              sparklineData={[2.4, 2.1, 1.9, 1.8, 1.5, 1.3, 1.2]}
+            />
+          </div>
         </section>
       </div>
       <Toaster />

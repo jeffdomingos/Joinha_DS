@@ -32,11 +32,11 @@ Este documento registra a visão, propósito e o plano de evolução do **Tem Co
 * [x] Definição de escala modular de tipografia e espaçamentos utilitários estruturados (Sistema de Grids/Gaps).
 * [x] Regras e tokens padronizados de raio de borda (*border-radius*) e elevações/sombras (depth).
 
-### 🟢 Fase 3: Componentes Nucleares de SaaS (Base Shadcn UI)
+### 🟢 Fase 3: Componentes Nucleares de SaaS (Base Shadcn UI) (Concluída)
 * [x] Botões, Inputs, Selects e Dropdowns estilizados com a temática "Joinha".
 * [x] Modais, Diálogos de Confirmação e Toasts padronizados.
 * [x] Data Tables densas (tabelas de dados) com filtros, ordenação e uso inteligente dos badges de status e tags categóricas.
-* [ ] Cards de métricas com integração nativa das cores da série Data Viz (`--chart-*`).
+* [x] Cards de métricas com integração nativa das cores da série Data Viz (`--chart-*`).
 
 ### ⚪ Fase 4: Templates e Distribuição
 * [ ] Criação do layout base consolidado de SaaS (Sidebar expansível, Header global e Área principal de Conteúdo).

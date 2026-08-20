@@ -125,6 +125,25 @@
   --tc-tracking-wide: 0.025em;
   --tc-tracking-wider: 0.05em;
 
+  /* --- SEMANTIC TYPOGRAPHY TOKENS --- */
+  --type-display-metric-size: 1.875rem;
+  --type-display-metric-line: 1.2;
+  --type-heading-page-size: 1.5rem;
+  --type-heading-page-line: 1.25;
+  --type-heading-section-size: 1.25rem;
+  --type-heading-section-line: 1.35;
+  --type-heading-card-size: 1rem;
+  --type-heading-card-line: 1.4;
+  --type-body-base-size: 0.875rem;
+  --type-body-base-line: 1.5;
+  --type-body-sm-size: 0.8125rem;
+  --type-body-sm-line: 1.5;
+  --type-label-sm-size: 0.6875rem;
+  --type-label-sm-line: 1.2;
+  --type-label-xs-size: 0.625rem;
+  --type-label-xs-line: 1.2;
+  --type-code-inline-size: 0.75rem;
+
   /* --- SHAPES & ELEVATIONS --- */
   --tc-radius-none: 0px;
   --tc-radius-sm: 4px;
@@ -571,6 +590,78 @@
 [data-density="comfortable"] .metric-card .my-3 {
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
+}
+
+/* ========================================================
+   6. SEMANTIC TYPOGRAPHY UTILITY CLASSES
+   ======================================================== */
+.type-display-metric {
+  font-family: var(--tc-font-display);
+  font-size: var(--type-display-metric-size);
+  line-height: var(--type-display-metric-line);
+  font-weight: var(--tc-weight-bold);
+  letter-spacing: var(--tc-tracking-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+.type-heading-page {
+  font-family: var(--tc-font-display);
+  font-size: var(--type-heading-page-size);
+  line-height: var(--type-heading-page-line);
+  font-weight: var(--tc-weight-bold);
+  letter-spacing: var(--tc-tracking-tight);
+}
+
+.type-heading-section {
+  font-family: var(--tc-font-display);
+  font-size: var(--type-heading-section-size);
+  line-height: var(--type-heading-section-line);
+  font-weight: var(--tc-weight-semibold);
+  letter-spacing: var(--tc-tracking-tight);
+}
+
+.type-heading-card {
+  font-family: var(--tc-font-display);
+  font-size: var(--type-heading-card-size);
+  line-height: var(--type-heading-card-line);
+  font-weight: var(--tc-weight-semibold);
+}
+
+.type-body-base {
+  font-family: var(--tc-font-sans);
+  font-size: var(--type-body-base-size);
+  line-height: var(--type-body-base-line);
+  font-weight: var(--tc-weight-regular);
+}
+
+.type-body-sm {
+  font-family: var(--tc-font-sans);
+  font-size: var(--type-body-sm-size);
+  line-height: var(--type-body-sm-line);
+  font-weight: var(--tc-weight-regular);
+}
+
+.type-label-sm {
+  font-family: var(--tc-font-sans);
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+  font-weight: var(--tc-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tc-tracking-wider);
+}
+
+.type-label-xs {
+  font-family: var(--tc-font-sans);
+  font-size: var(--type-label-xs-size);
+  line-height: var(--type-label-xs-line);
+  font-weight: var(--tc-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tc-tracking-wider);
+}
+
+.type-code-inline {
+  font-family: var(--tc-font-mono);
+  font-size: var(--type-code-inline-size);
 }
 
 

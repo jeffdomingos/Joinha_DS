@@ -3,6 +3,82 @@ import { Sparkline } from "./sparkline"
 import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+/* ========================================================
+   1. ATOMIC SUB-COMPONENTS
+   ======================================================== */
+
+export const MetricCardTitle = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    className={cn("type-body-sm font-medium text-muted-foreground truncate", className)}
+    {...props}
+  />
+))
+MetricCardTitle.displayName = "MetricCardTitle"
+
+export const MetricCardValue = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    className={cn("type-display-metric text-foreground text-2xl sm:text-3xl", className)}
+    {...props}
+  />
+))
+MetricCardValue.displayName = "MetricCardValue"
+
+export interface MetricCardDeltaProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: string
+  trend: "up" | "down" | "neutral"
+  period?: string
+  isPositive?: boolean
+}
+
+export function MetricCardDelta({
+  value,
+  trend,
+  period,
+  isPositive,
+  className,
+}: MetricCardDeltaProps) {
+  const isUp = trend === "up"
+  const isDown = trend === "down"
+  const isPositiveTrend = isPositive !== false ? isUp : isDown
+
+  return (
+    <div className={cn("flex items-center gap-2 pt-1 mt-auto text-xs", className)}>
+      <div
+        className={cn(
+          "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-(--tc-radius-sm) font-semibold text-[11px] leading-tight border",
+          isPositiveTrend
+            ? "bg-(--status-success-subtle) text-(--status-success-text) border-(--status-success-border)"
+            : isDown || !isPositiveTrend
+            ? "bg-(--status-danger-subtle) text-(--status-danger-text) border-(--status-danger-border)"
+            : "bg-secondary text-secondary-foreground border-border"
+        )}
+      >
+        {isUp && <TrendingUp className="w-3 h-3" />}
+        {isDown && <TrendingDown className="w-3 h-3" />}
+        {!isUp && !isDown && <Minus className="w-3 h-3" />}
+        <span>{value}</span>
+      </div>
+      {period && (
+        <span className="type-body-sm text-muted-foreground text-[11px] font-medium truncate">
+          {period}
+        </span>
+      )}
+    </div>
+  )
+}
+
+/* ========================================================
+   2. ROOT MOLECULE: METRIC CARD
+   ======================================================== */
+
 export interface MetricCardProps {
   title: string
   value: string | number
@@ -10,13 +86,14 @@ export interface MetricCardProps {
     value: string
     trend: "up" | "down" | "neutral"
     period?: string
-    isPositive?: boolean // If false, "up" is bad (e.g. churn or errors)
+    isPositive?: boolean
   }
   chartVariant?: 1 | 2 | 3 | 4 | 5 | 6
   sparklineData?: number[]
   icon?: React.ReactNode
-  targetProgress?: number // 0 - 100 percentage
+  targetProgress?: number
   className?: string
+  children?: React.ReactNode
 }
 
 const iconTintMap: Record<number, string> = {
@@ -46,12 +123,8 @@ export function MetricCard({
   icon,
   targetProgress,
   className,
+  children,
 }: MetricCardProps) {
-  // Determine trend badge color (by default: up = good, down = bad, unless inverted via isPositive = false)
-  const isUp = change?.trend === "up"
-  const isDown = change?.trend === "down"
-  const isPositiveTrend = change?.isPositive !== false ? isUp : isDown
-
   return (
     <div
       className={cn(
@@ -59,84 +132,64 @@ export function MetricCard({
         className
       )}
     >
-      {/* Top Header: Title & Context Icon */}
-      <div className="flex items-center justify-between gap-2">
-        <span className="type-ui-dense font-medium text-muted-foreground truncate">
-          {title}
-        </span>
-        {icon && (
-          <div
-            className={cn(
-              "w-8 h-8 rounded-(--tc-radius-md) flex items-center justify-center border shrink-0 transition-transform group-hover:scale-105",
-              iconTintMap[chartVariant] || iconTintMap[1]
+      {children || (
+        <>
+          {/* Top Header: Title & Context Icon */}
+          <div className="flex items-center justify-between gap-2">
+            <MetricCardTitle>{title}</MetricCardTitle>
+            {icon && (
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-(--tc-radius-md) flex items-center justify-center border shrink-0 transition-transform group-hover:scale-105",
+                  iconTintMap[chartVariant] || iconTintMap[1]
+                )}
+              >
+                {icon}
+              </div>
             )}
-          >
-            {icon}
           </div>
-        )}
-      </div>
 
-      {/* Hero Metric Value */}
-      <div className="my-3 flex items-baseline gap-2">
-        <span className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
-          {value}
-        </span>
-      </div>
-
-      {/* Target Progress Bar (if provided) */}
-      {typeof targetProgress === "number" && (
-        <div className="space-y-1.5 mb-3">
-          <div className="flex items-center justify-between text-[11px] font-medium text-muted-foreground">
-            <span>Meta atingida</span>
-            <span className="text-foreground">{targetProgress}%</span>
+          {/* Hero Metric Value */}
+          <div className="my-3 flex items-baseline gap-2">
+            <MetricCardValue>{value}</MetricCardValue>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-secondary/80 overflow-hidden">
-            <div
-              className={cn(
-                "h-full rounded-full transition-all duration-500",
-                progressBarMap[chartVariant] || progressBarMap[1]
-              )}
-              style={{ width: `${Math.min(100, Math.max(0, targetProgress))}%` }}
-            />
-          </div>
-        </div>
-      )}
 
-      {/* Sparkline Curve */}
-      {sparklineData && sparklineData.length > 1 && (
-        <div className="my-1 -mx-1">
-          <Sparkline
-            data={sparklineData}
-            chartVariant={chartVariant}
-            height={36}
-          />
-        </div>
-      )}
-
-      {/* Bottom Row: Trend Delta Pill & Period */}
-      {change && (
-        <div className="flex items-center gap-2 pt-1 mt-auto text-xs">
-          <div
-            className={cn(
-              "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-(--tc-radius-sm) font-semibold text-[11px] leading-tight border",
-              isPositiveTrend
-                ? "bg-(--status-success-subtle) text-(--status-success-text) border-(--status-success-border)"
-                : isDown || !isPositiveTrend
-                ? "bg-(--status-danger-subtle) text-(--status-danger-text) border-(--status-danger-border)"
-                : "bg-secondary text-secondary-foreground border-border"
-            )}
-          >
-            {isUp && <TrendingUp className="w-3 h-3" />}
-            {isDown && <TrendingDown className="w-3 h-3" />}
-            {!isUp && !isDown && <Minus className="w-3 h-3" />}
-            <span>{change.value}</span>
-          </div>
-          {change.period && (
-            <span className="text-muted-foreground text-[11px] font-medium truncate">
-              {change.period}
-            </span>
+          {/* Target Progress Bar */}
+          {typeof targetProgress === "number" && (
+            <div className="space-y-1.5 mb-3">
+              <div className="flex items-center justify-between text-[11px] font-medium text-muted-foreground">
+                <span>Meta atingida</span>
+                <span className="text-foreground">{targetProgress}%</span>
+              </div>
+              <div className="w-full h-1.5 rounded-full bg-secondary/80 overflow-hidden">
+                <div
+                  className={cn(
+                    "h-full rounded-full transition-all duration-500",
+                    progressBarMap[chartVariant] || progressBarMap[1]
+                  )}
+                  style={{ width: `${Math.min(100, Math.max(0, targetProgress))}%` }}
+                />
+              </div>
+            </div>
           )}
-        </div>
+
+          {/* Sparkline Curve */}
+          {sparklineData && sparklineData.length > 1 && (
+            <div className="my-1 -mx-1">
+              <Sparkline data={sparklineData} chartVariant={chartVariant} height={36} />
+            </div>
+          )}
+
+          {/* Bottom Row: Trend Delta Pill & Period */}
+          {change && (
+            <MetricCardDelta
+              value={change.value}
+              trend={change.trend}
+              period={change.period}
+              isPositive={change.isPositive}
+            />
+          )}
+        </>
       )}
     </div>
   )

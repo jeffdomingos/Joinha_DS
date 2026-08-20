@@ -126,15 +126,9 @@
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
-      conic-gradient(
-        from -45deg at 50% 50%, 
-        var(--border-gradient-start) 0deg, 
-        var(--border-gradient-mid) 45deg, 
-        var(--border-gradient-end) 90deg, 
-        var(--border-gradient-end) 270deg, 
-        var(--border-gradient-mid) 315deg, 
-        var(--border-gradient-start) 360deg
-      ) border-box !important;
+      linear-gradient(to right, var(--border-gradient-start), var(--border-gradient-end)) top / 100% 50% no-repeat border-box,
+      linear-gradient(to bottom, var(--border-gradient-start), var(--border-gradient-end)) left / 50% 100% no-repeat border-box,
+      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
   }
 
   .border-gradient-outline {
@@ -148,15 +142,10 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: conic-gradient(
-      from -45deg at 50% 50%, 
-      var(--border-gradient-start) 0deg, 
-      var(--border-gradient-mid) 45deg, 
-      var(--border-gradient-end) 90deg, 
-      var(--border-gradient-end) 270deg, 
-      var(--border-gradient-mid) 315deg, 
-      var(--border-gradient-start) 360deg
-    );
+    background: 
+      linear-gradient(to right, var(--border-gradient-start), var(--border-gradient-end)) top / 100% 50% no-repeat,
+      linear-gradient(to bottom, var(--border-gradient-start), var(--border-gradient-end)) left / 50% 100% no-repeat,
+      linear-gradient(var(--border-gradient-end), var(--border-gradient-end));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -167,45 +156,27 @@
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--action-secondary-bg), var(--action-secondary-bg)) padding-box,
-      conic-gradient(
-        from -45deg at 50% 50%, 
-        var(--btn-secondary-border-start) 0deg, 
-        var(--btn-secondary-border-mid) 45deg, 
-        var(--btn-secondary-border-end) 90deg, 
-        var(--btn-secondary-border-end) 270deg, 
-        var(--btn-secondary-border-mid) 315deg, 
-        var(--btn-secondary-border-start) 360deg
-      ) border-box !important;
+      linear-gradient(to right, var(--btn-secondary-border-start), var(--btn-secondary-border-end)) top / 100% 50% no-repeat border-box,
+      linear-gradient(to bottom, var(--btn-secondary-border-start), var(--btn-secondary-border-end)) left / 50% 100% no-repeat border-box,
+      linear-gradient(var(--btn-secondary-border-end), var(--btn-secondary-border-end)) border-box !important;
   }
 
   .border-gradient-primary {
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--action-primary-bg), var(--action-primary-bg)) padding-box,
-      conic-gradient(
-        from -45deg at 50% 50%, 
-        var(--btn-primary-border-start) 0deg, 
-        var(--btn-primary-border-mid) 45deg, 
-        var(--btn-primary-border-end) 90deg, 
-        var(--btn-primary-border-end) 270deg, 
-        var(--btn-primary-border-mid) 315deg, 
-        var(--btn-primary-border-start) 360deg
-      ) border-box !important;
+      linear-gradient(to right, var(--btn-primary-border-start), var(--btn-primary-border-end)) top / 100% 50% no-repeat border-box,
+      linear-gradient(to bottom, var(--btn-primary-border-start), var(--btn-primary-border-end)) left / 50% 100% no-repeat border-box,
+      linear-gradient(var(--btn-primary-border-end), var(--btn-primary-border-end)) border-box !important;
   }
 
   .border-gradient-destructive {
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--status-danger-bg), var(--status-danger-bg)) padding-box,
-      conic-gradient(
-        from -45deg at 50% 50%, 
-        var(--btn-destructive-border-start) 0deg, 
-        var(--btn-destructive-border-mid) 45deg, 
-        var(--btn-destructive-border-end) 90deg, 
-        var(--btn-destructive-border-end) 270deg, 
-        var(--btn-destructive-border-mid) 315deg, 
-        var(--btn-destructive-border-start) 360deg
-      ) border-box !important;
+      linear-gradient(to right, var(--btn-destructive-border-start), var(--btn-destructive-border-end)) top / 100% 50% no-repeat border-box,
+      linear-gradient(to bottom, var(--btn-destructive-border-start), var(--btn-destructive-border-end)) left / 50% 100% no-repeat border-box,
+      linear-gradient(var(--btn-destructive-border-end), var(--btn-destructive-border-end)) border-box !important;
   }
 
   .border-gradient-sunken {
@@ -213,15 +184,9 @@
     box-shadow: var(--tc-input-inner-shadow, inset 1px 2px 3px 0 oklch(0% 0 0 / 0.20));
     background: 
       linear-gradient(var(--bg-app), var(--bg-app)) padding-box,
-      conic-gradient(
-        from 135deg at 50% 50%, 
-        var(--border-gradient-start) 0deg, 
-        var(--border-gradient-mid) 45deg, 
-        var(--border-gradient-end) 90deg, 
-        var(--border-gradient-end) 270deg, 
-        var(--border-gradient-mid) 315deg, 
-        var(--border-gradient-start) 360deg
-      ) border-box !important;
+      linear-gradient(to right, var(--border-gradient-end), var(--border-gradient-start)) bottom / 100% 50% no-repeat border-box,
+      linear-gradient(to bottom, var(--border-gradient-end), var(--border-gradient-start)) right / 50% 100% no-repeat border-box,
+      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
   }
   
   .brand-glow {

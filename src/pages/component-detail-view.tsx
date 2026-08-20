@@ -30,6 +30,14 @@ import { Sparkline } from "@/components/ui/sparkline"
 import { ConfidenceMeter } from "@/components/ui/confidence-meter"
 import { HITLApprovalBanner } from "@/components/ui/hitl-approval-banner"
 import { AIDiffViewer } from "@/components/ui/ai-diff-viewer"
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   COMPONENT_METADATA_MAP,
@@ -463,39 +471,37 @@ export function ComponentDetailView({
               <h3 className="text-sm font-bold font-display text-foreground">Tabela de Propriedades (TypeScript Props)</h3>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-border/80 bg-surface/30 text-muted-foreground font-mono text-[11px]">
-                    <th className="p-3 font-semibold">Prop</th>
-                    <th className="p-3 font-semibold">Tipo TypeScript</th>
-                    <th className="p-3 font-semibold">Padrão</th>
-                    <th className="p-3 font-semibold">Descrição</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/60">
-                  {metadata.props && metadata.props.length > 0 ? (
-                    metadata.props.map((prop, idx) => (
-                      <tr key={idx} className="hover:bg-surface-hover/50 transition-colors">
-                        <td className="p-3 font-mono font-bold text-primary">
-                          {prop.name}
-                          {prop.required && <span className="text-destructive ml-1">*</span>}
-                        </td>
-                        <td className="p-3 font-mono text-muted-foreground text-[11px]">{prop.type}</td>
-                        <td className="p-3 font-mono text-muted-foreground/80">{prop.defaultValue || "—"}</td>
-                        <td className="p-3 text-foreground font-sans">{prop.description}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={4} className="p-4 text-center text-muted-foreground">
-                        Aceita todas as props nativas de HTML element e classes do Tailwind CSS.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[180px]">Prop</TableHead>
+                  <TableHead className="w-[200px]">Tipo TypeScript</TableHead>
+                  <TableHead className="w-[120px]">Padrão</TableHead>
+                  <TableHead>Descrição</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {metadata.props && metadata.props.length > 0 ? (
+                  metadata.props.map((prop, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell className="font-mono font-bold text-primary">
+                        {prop.name}
+                        {prop.required && <span className="text-destructive ml-1">*</span>}
+                      </TableCell>
+                      <TableCell className="font-mono text-muted-foreground text-[11px]">{prop.type}</TableCell>
+                      <TableCell className="font-mono text-muted-foreground/80">{prop.defaultValue || "—"}</TableCell>
+                      <TableCell className="text-foreground font-sans text-xs">{prop.description}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} className="p-4 text-center text-muted-foreground">
+                      Aceita todas as props nativas de HTML element e classes do Tailwind CSS.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
           </div>
         </TabsContent>
 
@@ -521,9 +527,7 @@ export function ComponentDetailView({
                 <div className="divide-y divide-border/60 border border-border/80 rounded-lg overflow-hidden bg-surface">
                   {metadata.accessibility.keyboardShortcuts.map((kb, idx) => (
                     <div key={idx} className="p-3 flex items-center justify-between text-xs">
-                      <kbd className="font-mono bg-surface-card px-2 py-0.5 rounded border border-border text-foreground font-bold">
-                        {kb.key}
-                      </kbd>
+                      <Kbd>{kb.key}</Kbd>
                       <span className="text-muted-foreground font-sans">{kb.action}</span>
                     </div>
                   ))}

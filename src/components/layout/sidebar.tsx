@@ -2,11 +2,8 @@ import * as React from "react"
 import {
   LayoutDashboard,
   BarChart3,
-  Users,
-  CreditCard,
   Settings,
   Shield,
-  Code2,
   ChevronLeft,
   ChevronRight,
   ChevronsUpDown,
@@ -16,6 +13,13 @@ import {
   Building2,
   BookOpen,
   Layers,
+  Palette,
+  LayoutGrid,
+  Bot,
+  Terminal,
+  Compass,
+  Box,
+  Sparkles,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -48,54 +52,73 @@ export interface NavGroup {
 
 const defaultNavGroups: NavGroup[] = [
   {
-    groupLabel: "Aplicação SaaS",
+    groupLabel: "Documentação & Guias",
     items: [
-      { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { id: "analytics", label: "Analytics & MRR", icon: BarChart3 },
-      {
-        id: "customers",
-        label: "Assinantes",
-        icon: Users,
-        badge: { text: "1.4k", variant: "neutral" },
-      },
+      { id: "docs-overview", label: "Visão Geral & Filosofia", icon: BookOpen },
+      { id: "docs-tokens", label: "Tokens de Design & OKLCH", icon: Palette },
+      { id: "docs-layout", label: "Enterprise Layout & Densidade", icon: LayoutGrid },
+      { id: "docs-xai", label: "Padrões XAI & HITL", icon: Bot },
+      { id: "docs-cli", label: "Instalação via Shadcn CLI", icon: Terminal, badge: { text: "npx", variant: "info" } },
     ],
   },
   {
-    groupLabel: "Joinha Design System",
+    groupLabel: "Componentes (50 Itens)",
     items: [
       {
-        id: "docs",
-        label: "Wiki & Documentação",
-        icon: BookOpen,
-        badge: { text: "v1.0", variant: "info" },
-      },
-      {
-        id: "lab",
-        label: "Component Lab",
+        id: "lab-all",
+        label: "Todos os Componentes",
         icon: Layers,
         badge: { text: "50", variant: "neutral" },
       },
+      {
+        id: "lab-primitives",
+        label: "Primitivos & Controles",
+        icon: Box,
+        badge: { text: "18", variant: "neutral" },
+      },
+      {
+        id: "lab-layout",
+        label: "Navegação & Layout",
+        icon: LayoutGrid,
+        badge: { text: "10", variant: "neutral" },
+      },
+      {
+        id: "lab-data",
+        label: "Visualização de Dados",
+        icon: BarChart3,
+        badge: { text: "7", variant: "neutral" },
+      },
+      {
+        id: "lab-onboarding",
+        label: "Onboarding & Adoção",
+        icon: Compass,
+        badge: { text: "5", variant: "neutral" },
+      },
+      {
+        id: "lab-xai",
+        label: "XAI & Human-in-the-Loop",
+        icon: Sparkles,
+        badge: { text: "5", variant: "neutral" },
+      },
     ],
   },
   {
-    groupLabel: "Configurações",
+    groupLabel: "Templates & Exemplos Live",
     items: [
       {
-        id: "billing",
-        label: "Faturamento",
-        icon: CreditCard,
-        badge: { text: "Ativo", variant: "success" },
+        id: "template-dashboard",
+        label: "Template: SaaS Executive",
+        icon: LayoutDashboard,
+        badge: { text: "Demo", variant: "success" },
       },
-      { id: "settings", label: "Geral", icon: Settings },
-      { id: "api", label: "API & Webhooks", icon: Code2 },
     ],
   },
 ]
 
 const workspaces = [
-  { id: "tc-prod", name: "Tem Como Prod", plan: "Enterprise" },
-  { id: "tc-labs", name: "Tem Como Labs", plan: "Pro" },
-  { id: "acme-corp", name: "Acme Corporation", plan: "Starter" },
+  { id: "v1-latest", name: "Joinha DS v1.0.0", plan: "Oficial" },
+  { id: "oklch-reg", name: "Shadcn Registry (50)", plan: "CLI Ready" },
+  { id: "gh-template", name: "GitHub Starter Template", plan: "React 19" },
 ]
 
 export interface SidebarProps {

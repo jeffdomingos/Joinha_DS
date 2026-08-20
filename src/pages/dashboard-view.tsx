@@ -165,6 +165,39 @@ export interface DashboardViewProps {
 export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardViewProps) {
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-300">
+      {/* Template Header Disclaimer Banner */}
+      <div className="p-4 sm:p-5 rounded-(--tc-radius-xl) bg-surface-card border border-primary/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-start gap-3.5">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-base font-bold font-display text-foreground">
+                Template de Exemplo: SaaS Executive Dashboard
+              </h2>
+              <Badge variant="info" size="sm">Template Live</Badge>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1 max-w-2xl leading-relaxed">
+              Esta visualização demonstra como os componentes do <strong>Joinha DS</strong> (Metric Cards, Sparklines Bézier, Recharts e DataTable) se comportam em harmonia em uma aplicação SaaS real e reagem à matriz de densidade.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {onNavigateToDocs && (
+            <Button variant="outline" size="sm" onClick={onNavigateToDocs} className="text-xs">
+              Ver Wiki & Tokens
+            </Button>
+          )}
+          {onNavigateToLab && (
+            <Button variant="primary" size="sm" onClick={onNavigateToLab} className="text-xs font-semibold">
+              Explorar 50 Componentes
+            </Button>
+          )}
+        </div>
+      </div>
+
       {/* 1. Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <MetricCard

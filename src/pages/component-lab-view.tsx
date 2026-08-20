@@ -31,13 +31,20 @@ import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
 export interface ComponentLabViewProps {
+  initialCategory?: string
   onStartTour?: () => void
   onOpenCommand?: () => void
 }
 
-export function ComponentLabView({ onStartTour, onOpenCommand }: ComponentLabViewProps) {
+export function ComponentLabView({ initialCategory = "all", onStartTour, onOpenCommand }: ComponentLabViewProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("all")
+  const [selectedCategory, setSelectedCategory] = React.useState<string>(initialCategory)
+
+  React.useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory)
+    }
+  }, [initialCategory])
 
   // Interactive Playground states
   const [hasBorder, setHasBorder] = React.useState(true)

@@ -25,6 +25,13 @@ import {
   Compass,
   ListTodo,
   Sliders,
+  Palette,
+  LayoutGrid,
+  Bot,
+  Terminal,
+  Box,
+  BarChart3,
+  Sparkles,
 } from "lucide-react"
 
 // View Components
@@ -34,8 +41,9 @@ import { ComponentLabView } from "@/pages/component-lab-view"
 
 export function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
-  const [viewMode, setViewMode] = useState<"dashboard" | "docs" | "lab">("dashboard")
-  const [activeNavItem, setActiveNavItem] = useState("dashboard")
+  const [viewMode, setViewMode] = useState<"docs" | "lab" | "templates-dashboard">("docs")
+  const [activeNavItem, setActiveNavItem] = useState("docs-overview")
+  const [labCategory, setLabCategory] = useState<string>("all")
   const [openCommand, setOpenCommand] = useState(false)
   const [densityMode, setDensityMode] = useState<"default" | "compact" | "comfortable">("default")
 
@@ -47,8 +55,8 @@ export function App() {
   const checklistSteps: OnboardingStep[] = [
     {
       id: "step-1",
-      title: "Explorar o Dashboard Analítico",
-      description: "Visualize métricas de MRR, projeções e a tabela densa de clientes.",
+      title: "Explorar a Wiki do Design System",
+      description: "Descubra tokens em OKLCH, elevação e acessibilidade WCAG 2.2 AA.",
       completed: true,
     },
     {
@@ -59,8 +67,8 @@ export function App() {
     },
     {
       id: "step-3",
-      title: "Consultar a Wiki Oficial do Design System",
-      description: "Descubra tokens em OKLCH, elevação e acessibilidade WCAG 2.2 AA.",
+      title: "Explorar os 50 Componentes no Lab",
+      description: "Teste primitivos, painéis resizable e copie comandos de instalação via CLI.",
       completed: false,
     },
     {
@@ -74,19 +82,19 @@ export function App() {
   const tourSteps: TourStep[] = [
     {
       title: "Bem-vindo ao Joinha Design System! 🍊",
-      description: "Um Design System moderno com Tailwind CSS v4, OKLCH, 50 componentes e arquitetura Agent-Native.",
+      description: "Plataforma de documentação oficial, tokens perceptuais em OKLCH, 50 componentes e arquitetura Agent-Native.",
+    },
+    {
+      title: "Wiki & Documentação Oficial",
+      description: "Explore tokens de cores, elevação, tipografia e os compêndios de engenharia moderna.",
+    },
+    {
+      title: "Laboratório de Componentes (Live Labs)",
+      description: "Teste os 50 componentes ao vivo, simule variantes e instale diretamente via CLI do Shadcn.",
     },
     {
       title: "Matriz de Densidade Paramétrica",
       description: "Controle globalmente o espaçamento de tabelas e formulários via Compact (32px), Default (40px) e Comfortable (48px).",
-    },
-    {
-      title: "Wiki & Documentação Oficial",
-      description: "Explore tokens perceptuais, diretrizes de acessibilidade e compêndio de engenharia.",
-    },
-    {
-      title: "Laboratório de Componentes (Live Labs)",
-      description: "Teste 50 componentes ao vivo com suporte a Split Panes, XAI e instalação via CLI do Shadcn.",
     },
   ]
 
@@ -115,60 +123,77 @@ export function App() {
     }
   }
 
-  const breadcrumbLabels: Record<string, string> = {
-    dashboard: "Dashboard Analítico",
-    docs: "Wiki & Documentação",
-    lab: "Component Lab & Playground",
+  const handleSelectNav = (id: string) => {
+    setActiveNavItem(id)
+    if (id.startsWith("docs-") || id === "docs") {
+      setViewMode("docs")
+    } else if (id.startsWith("lab-") || id === "lab") {
+      setViewMode("lab")
+      if (id === "lab-primitives") setLabCategory("primitives")
+      else if (id === "lab-layout") setLabCategory("nav_layout")
+      else if (id === "lab-data") setLabCategory("data_viz")
+      else if (id === "lab-onboarding") setLabCategory("onboarding")
+      else if (id === "lab-xai") setLabCategory("xai_hitl")
+      else setLabCategory("all")
+    } else if (id === "template-dashboard" || id === "dashboard" || id === "analytics") {
+      setViewMode("templates-dashboard")
+    }
   }
 
-  const breadcrumbs = [
-    { label: "Tem Como" },
-    { label: breadcrumbLabels[viewMode] || "Dashboard Analítico" },
-  ]
+  const breadcrumbMap = {
+    docs: [
+      { label: "Joinha DS" },
+      { label: "Documentação Oficial" },
+      { label: "Tokens & Diretrizes" },
+    ],
+    lab: [
+      { label: "Joinha DS" },
+      { label: "Component Lab" },
+      { label: "50 Componentes" },
+    ],
+    "templates-dashboard": [
+      { label: "Joinha DS" },
+      { label: "Templates de Exemplo" },
+      { label: "SaaS Executive Dashboard" },
+    ],
+  }
 
   return (
     <AppLayout
       theme={theme}
       onToggleTheme={toggleTheme}
-      breadcrumbs={breadcrumbs}
+      breadcrumbs={breadcrumbMap[viewMode]}
       activeNavItem={activeNavItem}
-      onSelectNavItem={(id) => {
-        setActiveNavItem(id)
-        if (id === "dashboard" || id === "analytics" || id === "customers" || id === "billing") {
-          setViewMode("dashboard")
-        } else if (id === "docs" || id === "wiki" || id === "tokens") {
-          setViewMode("docs")
-        } else {
-          setViewMode("lab")
-        }
-      }}
+      onSelectNavItem={handleSelectNav}
       onNewAction={() => {
-        toast.info("Ação Global Acionada", {
-          description: "Modal de novo registro ou assinatura pronto para abertura.",
-        })
+        const cmd = "npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/index.json"
+        navigator.clipboard.writeText(cmd)
+        toast.success("Comando CLI do Registro copiado!", { description: cmd })
       }}
     >
-      {/* View Switcher Top Bar */}
+      {/* Top Hero / Header Control Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5 mb-8">
         <div>
           <div className="flex flex-wrap items-center gap-2.5">
             <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
-              {viewMode === "dashboard" && "Painel de Gestão & Receita"}
-              {viewMode === "docs" && "Design System Wiki & Docs"}
+              {viewMode === "docs" && "Joinha Design System — Wiki & Docs"}
               {viewMode === "lab" && "Laboratório de Componentes"}
+              {viewMode === "templates-dashboard" && "Template: SaaS Executive Dashboard"}
             </h1>
-            <Badge variant="info" size="sm">50 Componentes</Badge>
+            {viewMode === "docs" && <Badge variant="info" size="sm">v1.0.0 Oficial</Badge>}
+            {viewMode === "lab" && <Badge variant="info" size="sm">50 Componentes</Badge>}
+            {viewMode === "templates-dashboard" && <Badge variant="success" size="sm">Template Live</Badge>}
           </div>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-            {viewMode === "dashboard" && "Visão unificada de métricas, gráficos interativos e tabela densa de clientes."}
-            {viewMode === "docs" && "Diretrizes de design, tokens interativos OKLCH, elevação e compêndio de engenharia."}
-            {viewMode === "lab" && "Teste interativo, visualizador de diffs, Split Panes e instalação modular via CLI."}
+            {viewMode === "docs" && "Fundamentos de design, tokens em OKLCH, 5 níveis de elevação, acessibilidade e compêndio de engenharia."}
+            {viewMode === "lab" && "Explore os 50 componentes modulares, teste variantes interativamente e copie comandos CLI."}
+            {viewMode === "templates-dashboard" && "Aplicação SaaS de referência 100% construída com componentes do Joinha DS para validação de composição e densidade."}
           </p>
         </div>
 
-        {/* View Switcher Controls */}
+        {/* Top Controls & Navigation Switcher */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start sm:self-auto">
-          {/* Density Switcher */}
+          {/* Density Matrix Switcher */}
           <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border gap-1">
             <span className="text-[11px] font-mono text-muted-foreground px-2 hidden md:inline">Densidade:</span>
             <Button
@@ -205,49 +230,43 @@ export function App() {
             <Button
               variant="navItem"
               size="sm"
-              isActive={viewMode === "dashboard"}
-              onClick={() => setViewMode("dashboard")}
-              className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              <span>Dashboard</span>
-            </Button>
-            <Button
-              variant="navItem"
-              size="sm"
               isActive={viewMode === "docs"}
-              onClick={() => setViewMode("docs")}
+              onClick={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); }}
               className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
             >
               <BookOpen className="w-3.5 h-3.5" />
-              <span>Wiki / Docs</span>
+              <span>Documentação</span>
             </Button>
             <Button
               variant="navItem"
               size="sm"
               isActive={viewMode === "lab"}
-              onClick={() => setViewMode("lab")}
+              onClick={() => { setViewMode("lab"); setActiveNavItem("lab-all"); }}
               className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Labs</span>
+              <span>Component Lab</span>
+            </Button>
+            <Button
+              variant="navItem"
+              size="sm"
+              isActive={viewMode === "templates-dashboard"}
+              onClick={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); }}
+              className="h-7 px-2.5 text-xs gap-1.5 cursor-pointer font-medium"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              <span>Exemplo SaaS</span>
             </Button>
           </div>
         </div>
       </div>
 
       {/* Main View Router */}
-      {viewMode === "dashboard" && (
-        <DashboardView
-          onNavigateToDocs={() => setViewMode("docs")}
-          onNavigateToLab={() => setViewMode("lab")}
-        />
-      )}
-
       {viewMode === "docs" && <DocsWikiView />}
 
       {viewMode === "lab" && (
         <ComponentLabView
+          initialCategory={labCategory}
           onStartTour={() => {
             setCurrentTourStep(0)
             setIsTourOpen(true)
@@ -256,23 +275,69 @@ export function App() {
         />
       )}
 
+      {viewMode === "templates-dashboard" && (
+        <DashboardView
+          onNavigateToDocs={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); }}
+          onNavigateToLab={() => { setViewMode("lab"); setActiveNavItem("lab-all"); }}
+        />
+      )}
+
       {/* Global Command Palette Dialog (⌘K) */}
       <CommandDialog open={openCommand} onOpenChange={setOpenCommand}>
-        <CommandInput placeholder="Digite um comando ou busque no SaaS e Design System..." />
+        <CommandInput placeholder="Digite um comando ou busque tokens e componentes..." />
         <CommandList>
           <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
-          <CommandGroup heading="Navegação Principal">
-            <CommandItem onSelect={() => { setViewMode("dashboard"); setOpenCommand(false); toast.info("Navegando para o Dashboard"); }}>
-              <LayoutDashboard className="mr-2 h-4 w-4 text-primary" />
-              <span>Dashboard Analítico</span>
-            </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("docs"); setOpenCommand(false); toast.info("Abrindo Wiki do Design System"); }}>
+          
+          <CommandGroup heading="Documentação & Guias">
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); setOpenCommand(false); toast.info("Abrindo Wiki do Design System"); }}>
               <BookOpen className="mr-2 h-4 w-4 text-primary" />
-              <span>Wiki & Documentação Oficial</span>
+              <span>Visão Geral & Filosofia de Design</span>
             </CommandItem>
-            <CommandItem onSelect={() => { setViewMode("lab"); setOpenCommand(false); toast.info("Abrindo Component Lab"); }}>
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-tokens"); setOpenCommand(false); toast.info("Tokens OKLCH"); }}>
+              <Palette className="mr-2 h-4 w-4 text-primary" />
+              <span>Tokens de Design & Cores OKLCH</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-layout"); setOpenCommand(false); toast.info("Enterprise Layout"); }}>
+              <LayoutGrid className="mr-2 h-4 w-4 text-primary" />
+              <span>Enterprise Layout & Densidade Paramétrica</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-xai"); setOpenCommand(false); toast.info("Padrões XAI & HITL"); }}>
+              <Bot className="mr-2 h-4 w-4 text-primary" />
+              <span>Padrões de XAI & Human-in-the-Loop</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("docs"); setActiveNavItem("docs-cli"); setOpenCommand(false); toast.info("Guia de CLI"); }}>
+              <Terminal className="mr-2 h-4 w-4 text-primary" />
+              <span>Instalação via Shadcn CLI (npx shadcn add)</span>
+            </CommandItem>
+          </CommandGroup>
+
+          <CommandGroup heading="Laboratório de Componentes">
+            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("all"); setActiveNavItem("lab-all"); setOpenCommand(false); }}>
               <Layers className="mr-2 h-4 w-4 text-primary" />
-              <span>Laboratório de Componentes (Labs)</span>
+              <span>Explorador Geral (Todos os 50 Componentes)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("primitives"); setActiveNavItem("lab-primitives"); setOpenCommand(false); }}>
+              <Box className="mr-2 h-4 w-4" />
+              <span>Primitivos & Controles de Formulário (18)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("nav_layout"); setActiveNavItem("lab-layout"); setOpenCommand(false); }}>
+              <LayoutGrid className="mr-2 h-4 w-4" />
+              <span>Navegação, Sheets & Resizable Split Panes (10)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("data_viz"); setActiveNavItem("lab-data"); setOpenCommand(false); }}>
+              <BarChart3 className="mr-2 h-4 w-4" />
+              <span>Visualização de Dados & Recharts (7)</span>
+            </CommandItem>
+            <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("xai_hitl"); setActiveNavItem("lab-xai"); setOpenCommand(false); }}>
+              <Sparkles className="mr-2 h-4 w-4 text-primary" />
+              <span>XAI (Confidence, Trace, HITL Banner, Diff Viewer) (5)</span>
+            </CommandItem>
+          </CommandGroup>
+
+          <CommandGroup heading="Templates de Referência">
+            <CommandItem onSelect={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); setOpenCommand(false); toast.info("Template SaaS Aberto"); }}>
+              <LayoutDashboard className="mr-2 h-4 w-4 text-success" />
+              <span>Template: SaaS Executive Dashboard</span>
             </CommandItem>
           </CommandGroup>
 
@@ -369,22 +434,22 @@ export function App() {
 
         {/* View Switchers */}
         <FloatingToolbarItem
-          icon={<LayoutDashboard className="w-4 h-4" />}
-          label="Ver Dashboard SaaS"
-          active={viewMode === "dashboard"}
-          onClick={() => setViewMode("dashboard")}
-        />
-        <FloatingToolbarItem
           icon={<BookOpen className="w-4 h-4" />}
-          label="Ver Wiki & Docs"
+          label="Ver Documentação & Wiki"
           active={viewMode === "docs"}
-          onClick={() => setViewMode("docs")}
+          onClick={() => { setViewMode("docs"); setActiveNavItem("docs-overview"); }}
         />
         <FloatingToolbarItem
           icon={<Layers className="w-4 h-4" />}
-          label="Ver Component Lab"
+          label="Ver Component Lab (50)"
           active={viewMode === "lab"}
-          onClick={() => setViewMode("lab")}
+          onClick={() => { setViewMode("lab"); setActiveNavItem("lab-all"); }}
+        />
+        <FloatingToolbarItem
+          icon={<LayoutDashboard className="w-4 h-4" />}
+          label="Ver Template SaaS de Exemplo"
+          active={viewMode === "templates-dashboard"}
+          onClick={() => { setViewMode("templates-dashboard"); setActiveNavItem("template-dashboard"); }}
         />
 
         <FloatingToolbarSeparator />

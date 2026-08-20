@@ -39,62 +39,62 @@
   --tc-neutral-950: oklch(18% 0.010 53);   /* Cards / Sidebar: L=18% */
   --tc-neutral-1000: oklch(14% 0.008 53);  /* Canvas Base: L=14% */
 
-  /* --- STATUS: SUCCESS (Hue ~145) --- */
-  --tc-success-subtle: oklch(25% 0.04 145);
-  --tc-success-base: oklch(45% 0.15 145);
-  --tc-success-strong: oklch(55% 0.15 145);
-  --tc-success-fg: oklch(95% 0.03 145);
-  --tc-success-text: oklch(85% 0.08 145);
+  /* --- STATUS: SUCCESS (Hue ~145, Muted Emerald) --- */
+  --tc-success-subtle: oklch(22% 0.025 145);
+  --tc-success-base: oklch(48% 0.095 145);
+  --tc-success-strong: oklch(58% 0.105 145);
+  --tc-success-fg: oklch(96% 0.02 145);
+  --tc-success-text: oklch(82% 0.065 145);
 
-  /* --- STATUS: WARNING (Hue ~85) --- */
-  --tc-warning-subtle: oklch(25% 0.04 85);
-  --tc-warning-base: oklch(45% 0.16 85);
-  --tc-warning-strong: oklch(55% 0.16 85);
-  --tc-warning-fg: oklch(95% 0.03 85);
-  --tc-warning-text: oklch(90% 0.08 85);
+  /* --- STATUS: WARNING (Hue ~85, Noble Amber) --- */
+  --tc-warning-subtle: oklch(22% 0.025 85);
+  --tc-warning-base: oklch(50% 0.105 85);
+  --tc-warning-strong: oklch(60% 0.115 85);
+  --tc-warning-fg: oklch(96% 0.02 85);
+  --tc-warning-text: oklch(86% 0.075 85);
 
-  /* --- STATUS: DANGER (Hue ~25) --- */
-  --tc-danger-subtle: oklch(25% 0.04 25);
-  --tc-danger-base: oklch(45% 0.18 25);
-  --tc-danger-strong: oklch(55% 0.18 25);
-  --tc-danger-fg: oklch(95% 0.03 25);
-  --tc-danger-text: oklch(88% 0.08 25);
+  /* --- STATUS: DANGER (Hue ~25, Crimson / Coral) --- */
+  --tc-danger-subtle: oklch(22% 0.025 25);
+  --tc-danger-base: oklch(48% 0.115 25);
+  --tc-danger-strong: oklch(58% 0.125 25);
+  --tc-danger-fg: oklch(96% 0.02 25);
+  --tc-danger-text: oklch(84% 0.075 25);
 
-  /* --- STATUS: INFO (Hue ~240) --- */
-  --tc-info-subtle: oklch(25% 0.04 240);
-  --tc-info-base: oklch(45% 0.16 240);
-  --tc-info-strong: oklch(55% 0.16 240);
-  --tc-info-fg: oklch(95% 0.03 240);
-  --tc-info-text: oklch(85% 0.08 240);
+  /* --- STATUS: INFO (Hue ~240, Slate Blue) --- */
+  --tc-info-subtle: oklch(22% 0.025 240);
+  --tc-info-base: oklch(48% 0.095 240);
+  --tc-info-strong: oklch(58% 0.105 240);
+  --tc-info-fg: oklch(96% 0.02 240);
+  --tc-info-text: oklch(82% 0.065 240);
 
-  /* --- CATEGORICAL TAGS --- */
-  --tc-tag-purple-subtle: oklch(25% 0.04 300);
-  --tc-tag-purple-base: oklch(45% 0.16 300);
-  --tc-tag-purple-fg: oklch(95% 0.03 300);
-  --tc-tag-purple-text: oklch(85% 0.08 300);
+  /* --- CATEGORICAL TAGS (Low Chroma: 0.06 a 0.08) --- */
+  --tc-tag-purple-subtle: oklch(22% 0.020 300);
+  --tc-tag-purple-base: oklch(48% 0.085 300);
+  --tc-tag-purple-fg: oklch(96% 0.02 300);
+  --tc-tag-purple-text: oklch(82% 0.060 300);
 
-  --tc-tag-pink-subtle: oklch(25% 0.04 340);
-  --tc-tag-pink-base: oklch(45% 0.16 340);
-  --tc-tag-pink-fg: oklch(95% 0.03 340);
-  --tc-tag-pink-text: oklch(85% 0.08 340);
+  --tc-tag-pink-subtle: oklch(22% 0.020 340);
+  --tc-tag-pink-base: oklch(48% 0.085 340);
+  --tc-tag-pink-fg: oklch(96% 0.02 340);
+  --tc-tag-pink-text: oklch(82% 0.060 340);
 
-  --tc-tag-teal-subtle: oklch(25% 0.04 190);
-  --tc-tag-teal-base: oklch(45% 0.16 190);
-  --tc-tag-teal-fg: oklch(95% 0.03 190);
-  --tc-tag-teal-text: oklch(85% 0.08 190);
+  --tc-tag-teal-subtle: oklch(22% 0.020 190);
+  --tc-tag-teal-base: oklch(48% 0.085 190);
+  --tc-tag-teal-fg: oklch(96% 0.02 190);
+  --tc-tag-teal-text: oklch(82% 0.060 190);
 
-  --tc-tag-indigo-subtle: oklch(25% 0.04 270);
-  --tc-tag-indigo-base: oklch(45% 0.16 270);
-  --tc-tag-indigo-fg: oklch(95% 0.03 270);
-  --tc-tag-indigo-text: oklch(85% 0.08 270);
+  --tc-tag-indigo-subtle: oklch(22% 0.020 270);
+  --tc-tag-indigo-base: oklch(48% 0.085 270);
+  --tc-tag-indigo-fg: oklch(96% 0.02 270);
+  --tc-tag-indigo-text: oklch(82% 0.060 270);
 
-  /* --- CHARTS / DATA VIZ --- */
-  --tc-chart-1: oklch(67% 0.17 53); /* Brand */
-  --tc-chart-2: oklch(70% 0.15 190);
-  --tc-chart-3: oklch(65% 0.15 320);
-  --tc-chart-4: oklch(75% 0.15 85);
-  --tc-chart-5: oklch(65% 0.15 145);
-  --tc-chart-6: oklch(72% 0.15 280);
+  /* --- CHARTS / DATA VIZ (Analytical Chroma Budget) --- */
+  --tc-chart-1: oklch(67% 0.17 53);   /* Brand Orange Protagonist */
+  --tc-chart-2: oklch(68% 0.095 190); /* Subtle Teal */
+  --tc-chart-3: oklch(65% 0.095 310); /* Soft Amethyst */
+  --tc-chart-4: oklch(74% 0.100 85);  /* Warm Amber */
+  --tc-chart-5: oklch(65% 0.090 145); /* Muted Mint */
+  --tc-chart-6: oklch(68% 0.095 260); /* Slate Cobalt */
 
   /* --- TYPOGRAPHY PRIMITIVES --- */
   --tc-font-display: 'Cabin', sans-serif;

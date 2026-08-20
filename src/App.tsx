@@ -83,6 +83,11 @@ import {
   CommandShortcut,
   CommandSeparator,
 } from "@/components/ui/command"
+import { HintBeacon } from "@/components/ui/hint-beacon"
+import { BannerAnnouncement } from "@/components/ui/banner-announcement"
+import { OnboardingChecklist, type OnboardingStep } from "@/components/ui/onboarding-checklist"
+import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
+import { PersonaSelector } from "@/components/ui/persona-selector"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -240,6 +245,61 @@ function App() {
   const [selectedPlan, setSelectedPlan] = useState("pro")
   const [termsAccepted, setTermsAccepted] = useState(true)
   const [openCommand, setOpenCommand] = useState(false)
+  const [openPersonaSelector, setOpenPersonaSelector] = useState(false)
+  const [userPersona, setUserPersona] = useState<string>("developer")
+  const [isTourOpen, setIsTourOpen] = useState(false)
+  const [currentTourStep, setCurrentTourStep] = useState(0)
+  const [isDockedChecklistOpen, setIsDockedChecklistOpen] = useState(false)
+
+  const checklistSteps: OnboardingStep[] = [
+    {
+      id: "step-1",
+      title: "Definir foco do Workspace",
+      description: "Selecione o perfil da sua organização no Persona Selector.",
+      completed: true,
+      actionLabel: "Revisar",
+      onAction: () => setOpenPersonaSelector(true),
+    },
+    {
+      id: "step-2",
+      title: "Experimentar a Command Palette",
+      description: "Abra o menu global via ⌘K e explore atalhos rápidos.",
+      completed: true,
+      actionLabel: "Abrir ⌘K",
+      onAction: () => setOpenCommand(true),
+    },
+    {
+      id: "step-3",
+      title: "Realizar o Tour Interativo",
+      description: "Faça o walkthrough guiado de 3 passos pelas áreas centrais.",
+      completed: false,
+      actionLabel: "Iniciar Tour",
+      onAction: () => { setCurrentTourStep(0); setIsTourOpen(true); },
+    },
+    {
+      id: "step-4",
+      title: "Instalar componentes via CLI",
+      description: "Copie comandos de instalação direta no seu terminal.",
+      completed: false,
+      actionLabel: "Ver Comando",
+      onAction: () => toast.info("Execute: npx shadcn@latest add https://.../button.json"),
+    },
+  ]
+
+  const tourSteps: TourStep[] = [
+    {
+      title: "Seletor de Persona & Intenção",
+      description: "Adapte o Dashboard para o seu foco (Engenharia, Finanças ou Operações) com 1 clique.",
+    },
+    {
+      title: "Command Palette (⌘K)",
+      description: "Pressione ⌘K ou Ctrl+K para buscar rapidamente qualquer cliente, ação ou tela do SaaS.",
+    },
+    {
+      title: "Laboratório de Componentes",
+      description: "Explore 40+ componentes modulares com suporte a Dark Mode, acessibilidade e tokens OKLCH.",
+    },
+  ]
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -1918,6 +1978,120 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* Onboarding UX & Adoção de Produto (Fase 6) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Onboarding UX & Adoção de Produto
+                </h2>
+                <Badge variant="info" size="sm">Fase 6 · Diretrizes 2025</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Padrões para aceleração de Time-to-Value, divulgação progressiva (beacons), personalização por persona e checklist gamificado.
+              </p>
+            </div>
+          </div>
+
+          {/* 1. Banner Announcement */}
+          <BannerAnnouncement
+            badgeText="Lançamento 2025"
+            title="Suíte de Onboarding UX Integrada"
+            description="Reduza o abandono de novos usuários com fluxos contextuais não-bloqueantes e personalização por persona."
+            actionLabel="Iniciar Tour Guiado"
+            onAction={() => { setCurrentTourStep(0); setIsTourOpen(true); }}
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 2. Onboarding Checklist In-Page (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="p-1 rounded-(--tc-radius-xl) bg-surface/30">
+                <OnboardingChecklist
+                  steps={checklistSteps}
+                  collapsible={false}
+                  onDismiss={() => toast.info("Checklist dispensado.")}
+                />
+              </div>
+
+              <div className="flex items-center justify-between p-4 rounded-(--tc-radius-lg) surface-card border border-border">
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold text-foreground">Widget Flutuante (Docked Mode)</span>
+                  <span className="text-[11px] text-muted-foreground">Fixar checklist no canto inferior direito da tela</span>
+                </div>
+                <Button
+                  variant={isDockedChecklistOpen ? "secondary" : "outline"}
+                  size="sm"
+                  onClick={() => {
+                    setIsDockedChecklistOpen(!isDockedChecklistOpen)
+                    toast.info(isDockedChecklistOpen ? "Checklist flutuante ocultado." : "Checklist flutuante ativado no canto inferior!")
+                  }}
+                >
+                  {isDockedChecklistOpen ? "Ocultar Docked" : "Ativar Docked"}
+                </Button>
+              </div>
+            </div>
+
+            {/* 3. Beacons, Persona Selector & Tour Controls (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Persona Selector Trigger Card */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Wizard de Personalização</span>
+                  <Badge variant="neutral" size="sm">PersonaSelector</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Permite ao usuário escolher o foco principal do workspace no primeiro acesso:
+                </p>
+                <div className="p-3 rounded-md bg-surface border border-border flex items-center justify-between">
+                  <span className="text-xs font-mono text-muted-foreground">
+                    Perfil Ativo: <strong className="text-primary capitalize">{userPersona}</strong>
+                  </span>
+                  <Button variant="primary" size="sm" onClick={() => setOpenPersonaSelector(true)}>
+                    Abrir Seletor
+                  </Button>
+                </div>
+              </div>
+
+              {/* Hint Beacons Showcase */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Micro-âncoras (Hint Beacons)</span>
+                  <Badge variant="neutral" size="sm">Progressive Disclosure</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Pontos pulsantes em OKLCH Laranja que atraem o olhar sem criar popups invasivos:
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4 pt-1">
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" size="sm">
+                      Métricas Avançadas
+                    </Button>
+                    <HintBeacon
+                      title="Novo: Gráficos de Churn Preditivo"
+                      description="Clique para habilitar a projeção de LTV e churn calculada por modelo preditivo."
+                      actionLabel="Explorar"
+                      onAction={() => toast.success("Métricas preditivas habilitadas!")}
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button variant="secondary" size="sm">
+                      Exportar Relatório
+                    </Button>
+                    <HintBeacon
+                      title="Exportação em Lote"
+                      description="Agora você pode exportar relatórios em formato CSV e JSON com 1 clique."
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         </div>
       )}
 
@@ -1973,6 +2147,40 @@ function App() {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
+
+      {/* Persona Selector Wizard Modal */}
+      <PersonaSelector
+        open={openPersonaSelector}
+        onOpenChange={setOpenPersonaSelector}
+        defaultPersonaId={userPersona}
+        onSelectPersona={(id) => {
+          setUserPersona(id)
+          toast.success(`Workspace calibrado para o perfil: ${id.toUpperCase()}`)
+        }}
+      />
+
+      {/* Tour Spotlight Walkthrough */}
+      <TourSpotlight
+        isOpen={isTourOpen}
+        steps={tourSteps}
+        currentStepIndex={currentTourStep}
+        onNext={() => setCurrentTourStep((prev) => Math.min(prev + 1, tourSteps.length - 1))}
+        onPrev={() => setCurrentTourStep((prev) => Math.max(prev - 1, 0))}
+        onClose={() => setIsTourOpen(false)}
+        onComplete={() => {
+          setIsTourOpen(false)
+          toast.success("Tour concluído com sucesso! 🎉")
+        }}
+      />
+
+      {/* Docked Floating Checklist */}
+      {isDockedChecklistOpen && (
+        <OnboardingChecklist
+          docked={true}
+          steps={checklistSteps}
+          onDismiss={() => setIsDockedChecklistOpen(false)}
+        />
+      )}
 
       <Toaster />
     </AppLayout>

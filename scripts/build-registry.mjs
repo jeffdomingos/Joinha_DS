@@ -594,6 +594,81 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "hint-beacon",
+    type: "registry:ui",
+    title: "Hint Beacon",
+    description: "Pulsing radar beacon for progressive disclosure and in-context feature discovery.",
+    dependencies: ["@radix-ui/react-popover", "lucide-react"],
+    registryDependencies: ["utils", "button"],
+    files: [
+      {
+        path: "components/ui/hint-beacon.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/hint-beacon.tsx"),
+      },
+    ],
+  },
+  {
+    name: "banner-announcement",
+    type: "registry:ui",
+    title: "Banner Announcement",
+    description: "In-app product release and feature announcement banner.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "badge", "button"],
+    files: [
+      {
+        path: "components/ui/banner-announcement.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/banner-announcement.tsx"),
+      },
+    ],
+  },
+  {
+    name: "onboarding-checklist",
+    type: "registry:ui",
+    title: "Onboarding Checklist",
+    description: "Dockable activation checklist with gamified progress and task completion.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "progress", "badge", "button"],
+    files: [
+      {
+        path: "components/ui/onboarding-checklist.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/onboarding-checklist.tsx"),
+      },
+    ],
+  },
+  {
+    name: "tour-spotlight",
+    type: "registry:ui",
+    title: "Tour Spotlight",
+    description: "Interactive non-blocking product walkthrough and coachmark guide.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "badge", "button"],
+    files: [
+      {
+        path: "components/ui/tour-spotlight.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/tour-spotlight.tsx"),
+      },
+    ],
+  },
+  {
+    name: "persona-selector",
+    type: "registry:ui",
+    title: "Persona Selector",
+    description: "Initial user role & intent selection wizard for tailored onboarding.",
+    dependencies: ["lucide-react", "@radix-ui/react-dialog"],
+    registryDependencies: ["utils", "dialog", "button"],
+    files: [
+      {
+        path: "components/ui/persona-selector.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/persona-selector.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

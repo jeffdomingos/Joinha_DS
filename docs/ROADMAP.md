@@ -74,3 +74,16 @@ Organizado em 4 lotes temáticos para implementação incremental:
 * [x] **Progress Bar (`<Progress />`):** Barra de progresso linear com cores semânticas de cota (Verde / Amarelo / Vermelho).
 * [x] **Empty State (`<EmptyState />`):** Estado vazio padrão para buscas e tabelas sem dados.
 * [x] **Command Palette (`<Command />` / `⌘K`):** Menu modal de busca fuzzy e ações rápidas estilo Raycast/Linear.
+
+---
+
+## 5. 🟢 Fase 6: Onboarding UX & Componentes de Adoção de Produto (Concluída)
+
+Projetado para acelerar o *Time-to-Value*, guiar novos usuários com divulgação progressiva e oferecer experiências de ativação não-bloqueantes:
+
+* [x] **Onboarding Checklist (`<OnboardingChecklist />`):** Widget acoplável e colapsável com progresso percentual, lista de tarefas gamificada e celebração de conclusão.
+* [x] **Tour Spotlight & Coachmark (`<TourSpotlight />`):** Sistema de destaque focal que ilumina elementos-alvo através de máscara SVG e popover contextual com navegação por teclado (`Esc`/`Enter`).
+* [x] **Hint Beacon (`<HintBeacon />`):** Ponto pulsante sutil em OKLCH Laranja acoplado a novas funcionalidades para orientação contextual sob demanda (*Progressive Disclosure*).
+* [x] **Persona Selector Wizard (`<PersonaSelector />`):** Modal de personalização inicial com *Choice Cards* para bifurcar a interface conforme o objetivo do usuário.
+* [x] **Banner Announcement (`<BannerAnnouncement />`):** Banner in-app de novidades e releases descartável com persistência local.
+

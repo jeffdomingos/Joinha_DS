@@ -138,10 +138,23 @@ Baseado nos estudos de usabilidade do **Nielsen Norman Group (NN/g)**:
 
 ---
 
-## 8. Arquitetura de Distribuição e Filosofia Agent-Native
+## 8. Onboarding UX, Product Adoption & Redução de Time-to-Value (Diretrizes 2025)
+
+Baseado no estudo e diretrizes de design do **UX Design Institute (2025)**, estabelecemos que o onboarding não deve ser um tour passivo ou uma barreira de modais, mas uma rampa de aceleração de valor:
+
+### Os 5 Pilares de Onboarding no Joinha DS:
+1. **Fast-track to Value (Redução Radical de Time-to-Value):** Levar o usuário ao momento "Aha!" nos primeiros 60 segundos, permitindo criação rápida com *smart defaults* antes de exigir preenchimentos longos.
+2. **Progressive Disclosure (Divulgação Progressiva):** Apresentar dicas e recursos somente quando forem contextualmente relevantes através de micro-âncoras e *beacons*, eliminando sobrecarga cognitiva (*cognitive overload*).
+3. **Personalização por Intenção (Role-based Branching):** Utilizar seletores de perfil (*PersonaSelector*) com 1 clique para bifurcar a interface para o fluxo exato desejado (ex: Desenvolvedor vs. Financeiro vs. Operações).
+4. **Interatividade e Gamificação (*Learn-by-Doing*):** Substituir tutoriais estáticos por um checklist acoplável (*OnboardingChecklist*) com barra de progresso, estados concluídos e celebração sutil de momentum.
+5. **Autonomia e Respeito ao Usuário:** Toda dica, tour ou spotlight DEVE ser descartável (*dismissible* ou pulável via tecla `Esc`), sem prender o usuário em fluxos forçados.
+
+---
+
+## 9. Arquitetura de Distribuição e Filosofia Agent-Native
 
 1. **GitHub Template:** Estruturado com `.github/template.yml` para clonagem e bootstrap instantâneo de novos SaaS.
-2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 22 componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
+2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 38+ componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
 3. **Fonte Única de Verdade (`design-system.md`):** Regras explícitas com restrições invioláveis para que Agentes de IA (Claude, GPT, Gemini) gerem telas e componentes com 100% de conformidade, sem inventar cores hexadecimais ou quebrar hierarquias visuais.
 
 ---
@@ -151,3 +164,4 @@ Baseado nos estudos de usabilidade do **Nielsen Norman Group (NN/g)**:
 *Joinha Design System — Construído com rigor de engenharia, precisão óptica e excelência estética.*
 
 </div>
+

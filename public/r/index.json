@@ -476,6 +476,78 @@
         "utils",
         "dialog"
       ]
+    },
+    {
+      "name": "hint-beacon",
+      "type": "registry:ui",
+      "title": "Hint Beacon",
+      "description": "Pulsing radar beacon for progressive disclosure and in-context feature discovery.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "banner-announcement",
+      "type": "registry:ui",
+      "title": "Banner Announcement",
+      "description": "In-app product release and feature announcement banner.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "badge",
+        "button"
+      ]
+    },
+    {
+      "name": "onboarding-checklist",
+      "type": "registry:ui",
+      "title": "Onboarding Checklist",
+      "description": "Dockable activation checklist with gamified progress and task completion.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "progress",
+        "badge",
+        "button"
+      ]
+    },
+    {
+      "name": "tour-spotlight",
+      "type": "registry:ui",
+      "title": "Tour Spotlight",
+      "description": "Interactive non-blocking product walkthrough and coachmark guide.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "badge",
+        "button"
+      ]
+    },
+    {
+      "name": "persona-selector",
+      "type": "registry:ui",
+      "title": "Persona Selector",
+      "description": "Initial user role & intent selection wizard for tailored onboarding.",
+      "dependencies": [
+        "lucide-react",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "utils",
+        "dialog",
+        "button"
+      ]
     }
   ]
 }

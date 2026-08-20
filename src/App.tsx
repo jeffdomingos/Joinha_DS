@@ -241,11 +241,11 @@ function App() {
       {/* Top Banner / Mode Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2.5">
             <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
               {viewMode === "dashboard" ? "Painel de Gestão & Receita" : "Laboratório de Componentes (Joinha DS)"}
             </h1>
-            <Badge variant="info" size="sm">Fase 4: App Shell</Badge>
+            <Badge variant="info" size="sm">Fase 4: Concluída</Badge>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
             {viewMode === "dashboard"

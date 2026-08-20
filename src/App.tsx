@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import {
   Select,
   SelectContent,
@@ -37,9 +39,23 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle } from "lucide-react"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 function App() {
+  const [hasHighlight, setHasHighlight] = useState(false)
+  const [hasGradientBorder, setHasGradientBorder] = useState(true)
+  const [hasElevation, setHasElevation] = useState(true)
+  const [hasGlow, setHasGlow] = useState(false)
+
+  const activeClasses = cn(
+    "flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel p-(--tc-card-p) transition-all duration-200",
+    hasHighlight && "surface-highlight",
+    hasGradientBorder && "border-gradient-subtle",
+    hasElevation && "elevation-2",
+    hasGlow && "brand-glow"
+  )
+
   return (
     <div className="min-h-screen bg-background text-foreground p-8 md:p-12 lg:p-16 flex justify-center">
       <div className="w-full max-w-4xl space-y-12">
@@ -49,6 +65,50 @@ function App() {
             React Components Implementation (Shadcn UI + Radix + Tailwind v4)
           </p>
         </header>
+
+        {/* Surface & Lighting Lab / Playground */}
+        <section className="space-y-4 p-6 rounded-(--tc-radius-xl) border border-border bg-surface-elevated/40">
+          <div className="flex items-center gap-2 pb-2 border-b border-border">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-semibold text-foreground m-0">Surface & Lighting Lab (Comparador de Efeitos)</h2>
+          </div>
+          <p className="type-ui-base text-muted-foreground">
+            Ligue e desligue cada camada de acabamento para testar a combinação ideal e avaliar o impacto do chanfro e das bordas:
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2">
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <Switch checked={hasGradientBorder} onCheckedChange={setHasGradientBorder} />
+              <div className="flex flex-col">
+                <span className="type-ui-dense font-semibold">Borda Gradiente</span>
+                <span className="text-xs text-muted-foreground">.border-gradient-subtle</span>
+              </div>
+            </label>
+
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <Switch checked={hasHighlight} onCheckedChange={setHasHighlight} />
+              <div className="flex flex-col">
+                <span className="type-ui-dense font-semibold">Chanfro Interno</span>
+                <span className="text-xs text-muted-foreground">.surface-highlight</span>
+              </div>
+            </label>
+
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <Switch checked={hasElevation} onCheckedChange={setHasElevation} />
+              <div className="flex flex-col">
+                <span className="type-ui-dense font-semibold">Sombra / Elevação</span>
+                <span className="text-xs text-muted-foreground">.elevation-2</span>
+              </div>
+            </label>
+
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <Switch checked={hasGlow} onCheckedChange={setHasGlow} />
+              <div className="flex flex-col">
+                <span className="type-ui-dense font-semibold">Brand Glow</span>
+                <span className="text-xs text-muted-foreground">.brand-glow</span>
+              </div>
+            </label>
+          </div>
+        </section>
 
         {/* Buttons Grid */}
         <section className="space-y-6">
@@ -67,7 +127,7 @@ function App() {
             <div className="flex flex-col gap-2">
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" aria-label="Baixar arquivo">
                 <Download className="w-4 h-4" />
               </Button>
             </div>
@@ -78,13 +138,13 @@ function App() {
           </div>
         </section>
 
-        {/* Forms Row */}
+        {/* Forms Row with Dynamic Card */}
         <section className="space-y-6">
-          <h2 className="text-xl font-semibold border-b border-border pb-2">Forms & Inputs</h2>
+          <h2 className="text-xl font-semibold border-b border-border pb-2">Forms & Interactive Surface Card</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-base shadow-sm p-(--tc-card-p) surface-highlight border-gradient-subtle">
+            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-base shadow-sm p-(--tc-card-p) border border-border">
               <div className="flex flex-col gap-(--tc-form-label-gap)">
-                <label className="type-ui-dense font-semibold">Standard Input</label>
+                <label className="type-ui-dense font-semibold">Standard Input (Card Base Neutro)</label>
                 <Input placeholder="Enter your text here..." />
               </div>
               <div className="flex flex-col gap-(--tc-form-label-gap)">
@@ -98,7 +158,15 @@ function App() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel elevation-2 p-(--tc-card-p) surface-highlight border-gradient-subtle">
+            {/* Test Card Controlled by the Switches */}
+            <div className={activeClasses}>
+              <div className="flex items-center justify-between">
+                <label className="type-ui-dense font-semibold">Card com Efeitos Ativos (Live Test)</label>
+                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                  Custom
+                </span>
+              </div>
+
               <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Select</label>
                 <Select>

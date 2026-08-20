@@ -126,9 +126,7 @@
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
-      linear-gradient(to right, var(--border-gradient-start), var(--border-gradient-end)) top left / 100% 12px no-repeat border-box,
-      linear-gradient(to bottom, var(--border-gradient-start), var(--border-gradient-end)) top left / 12px 100% no-repeat border-box,
-      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
+      radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
   }
 
   .border-gradient-outline {
@@ -142,10 +140,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: 
-      linear-gradient(to right, var(--border-gradient-start), var(--border-gradient-end)) top left / 100% 12px no-repeat,
-      linear-gradient(to bottom, var(--border-gradient-start), var(--border-gradient-end)) top left / 12px 100% no-repeat,
-      linear-gradient(var(--border-gradient-end), var(--border-gradient-end));
+    background: radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -156,27 +151,21 @@
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--action-secondary-bg), var(--action-secondary-bg)) padding-box,
-      linear-gradient(to right, var(--btn-secondary-border-start), var(--btn-secondary-border-end)) top left / 100% 12px no-repeat border-box,
-      linear-gradient(to bottom, var(--btn-secondary-border-start), var(--btn-secondary-border-end)) top left / 12px 100% no-repeat border-box,
-      linear-gradient(var(--btn-secondary-border-end), var(--btn-secondary-border-end)) border-box !important;
+      radial-gradient(100% 100% at 0% 0%, var(--btn-secondary-border-start) 0%, var(--btn-secondary-border-end) 100%) border-box !important;
   }
 
   .border-gradient-primary {
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--action-primary-bg), var(--action-primary-bg)) padding-box,
-      linear-gradient(to right, var(--btn-primary-border-start), var(--btn-primary-border-end)) top left / 100% 12px no-repeat border-box,
-      linear-gradient(to bottom, var(--btn-primary-border-start), var(--btn-primary-border-end)) top left / 12px 100% no-repeat border-box,
-      linear-gradient(var(--btn-primary-border-end), var(--btn-primary-border-end)) border-box !important;
+      radial-gradient(100% 100% at 0% 0%, var(--btn-primary-border-start) 0%, var(--btn-primary-border-end) 100%) border-box !important;
   }
 
   .border-gradient-destructive {
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--status-danger-bg), var(--status-danger-bg)) padding-box,
-      linear-gradient(to right, var(--btn-destructive-border-start), var(--btn-destructive-border-end)) top left / 100% 12px no-repeat border-box,
-      linear-gradient(to bottom, var(--btn-destructive-border-start), var(--btn-destructive-border-end)) top left / 12px 100% no-repeat border-box,
-      linear-gradient(var(--btn-destructive-border-end), var(--btn-destructive-border-end)) border-box !important;
+      radial-gradient(100% 100% at 0% 0%, var(--btn-destructive-border-start) 0%, var(--btn-destructive-border-end) 100%) border-box !important;
   }
 
   .border-gradient-sunken {
@@ -184,9 +173,7 @@
     box-shadow: var(--tc-input-inner-shadow, inset 1px 2px 3px 0 oklch(0% 0 0 / 0.20));
     background: 
       linear-gradient(var(--bg-app), var(--bg-app)) padding-box,
-      linear-gradient(to right, var(--border-gradient-end), var(--border-gradient-start)) bottom right / 100% 12px no-repeat border-box,
-      linear-gradient(to bottom, var(--border-gradient-end), var(--border-gradient-start)) bottom right / 12px 100% no-repeat border-box,
-      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
+      radial-gradient(100% 100% at 100% 100%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
   }
   
   .brand-glow {

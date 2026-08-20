@@ -21,7 +21,7 @@
   --color-destructive-foreground: var(--status-danger-fg);
   
   --color-muted: var(--bg-surface-hover);
-  --color-muted-foreground: var(--text-secondary);
+  --color-muted-foreground: var(--text-muted);
   
   --color-accent: var(--bg-surface-hover);
   --color-accent-foreground: var(--text-primary);

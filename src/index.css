@@ -135,6 +135,21 @@
         var(--border-gradient-end) 100%
       ) border-box !important;
   }
+
+  .border-gradient-colored {
+    border: 1px solid transparent !important;
+    background: 
+      linear-gradient(var(--btn-bg, var(--action-primary-bg)), var(--btn-bg, var(--action-primary-bg))) padding-box,
+      linear-gradient(
+        135deg, 
+        oklch(100% 0 0 / 0.30) 0%, 
+        oklch(100% 0 0 / 0.30) 12%,
+        transparent 32%, 
+        oklch(0% 0 0 / 0.30) 55%,
+        oklch(0% 0 0 / 0.30) 100%
+      ) border-box,
+      linear-gradient(var(--btn-bg, var(--action-primary-bg)), var(--btn-bg, var(--action-primary-bg))) border-box !important;
+  }
   
   .brand-glow {
     box-shadow: 0 4px 16px 0 oklch(67% 0.17 53 / 0.22);

@@ -25,11 +25,24 @@ Toda a interface do Joinha DS é governada pela proporção clássica de superf�
 
 - **60% Superfícies Neutras de Fundo (Dominante):** Telas, canvas, modais, gavetas e fundos de cards (`--bg-app`, `--bg-surface`, `--bg-surface-elevated`).
 - **30% Estrutura Secundária (Neutros de Apoio):** Bordas, divisores, fundos hover, textos muted, badges neutros e ícones de suporte (`--border-border`, `--bg-surface-hover`, `--text-muted-foreground`).
-- **10% Accent (Laranja da Marca - `#e27100` / `oklch(67% 0.17 53)`):** RESERVADO EXCLUSIVAMENTE para guiar a intenção e a próxima ação do usuário.
+- **10% Accent (Laranja da Marca):** RESERVADO EXCLUSIVAMENTE para guiar a intenção e a próxima ação do usuário — mas nunca no croma de pico (`C=0.17`, o "laranjão"). Veja **Brand Mark vs. Accent de Interface** abaixo.
 
 > **🛑 DIRETRIZ INVIOLÁVEL DA COR ACCENT:**
 > A cor Laranja (Brand) existe **EXCLUSIVAMENTE** para guiar a próxima ação do usuário, **NUNCA para decorar a interface**. 
 > Se o elemento não for um **gatilho de ação principal** (`<Button variant="primary">`), um **estado de seleção ativa** (`data-active="true"`, `data-[state=checked]`, tab ativa, nav item ativo) ou um **anel de foco por teclado** (`focus-visible:ring-primary`), ele **DEVE SER RESOLVIDO NA ESCALA NEUTRA**. Ícones de títulos, bordas decorativas e banners explicativos não levam cor accent.
+
+### 🔶 Brand Mark vs. Accent de Interface (Chromatic Economy)
+O croma de pico da escala de marca (`brand-500`, `oklch(67% 0.17 53)`, `#e27100` — o "laranjão") é **reservado exclusivamente ao símbolo/logo** (`--brand-mark`, usado só em `<BrandSymbol variant="badge">` e nos badges de identidade do sidebar). Nenhum elemento de interface deve usar `--brand-mark` ou `--tc-brand-500` diretamente — isso preserva o laranjão como sinal de **identidade**, não de **interação**, inspirado em referências como o IDE Antigravity (azul de marca usado com extrema parcimônia, nunca como fill genérico de UI).
+
+Para interação, use a **hierarquia de três acentos de interface** (nenhum toca `C=0.17`):
+
+| Token | Primitivo | Uso |
+|---|---|---|
+| `--accent-action` | `brand-600` (`C=0.15`, `L=58%`) | Teto de saturação da UI. CTA hero, Checkbox marcado, Switch ligado. |
+| `--accent-ui` | `brand-400` (`C=0.15`, `L=74%`) | Ícone-âncora de orientação, hover de item de navegação. |
+| `--accent-subtle` | `brand-300` (`C=0.12`, `L=80%`) | Focus ring, borda de sub-item ativo. |
+
+**Regra do Single Accent Anchor:** em qualquer estado de seleção (nav ativo, sub-item, paginação, item de comando selecionado), apenas **um** elemento carrega a cor accent (tipicamente o ícone). Fundo e texto resolvem em neutro — evita que a cor "grite" em múltiplas camadas do mesmo componente.
 
 O sistema opera em duas camadas estruturais:
 
@@ -91,10 +104,13 @@ Ferramentas SaaS exigem hierarquia visual clara e controle rígido de contraste.
 - `--surface-highlight`: Chanfro físico superior de 1px (`inset 0 1px 0 0 oklch(100% 0 0 / 0.07)` no Dark, `none` no Light).
 
 ### Textos e Tipografia
-- `--text-primary`: Textos principais, títulos e dados cruciais (Contraste $\ge 13:1$).
+- `--text-heading`: Reservado a `h1`–`h4`, `.font-display` e valores de métrica hero (`MetricCardValue`). Pico de branco (`neutral-50`, `L=96%` no Dark) — o único texto que se aproxima do branco puro.
+- `--text-primary`: Corpo de texto, labels de navegação e dados cruciais (`neutral-100`, `L=93%` no Dark — deliberadamente abaixo do pico para evitar *halation* em leitura prolongada; Contraste $\ge 13:1$).
 - `--text-secondary`: Rótulos, descrições secundárias, subtítulos (Contraste $\ge 7:1$).
 - `--text-tertiary` / `--text-muted`: Placeholders, textos auxiliares e dados desativados (Contraste $\ge 4.5:1$).
 - `--text-inverse`: Texto em botões ou áreas com fundo claro contrastante.
+
+> **Por que não usar branco puro no corpo de texto?** Em telas escuras, texto a `L=100%`/`96%` sobre fundo a `L=14%` gera *halation* (sangramento de luz na retina) em sessões de leitura longa. `--text-primary` foi deliberadamente descido para `L=93%`, reservando o pico de `L=96%` só para elementos que precisam de destaque pontual (`--text-heading`).
 
 ### Botões e Ações (Actions)
 - **Primary**: Ação principal da tela (ex: "Salvar", "Criar"). Use `--action-primary-bg`.
@@ -128,6 +144,7 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 2. **Nunca** use `--tc-*` diretamente. Se você precisa de um fundo, escolha na escala `--bg-*`.
 3. **Não crie novos tons de cinza.** O sistema já possui a escala de neutros aquecidos ideal. Não introduza preto (`#000`) ou branco puro sem verificar se há um token equivalente (ex: `--tc-neutral-1000` ou `--tc-neutral-0`).
 4. Ao construir gráficos (Charts), use as variáveis `--chart-1` até `--chart-6` sequencialmente.
+4b. **`--brand-mark` (o "laranjão", `brand-500`/`C=0.17`) é EXCLUSIVO de logo/símbolo de marca.** Nenhum botão, badge, ícone, estado ativo ou elemento de interface usa esse token ou `--tc-brand-500` diretamente — use `--accent-action` (`brand-600`), `--accent-ui` (`brand-400`) ou `--accent-subtle` (`brand-300`) conforme a hierarquia de três acentos.
 5. **Uso Esporádico e Consciente do Brand Glow (`.brand-glow` / `shadow-(--tc-shadow-glow)`):** O efeito de brilho luminoso difuso deve ser reservado **exclusivamente para momentos hero de altíssimo impacto** (ex: card de upgrade para plano Pro, destaque de feature de IA ou estados celebratórios de conversão). **É proibido** aplicar glow em botões rotineiros de navegação, itens de menu/sidebar, botões do cabeçalho global ou controles cotidianos de formulário.
 6. **Dois Níveis Tipográficos:** Títulos, cabeçalhos de seções e display usam `var(--tc-font-display)` (Cabin / Gill Sans heritage). Textos de UI, inputs, botões, tags e tabelas usam `var(--tc-font-sans)` (Plus Jakarta Sans). Dados tabulares usam `var(--tc-font-mono)` (JetBrains Mono).
 7. Ao categorizar dados neutros, prefira a família `--tag-*` em vez de sobrecarregar as cores funcionais de `--status-*`.

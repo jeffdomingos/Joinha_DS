@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   BookOpen,
+  Info,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,6 +20,70 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog"
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet"
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import { Separator } from "@/components/ui/separator"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  ResizablePanelGroup,
+  ResizablePanel,
+  ResizableHandle,
+} from "@/components/ui/resizable"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -27,9 +92,17 @@ import { Progress } from "@/components/ui/progress"
 import { BrandSymbol } from "@/components/ui/brand-symbol"
 import { MetricCard } from "@/components/ui/metric-card"
 import { Sparkline } from "@/components/ui/sparkline"
-import { ConfidenceMeter } from "@/components/ui/confidence-meter"
+import { ConfidenceMeter, ReasoningTrace } from "@/components/ui/confidence-meter"
 import { HITLApprovalBanner } from "@/components/ui/hitl-approval-banner"
 import { AIDiffViewer } from "@/components/ui/ai-diff-viewer"
+import { AgentStatusHUD } from "@/components/ui/agent-status-hud"
+import { AIFeedbackWidget } from "@/components/ui/ai-feedback-widget"
+import { HintBeacon } from "@/components/ui/hint-beacon"
+import { BannerAnnouncement } from "@/components/ui/banner-announcement"
+import { PersonaSelector } from "@/components/ui/persona-selector"
+import { OnboardingChecklist } from "@/components/ui/onboarding-checklist"
+import { Header } from "@/components/layout/header"
+import { Sidebar } from "@/components/layout/sidebar"
 import {
   Table,
   TableHeader,
@@ -51,7 +124,7 @@ export interface ComponentDetailViewProps {
   componentId: string
   onNavigateComponent?: (id: string) => void
   onNavigateToLab?: () => void
-  renderPreviewContent?: (id: string, density: "compact" | "default" | "comfortable") => React.ReactNode
+  renderPreviewContent?: (componentId: string, density: "compact" | "default" | "comfortable") => React.ReactNode
 }
 
 export function ComponentDetailView({
@@ -60,44 +133,45 @@ export function ComponentDetailView({
   onNavigateToLab,
   renderPreviewContent,
 }: ComponentDetailViewProps) {
+  const [activeTab, setActiveTab] = React.useState("preview")
   const [copiedCli, setCopiedCli] = React.useState(false)
   const [density, setDensity] = React.useState<"compact" | "default" | "comfortable">("default")
-  const [activeTab, setActiveTab] = React.useState("preview")
+  const [isPersonaModalOpen, setIsPersonaModalOpen] = React.useState(false)
+  const [activePersona, setActivePersona] = React.useState("developer")
 
-  const metadata: ComponentMetadata = React.useMemo(() => {
-    return getComponentMetadata(componentId)
-  }, [componentId])
+  const metadata: ComponentMetadata = getComponentMetadata(componentId)
 
-  const cliCommand = `npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/${metadata.cliName}.json`
+  // Compute next/prev keys in catalog
+  const keys = Object.keys(COMPONENT_METADATA_MAP)
+  const currentIndex = keys.indexOf(componentId)
+  const prevKey = currentIndex > 0 ? keys[currentIndex - 1] : null
+  const nextKey = currentIndex >= 0 && currentIndex < keys.length - 1 ? keys[currentIndex + 1] : null
 
-  const handleCopyCli = () => {
-    navigator.clipboard.writeText(cliCommand)
-    setCopiedCli(true)
-    toast.success("Comando CLI copiado para a área de transferência!")
-    setTimeout(() => setCopiedCli(false), 2000)
-  }
-
-  const handleCopyCode = (code: string) => {
-    navigator.clipboard.writeText(code)
+  const handleCopyCode = (text: string) => {
+    navigator.clipboard.writeText(text)
     toast.success("Código copiado para a área de transferência!")
   }
 
-  // Find next and previous component in the dictionary
-  const componentKeys = Object.keys(COMPONENT_METADATA_MAP)
-  const currentIndex = componentKeys.indexOf(componentId)
-  const prevKey = currentIndex > 0 ? componentKeys[currentIndex - 1] : null
-  const nextKey = currentIndex >= 0 && currentIndex < componentKeys.length - 1 ? componentKeys[currentIndex + 1] : null
+  const handleCopyCli = () => {
+    const cliCommand = `npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/${metadata.cliName}.json`
+    navigator.clipboard.writeText(cliCommand)
+    setCopiedCli(true)
+    toast.success("Comando CLI copiado com sucesso!")
+    setTimeout(() => setCopiedCli(false), 2000)
+  }
 
   const renderLiveComponent = () => {
     if (renderPreviewContent) return renderPreviewContent(componentId, density)
 
     switch (componentId) {
+      /* --- 1. PRIMITIVOS & CONTROLES --- */
       case "button":
         return (
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="primary" onClick={() => toast.success("Primary clicado")}>Primary</Button>
             <Button variant="secondary" onClick={() => toast.info("Secondary clicado")}>Secondary</Button>
             <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
             <Button variant="destructive">Destructive</Button>
           </div>
         )
@@ -105,7 +179,7 @@ export function ComponentDetailView({
         return (
           <div className="w-full max-w-sm space-y-2">
             <Input placeholder="Digite seu e-mail corporativo..." />
-            <p className="text-[11px] text-muted-foreground">Exemplo de input responsivo com anel de foco.</p>
+            <p className="type-body-sm text-[11px] text-muted-foreground">Exemplo de input responsivo com anel de foco.</p>
           </div>
         )
       case "textarea":
@@ -118,7 +192,7 @@ export function ComponentDetailView({
         return (
           <div className="flex items-center gap-3">
             <Switch defaultChecked id="demo-switch" />
-            <label htmlFor="demo-switch" className="text-xs font-medium text-foreground cursor-pointer">
+            <label htmlFor="demo-switch" className="type-body-sm text-xs font-medium text-foreground cursor-pointer">
               Ativar Modo Autônomo
             </label>
           </div>
@@ -127,16 +201,46 @@ export function ComponentDetailView({
         return (
           <div className="flex items-center gap-2">
             <Checkbox id="demo-cb" defaultChecked />
-            <label htmlFor="demo-cb" className="text-xs font-medium text-foreground cursor-pointer">
+            <label htmlFor="demo-cb" className="type-body-sm text-xs font-medium text-foreground cursor-pointer">
               Concordo com os Termos de Serviço
             </label>
           </div>
+        )
+      case "radio-group":
+        return (
+          <RadioGroup defaultValue="pro" className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="free" id="r1" />
+              <label htmlFor="r1" className="type-body-sm text-xs cursor-pointer">Plano Free</label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="pro" id="r2" />
+              <label htmlFor="r2" className="type-body-sm text-xs cursor-pointer">Plano Pro (Recomendado)</label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="enterprise" id="r3" />
+              <label htmlFor="r3" className="type-body-sm text-xs cursor-pointer">Plano Enterprise</label>
+            </div>
+          </RadioGroup>
+        )
+      case "select":
+        return (
+          <Select defaultValue="brl">
+            <SelectTrigger className="w-60">
+              <SelectValue placeholder="Selecione a moeda" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="brl">Real Brasileiro (BRL)</SelectItem>
+              <SelectItem value="usd">Dólar Americano (USD)</SelectItem>
+              <SelectItem value="eur">Euro (EUR)</SelectItem>
+            </SelectContent>
+          </Select>
         )
       case "slider":
         return (
           <div className="w-full max-w-xs space-y-2">
             <Slider defaultValue={[65]} max={100} step={1} />
-            <span className="text-[11px] text-muted-foreground">Limite de amostragem: 65%</span>
+            <span className="type-body-sm text-[11px] text-muted-foreground">Limite de amostragem: 65%</span>
           </div>
         )
       case "badge":
@@ -155,6 +259,7 @@ export function ComponentDetailView({
             <Tag color="purple">IA Generativa</Tag>
             <Tag color="teal">OKLCH</Tag>
             <Tag color="pink">Enterprise</Tag>
+            <Tag color="indigo">Design System</Tag>
           </div>
         )
       case "skeleton":
@@ -168,25 +273,351 @@ export function ComponentDetailView({
       case "kbd":
         return (
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">Pressione</span>
+            <span className="type-body-sm text-xs text-muted-foreground">Pressione</span>
             <Kbd>⌘K</Kbd>
-            <span className="text-xs text-muted-foreground">para abrir a paleta de comandos</span>
+            <span className="type-body-sm text-xs text-muted-foreground">para abrir a paleta de comandos</span>
+          </div>
+        )
+      case "tooltip":
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="sm">Passe o mouse aqui</Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>Tooltip com posicionamento dinâmico e animação suave.</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )
+      case "dropdown-menu":
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">Menu de Opções</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48">
+              <DropdownMenuLabel className="type-label-xs text-muted-foreground">Ações Rápidas</DropdownMenuLabel>
+              <DropdownMenuItem className="cursor-pointer">Visualizar Detalhes</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Exportar Relatório</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer text-destructive">Excluir Item</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )
+      case "dialog":
+        return (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="primary">Abrir Modal de Diálogo</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Confirmar Operação</DialogTitle>
+                <DialogDescription>
+                  Tem certeza que deseja atualizar as permissões do usuário corporativo?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="primary" onClick={() => toast.success("Operação confirmada")}>
+                  Confirmar
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )
+      case "alert-dialog":
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive">Abrir Confirmação Crítica</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Excluir Workspace?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Esta ação é irreversível e excluirá permanentemente todos os registros de telemetria.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={() => toast.error("Workspace excluído")}>
+                  Sim, Excluir
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )
+      case "sheet":
+        return (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">Abrir Gaveta Lateral (Sheet)</Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Painel Lateral de Configurações</SheetTitle>
+                <SheetDescription>
+                  Ajuste preferências de densidade, temas e chaves de API.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="py-4 space-y-4">
+                <Input placeholder="Nome do ambiente..." />
+                <Button variant="primary" className="w-full">Salvar Alterações</Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        )
+      case "sonner":
+        return (
+          <div className="flex flex-wrap gap-2">
+            <Button variant="primary" size="sm" onClick={() => toast.success("Operação realizada com sucesso!")}>
+              Toast de Sucesso
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => toast.error("Erro na validação do token.")}>
+              Toast de Erro
+            </Button>
+          </div>
+        )
+      case "alert":
+        return (
+          <div className="w-full max-w-md space-y-3">
+            <Alert>
+              <Info className="h-4 w-4 text-info" />
+              <AlertTitle>Ambiente de Homologação</AlertTitle>
+              <AlertDescription>
+                As alterações realizadas aqui não afetarão o cluster de produção.
+              </AlertDescription>
+            </Alert>
+          </div>
+        )
+      case "accordion":
+        return (
+          <div className="w-full max-w-md">
+            <Accordion type="single" collapsible defaultValue="item-1">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>O que é o Joinha Design System?</AccordionTrigger>
+                <AccordionContent>
+                  Um design system corporativo desenvolvido em OKLCH com suporte a modo escuro nativo e componentes acessíveis.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Como instalar via Shadcn CLI?</AccordionTrigger>
+                <AccordionContent>
+                  Execute o comando npx shadcn add com o link do componente desejado em public/r/.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        )
+
+      /* --- 2. NAVEGAÇÃO & LAYOUT --- */
+      case "header":
+        return (
+          <div className="w-full rounded-lg border border-border overflow-hidden bg-background shadow-xs">
+            <Header
+              breadcrumbs={[{ label: "Joinha DS" }, { label: "Componentes" }, { label: "Header" }]}
+              theme="dark"
+              onToggleTheme={() => toast.info("Alternador de tema clicado")}
+              onOpenCommand={() => toast.info("Gatilho ⌘K clicado")}
+            />
+          </div>
+        )
+      case "sidebar":
+        return (
+          <div className="w-full max-w-xs h-72 border border-border rounded-lg overflow-hidden shadow-sm">
+            <Sidebar
+              collapsed={false}
+              onToggleCollapse={() => toast.info("Recolher clicado")}
+              activeItem="comp-sidebar"
+              className="h-full w-full"
+            />
+          </div>
+        )
+      case "tabs":
+        return (
+          <div className="w-full max-w-md">
+            <Tabs defaultValue="geral">
+              <TabsList>
+                <TabsTrigger value="geral">Visão Geral</TabsTrigger>
+                <TabsTrigger value="permissoes">Permissões</TabsTrigger>
+                <TabsTrigger value="logs">Logs</TabsTrigger>
+              </TabsList>
+              <TabsContent value="geral" className="p-3 bg-surface rounded-md border border-border mt-2">
+                <p className="type-body-sm text-xs text-muted-foreground">Conteúdo da aba Visão Geral.</p>
+              </TabsContent>
+              <TabsContent value="permissoes" className="p-3 bg-surface rounded-md border border-border mt-2">
+                <p className="type-body-sm text-xs text-muted-foreground">Conteúdo da aba Permissões.</p>
+              </TabsContent>
+              <TabsContent value="logs" className="p-3 bg-surface rounded-md border border-border mt-2">
+                <p className="type-body-sm text-xs text-muted-foreground">Conteúdo da aba Logs de Auditoria.</p>
+              </TabsContent>
+            </Tabs>
+          </div>
+        )
+      case "resizable":
+        return (
+          <div className="w-full max-w-md h-32 rounded-lg border border-border overflow-hidden">
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel defaultSize={50} className="flex items-center justify-center p-4 bg-surface/40">
+                <span className="type-body-sm text-xs font-semibold">Painel 1 (50%)</span>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={50} className="flex items-center justify-center p-4 bg-surface/20">
+                <span className="type-body-sm text-xs font-semibold">Painel 2 (50%)</span>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </div>
+        )
+      case "separator":
+        return (
+          <div className="w-full max-w-xs space-y-3 p-4 rounded-lg bg-surface border border-border">
+            <span className="type-body-sm text-xs font-medium">Seção Superior</span>
+            <Separator />
+            <span className="type-body-sm text-xs font-medium text-muted-foreground">Seção Inferior</span>
+          </div>
+        )
+
+      /* --- 3. VISUALIZAÇÃO DE DADOS --- */
+      case "metric-card":
+        return (
+          <div className="w-full max-w-xs">
+            <MetricCard
+              title="Receita Mensal (MRR)"
+              value="R$ 48.920"
+              change={{ value: "+14.2%", trend: "up", period: "vs. mês anterior" }}
+              sparklineData={[28, 31, 35, 40, 48.9]}
+            />
+          </div>
+        )
+      case "sparkline":
+        return (
+          <div className="p-4 rounded-xl bg-surface border border-border flex items-center gap-4">
+            <div className="space-y-1">
+              <span className="type-body-sm text-xs text-muted-foreground font-medium">Volumetria</span>
+              <div className="type-heading-card text-lg font-bold text-foreground">1.420 ops</div>
+            </div>
+            <Sparkline data={[12, 18, 14, 22, 28, 35, 42]} chartVariant={1} height={36} className="w-32" />
           </div>
         )
       case "progress":
         return (
           <div className="w-full max-w-sm space-y-2">
             <Progress value={78} />
-            <div className="flex justify-between text-[11px] text-muted-foreground font-mono">
+            <div className="flex justify-between type-body-sm text-[11px] text-muted-foreground font-mono">
               <span>Processamento</span>
               <span>78%</span>
             </div>
           </div>
         )
-      case "confidence-meter":
+      case "avatar":
+        return (
+          <div className="flex items-center gap-3">
+            <Avatar className="w-10 h-10 border border-border">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <Avatar className="w-10 h-10 border border-border bg-primary text-primary-foreground font-bold text-xs">
+              <AvatarFallback>AI</AvatarFallback>
+            </Avatar>
+          </div>
+        )
+      case "table":
+        return (
+          <div className="w-full max-w-md rounded-lg border border-border overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Microsserviço</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Latência</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-mono text-xs font-bold text-primary">auth-service</TableCell>
+                  <TableCell><Badge variant="success" size="sm">Online</Badge></TableCell>
+                  <TableCell className="font-mono text-xs text-muted-foreground">18ms</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-mono text-xs font-bold text-primary">billing-api</TableCell>
+                  <TableCell><Badge variant="warning" size="sm">Degradado</Badge></TableCell>
+                  <TableCell className="font-mono text-xs text-muted-foreground">142ms</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        )
+
+      /* --- 4. ONBOARDING & ADOÇÃO --- */
+      case "brand-symbol":
+        return (
+          <div className="p-6 rounded-2xl bg-surface border border-border flex items-center justify-center">
+            <BrandSymbol className="h-16 w-auto text-primary" />
+          </div>
+        )
+      case "onboarding-checklist":
         return (
           <div className="w-full max-w-md">
+            <OnboardingChecklist
+              steps={[
+                { id: "1", title: "Definir paleta de cores OKLCH", completed: true },
+                { id: "2", title: "Configurar tipografia Cabin & Plus Jakarta", completed: true },
+                { id: "3", title: "Publicar componentes no Shadcn Registry", completed: false },
+              ]}
+            />
+          </div>
+        )
+      case "hint-beacon":
+        return (
+          <div className="p-6 rounded-xl bg-surface border border-border flex items-center justify-center">
+            <HintBeacon
+              title="Recurso Avançado"
+              description="Você pode alternar as densidades da interface em 1 clique."
+            />
+          </div>
+        )
+      case "banner-announcement":
+        return (
+          <div className="w-full max-w-lg">
+            <BannerAnnouncement
+              title="Nova Versão Disponível"
+              description="Joinha DS v1.0.0 foi lançado com suporte nativo a tokens OKLCH e 50 componentes."
+              actionLabel="Ver Notas"
+              onAction={() => toast.info("Ver notas clicado")}
+            />
+          </div>
+        )
+      case "persona-selector":
+        return (
+          <div className="flex flex-col items-center gap-3">
+            <Button variant="outline" onClick={() => setIsPersonaModalOpen(true)}>
+              Selecionar Perfil de Persona ({activePersona})
+            </Button>
+            <PersonaSelector
+              open={isPersonaModalOpen}
+              onOpenChange={setIsPersonaModalOpen}
+              onSelectPersona={(pId: string) => {
+                setActivePersona(pId)
+                toast.success(`Persona alterada para: ${pId}`)
+              }}
+              defaultPersonaId={activePersona}
+            />
+          </div>
+        )
+
+      /* --- 5. XAI & HITL --- */
+      case "confidence-meter":
+        return (
+          <div className="w-full max-w-md space-y-3">
             <ConfidenceMeter score={94} label="Score de Certeza do Agente" sourceCount={4} />
+            <ReasoningTrace
+              steps={[
+                { title: "Análise de Histórico de Consumo", durationMs: 42, status: "done" },
+                { title: "Validação de Políticas de Compliance", durationMs: 24, status: "done" },
+              ]}
+            />
           </div>
         )
       case "hitl-approval-banner":
@@ -214,42 +645,35 @@ export function ComponentDetailView({
             />
           </div>
         )
-      case "metric-card":
+      case "agent-status-hud":
         return (
-          <div className="w-full max-w-xs">
-            <MetricCard
-              title="Receita Mensal (MRR)"
-              value="R$ 48.920"
-              change={{ value: "+14.2%", trend: "up", period: "vs. mês anterior" }}
-              sparklineData={[28, 31, 35, 40, 48.9]}
+          <div className="w-full max-w-md space-y-3">
+            <AgentStatusHUD status="thinking" agentName="Agente de Análise" currentTask="Analisando dependências do projeto..." />
+            <AgentStatusHUD status="awaiting_review" agentName="Agente Financeiro" currentTask="Aguardando aprovação humana (HITL)..." />
+          </div>
+        )
+      case "ai-feedback-widget":
+        return (
+          <div className="p-4 rounded-xl bg-surface border border-border flex items-center justify-between gap-4">
+            <span className="type-body-sm text-xs text-muted-foreground">Esta resposta foi útil?</span>
+            <AIFeedbackWidget
+              onThumbUp={() => toast.success("Feedback positivo registrado!")}
+              onThumbDown={() => toast.info("Feedback negativo registrado.")}
             />
           </div>
         )
-      case "sparkline":
-        return (
-          <div className="p-4 rounded-xl bg-surface border border-border flex items-center gap-4">
-            <div className="space-y-1">
-              <span className="text-xs text-muted-foreground font-medium">Volumetria</span>
-              <div className="text-lg font-bold text-foreground">1.420 ops</div>
-            </div>
-            <Sparkline data={[12, 18, 14, 22, 28, 35, 42]} chartVariant={1} height={36} className="w-32" />
-          </div>
-        )
-      case "brand-symbol":
-        return (
-          <div className="p-6 rounded-2xl bg-surface border border-border flex items-center justify-center">
-            <BrandSymbol className="h-16 w-auto text-primary" />
-          </div>
-        )
+
       default:
         return (
-          <div className="text-center space-y-2">
-            <div className="p-4 rounded-xl bg-surface border border-border inline-block shadow-xs">
-              <span className="font-mono text-sm font-bold text-foreground">
+          <div className="text-center space-y-3 p-6 rounded-xl bg-surface border border-border">
+            <div className="p-3 rounded-lg bg-surface-elevated border border-border inline-block shadow-xs">
+              <span className="font-mono text-sm font-bold text-primary">
                 &lt;{metadata.name} /&gt;
               </span>
             </div>
-            <p className="text-xs text-muted-foreground">Exemplo interativo padrão do componente</p>
+            <p className="type-body-sm text-xs text-muted-foreground">
+              {metadata.description}
+            </p>
           </div>
         )
     }
@@ -258,53 +682,65 @@ export function ComponentDetailView({
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-300">
       {/* Component Header & Installation Hub */}
-      <div className="space-y-4 border-b border-border pb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex flex-wrap items-center gap-2.5 mb-2">
-              <h1 className="text-3xl font-bold font-display tracking-tight text-foreground">
+      <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2.5">
+              <h1 className="type-heading-page text-2xl font-bold tracking-tight text-foreground font-display">
                 {metadata.name}
               </h1>
-              <Badge variant="info" size="sm">{metadata.categoryLabel}</Badge>
-              <Badge variant="success" size="sm">WCAG 2.2 AA</Badge>
-              <Tag color="purple" size="sm">Shadcn Compatible</Tag>
+              <Badge variant="info" size="sm" className="font-mono text-[10px]">
+                {metadata.cliName}
+              </Badge>
+              <Badge variant="success" size="sm" className="text-[10px]">
+                WCAG 2.2 AA
+              </Badge>
             </div>
-            <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
+            <p className="type-body-sm text-xs text-muted-foreground max-w-3xl leading-relaxed">
               {metadata.description}
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 shrink-0 self-start md:self-auto">
+          {/* Quick CLI Copy Box & Back button */}
+          <div className="flex items-center gap-3">
             {onNavigateToLab && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={onNavigateToLab}
-                className="gap-1.5 text-xs cursor-pointer"
-                title="Ver no Laboratório de Componentes"
+                className="h-8 px-2.5 text-xs gap-1 cursor-pointer font-sans"
               >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Ver no Lab</span>
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Voltar à Galeria</span>
               </Button>
             )}
-          </div>
-        </div>
 
-        {/* CLI Quick Copy Card */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-(--tc-radius-lg) bg-surface border border-border">
-          <div className="flex items-center gap-2.5 font-mono text-xs text-muted-foreground overflow-x-auto">
-            <Terminal className="w-4 h-4 text-primary shrink-0" />
-            <code className="text-foreground">{cliCommand}</code>
+            <div className="flex items-center gap-2 bg-surface p-1.5 pl-3 rounded-(--tc-radius-md) border border-border shadow-xs">
+              <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
+              <code className="type-code-inline text-[11px] text-muted-foreground truncate max-w-[220px] sm:max-w-xs select-all">
+                npx shadcn@latest add {metadata.cliName}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyCli}
+                className="h-7 px-2.5 text-xs gap-1 cursor-pointer font-sans"
+                title="Copiar comando de instalação via Shadcn CLI"
+              >
+                {copiedCli ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-success" />
+                    <span className="text-success text-[11px]">Copiado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-muted-foreground" />
+                    <span className="text-[11px]">Copiar</span>
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCopyCli}
-            className="h-7 px-3 text-xs gap-1.5 shrink-0 cursor-pointer font-sans"
-          >
-            {copiedCli ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copiedCli ? "Copiado!" : "Copiar Comando"}</span>
-          </Button>
         </div>
       </div>
 
@@ -343,14 +779,14 @@ export function ComponentDetailView({
           {/* Isolated Preview Canvas with Density Bar */}
           <div className="rounded-(--tc-radius-xl) border border-border bg-surface-card overflow-hidden shadow-xs">
             <div className="flex items-center justify-between p-3 border-b border-border bg-surface/50">
-              <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+              <span className="type-heading-card text-xs font-semibold text-foreground flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
                 Preview Interativo
               </span>
 
               {/* Scoped Canvas Density */}
               <div className="inline-flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface-card border border-border">
-                <span className="text-[10px] font-mono text-muted-foreground px-2 flex items-center gap-1">
+                <span className="type-label-xs text-[10px] text-muted-foreground px-2 flex items-center gap-1">
                   <SlidersHorizontal className="w-3 h-3 text-muted-foreground" />
                   <span className="hidden sm:inline">Densidade:</span>
                 </span>
@@ -393,26 +829,28 @@ export function ComponentDetailView({
               </div>
             </div>
 
-            {/* Canvas Stage */}
+            {/* Canvas Stage with density wrapper */}
             <div
               data-density={density}
-              className="p-8 sm:p-12 min-h-[220px] flex items-center justify-center bg-radial from-surface-elevated/40 to-surface-card transition-all"
+              className="p-8 sm:p-12 min-h-[220px] flex items-center justify-center bg-(--bg-base)/50"
             >
               {renderLiveComponent()}
             </div>
           </div>
 
-          {/* Examples Gallery */}
+          {/* Use Cases / Variations Gallery */}
           {metadata.examples && metadata.examples.length > 0 && (
             <div className="space-y-4">
-              <h3 className="text-base font-bold font-display text-foreground">Exemplos & Casos de Uso</h3>
+              <h3 className="type-heading-section text-sm font-bold text-foreground">Exemplos & Casos de Uso</h3>
               <div className="grid grid-cols-1 gap-4">
                 {metadata.examples.map((ex, idx) => (
-                  <div key={idx} className="p-5 rounded-(--tc-radius-lg) border border-border bg-surface-card space-y-3">
+                  <div key={idx} className="p-4 rounded-(--tc-radius-lg) border border-border bg-surface-card space-y-3">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-sm font-bold font-display text-foreground">{ex.title}</h4>
-                        {ex.description && <p className="text-xs text-muted-foreground">{ex.description}</p>}
+                      <div className="space-y-0.5">
+                        <h4 className="type-heading-card text-xs font-semibold text-foreground">{ex.title}</h4>
+                        {ex.description && (
+                          <p className="type-body-sm text-[11px] text-muted-foreground">{ex.description}</p>
+                        )}
                       </div>
                       <Button
                         variant="ghost"
@@ -438,7 +876,7 @@ export function ComponentDetailView({
         <TabsContent value="code" className="space-y-6">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
-              <h3 className="text-sm font-bold font-display text-foreground">Declaração de Importação</h3>
+              <h3 className="type-heading-card text-sm font-bold text-foreground">Declaração de Importação</h3>
               <Button
                 variant="ghost"
                 size="sm"
@@ -449,14 +887,14 @@ export function ComponentDetailView({
                 <span>Copiar</span>
               </Button>
             </div>
-            <pre className="p-4 rounded-lg bg-surface font-mono text-xs text-primary border border-border">
+            <pre className="p-4 rounded-lg bg-surface font-mono text-xs text-primary border border-border overflow-x-auto">
               <code>{metadata.importStatement}</code>
             </pre>
           </div>
 
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
-              <h3 className="text-sm font-bold font-display text-foreground">Exemplo Completo de Uso</h3>
+              <h3 className="type-heading-card text-sm font-bold text-foreground">Exemplo Completo de Uso</h3>
               <Button
                 variant="ghost"
                 size="sm"
@@ -477,7 +915,7 @@ export function ComponentDetailView({
         <TabsContent value="props" className="space-y-6">
           <div className="rounded-(--tc-radius-xl) border border-border bg-surface-card overflow-hidden">
             <div className="p-4 border-b border-border bg-surface/50">
-              <h3 className="text-sm font-bold font-display text-foreground">Tabela de Propriedades (TypeScript Props)</h3>
+              <h3 className="type-heading-card text-sm font-bold text-foreground">Tabela de Propriedades (TypeScript Props)</h3>
             </div>
 
             <Table>
@@ -517,19 +955,19 @@ export function ComponentDetailView({
         {/* 4. ACESSIBILIDADE */}
         <TabsContent value="a11y" className="space-y-6">
           <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
-            <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm border-b border-border/80 pb-3">
+            <div className="flex items-center gap-2 text-foreground font-bold text-sm border-b border-border/80 pb-3">
               <ShieldCheck className="w-4 h-4 text-success" />
-              <span>Conformidade WCAG 2.2 AA & Padrões WAI-ARIA</span>
+              <span className="type-heading-card">Conformidade WCAG 2.2 AA & Padrões WAI-ARIA</span>
             </div>
 
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="type-body-sm text-xs text-muted-foreground leading-relaxed">
               O componente <strong>{metadata.name}</strong> foi auditado com leitores de tela e navegação estrita por teclado.
               {metadata.accessibility.notes && ` ${metadata.accessibility.notes}`}
             </p>
 
             {metadata.accessibility.keyboardShortcuts && (
               <div className="space-y-2 pt-2">
-                <h4 className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                <h4 className="type-heading-card text-xs font-bold text-foreground flex items-center gap-1.5">
                   <Keyboard className="w-3.5 h-3.5 text-primary" />
                   Navegação e Atalhos por Teclado
                 </h4>
@@ -537,7 +975,7 @@ export function ComponentDetailView({
                   {metadata.accessibility.keyboardShortcuts.map((kb, idx) => (
                     <div key={idx} className="p-3 flex items-center justify-between text-xs">
                       <Kbd>{kb.key}</Kbd>
-                      <span className="text-muted-foreground font-sans">{kb.action}</span>
+                      <span className="type-body-sm text-muted-foreground">{kb.action}</span>
                     </div>
                   ))}
                 </div>
@@ -546,12 +984,12 @@ export function ComponentDetailView({
 
             {metadata.accessibility.ariaAttributes && (
               <div className="space-y-2 pt-2">
-                <h4 className="text-xs font-bold text-foreground">Atributos ARIA Implementados</h4>
+                <h4 className="type-heading-card text-xs font-bold text-foreground">Atributos ARIA Implementados</h4>
                 <div className="divide-y divide-border/60 border border-border/80 rounded-lg overflow-hidden bg-surface">
                   {metadata.accessibility.ariaAttributes.map((aria, idx) => (
                     <div key={idx} className="p-3 flex items-center justify-between text-xs">
                       <code className="font-mono text-primary font-bold">{aria.attribute}</code>
-                      <span className="text-muted-foreground font-sans">{aria.purpose}</span>
+                      <span className="type-body-sm text-muted-foreground">{aria.purpose}</span>
                     </div>
                   ))}
                 </div>

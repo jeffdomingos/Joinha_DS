@@ -20,7 +20,7 @@ const buttonVariants = cva(
         default: "h-(--tc-control-h-md) px-(--tc-control-px-md)",
         sm: "h-(--tc-control-h-sm) px-(--tc-control-px-sm) rounded-md",
         lg: "h-(--tc-control-h-lg) px-(--tc-control-px-lg) rounded-md",
-        icon: "h-(--tc-control-h-md) w-(--tc-control-h-md)",
+        icon: "h-(--tc-control-h-md) w-(--tc-control-h-md) gap-0",
       },
     },
     defaultVariants: {

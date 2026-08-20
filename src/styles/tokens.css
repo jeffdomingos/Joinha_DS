@@ -196,6 +196,9 @@
   --border-base: var(--tc-neutral-800);
   --border-strong: var(--tc-neutral-700);
   --border-focus: var(--border-focus);
+  --border-gradient-start: oklch(100% 0 0 / 0.25);
+  --border-gradient-mid: var(--border-base);
+  --border-gradient-end: oklch(0% 0 0 / 0.35);
 
   /* ACTIONS / BUTTONS (Solid Paring) */
   --action-primary-bg: var(--tc-brand-500);
@@ -296,6 +299,9 @@
   --border-base: var(--tc-neutral-200);
   --border-strong: var(--tc-neutral-300);
   --border-focus: var(--tc-brand-500);
+  --border-gradient-start: oklch(100% 0 0 / 0.9);
+  --border-gradient-mid: var(--border-base);
+  --border-gradient-end: var(--border-strong);
 
   /* ACTIONS / BUTTONS */
   --action-primary-bg: var(--tc-brand-500);

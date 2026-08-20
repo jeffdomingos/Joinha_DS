@@ -133,9 +133,9 @@
       linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
       linear-gradient(
         135deg, 
-        oklch(100% 0 0 / 0.22) 0%, 
-        var(--border-base) 45%, 
-        oklch(100% 0 0 / 0.03) 100%
+        var(--border-gradient-start) 0%, 
+        var(--border-gradient-mid) 45%, 
+        var(--border-gradient-end) 100%
       ) border-box !important;
   }
   

@@ -126,26 +126,28 @@
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
-      radial-gradient(
-        circle at 0% 0%, 
+      linear-gradient(
+        135deg, 
         var(--border-gradient-start) 0%, 
-        var(--border-gradient-mid) 40%, 
-        transparent 75%
-      ) border-box,
-      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
+        var(--border-gradient-start) 6%,
+        var(--border-gradient-mid) 14%, 
+        var(--border-gradient-end) 22%,
+        var(--border-gradient-end) 100%
+      ) border-box !important;
   }
 
   .border-gradient-sunken {
     border: 1px solid transparent !important;
     background: 
       linear-gradient(var(--bg-app), var(--bg-app)) padding-box,
-      radial-gradient(
-        circle at 100% 100%, 
-        var(--border-gradient-start) 0%, 
-        var(--border-gradient-mid) 40%, 
-        transparent 75%
-      ) border-box,
-      linear-gradient(var(--border-gradient-end), var(--border-gradient-end)) border-box !important;
+      linear-gradient(
+        135deg, 
+        var(--border-gradient-end) 0%, 
+        var(--border-gradient-end) 78%,
+        var(--border-gradient-mid) 86%, 
+        var(--border-gradient-start) 94%,
+        var(--border-gradient-start) 100%
+      ) border-box !important;
   }
   
   .brand-glow {

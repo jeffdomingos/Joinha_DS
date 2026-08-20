@@ -101,6 +101,14 @@
     animation: overlayFadeOut var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
   }
   
+  .dialog-content {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+  }
+  
   .dialog-content[data-state="open"] {
     animation: dialogZoomIn var(--tc-duration-normal) var(--tc-ease-spring) forwards;
   }

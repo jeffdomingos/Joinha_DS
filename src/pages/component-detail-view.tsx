@@ -681,7 +681,7 @@ export function ComponentDetailView({
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in-50 duration-300">
+    <div className="space-y-8">
       {/* Component Header & Installation Hub */}
       <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4">

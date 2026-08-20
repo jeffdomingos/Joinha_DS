@@ -136,6 +136,31 @@
       ) border-box !important;
   }
 
+  .border-gradient-outline {
+    position: relative;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+  }
+  .border-gradient-outline::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg, 
+      var(--border-gradient-start) 0%, 
+      var(--border-gradient-start) 10%,
+      var(--border-gradient-mid) 35%, 
+      var(--border-gradient-end) 50%,
+      var(--border-gradient-end) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
   .border-gradient-primary {
     border: 1px solid transparent !important;
     background: 

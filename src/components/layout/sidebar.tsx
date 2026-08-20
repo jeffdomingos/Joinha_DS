@@ -202,14 +202,14 @@ export function Sidebar({
                         : "w-full justify-between px-2.5 py-2 gap-3",
                       isActive
                         ? "bg-primary/10 text-primary font-semibold border-primary/30 shadow-sm"
-                        : "border-transparent bg-transparent text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-transparent"
+                        : "border-transparent bg-transparent text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-transparent"
                     )}
                   >
                     <div className={cn("flex items-center min-w-0", !collapsed && "gap-3")}>
                       <Icon
                         className={cn(
                           "w-4 h-4 shrink-0 transition-colors",
-                          isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+                          isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary"
                         )}
                       />
                       {!collapsed && <span className="truncate">{item.label}</span>}

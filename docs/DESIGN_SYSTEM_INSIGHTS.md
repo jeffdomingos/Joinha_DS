@@ -173,10 +173,35 @@ Para interfaces de ERP, CRM e softwares analíticos densos, o design de layout a
 
 ---
 
-## 10. Arquitetura de Distribuição e Filosofia Agent-Native
+## 10. XAI (Explainable AI), Padrões Human-in-the-Loop (HITL) & Ergonomia de Confiança
+
+Com a ascensão de Agentes de IA autônomos operando em SaaS e ERPs corporativos, o design de interface precisa resolver o dilema fundamental da **caixa-preta (*Black Box Problem*)**: o usuário não confia no que não entende e não delega tarefas críticas se não tiver poder de veto e auditoria.
+
+O **Joinha DS** estabelece 5 padrões essenciais de XAI e HITL:
+
+### 1. Transparência de Raciocínio & Grounding (`ConfidenceMeter` + `ReasoningTrace`)
+- **Score de Confiança:** Todo output preditivo ou analítico exibe seu nível de certeza calibrado matematicamente com cores semânticas (`success` para $\ge 90\%$, `warning` para $70\text{-}89\%$, `danger` para $< 70\%$).
+- **Chain-of-Thought Auditável:** O acordeão de raciocínio decompõe as etapas lógicas que o modelo seguiu e lista as fontes de dados exatas (*Grounding Facts*) consultadas.
+
+### 2. Interceptação de Ações Críticas (`HITLApprovalBanner`)
+- Ações com efeitos colaterais irreversíveis (ex.: transações financeiras, exclusão de dados em lote, disparo de e-mails em massa, alterações tributárias) **NUNCA** são executadas silenciosamente.
+- O agente prepara a proposta, calcula o impacto e bloqueia a execução até a confirmação humana explícita (*Aprovar*, *Rejeitar* ou *Editar Parâmetros*).
+
+### 3. Diffs Estruturados em Tempo Real (`AIDiffViewer`)
+- O usuário nunca deve ler um texto inteiro para descobrir o que mudou. Comparações visuais lado a lado (*side-by-side*) ou unificadas destacam inserções e remoções com tokens semânticos OKLCH de alto contraste.
+
+### 4. Visibilidade Contínua de Estado do Agente (`AgentStatusHUD`)
+- O usuário deve sempre saber em que fase da execução a IA se encontra (*Pensando...*, *Executando Query SQL*, *Validando Segurança*, *Aguardando Decisão Humana*), eliminando incertezas operacionais.
+
+### 5. Loop Ativo de Aprendizado e Correção (`AIFeedbackWidget`)
+- Micro-ações in-situ para reportar alucinações, copiar respostas estruturadas e refinar prompts sem quebrar o fluxo de trabalho.
+
+---
+
+## 11. Arquitetura de Distribuição e Filosofia Agent-Native
 
 1. **GitHub Template:** Estruturado com `.github/template.yml` para clonagem e bootstrap instantâneo de novos SaaS.
-2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 40+ componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
+2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 45+ componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
 3. **Fonte Única de Verdade (`design-system.md`):** Regras explícitas com restrições invioláveis para que Agentes de IA (Claude, GPT, Gemini) gerem telas e componentes com 100% de conformidade, sem inventar cores hexadecimais ou quebrar hierarquias visuais.
 
 ---
@@ -186,5 +211,6 @@ Para interfaces de ERP, CRM e softwares analíticos densos, o design de layout a
 *Joinha Design System — Construído com rigor de engenharia, precisão óptica e excelência estética.*
 
 </div>
+
 
 

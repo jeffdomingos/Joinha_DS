@@ -84,7 +84,7 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 
 ---
 
-## 🧩 Catálogo de Componentes e Blocos (45 Componentes)
+## 🧩 Catálogo de Componentes e Blocos (50 Componentes)
 
 ### UI Primitives & Controles
 - **`Button`**: Variantes `primary`, `secondary`, `outline`, `ghost`, `destructive` e `navItem` (contorno sem preenchimento no hover, ativação com `isActive`).
@@ -135,6 +135,13 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 - **`Sidebar`**: Barra lateral expansível (256px) e retrátil em trilho (68px).
 - **`Header`**: Cabeçalho global com breadcrumbs, busca rápida `⌘K`, central de notificações, alternador de tema e densidade.
 - **`AppLayout`**: Shell mestre integrando Sidebar, Header global e área responsiva com drawer mobile.
+
+### XAI (Explainable AI) & Padrões Human-in-the-Loop (HITL)
+- **`ConfidenceMeter` & `ReasoningTrace`**: Score de certeza matemática da IA com cadeia de raciocínio (*Chain-of-Thought*) e fontes citadas.
+- **`HITLApprovalBanner`**: Banner de interceptação humana para ações críticas de agentes (aprovação/rejeição com cálculo de impacto).
+- **`AIDiffViewer`**: Comparador visual de diffs estruturados (lado a lado ou unificado) para sugestões de código, texto e JSON.
+- **`AgentStatusHUD`**: Indicador visual do ciclo de vida de agentes autônomos (*Thinking*, *Tool Execution*, *Awaiting Decision*).
+- **`AIFeedbackWidget`**: Controles de feedback in-situ, detecção/relato de alucinação e refinamento de instruções.
 
 ---
 

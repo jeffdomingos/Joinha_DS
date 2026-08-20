@@ -699,6 +699,81 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "confidence-meter",
+    type: "registry:ui",
+    title: "Confidence Meter & Reasoning Trace",
+    description: "Explainable AI confidence score and step-by-step reasoning chain-of-thought breakdown.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "badge"],
+    files: [
+      {
+        path: "components/ui/confidence-meter.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/confidence-meter.tsx"),
+      },
+    ],
+  },
+  {
+    name: "hitl-approval-banner",
+    type: "registry:ui",
+    title: "HITL Approval Banner",
+    description: "Human-in-the-Loop critical action interception and approval workflow banner.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "badge", "button"],
+    files: [
+      {
+        path: "components/ui/hitl-approval-banner.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/hitl-approval-banner.tsx"),
+      },
+    ],
+  },
+  {
+    name: "ai-diff-viewer",
+    type: "registry:ui",
+    title: "AI Diff Viewer",
+    description: "Visual diff comparison for text, schema and database changes proposed by AI agents.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "badge", "button"],
+    files: [
+      {
+        path: "components/ui/ai-diff-viewer.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/ai-diff-viewer.tsx"),
+      },
+    ],
+  },
+  {
+    name: "agent-status-hud",
+    type: "registry:ui",
+    title: "Agent Status HUD",
+    description: "Real-time execution status indicator for autonomous AI agents and tool invocations.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/agent-status-hud.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/agent-status-hud.tsx"),
+      },
+    ],
+  },
+  {
+    name: "ai-feedback-widget",
+    type: "registry:ui",
+    title: "AI Feedback Widget",
+    description: "In-situ feedback controls, hallucination reporting and prompt refinement.",
+    dependencies: ["@radix-ui/react-tooltip", "lucide-react"],
+    registryDependencies: ["utils", "tooltip"],
+    files: [
+      {
+        path: "components/ui/ai-feedback-widget.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/ai-feedback-widget.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

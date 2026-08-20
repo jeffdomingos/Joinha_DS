@@ -90,6 +90,11 @@ import { TourSpotlight, type TourStep } from "@/components/ui/tour-spotlight"
 import { PersonaSelector } from "@/components/ui/persona-selector"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
 import { FloatingToolbar, FloatingToolbarItem, FloatingToolbarSeparator } from "@/components/ui/floating-toolbar"
+import { ConfidenceMeter, ReasoningTrace } from "@/components/ui/confidence-meter"
+import { HITLApprovalBanner } from "@/components/ui/hitl-approval-banner"
+import { AIDiffViewer, type DiffLine } from "@/components/ui/ai-diff-viewer"
+import { AgentStatusHUD, type AgentStatusType } from "@/components/ui/agent-status-hud"
+import { AIFeedbackWidget } from "@/components/ui/ai-feedback-widget"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -304,6 +309,43 @@ function App() {
   ]
   const [densityMode, setDensityMode] = useState<"default" | "compact" | "comfortable">("default")
   const [selectedRecordId, setSelectedRecordId] = useState<string>("SUB-8941")
+  const [agentStatus, setAgentStatus] = useState<AgentStatusType>("awaiting_review")
+  const [hitlDecision, setHitlDecision] = useState<"approved" | "rejected" | null>(null)
+
+  const sampleDiffs: DiffLine[] = [
+    { type: "unchanged", content: "export const tenantBillingConfig = {" },
+    { type: "removed", content: '  discountTier: "STANDARD_5_PERCENT",' },
+    { type: "added", content: '  discountTier: "ENTERPRISE_CUSTOM_15_PERCENT",' },
+    { type: "unchanged", content: '  quotaLimitRequests: 100000,' },
+    { type: "removed", content: "  autoRenewal: false," },
+    { type: "added", content: "  autoRenewal: true," },
+    { type: "added", content: '  slaGuaranteedUptime: "99.95%",' },
+    { type: "unchanged", content: "}" },
+  ]
+
+  const sampleReasoningSteps = [
+    {
+      title: "Análise de Histórico de Consumo",
+      detail: "SELECT avg(requests_per_day), max_burst FROM telemetry_metrics WHERE tenant_id = 'SUB-8941' AND created_at > NOW() - INTERVAL '90 days';",
+      status: "done" as const,
+      durationMs: 42,
+      source: "Postgres Analytics",
+    },
+    {
+      title: "Cálculo de Projeção de Churn",
+      detail: "O cliente atingiu 92% do limite de quota 4 vezes no último trimestre. Probabilidade de churn reduz em 68% com tier de 15% de desconto e SLA dedicado.",
+      status: "done" as const,
+      durationMs: 118,
+      source: "ML Churn Model v2.4",
+    },
+    {
+      title: "Validação de Políticas de Compliance",
+      detail: "Verificação de autorização de margem comercial. Desconto de 15% está dentro do limite aprovado para contas Enterprise com MRR > R$ 4.000.",
+      status: "done" as const,
+      durationMs: 24,
+      source: "Policy Engine",
+    },
+  ]
 
   useEffect(() => {
     document.documentElement.setAttribute("data-density", densityMode)
@@ -2282,6 +2324,150 @@ function App() {
                   </div>
                 </ResizablePanel>
               </ResizablePanelGroup>
+            </div>
+          </div>
+        </section>
+
+        {/* XAI (Explainable AI) & Padrões Human-in-the-Loop (Fase 8) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  XAI (Explainable AI) & Human-in-the-Loop (HITL)
+                </h2>
+                <Badge variant="info" size="sm">Fase 8 · Confiança & Auditoria</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Padrões de transparência, score de certeza, interceptação de ações críticas com aprovação humana e visualizador de diffs estruturados.
+              </p>
+            </div>
+          </div>
+
+          {/* 1. Agent Status HUD & Simulator */}
+          <div className="p-4 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className="text-xs font-semibold text-foreground font-display">
+                Estado de Execução do Agente em Tempo Real
+              </span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[11px] text-muted-foreground font-mono mr-1">Simular:</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={cn("h-6 text-[10px] px-2", agentStatus === "thinking" && "border-primary text-primary font-bold")}
+                  onClick={() => setAgentStatus("thinking")}
+                >
+                  Pensando
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={cn("h-6 text-[10px] px-2", agentStatus === "executing_tool" && "border-primary text-primary font-bold")}
+                  onClick={() => setAgentStatus("executing_tool")}
+                >
+                  Query SQL
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={cn("h-6 text-[10px] px-2", agentStatus === "awaiting_review" && "border-primary text-primary font-bold")}
+                  onClick={() => setAgentStatus("awaiting_review")}
+                >
+                  Aguardando HITL
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={cn("h-6 text-[10px] px-2", agentStatus === "completed" && "border-primary text-primary font-bold")}
+                  onClick={() => setAgentStatus("completed")}
+                >
+                  Concluído
+                </Button>
+              </div>
+            </div>
+
+            <AgentStatusHUD
+              status={agentStatus}
+              agentName="Copiloto de Retenção & Receita"
+              currentTask="Analisando padrões de consumo e aplicando desconto estratégico para retenção."
+              toolName="analytics_db.query_burst_quota()"
+              latencyMs={184}
+            />
+          </div>
+
+          {/* 2. HITL Critical Action Approval Banner */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-foreground font-display">
+                Banner de Interceptação Human-in-the-Loop (Decisão de Alto Impacto)
+              </span>
+              {hitlDecision && (
+                <Badge variant={hitlDecision === "approved" ? "success" : "danger"} size="sm">
+                  {hitlDecision === "approved" ? "Aprovado pelo Operador" : "Rejeitado pelo Operador"}
+                </Badge>
+              )}
+            </div>
+
+            <HITLApprovalBanner
+              severity="warning"
+              title="Reajuste Contratual Proposto: Acme Corporation (SUB-8941)"
+              description="O agente detectou risco iminente de churn e preparou a aplicação de 15% de desconto vitalício com renovação anual automática."
+              actionType="Modificação de Faturamento & SLA"
+              impactSummary="Redução de R$ 630/mês na fatura, garantia de permanência por 12 meses (LTV estimado: +R$ 42.840)."
+              resourceCount={1}
+              onApprove={() => {
+                setHitlDecision("approved")
+                setAgentStatus("completed")
+                toast.success("Ação Aprovada! Contrato da Acme Corp reajustado.")
+              }}
+              onReject={() => {
+                setHitlDecision("rejected")
+                setAgentStatus("idle")
+                toast.error("Ação Rejeitada. Nenhuma alteração aplicada ao cliente.")
+              }}
+              onEdit={() => toast.info("Abrindo formulário de edição de parâmetros...")}
+            />
+          </div>
+
+          {/* 3. XAI Explainability & Diff Comparison Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left: Confidence Meter & Reasoning Trace (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              <ConfidenceMeter
+                score={94}
+                label="Índice de Certeza do Modelo"
+                sourceCount={3}
+              />
+
+              <ReasoningTrace
+                steps={sampleReasoningSteps}
+                executionTimeMs={184}
+                defaultOpen={true}
+              />
+
+              <div className="flex items-center justify-between p-3 rounded-(--tc-radius-lg) bg-surface border border-border">
+                <span className="text-xs text-muted-foreground font-medium">Feedback do Operador:</span>
+                <AIFeedbackWidget
+                  contentToCopy="Desconto de 15% aprovado com base no histórico de 90 dias e margem comercial válida."
+                  onThumbUp={() => toast.success("Obrigado pelo feedback positivo!")}
+                  onThumbDown={() => toast.info("Feedback registrado para retreinamento.")}
+                  onReportHallucination={() => toast.warning("Alucinação reportada para a engenharia.")}
+                  onRefinePrompt={() => toast.info("Refinamento de instrução acionado.")}
+                />
+              </div>
+            </div>
+
+            {/* Right: AI Diff Viewer (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              <AIDiffViewer
+                title="Visualizador de Diff: tenantBillingConfig.json"
+                originalLabel="Configuração Atual"
+                proposedLabel="Proposta do Agente"
+                diffs={sampleDiffs}
+                defaultMode="split"
+              />
             </div>
           </div>
         </section>

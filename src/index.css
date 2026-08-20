@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap');
 @import "tailwindcss";
 
 @theme {
+  --font-sans: var(--tc-font-sans);
+  --font-mono: var(--tc-font-mono);
+
   --color-border: var(--border-base);
   --color-input: var(--border-base);
   --color-ring: var(--focus-ring);

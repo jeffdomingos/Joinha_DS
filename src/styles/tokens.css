@@ -3,8 +3,6 @@
   Architecture: Base OKLCH Design Tokens 
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap');
-
 :root {
   /* ========================================================
      1. PRIMITIVE TOKENS

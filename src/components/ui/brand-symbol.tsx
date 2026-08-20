@@ -10,10 +10,11 @@ export function BrandSymbol({ className, variant = "raw", ...props }: BrandSymbo
   const svgElement = (
     <svg
       viewBox="0 0 766.64 1122.45"
+      preserveAspectRatio="xMidYMid meet"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        "w-4 h-4 inline-block shrink-0",
+        "inline-block shrink-0 aspect-[766/1122]",
         variant === "white" && "text-white fill-white",
         variant === "orange" && "text-primary fill-primary",
         className
@@ -28,7 +29,7 @@ export function BrandSymbol({ className, variant = "raw", ...props }: BrandSymbo
   if (variant === "badge") {
     return (
       <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/25 border border-primary/40">
-        {React.cloneElement(svgElement, { className: cn("w-10 h-10 text-white fill-white", className) })}
+        {React.cloneElement(svgElement, { className: cn("h-10 w-auto text-white fill-white", className) })}
       </div>
     )
   }

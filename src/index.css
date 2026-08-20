@@ -129,9 +129,9 @@
       linear-gradient(
         135deg, 
         var(--border-gradient-start) 0%, 
-        var(--border-gradient-start) 6%,
-        var(--border-gradient-mid) 14%, 
-        var(--border-gradient-end) 22%,
+        var(--border-gradient-start) 10%,
+        var(--border-gradient-mid) 35%, 
+        var(--border-gradient-end) 50%,
         var(--border-gradient-end) 100%
       ) border-box !important;
   }
@@ -143,9 +143,9 @@
       linear-gradient(
         135deg, 
         var(--border-gradient-end) 0%, 
-        var(--border-gradient-end) 78%,
-        var(--border-gradient-mid) 86%, 
-        var(--border-gradient-start) 94%,
+        var(--border-gradient-end) 50%,
+        var(--border-gradient-mid) 65%, 
+        var(--border-gradient-start) 90%,
         var(--border-gradient-start) 100%
       ) border-box !important;
   }

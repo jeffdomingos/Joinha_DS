@@ -220,6 +220,12 @@
     letter-spacing: 0.03em;
   }
 
+  /* Optical Alignment Engine: Micro-adjusts SVG icons to align with text cap-height in flex containers */
+  .flex.items-center > svg,
+  .inline-flex.items-center > svg {
+    margin-top: 0.08em;
+  }
+
   /* Reset some default vite styles that could conflict */
   #root {
     text-align: left;

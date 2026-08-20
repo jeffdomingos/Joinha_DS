@@ -637,12 +637,8 @@ function App() {
                 <AreaChart data={revenueData} margin={{ left: 6, right: 12, top: 10, bottom: 0 }}>
                   <defs>
                     <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0.0} />
-                    </linearGradient>
-                    <linearGradient id="fillProjected" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.25} />
-                      <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0.0} />
+                      <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.42} />
+                      <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -669,8 +665,7 @@ function App() {
                     stroke="var(--chart-2)"
                     strokeWidth={2}
                     strokeDasharray="4 4"
-                    fillOpacity={1}
-                    fill="url(#fillProjected)"
+                    fill="none"
                   />
                   <Area
                     type="monotone"

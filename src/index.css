@@ -41,6 +41,10 @@
   --color-card: var(--bg-surface);
   --color-card-foreground: var(--text-primary);
 
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-surface-elevated: var(--bg-surface-elevated);
+
   --radius-sm: var(--tc-radius-sm);
   --radius-md: var(--tc-radius-md);
   --radius-lg: var(--tc-radius-lg);

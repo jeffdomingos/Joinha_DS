@@ -299,7 +299,7 @@
   --border-base: var(--tc-neutral-200);
   --border-strong: var(--tc-neutral-300);
   --border-focus: var(--tc-brand-500);
-  --border-gradient-start: oklch(100% 0 0 / 0.70);
+  --border-gradient-start: var(--border-subtle);
   --border-gradient-mid: var(--border-base);
   --border-gradient-end: var(--border-strong);
 

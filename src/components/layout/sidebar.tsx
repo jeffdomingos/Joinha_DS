@@ -184,7 +184,7 @@ export function Sidebar({
               </div>
             )}
 
-            <div className="space-y-0.5">
+            <div className={cn("space-y-1", collapsed && "flex flex-col items-center")}>
               {group.items.map((item) => {
                 const Icon = item.icon
                 const isActive = activeItem === item.id
@@ -196,18 +196,20 @@ export function Sidebar({
                     onClick={() => onSelectItem?.(item.id)}
                     title={collapsed ? item.label : undefined}
                     className={cn(
-                      "w-full flex items-center gap-3 px-2.5 py-2 rounded-(--tc-radius-md) text-xs font-medium transition-all duration-150 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary",
-                      collapsed ? "justify-center px-0" : "justify-between",
+                      "flex items-center rounded-(--tc-radius-md) text-xs font-medium transition-all duration-150 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                      collapsed
+                        ? "w-10 h-10 justify-center p-0"
+                        : "w-full justify-between px-2.5 py-2 gap-3",
                       isActive
                         ? "bg-primary/10 text-primary font-semibold border-gradient-subtle shadow-sm"
-                        : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
+                        : "text-muted-foreground hover:text-foreground hover:bg-surface-hover hover:scale-105 active:scale-95"
                     )}
                   >
-                    <div className="flex items-center gap-3 min-w-0">
+                    <div className={cn("flex items-center min-w-0", !collapsed && "gap-3")}>
                       <Icon
                         className={cn(
                           "w-4 h-4 shrink-0 transition-colors",
-                          isActive ? "text-primary" : "text-muted-foreground"
+                          isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
                         )}
                       />
                       {!collapsed && <span className="truncate">{item.label}</span>}

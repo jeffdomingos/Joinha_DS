@@ -25,6 +25,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { cn } from "@/lib/utils"
@@ -190,19 +191,17 @@ export function Sidebar({
                 const isActive = activeItem === item.id
 
                 return (
-                  <button
+                  <Button
                     key={item.id}
-                    type="button"
+                    variant="navItem"
+                    isActive={isActive}
                     onClick={() => onSelectItem?.(item.id)}
                     title={collapsed ? item.label : undefined}
                     className={cn(
-                      "group flex items-center rounded-(--tc-radius-md) text-xs font-medium border transition-colors duration-150 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                      "group text-xs font-medium cursor-pointer",
                       collapsed
-                        ? "w-10 h-10 justify-center p-0"
-                        : "w-full justify-between px-2.5 py-2 gap-3",
-                      isActive
-                        ? "bg-primary/10 text-primary font-semibold border-primary/30 shadow-sm"
-                        : "border-transparent bg-transparent text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-transparent"
+                        ? "w-10 h-10 p-0 justify-center"
+                        : "w-full justify-between px-2.5 py-2 h-auto gap-3"
                     )}
                   >
                     <div className={cn("flex items-center min-w-0", !collapsed && "gap-3")}>
@@ -224,7 +223,7 @@ export function Sidebar({
                         {item.badge.text}
                       </Badge>
                     )}
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -281,12 +280,12 @@ export function Sidebar({
         </DropdownMenu>
 
         {/* Collapse Button */}
-        <button
-          type="button"
+        <Button
+          variant="navItem"
           onClick={onToggleCollapse}
           className={cn(
-            "w-full flex items-center justify-center gap-2 py-1.5 rounded-(--tc-radius-md) text-muted-foreground hover:text-foreground hover:bg-surface-hover border border-border/40 text-xs transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary",
-            collapsed && "px-0"
+            "w-full text-muted-foreground border border-border/40 text-xs transition-colors cursor-pointer",
+            collapsed ? "w-10 h-10 p-0 mx-auto justify-center" : "justify-center py-1.5 h-auto gap-2"
           )}
           title={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
         >
@@ -298,7 +297,7 @@ export function Sidebar({
               <span className="text-[11px] font-medium">Recolher Menu</span>
             </>
           )}
-        </button>
+        </Button>
       </div>
     </aside>
   )

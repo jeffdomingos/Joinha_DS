@@ -543,7 +543,7 @@ function App() {
         {/* Buttons Grid */}
         <section className="space-y-6">
           <h2 className="text-xl font-semibold border-b border-border pb-2">Buttons & States</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             <div className="flex flex-col gap-2.5">
               <label className="type-ui-dense font-semibold text-muted-foreground">Primary (CTA)</label>
               <Button variant="primary">Primary</Button>
@@ -560,15 +560,18 @@ function App() {
               </div>
             </div>
             <div className="flex flex-col gap-2.5">
-              <label className="type-ui-dense font-semibold text-muted-foreground">Outline (Gradient)</label>
+              <label className="type-ui-dense font-semibold text-muted-foreground">Outline & Ghost</label>
               <Button variant="outline">Outline</Button>
-              <Button variant="outline" disabled>Disabled</Button>
-              <div className="flex gap-2">
-                <Button variant="ghost" className="flex-1">Ghost</Button>
-                <Button variant="outline" size="icon" aria-label="Baixar arquivo">
-                  <Download className="w-4 h-4" />
-                </Button>
-              </div>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="outline" size="icon" aria-label="Baixar arquivo" className="mx-auto">
+                <Download className="w-4 h-4" />
+              </Button>
+            </div>
+            <div className="flex flex-col gap-2.5">
+              <label className="type-ui-dense font-semibold text-muted-foreground">NavItem (Selectable)</label>
+              <Button variant="navItem">Default (Hover me)</Button>
+              <Button variant="navItem" isActive>Active State</Button>
+              <Button variant="navItem" disabled>Disabled</Button>
             </div>
             <div className="flex flex-col gap-2.5">
               <label className="type-ui-dense font-semibold text-muted-foreground">Destructive</label>

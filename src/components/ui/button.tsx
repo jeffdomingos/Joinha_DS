@@ -6,15 +6,16 @@ import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md type-ui-base ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-(--tc-floating-item-gap) micro-press",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md type-ui-base ring-offset-background transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-(--tc-floating-item-gap) micro-press",
   {
     variants: {
       variant: {
-        primary: "border-gradient-primary text-primary-foreground font-semibold hover:brightness-110 shadow-sm brand-glow",
+        primary: "border-gradient-primary text-primary-foreground font-semibold hover:brightness-110 shadow-sm",
         secondary: "border-gradient-secondary text-secondary-foreground hover:brightness-110 shadow-xs",
         destructive: "border-gradient-destructive text-destructive-foreground font-semibold hover:brightness-110 shadow-sm",
-        outline: "border-gradient-outline bg-transparent text-foreground hover:bg-foreground/[0.06] hover:brightness-125 transition-all",
+        outline: "border-gradient-outline bg-transparent text-foreground hover:bg-foreground/[0.06] hover:brightness-125",
         ghost: "hover:bg-foreground/[0.06] hover:text-foreground",
+        navItem: "border border-transparent bg-transparent text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-transparent data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold data-[active=true]:border-primary/30 data-[active=true]:shadow-sm",
       },
       size: {
         default: "h-(--tc-control-h-md) px-(--tc-control-px-md)",
@@ -35,15 +36,17 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
   isLoading?: boolean
+  isActive?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, isLoading = false, children, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, isLoading = false, isActive = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        data-active={isActive ? "true" : undefined}
         disabled={isLoading || props.disabled}
         aria-busy={isLoading}
         {...props}

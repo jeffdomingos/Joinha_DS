@@ -60,7 +60,8 @@ Ferramentas SaaS exigem hierarquia visual clara e controle rígido de contraste.
 ### Botões e Ações (Actions)
 - **Primary**: Ação principal da tela (ex: "Salvar", "Criar"). Use `--action-primary-bg`.
 - **Secondary**: Ações secundárias que necessitam de destaque sutil. Use `--action-secondary-bg`.
-- **Subtle/Ghost**: Ações terciárias ou ícones de ferramentas. Use `--action-subtle-bg` (transparente) e mostre apenas no hover/active.
+- **Outline & Ghost**: Ações secundárias/terciárias com borda sutil ou ícones de ferramentas (transparente e mostre apenas no hover).
+- **NavItem (Selectable)**: Componente/variante de seleção e navegação para Menus laterais, Abas e Listas de Filtro. No hover, exibe **apenas o contorno laranja sem preenchimento** (`hover:border-primary/50 hover:text-primary`). No estado ativo (`isActive`), recebe preenchimento translúcido e borda sólida (`data-[active=true]:bg-primary/10 data-[active=true]:border-primary/30`).
 
 ### Badges e Status (Feedback Operacional)
 Nunca use cores fortes de status para grandes áreas de fundo da aplicação, reserve-as para componentes de destaque (badges, toasts).

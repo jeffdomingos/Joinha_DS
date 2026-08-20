@@ -49,6 +49,11 @@
   --radius-md: var(--tc-radius-md);
   --radius-lg: var(--tc-radius-lg);
   --radius-xl: var(--tc-radius-xl);
+
+  --ease-smooth: var(--tc-ease-smooth);
+  --ease-spring: var(--tc-ease-spring);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: var(--tc-ease-smooth);
 }
 
 @import "./styles/tokens.css";

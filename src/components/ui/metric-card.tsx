@@ -55,7 +55,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col justify-between p-5 rounded-(--tc-radius-lg) surface-card surface-elevated border-gradient-subtle elevation-1 transition-all duration-(--tc-duration-fast) hover:elevation-2 group overflow-hidden",
+        "relative flex flex-col justify-between p-5 rounded-(--tc-radius-lg) surface-card surface-elevated border-gradient-subtle elevation-1 transition-all duration-200 ease-(--tc-ease-smooth) hover:elevation-2 hover:-translate-y-0.5 group overflow-hidden",
         className
       )}
     >

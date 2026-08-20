@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-layout",
+  "type": "registry:block",
+  "title": "App Layout Shell",
+  "description": "Unified master layout connecting sidebar, global header, and scrollable content area with mobile drawer.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "sidebar",
+    "header"
+  ],
+  "files": [
+    {
+      "path": "components/layout/app-layout.tsx",
+      "type": "registry:block",
+      "content": "import * as React from \"react\"\nimport { Sidebar } from \"./sidebar\"\nimport { Header } from \"./header\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface AppLayoutProps {\n  children: React.ReactNode\n  breadcrumbs?: Array<{ label: string; href?: string }>\n  theme: \"dark\" | \"light\"\n  onToggleTheme: () => void\n  onNewAction?: () => void\n  activeNavItem?: string\n  onSelectNavItem?: (id: string) => void\n  className?: string\n}\n\nexport function AppLayout({\n  children,\n  breadcrumbs,\n  theme,\n  onToggleTheme,\n  onNewAction,\n  activeNavItem = \"dashboard\",\n  onSelectNavItem,\n  className,\n}: AppLayoutProps) {\n  const [collapsed, setCollapsed] = React.useState(false)\n  const [mobileOpen, setMobileOpen] = React.useState(false)\n\n  return (\n    <div className=\"flex h-screen w-full bg-background text-foreground overflow-hidden\">\n      {/* Desktop Sidebar */}\n      <Sidebar\n        collapsed={collapsed}\n        onToggleCollapse={() => setCollapsed(!collapsed)}\n        activeItem={activeNavItem}\n        onSelectItem={(id) => {\n          onSelectNavItem?.(id)\n          setMobileOpen(false)\n        }}\n        className=\"hidden lg:flex\"\n      />\n\n      {/* Mobile Drawer Sidebar Overlay */}\n      {mobileOpen && (\n        <div className=\"fixed inset-0 z-50 flex lg:hidden\">\n          <div\n            className=\"fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity\"\n            onClick={() => setMobileOpen(false)}\n          />\n          <Sidebar\n            collapsed={false}\n            onToggleCollapse={() => setMobileOpen(false)}\n            activeItem={activeNavItem}\n            onSelectItem={(id) => {\n              onSelectNavItem?.(id)\n              setMobileOpen(false)\n            }}\n            className=\"relative z-50 h-full shadow-2xl\"\n          />\n        </div>\n      )}\n\n      {/* Main Content Area with Header */}\n      <div className=\"flex flex-col flex-1 min-w-0 h-screen overflow-hidden\">\n        <Header\n          breadcrumbs={breadcrumbs}\n          onOpenMobileMenu={() => setMobileOpen(true)}\n          theme={theme}\n          onToggleTheme={onToggleTheme}\n          onNewAction={onNewAction}\n        />\n\n        <main\n          className={cn(\n            \"flex-1 overflow-y-auto overflow-x-hidden p-6 sm:p-8 lg:p-10 scrollbar-thin\",\n            className\n          )}\n        >\n          <div className=\"max-w-7xl mx-auto space-y-8\">\n            {children}\n          </div>\n        </main>\n      </div>\n    </div>\n  )\n}\n"
+    }
+  ]
+}

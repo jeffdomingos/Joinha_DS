@@ -1,11 +1,13 @@
 {
-  "name": "temp-app",
+  "name": "joinha-ds",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Agent-Native SaaS Design System with OKLCH Colors, Dark Mode First, Shadcn UI base, and Tailwind v4",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:registry": "node scripts/build-registry.mjs",
+    "build": "node scripts/build-registry.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -1,0 +1,13 @@
+name: Joinha Design System (SaaS Template)
+description: Agent-native, dark-first SaaS Design System with OKLCH colors, Shadcn UI base, Recharts data-viz, and Tailwind v4.
+author: Jefferson Domingos
+url: https://github.com/jeffdomingos/Joinha_DS
+topics:
+  - design-system
+  - saas-template
+  - shadcn-ui
+  - tailwindcss-v4
+  - oklch
+  - dark-mode
+  - react-19
+  - agent-native

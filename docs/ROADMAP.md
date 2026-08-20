@@ -96,5 +96,6 @@ Arquitetura de layout avançada para ERPs, CRMs e UIs de altíssima densidade de
 * [x] **Matriz de Densidade Paramétrica (`data-density`):** Alternador global no Header (`Compact` / `Default` / `Comfortable`) modulando alturas de linha, paddings e tipografia via variáveis CSS raiz.
 * [x] **Container Queries & Grids Auto-Fit:** Classes utilitárias `.cq-card` e `.kpi-dashboard-grid` para componentes context-aware que se auto-reorganizam baseados no container pai.
 * [x] **Painéis Redimensionáveis Master-Detail (`<ResizablePanelGroup />`):** Primitivo baseado em `react-resizable-panels` com alça tátil (*grab handle*), persistência de largura no `localStorage` e colapso responsivo.
+* [x] **Floating Action HUD & Dock (`<FloatingToolbar />`):** Menu flutuante glassmorphic persistente com atalhos de densidade, tema, busca `⌘K`, onboarding e colapso ergonômico.
 
 

@@ -84,29 +84,57 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 
 ---
 
-## 🧩 Catálogo de Componentes e Blocos
+## 🧩 Catálogo de Componentes e Blocos (45 Componentes)
 
 ### UI Primitives & Controles
 - **`Button`**: Variantes `primary`, `secondary`, `outline`, `ghost`, `destructive` e `navItem` (contorno sem preenchimento no hover, ativação com `isActive`).
 - **`Input`**: Campo de formulário com estados de foco, validação e suporte numérico tabular.
-- **`Badge`**: Indicador de status operacional (*Jewel Tones* e *Subtle* para `success`, `warning`, `danger`, `info`).
-- **`Tag`**: Agrupamento categórico sem conotação de alerta (`purple`, `teal`, `pink`, `indigo`).
+- **`Checkbox`**: Caixa de seleção acessível com suporte a estado indeterminado para Data Tables.
+- **`Textarea`**: Entrada de texto multilinha para descrições, notas e prompts de IA.
+- **`RadioGroup`**: Seleção exclusiva com suporte a *Choice Cards* ricos para planos e faturamento.
+- **`Slider`**: Controle deslizante para ranges e limites de cota.
 - **`Switch`**: Toggle acessível via Radix UI.
 - **`Select`**: Dropdown customizado com navegação fluida por teclado.
 - **`DropdownMenu`**: Menus de contexto e opções rápidas com animação elástica (*spring*).
 - **`Dialog` & `AlertDialog`**: Modais com transições de zoom suave e desfoque de fundo (*backdrop blur*).
+- **`Sheet` / `Drawer`**: Painel lateral deslizante (*slide-over*) para inspeção profunda e edição rápida.
+- **`Tooltip`**: Balão flutuante acessível para ícones e atalhos.
+- **`Kbd`**: Tecla física para atalhos de teclado (`⌘K`, `Esc`).
+- **`Badge`**: Indicador de status operacional (*Jewel Tones* e *Subtle* para `success`, `warning`, `danger`, `info`).
+- **`Tag`**: Agrupamento categórico sem conotação de alerta (`purple`, `teal`, `pink`, `indigo`).
+- **`Alert`**: Banners semânticos in-page com variantes operacionais.
 - **`Sonner`**: Central de Toasts opinativa com temas integrados.
+- **`Skeleton`**: Efeito shimmer direcional calibrado (NN/g + OKLCH) para 0px CLS.
 
-### Data Visualization & Métricas
+### Navegação & Estruturação
+- **`Tabs`**: Segmented pill switcher com transição suave.
+- **`Accordion`**: Seções colapsáveis com animação fluida para configurações e FAQs.
+- **`Separator`**: Divisores com label central opcional.
+- **`Pagination`**: Primitivo de paginação com links semânticos `<a>`.
+- **`Command` (`⌘K`)**: Command palette modal estilo Linear/Raycast com busca fuzzy.
+
+### Data Visualization, Métricas & Produtividade
+- **`Avatar` & `AvatarGroup`**: Foto, iniciais, status dot e empilhamento com contador `+N`.
+- **`Progress`**: Barra linear com cores semânticas de cota (`default`, `success`, `warning`, `danger`).
+- **`EmptyState`**: Ilustrado com slots para CTAs primárias e secundárias.
 - **`Sparkline`**: Micro-gráficos vetoriais SVG ultra-leves com curvas Bézier e gradientes `--chart-1` a `--chart-6`.
 - **`MetricCard`**: Cards de KPI com valor hero, badges de tendência, barra de meta e sparkline embutido.
-- **`Chart`**: Wrapper oficial Shadcn/Recharts com injeção dinâmica de variáveis CSS e tooltips flutuantes (Gráficos de Área e Barras).
-- **`DataTable`**: Tabela densa de SaaS com ordenação de colunas, filtro por status, seleção em lote e paginação.
+- **`Chart`**: Wrapper oficial Shadcn/Recharts com injeção dinâmica de variáveis CSS e tooltips flutuantes.
+- **`DataTable`**: Tabela densa com ordenação de colunas, filtro por status, seleção em lote e paginação.
 
-### Layout & App Shell (SaaS)
-- **`Sidebar`**: Barra lateral expansível (256px) e retrátil em trilho (68px), seletor de workspaces, badges de contagem e rodapé de perfil.
-- **`Header`**: Cabeçalho global com breadcrumbs, busca rápida `⌘K`, central de notificações com popover, alternador de tema e botão de ação primária.
-- **`AppLayout`**: Shell mestre integrando Sidebar, Header global e área de conteúdo responsiva com drawer mobile.
+### Onboarding UX & Product Adoption (Diretrizes 2025)
+- **`OnboardingChecklist`**: Widget acoplável e colapsável com progresso percentual, tarefas gamificadas e celebração.
+- **`TourSpotlight`**: Walkthrough guiado focal com máscara de recorte e navegação por teclado (`Esc`/`Enter`).
+- **`HintBeacon`**: Micro-âncora com radar pulsante em OKLCH Laranja para divulgação progressiva (*Progressive Disclosure*).
+- **`PersonaSelector`**: Modal de entrada com *Choice Cards* para bifurcar a interface conforme a intenção do usuário.
+- **`BannerAnnouncement`**: Banner in-app descartável para novas ferramentas e release notes.
+
+### Enterprise Layout Engine & Painéis Densos
+- **`Resizable` (`<ResizablePanelGroup />`)**: Painéis redimensionáveis Master-Detail baseados em `react-resizable-panels`.
+- **`FloatingToolbar`**: Dock flutuante glassmorphic persistente com atalhos de densidade, tema, busca `⌘K` e minimizador.
+- **`Sidebar`**: Barra lateral expansível (256px) e retrátil em trilho (68px).
+- **`Header`**: Cabeçalho global com breadcrumbs, busca rápida `⌘K`, central de notificações, alternador de tema e densidade.
+- **`AppLayout`**: Shell mestre integrando Sidebar, Header global e área responsiva com drawer mobile.
 
 ---
 

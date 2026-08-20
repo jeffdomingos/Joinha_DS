@@ -78,9 +78,16 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 6. **Obrigatoriedade Tipográfica:** É **ESTRITAMENTE PROIBIDO** criar classes avulsas de `font-size` isoladas da escala ou do respectivo `line-height`. Utilize sempre a arquitetura de 3 camadas através das classes utilitárias semânticas (Camada 3) como `.type-body-default`, `.type-ui-base`, `.type-heading-page`, etc.
 7. **Colunas Numéricas e Relatórios:** Use SEMPRE `.type-data-mono` (ou aplique `tabular-nums` com a fonte JetBrains Mono) para alinhar valores financeiros e contadores em Dashboards.
 8. **Formas e Elevações (Border Radius e Shadows):** É proibido o uso de valores relativos (`rem`, `%`) ou fluidos para `border-radius`. Use SEMPRE as classes ou variáveis utilitárias da escala fixa de `px` (ex: `--tc-radius-md`, `.radius-lg`) para evitar distorção nas curvas e problemas com sub-pixel rendering. Use as variáveis semânticas de sombra (`--tc-shadow-sm` até `lg`) para elevações em vez de gerar novas sombras isoladas, respeitando o eixo Z estruturado no CSS.
+## ♿ Acessibilidade e Conformidade WCAG 2.2
 
 Este Design System é projetado nativamente para atender aos critérios da **WCAG 2.2 (Nível AA)**. 
 Para manter essa certificação, todo elemento visual deve respeitar rigorosamente as seguintes regras:
+
+- **Contraste de Texto:** Qualquer texto deve possuir proporção mínima de contraste de 4.5:1 com seu plano de fundo.
+- **Formulários e Inputs (React):** O componente `Input` e os `Button`s vizinhos devem SEMPRE compartilhar a mesma altura (h-9 ou h-10) e o mesmo raio de borda (`--tc-radius-md`) para manter o alinhamento visual de SaaS.
+- **Rótulos (Labels):** É proibido instanciar o componente `Button` com apenas um ícone (variante `icon`) sem fornecer a prop nativa `aria-label` para leitores de tela.
+- **Anel de Foco (Focus Ring):** Não remova o anel de foco nativo das classes utilitárias ou do CSS (`outline: 2px solid var(--focus-ring)`). O foco visível é uma exigência WCAG de navegação por teclado.
+- **Gerenciamento de Erros:** Campos de input em estado de erro (prop `error={true}`) recebem `aria-invalid="true"` automaticamente, mas devem sempre ser acompanhados por um texto auxiliar (`aria-describedby`) legível.
 
 1. **Uso Obrigatório de Pares Casados (Bg/Fg)**:
    * **Nenhum token de background pode ser usado isoladamente.** Se um elemento receber `--bg-surface`, seu texto interno DEVE receber `--text-primary`, `--text-secondary` ou similar.

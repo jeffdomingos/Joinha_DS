@@ -1,27 +1,32 @@
-# 👍 Tem Como: Joinha DS
+# React + TypeScript + Vite
 
-**Desenvolvedor/Designer:** Jeff Domingos
-**Objetivo:** Design System Base para projetos pessoais e profissionais do Jeff Domingos
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-O **Tem Como: Joinha DS** é um Design System *Agent-Native*, projetado sob medida para garantir consistência visual, agilidade e acabamento profissional premium a ferramentas de gestão, dashboards analíticos e produtos SaaS desenvolvidos via *vibecoding* (com IA).
+Currently, two official plugins are available:
 
-## 🌟 Principais Características
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- **Agent-Native:** Estrutura, regras e documentação (Markdown/JSON) escritas para maximizar a compreensão por agentes de Inteligência Artificial (Claude Code, Cursor, Antigravity).
-- **Cores em OKLCH:** Uma paleta baseada no espaço de cor perceptualmente uniforme OKLCH.
-- **Foco em Dark Mode:** Neutros cuidadosamente aquecidos que harmonizam com nossa marca (Laranja `#e27100`), garantindo uma interface SaaS moderna e sofisticada. Light mode suportado de forma nativa.
-- **Acessibilidade Absoluta (WCAG 2.2 AA):** Todo o sistema é construído sobre "pares casados" rígidos de contraste (Fundo + Texto) com foco na aprovação imediata em leitores de acessibilidade.
+## React Compiler
 
-## 📚 Documentação
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- 🗺️ **[Visão Estratégica e Roadmap](docs/ROADMAP.md)**: O plano de evolução completo do sistema.
-- 🤖 **[Diretrizes para IA e Design System](design-system.md)**: As regras fundamentais de uso de tokens, boas práticas de contraste e componentes.
+## Expanding the Oxlint configuration
 
-## 🛠️ Como Validar Visualmente
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
 
-Nós disponibilizamos uma página *Kitchen Sink* nativa (apenas HTML, CSS e JS vanilla) para validar contrastes, cores de tags, status e componentes primitivos sem depender de bibliotecas externas.
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+```
 
-Basta abrir o arquivo `index.html` em seu navegador para ver os tokens em ação.
-
----
-**Mantido pela suíte de produtos _Tem Como_.**
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.

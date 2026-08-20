@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: var(--border-base);
+  --color-input: var(--border-base);
+  --color-ring: var(--focus-ring);
+  --color-background: var(--bg-app);
+  --color-foreground: var(--text-primary);
+  
+  --color-primary: var(--action-primary-bg);
+  --color-primary-foreground: var(--action-primary-fg);
+  
+  --color-secondary: var(--action-secondary-bg);
+  --color-secondary-foreground: var(--text-primary);
+  
+  --color-destructive: var(--status-danger-bg);
+  --color-destructive-foreground: var(--status-danger-fg);
+  
+  --color-muted: var(--bg-surface-hover);
+  --color-muted-foreground: var(--text-secondary);
+  
+  --color-accent: var(--bg-surface-hover);
+  --color-accent-foreground: var(--text-primary);
+  
+  --color-popover: var(--bg-surface-elevated);
+  --color-popover-foreground: var(--text-primary);
+  
+  --color-card: var(--bg-surface);
+  --color-card-foreground: var(--text-primary);
+
+  --radius-sm: var(--tc-radius-sm);
+  --radius-md: var(--tc-radius-md);
+  --radius-lg: var(--tc-radius-lg);
+  --radius-xl: var(--tc-radius-xl);
+}
+
+@import "./styles/tokens.css";
+@import "./styles/kitchen-sink.css";
+
+/* Reset some default vite styles that could conflict */
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  text-align: left;
+  border-inline: none;
+  min-height: 100vh;
+  display: block;
+}

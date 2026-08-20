@@ -302,8 +302,8 @@
   /* TEXT */
   --text-primary: var(--tc-neutral-950);
   --text-secondary: var(--tc-neutral-700);
-  --text-tertiary: var(--tc-neutral-500);
-  --text-muted: var(--tc-neutral-400);
+  --text-tertiary: var(--tc-neutral-600);
+  --text-muted: var(--tc-neutral-600);
   --text-inverse: var(--tc-neutral-0);
   --text-brand: var(--tc-brand-600);
 

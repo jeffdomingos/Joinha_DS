@@ -109,6 +109,36 @@
 }
 
 @layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "kern";
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Apple Dynamic Optical Tracking: Small text opens up for razor-sharp clarity */
+  .text-xs,
+  .type-ui-dense,
+  .type-code-inline {
+    letter-spacing: 0.015em;
+  }
+
+  .text-\[11px\],
+  .text-\[10px\],
+  .type-label-caps {
+    letter-spacing: 0.03em;
+  }
+
+  /* Headings tighten up slightly */
+  h1, h2, h3, .text-xl, .text-2xl, .text-3xl {
+    letter-spacing: -0.015em;
+  }
+
   /* Reset some default vite styles that could conflict */
   #root {
     text-align: left;

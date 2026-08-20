@@ -294,7 +294,7 @@ export function DataTable({ data, className }: DataTableProps) {
                         <span className="font-semibold text-foreground truncate">
                           {row.customer.name}
                         </span>
-                        <span className="text-xs text-muted-foreground truncate">
+                        <span className="text-xs text-muted-foreground truncate font-medium">
                           {row.customer.email}
                         </span>
                       </div>

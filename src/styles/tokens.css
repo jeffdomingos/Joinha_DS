@@ -156,6 +156,15 @@
   --tc-floating-item-gap: 0.5rem;
   --tc-floating-min-w: 12.5rem;
   
+  /* Semantic Gaps (Gestalt Proximity Scale) */
+  --tc-gap-inline-micro: 0.25rem;    /* 4px - Icon + text / Badges */
+  --tc-gap-inline-tight: 0.5rem;     /* 8px - Sibling buttons / Tags */
+  --tc-gap-inline-base: 0.75rem;     /* 12px - Action groups */
+  --tc-gap-stack-label: 0.375rem;    /* 6px - Vertical Label + Input */
+  --tc-gap-stack-field: 1rem;        /* 16px - Between form fields */
+  --tc-gap-stack-section: 1.5rem;    /* 24px - Between layout sections */
+  --tc-gap-stack-hero: 2rem;         /* 32px - Between major page blocks */
+
   --tc-form-stack-gap: 1rem;
   --tc-form-label-gap: 0.375rem;
   --tc-card-p: 1.5rem;

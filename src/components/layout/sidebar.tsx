@@ -188,7 +188,7 @@ export function Sidebar({
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="start" className="w-56">
-              <DropdownMenuLabel className="text-xs text-muted-foreground font-mono">
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-sans font-medium">
                 Alternar Organização
               </DropdownMenuLabel>
               {workspacesList.map((ws) => (
@@ -234,11 +234,11 @@ export function Sidebar({
                   <span className="font-display font-bold text-sm tracking-tight text-foreground truncate">
                     {brandTitle}
                   </span>
-                  <Badge variant="info" size="sm" className="text-[9px] py-0 px-1 font-mono">
+                  <Badge variant="info" size="sm" className="text-[9px] py-0 px-1 font-medium font-sans">
                     v1.0
                   </Badge>
                 </div>
-                <span className="text-[11px] text-muted-foreground truncate font-medium">
+                <span className="text-[11px] text-muted-foreground truncate font-medium font-sans">
                   {brandSubtitle}
                 </span>
               </div>
@@ -252,7 +252,7 @@ export function Sidebar({
         {defaultNavGroups.map((group, groupIdx) => (
           <div key={groupIdx} className="space-y-1">
             {!collapsed && group.groupLabel && (
-              <div className="px-2 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 font-mono">
+              <div className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80 font-sans">
                 {group.groupLabel}
               </div>
             )}

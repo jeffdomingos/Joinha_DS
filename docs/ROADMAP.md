@@ -30,7 +30,7 @@ Este documento registra a visão, propósito e o plano de evolução do **Tem Co
 ### 🟢 Fase 2: Tipografia, Escalas e Espaçamento (Atual / Concluída)
 * [x] Validação e escolha de fontes adequadas para interfaces densas de SaaS (alta legibilidade em pequenos tamanhos).
 * [x] Definição de escala modular de tipografia e espaçamentos utilitários estruturados (Sistema de Grids/Gaps).
-* [ ] Regras e tokens padronizados de raio de borda (*border-radius*) e elevações/sombras (depth).
+* [x] Regras e tokens padronizados de raio de borda (*border-radius*) e elevações/sombras (depth).
 
 ### ⚪ Fase 3: Componentes Nucleares de SaaS (Base Shadcn UI)
 * [ ] Botões, Inputs, Selects e Dropdowns estilizados com a temática "Joinha".

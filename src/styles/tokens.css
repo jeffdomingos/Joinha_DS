@@ -124,6 +124,21 @@
   --tc-tracking-wide: 0.025em;
   --tc-tracking-wider: 0.05em;
 
+  /* --- SHAPES & ELEVATIONS --- */
+  --tc-radius-none: 0px;
+  --tc-radius-sm: 4px;
+  --tc-radius-md: 6px;
+  --tc-radius-lg: 8px;
+  --tc-radius-xl: 12px;
+  --tc-radius-2xl: 16px;
+  --tc-radius-full: 9999px;
+
+  --tc-shadow-none: 0 0 #0000;
+  --tc-shadow-sm: 0 1px 2px 0 oklch(0% 0 0 / 0.1);
+  --tc-shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.1), 0 2px 4px -2px oklch(0% 0 0 / 0.1);
+  --tc-shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.1), 0 4px 6px -4px oklch(0% 0 0 / 0.1);
+  --tc-shadow-glow: 0 0 0 2px oklch(0% 0 0 / 0), 0 0 12px 0 var(--tc-brand-500);
+
   /* ========================================================
      2. SEMANTIC TOKENS (Dark Mode Default)
      ======================================================== */
@@ -138,6 +153,9 @@
   --bg-surface: var(--tc-neutral-950);
   --bg-surface-elevated: var(--tc-neutral-900);
   --bg-surface-hover: var(--tc-neutral-800);
+
+  /* Global Structural Semantics */
+  --radius: var(--tc-radius-md);
 
   /* TEXT (Paired with Backgrounds) */
   --text-primary: var(--tc-neutral-50);

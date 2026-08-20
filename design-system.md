@@ -77,8 +77,7 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 5. Ao categorizar dados neutros, prefira a família `--tag-*` em vez de sobrecarregar as cores funcionais de `--status-*`.
 6. **Obrigatoriedade Tipográfica:** É **ESTRITAMENTE PROIBIDO** criar classes avulsas de `font-size` isoladas da escala ou do respectivo `line-height`. Utilize sempre a arquitetura de 3 camadas através das classes utilitárias semânticas (Camada 3) como `.type-body-default`, `.type-ui-base`, `.type-heading-page`, etc.
 7. **Colunas Numéricas e Relatórios:** Use SEMPRE `.type-data-mono` (ou aplique `tabular-nums` com a fonte JetBrains Mono) para alinhar valores financeiros e contadores em Dashboards.
-
-## ♿ Acessibilidade e Conformidade WCAG 2.2
+8. **Formas e Elevações (Border Radius e Shadows):** É proibido o uso de valores relativos (`rem`, `%`) ou fluidos para `border-radius`. Use SEMPRE as classes ou variáveis utilitárias da escala fixa de `px` (ex: `--tc-radius-md`, `.radius-lg`) para evitar distorção nas curvas e problemas com sub-pixel rendering. Use as variáveis semânticas de sombra (`--tc-shadow-sm` até `lg`) para elevações em vez de gerar novas sombras isoladas, respeitando o eixo Z estruturado no CSS.
 
 Este Design System é projetado nativamente para atender aos critérios da **WCAG 2.2 (Nível AA)**. 
 Para manter essa certificação, todo elemento visual deve respeitar rigorosamente as seguintes regras:

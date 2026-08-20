@@ -206,11 +206,11 @@
   --action-primary-hover: var(--tc-brand-400);
   --action-primary-active: var(--tc-brand-600);
   --action-primary-fg: var(--tc-neutral-0);
-  --btn-primary-border-start: var(--tc-brand-400);
+  --btn-primary-border-start: var(--tc-brand-300);
   --btn-primary-border-mid: var(--tc-brand-500);
   --btn-primary-border-end: var(--tc-brand-600);
 
-  --btn-destructive-border-start: oklch(54% 0.18 25);
+  --btn-destructive-border-start: oklch(62% 0.18 25);
   --btn-destructive-border-mid: var(--tc-danger-base);
   --btn-destructive-border-end: oklch(38% 0.16 25);
 

@@ -39,14 +39,25 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles } from "lucide-react"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 function App() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark")
   const [hasHighlight, setHasHighlight] = useState(false)
   const [hasGradientBorder, setHasGradientBorder] = useState(true)
   const [hasElevation, setHasElevation] = useState(true)
   const [hasGlow, setHasGlow] = useState(false)
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark"
+    setTheme(nextTheme)
+    if (nextTheme === "light") {
+      document.documentElement.classList.add("light")
+    } else {
+      document.documentElement.classList.remove("light")
+    }
+  }
 
   const activeClasses = cn(
     "flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel p-(--tc-card-p) transition-all duration-200",
@@ -59,11 +70,29 @@ function App() {
   return (
     <div className="min-h-screen bg-background text-foreground p-8 md:p-12 lg:p-16 flex justify-center">
       <div className="w-full max-w-4xl space-y-12">
-        <header className="border-b border-border pb-6">
-          <h1 className="text-3xl font-bold tracking-tight">Joinha DS: Phase 3</h1>
-          <p className="text-muted-foreground mt-2">
-            React Components Implementation (Shadcn UI + Radix + Tailwind v4)
-          </p>
+        <header className="border-b border-border pb-6 flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Joinha DS: Phase 3</h1>
+            <p className="text-muted-foreground mt-2">
+              React Components Implementation (Shadcn UI + Radix + Tailwind v4)
+            </p>
+          </div>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={toggleTheme}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            {theme === "dark" ? (
+              <>
+                <Sun className="w-4 h-4 text-warning" /> Light Mode
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4 text-primary" /> Dark Mode
+              </>
+            )}
+          </Button>
         </header>
 
         {/* Surface & Lighting Lab / Playground */}

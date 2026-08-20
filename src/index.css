@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-display: var(--tc-font-display);
   --font-sans: var(--tc-font-sans);
   --font-mono: var(--tc-font-mono);
 

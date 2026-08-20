@@ -121,7 +121,7 @@ export const SidebarMenuButton = React.forwardRef<
         <Icon
           className={cn(
             "w-4 h-4 shrink-0 transition-colors",
-            isActive ? "text-primary-ui" : "text-muted-foreground group-hover:text-primary-ui"
+            isActive ? "text-primary-ui" : "text-muted-foreground group-hover:text-foreground"
           )}
         />
       )}

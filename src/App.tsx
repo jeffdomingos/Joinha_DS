@@ -137,11 +137,12 @@ export function App() {
     }
   }
 
+  // AppLayout prepends the brand crumb itself (only when the sidebar is collapsed
+  // and its own logo goes off-screen with it) — this trail stays page-focused.
   const getBreadcrumbs = () => {
     if (viewMode === "component") {
       const meta = getComponentMetadata(selectedComponentId)
       return [
-        { label: "Joinha DS" },
         { label: "Componentes" },
         { label: meta.categoryLabel },
         { label: meta.name },
@@ -149,29 +150,29 @@ export function App() {
     }
     switch (activeNavItem) {
       case "docs-overview":
-        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Visão Geral & Filosofia" }]
+        return [{ label: "Documentação" }, { label: "Visão Geral & Filosofia" }]
       case "docs-tokens":
-        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Tokens de Design & OKLCH" }]
+        return [{ label: "Documentação" }, { label: "Tokens de Design & OKLCH" }]
       case "docs-layout":
-        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Enterprise Layout & Densidade" }]
+        return [{ label: "Documentação" }, { label: "Enterprise Layout & Densidade" }]
       case "docs-xai":
-        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Padrões XAI & HITL" }]
+        return [{ label: "Documentação" }, { label: "Padrões XAI & HITL" }]
       case "docs-cli":
-        return [{ label: "Joinha DS" }, { label: "Documentação" }, { label: "Instalação via Shadcn CLI" }]
+        return [{ label: "Documentação" }, { label: "Instalação via Shadcn CLI" }]
       case "lab-primitives":
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Primitivos & Controles (18)" }]
+        return [{ label: "Component Lab" }, { label: "Primitivos & Controles (18)" }]
       case "lab-layout":
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Navegação & Layout (10)" }]
+        return [{ label: "Component Lab" }, { label: "Navegação & Layout (10)" }]
       case "lab-data":
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Visualização de Dados (7)" }]
+        return [{ label: "Component Lab" }, { label: "Visualização de Dados (7)" }]
       case "lab-onboarding":
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Onboarding & Adoção (5)" }]
+        return [{ label: "Component Lab" }, { label: "Onboarding & Adoção (5)" }]
       case "lab-xai":
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "XAI & HITL (5)" }]
+        return [{ label: "Component Lab" }, { label: "XAI & HITL (5)" }]
       case "template-dashboard":
-        return [{ label: "Joinha DS" }, { label: "Templates" }, { label: "SaaS Executive Dashboard" }]
+        return [{ label: "Templates" }, { label: "SaaS Executive Dashboard" }]
       default:
-        return [{ label: "Joinha DS" }, { label: "Component Lab" }, { label: "Galeria Geral (50)" }]
+        return [{ label: "Component Lab" }, { label: "Galeria Geral (50)" }]
     }
   }
 

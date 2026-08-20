@@ -128,6 +128,8 @@ export function HeaderThemeToggle({ theme, onToggleTheme }: HeaderThemeTogglePro
 export interface HeaderProps {
   breadcrumbs?: Array<{ label: string; href?: string }>
   onOpenMobileMenu?: () => void
+  /** Rendered before the breadcrumbs, with a divider after it — e.g. a SidebarCollapseTrigger when the sidebar is fully collapsed and needs a home for its logo/toggle. */
+  beforeBreadcrumbs?: React.ReactNode
   theme: "dark" | "light"
   onToggleTheme: () => void
   onOpenCommand?: () => void
@@ -142,6 +144,7 @@ export interface HeaderProps {
 export function Header({
   breadcrumbs,
   onOpenMobileMenu,
+  beforeBreadcrumbs,
   theme,
   onToggleTheme,
   onOpenCommand,
@@ -177,6 +180,13 @@ export function Header({
           >
             <Menu className="w-5 h-5" />
           </button>
+        )}
+
+        {beforeBreadcrumbs && (
+          <>
+            {beforeBreadcrumbs}
+            <div className="h-5 w-px bg-border shrink-0" />
+          </>
         )}
 
         <HeaderBreadcrumbs breadcrumbs={breadcrumbs} />

@@ -20,6 +20,7 @@ import {
   Compass,
   Box,
   Sparkles,
+  PanelLeft,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -204,8 +205,8 @@ export interface SidebarBrandHeaderProps {
 }
 
 export function SidebarBrandHeader({
-  brandTitle = "Joinha DS",
-  brandSubtitle = "Design System v1.0",
+  brandTitle = "Joinha",
+  brandSubtitle = "Design System",
   collapsed = false,
 }: SidebarBrandHeaderProps) {
   return (
@@ -219,7 +220,7 @@ export function SidebarBrandHeader({
             <span className="type-heading-card font-bold text-sm tracking-tight text-foreground truncate">
               {brandTitle}
             </span>
-            <Badge variant="info" size="sm" className="text-[9px] py-0 px-1 font-medium font-sans">
+            <Badge variant="neutral" size="sm" className="text-[9px] py-0 px-1 font-medium font-sans">
               v1.0
             </Badge>
           </div>
@@ -228,6 +229,41 @@ export function SidebarBrandHeader({
           </span>
         </div>
       )}
+    </div>
+  )
+}
+
+/** Molécula: Logo + Divisor + Toggle, versão compacta e independente da Sidebar.
+    Existe para portais que recolhem a Sidebar até 0px — o host (ex: o Header do app)
+    hospeda esta peça para manter a marca e o controle de expandir visíveis, sem precisar
+    recriar a marcação na mão. É a mesma linguagem visual do header interno da Sidebar,
+    só que exportada para viver fora dela. */
+export interface SidebarCollapseTriggerProps {
+  collapsed: boolean
+  onToggleCollapse: () => void
+  className?: string
+}
+
+export function SidebarCollapseTrigger({
+  collapsed,
+  onToggleCollapse,
+  className,
+}: SidebarCollapseTriggerProps) {
+  return (
+    <div className={cn("flex items-center gap-2 shrink-0", className)}>
+      <div className="w-8 h-8 rounded-(--tc-radius-md) bg-brand-mark flex items-center justify-center text-primary-foreground shrink-0 p-1 shadow-xs">
+        <BrandSymbol variant="white" className="w-5.5 h-5.5" />
+      </div>
+      <div className="h-6 w-px bg-border shrink-0" />
+      <button
+        type="button"
+        onClick={onToggleCollapse}
+        className="shrink-0 p-1.5 rounded-(--tc-radius-md) text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors cursor-pointer"
+        aria-label={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
+        title={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
+      >
+        <PanelLeft className="w-4 h-4" />
+      </button>
     </div>
   )
 }
@@ -314,12 +350,17 @@ export interface NavItem {
 
 export interface NavGroup {
   groupLabel?: string
+  /** Super-category the top-level drill-down list clusters this group under (e.g. "Docs & Guias" vs "Componentes"). */
+  section?: string
+  icon?: React.ComponentType<{ className?: string }>
   items: NavItem[]
 }
 
 const defaultNavGroups: NavGroup[] = [
   {
     groupLabel: "Documentação & Guias",
+    section: "Docs & Guias",
+    icon: BookOpen,
     items: [
       { id: "docs-overview", label: "Visão Geral & Filosofia", icon: BookOpen },
       { id: "docs-tokens", label: "Tokens de Design & OKLCH", icon: Palette },
@@ -330,6 +371,8 @@ const defaultNavGroups: NavGroup[] = [
   },
   {
     groupLabel: "Laboratório & Templates",
+    section: "Docs & Guias",
+    icon: Layers,
     items: [
       {
         id: "lab-all",
@@ -346,7 +389,9 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "Primitivos & Controles (18)",
+    groupLabel: "Primitivos & Controles",
+    section: "Componentes",
+    icon: Box,
     items: [
       { id: "comp-button", label: "Button", icon: Box },
       { id: "comp-input", label: "Input", icon: Box },
@@ -369,7 +414,9 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "Navegação & Layout (10)",
+    groupLabel: "Navegação & Layout",
+    section: "Componentes",
+    icon: LayoutGrid,
     items: [
       { id: "comp-app-layout", label: "AppLayout", icon: LayoutGrid },
       { id: "comp-header", label: "Header", icon: LayoutGrid },
@@ -384,7 +431,9 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "Visualização de Dados (7)",
+    groupLabel: "Visualização de Dados",
+    section: "Componentes",
+    icon: BarChart3,
     items: [
       { id: "comp-data-table", label: "DataTable", icon: BarChart3 },
       { id: "comp-metric-card", label: "MetricCard", icon: BarChart3 },
@@ -396,7 +445,9 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "Onboarding UX (5)",
+    groupLabel: "Onboarding UX",
+    section: "Componentes",
+    icon: Compass,
     items: [
       { id: "comp-tour-spotlight", label: "TourSpotlight", icon: Compass },
       { id: "comp-onboarding-checklist", label: "OnboardingChecklist", icon: Compass },
@@ -406,7 +457,9 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
   {
-    groupLabel: "XAI & Human-in-the-Loop (5)",
+    groupLabel: "XAI & Human-in-the-Loop",
+    section: "Componentes",
+    icon: Sparkles,
     items: [
       { id: "comp-confidence-meter", label: "ConfidenceMeter", icon: Sparkles },
       { id: "comp-hitl-approval-banner", label: "HITLApprovalBanner", icon: Sparkles },
@@ -416,6 +469,15 @@ const defaultNavGroups: NavGroup[] = [
     ],
   },
 ]
+
+// Alphabetize component-catalog submenus (locale-aware, so accented labels sort correctly).
+// "Docs & Guias" groups keep their curated order — it mirrors the Anterior/Próximo
+// walkthrough sequence inside the docs content itself, which alphabetizing would break.
+defaultNavGroups
+  .filter((group) => group.section === "Componentes")
+  .forEach((group) => {
+    group.items.sort((a, b) => a.label.localeCompare(b.label, "pt-BR"))
+  })
 
 const workspaces = [
   { id: "v1-latest", name: "Joinha DS v1.0.0", plan: "Oficial" },
@@ -429,10 +491,13 @@ const workspaces = [
 
 export interface SidebarProps {
   collapsed: boolean
+  /** Toggle button lives inside the sidebar's own header row (right-aligned, past a divider), not in the app Header. */
   onToggleCollapse: () => void
   activeItem?: string
   onSelectItem?: (id: string) => void
   showWorkspaceSwitcher?: boolean
+  /** Show the user profile / account switcher in the footer. Off by default for portals with no logged-in area. */
+  showUserProfile?: boolean
   brandTitle?: string
   brandSubtitle?: string
   workspacesList?: Array<{ id: string; name: string; plan: string }>
@@ -446,27 +511,49 @@ export function Sidebar({
   activeItem = "dashboard",
   onSelectItem,
   showWorkspaceSwitcher = false,
-  brandTitle = "Joinha DS",
-  brandSubtitle = "Design System v1.0",
+  showUserProfile = true,
+  brandTitle = "Joinha",
+  brandSubtitle = "Design System",
   workspacesList = workspaces,
   className,
   children,
 }: SidebarProps) {
   const [selectedWorkspace, setSelectedWorkspace] = React.useState(workspacesList[0] || workspaces[0])
 
+  // DRILL-DOWN NAVIGATION: top level shows group rows; selecting one navigates
+  // into its item list (with a back row) instead of stacking every group in one long scroll.
+  const findGroupIndexForItem = React.useCallback((id: string) => {
+    return defaultNavGroups.findIndex((g) =>
+      g.items.some((item) => item.id === id || `comp-${item.id}` === id)
+    )
+  }, [])
+
+  const [activeGroupIndex, setActiveGroupIndex] = React.useState<number | null>(() =>
+    findGroupIndexForItem(activeItem) !== -1 ? findGroupIndexForItem(activeItem) : null
+  )
+
+  // Keep the drilled-in group in sync when navigation happens from outside the sidebar
+  // (e.g. a "Ver Documentação" link on a component page).
+  React.useEffect(() => {
+    const idx = findGroupIndexForItem(activeItem)
+    if (idx !== -1) setActiveGroupIndex(idx)
+  }, [activeItem, findGroupIndexForItem])
+
+  const drilledGroup = activeGroupIndex !== null ? defaultNavGroups[activeGroupIndex] : null
+  const pageIndex = activeGroupIndex !== null ? 1 : 0
+
   return (
     <aside
       aria-label="Menu Lateral Principal"
       className={cn(
-        "relative flex flex-col h-screen select-none",
-        "bg-(--bg-surface-elevated)/90 backdrop-blur-xl border-r border-border shadow-md",
-        "transition-all duration-300 ease-(--tc-ease-smooth)",
-        collapsed ? "w-16" : "w-64",
+        "relative flex flex-col h-full w-full min-w-0 select-none",
+        "bg-background border-r border-border",
         className
       )}
     >
       {/* Top Header Molecule */}
-      <div className="h-16 flex items-center justify-between px-3 border-b border-border">
+      <div className="h-16 flex items-center gap-2 px-3">
+        <div className={cn("min-w-0", !collapsed && "flex-1")}>
         {showWorkspaceSwitcher ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -532,65 +619,136 @@ export function Sidebar({
             collapsed={collapsed}
           />
         )}
-      </div>
+        </div>
 
-      {/* Navigation Content: Built 100% from Compound Atoms and Molecules */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-6 scrollbar-thin">
-        {children ||
-          defaultNavGroups.map((group, groupIdx) => (
-            <SidebarGroup key={groupIdx}>
-              {!collapsed && group.groupLabel && (
-                <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
-              )}
+        <div className="h-6 w-px bg-border shrink-0" />
 
-              <SidebarMenu collapsed={collapsed}>
-                {group.items.map((item) => {
-                  const isActive =
-                    activeItem === item.id ||
-                    activeItem === `comp-${item.id}`
-
-                  return (
-                    <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton
-                        isActive={isActive}
-                        icon={item.icon}
-                        badge={item.badge}
-                        collapsed={collapsed}
-                        onClick={() => onSelectItem?.(item.id)}
-                        title={collapsed ? item.label : undefined}
-                      >
-                        {item.label}
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )
-                })}
-              </SidebarMenu>
-            </SidebarGroup>
-          ))}
-      </div>
-
-      {/* Bottom Footer Molecule */}
-      <div className="p-3 border-t border-border space-y-2">
-        <SidebarUserProfile collapsed={collapsed} />
-
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           onClick={onToggleCollapse}
-          className={cn(
-            "w-full h-8 text-xs text-muted-foreground hover:text-foreground flex items-center cursor-pointer font-sans",
-            collapsed ? "justify-center px-0" : "justify-between px-2"
-          )}
+          className="shrink-0 p-1.5 rounded-(--tc-radius-md) text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors cursor-pointer"
+          aria-label={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
           title={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
         >
-          {!collapsed && <span className="type-body-sm font-medium">Recolher</span>}
-          {collapsed ? (
-            <ChevronRight className="w-4 h-4 text-primary" />
-          ) : (
-            <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-          )}
-        </Button>
+          <PanelLeft className="w-4 h-4" />
+        </button>
       </div>
+
+      {/* Navigation Content: Built 100% from Compound Atoms and Molecules.
+          Collapsed hides the nav list entirely (no icon-only rail) — only the
+          header row (logo, divider, toggle) stays, as the handle to expand again. */}
+      {collapsed ? null : children ? (
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 scrollbar-thin">
+          {children}
+        </div>
+      ) : (
+        /* Push/pop navigation: two independently-positioned layers (each pinned to
+           inset-0 of this relative container), sliding on their own transform.
+           Neither pane's position ever depends on the other's size or on any shared
+           percentage math — each is always exactly the container's full box, so
+           there is no way for one to render a pixel off from the other. */
+        <div className="flex-1 relative overflow-hidden">
+          {/* Pane 0: top level — group rows only, pick one to navigate into its items */}
+          <div
+            className="absolute inset-0 overflow-y-auto overflow-x-hidden p-3 space-y-1 scrollbar-thin transition-transform duration-(--tc-duration-normal) ease-(--tc-ease-spring)"
+            style={{ transform: pageIndex === 0 ? "translateX(0%)" : "translateX(-100%)" }}
+            inert={pageIndex !== 0}
+          >
+            {defaultNavGroups.map((group, groupIdx) => {
+              const GroupIcon = group.icon
+              const hasActiveItem = group.items.some(
+                (item) => item.id === activeItem || `comp-${item.id}` === activeItem
+              )
+              const showSectionLabel = group.section && group.section !== defaultNavGroups[groupIdx - 1]?.section
+
+              return (
+                <React.Fragment key={groupIdx}>
+                  {showSectionLabel && (
+                    <>
+                      {groupIdx > 0 && <div className="my-2 border-t border-border/60" />}
+                      <SidebarGroupLabel className="pt-1">{group.section}</SidebarGroupLabel>
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveGroupIndex(groupIdx)
+                      if (!hasActiveItem && group.items[0]) {
+                        onSelectItem?.(group.items[0].id)
+                      }
+                    }}
+                    className={cn(
+                      "w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-(--tc-radius-md) text-xs font-medium transition-colors cursor-pointer group",
+                      hasActiveItem
+                        ? "bg-surface-hover text-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
+                    )}
+                  >
+                  <div className="flex items-center gap-3 min-w-0">
+                    {GroupIcon && (
+                      <GroupIcon
+                        className={cn(
+                          "w-4 h-4 shrink-0",
+                          hasActiveItem ? "text-primary-ui" : "text-muted-foreground"
+                        )}
+                      />
+                    )}
+                    <span className="truncate">{group.groupLabel}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="text-[10px] text-muted-foreground/70 font-mono">
+                      {group.items.length}
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/60 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </button>
+                </React.Fragment>
+              )
+            })}
+          </div>
+
+          {/* Pane 1: drilled-in group — back row + this group's items only */}
+          <div
+            className="absolute inset-0 overflow-y-auto overflow-x-hidden p-3 scrollbar-thin transition-transform duration-(--tc-duration-normal) ease-(--tc-ease-spring)"
+            style={{ transform: pageIndex === 1 ? "translateX(0%)" : "translateX(100%)" }}
+            inert={pageIndex !== 1}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveGroupIndex(null)}
+              className="w-full flex items-center gap-2 px-2 py-1.5 mb-2 rounded-(--tc-radius-sm) text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors cursor-pointer"
+            >
+              <ChevronLeft className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">{(drilledGroup ?? defaultNavGroups[0]).groupLabel}</span>
+            </button>
+
+            <SidebarMenu>
+              {(drilledGroup ?? defaultNavGroups[0]).items.map((item) => {
+                const isActive = activeItem === item.id || activeItem === `comp-${item.id}`
+                return (
+                  <SidebarMenuItem key={item.id}>
+                    <SidebarMenuButton
+                      isActive={isActive}
+                      icon={item.icon}
+                      badge={item.badge}
+                      onClick={() => onSelectItem?.(item.id)}
+                    >
+                      {item.label}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Footer Molecule — only rendered when there's an account to show */}
+      {showUserProfile && (
+        <div className="p-3 border-t border-border">
+          <SidebarUserProfile collapsed={collapsed} />
+        </div>
+      )}
     </aside>
   )
 }

@@ -44,8 +44,9 @@ import { cn } from "@/lib/utils"
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
-  const [hasHighlight, setHasHighlight] = useState(false)
+  const [hasBorder, setHasBorder] = useState(true)
   const [hasGradientBorder, setHasGradientBorder] = useState(true)
+  const [hasHighlight, setHasHighlight] = useState(false)
   const [hasElevation, setHasElevation] = useState(true)
   const [hasGlow, setHasGlow] = useState(false)
 
@@ -61,8 +62,10 @@ function App() {
 
   const activeClasses = cn(
     "flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel p-(--tc-card-p) transition-all duration-200",
+    !hasBorder && "!border-0 !border-transparent !bg-none",
+    hasBorder && !hasGradientBorder && "border border-border",
+    hasBorder && hasGradientBorder && "border-gradient-subtle",
     hasHighlight && "surface-highlight",
-    hasGradientBorder && "border-gradient-subtle",
     hasElevation && "elevation-2",
     hasGlow && "brand-glow"
   )
@@ -104,9 +107,17 @@ function App() {
           <p className="type-ui-base text-muted-foreground">
             Ligue e desligue cada camada de acabamento para testar a combinação ideal e avaliar o impacto do chanfro e das bordas:
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-6 pt-2">
             <label className="flex items-center gap-3 cursor-pointer select-none">
-              <Switch checked={hasGradientBorder} onCheckedChange={setHasGradientBorder} />
+              <Switch checked={hasBorder} onCheckedChange={setHasBorder} />
+              <div className="flex flex-col">
+                <span className="type-ui-dense font-semibold">Exibir Borda</span>
+                <span className="text-xs text-muted-foreground">{hasBorder ? "Ativa" : "Sem borda (0px)"}</span>
+              </div>
+            </label>
+
+            <label className={`flex items-center gap-3 select-none ${!hasBorder ? "opacity-40 pointer-events-none" : "cursor-pointer"}`}>
+              <Switch checked={hasGradientBorder} onCheckedChange={setHasGradientBorder} disabled={!hasBorder} />
               <div className="flex flex-col">
                 <span className="type-ui-dense font-semibold">Borda Gradiente</span>
                 <span className="text-xs text-muted-foreground">.border-gradient-subtle</span>

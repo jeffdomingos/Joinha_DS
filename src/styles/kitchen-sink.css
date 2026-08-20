@@ -139,7 +139,6 @@ h2 {
 
 .surface-panel {
   background-color: var(--bg-surface);
-  box-shadow: var(--tc-shadow-md);
 }
 
 .surface-elevated {

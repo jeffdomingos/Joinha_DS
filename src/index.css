@@ -39,15 +39,17 @@
 }
 
 @import "./styles/tokens.css";
-@import "./styles/kitchen-sink.css";
+@import "./styles/kitchen-sink.css" layer(components);
 
-/* Reset some default vite styles that could conflict */
-#root {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  text-align: left;
-  border-inline: none;
-  min-height: 100vh;
-  display: block;
+@layer base {
+  /* Reset some default vite styles that could conflict */
+  #root {
+    text-align: left;
+    border-inline: none;
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    margin: 0;
+    display: block;
+  }
 }

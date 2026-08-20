@@ -4,6 +4,7 @@
 */
 
 :root {
+  color-scheme: dark;
   /* ========================================================
      1. PRIMITIVE TOKENS
      ======================================================== */
@@ -290,6 +291,7 @@
    3. LIGHT MODE OVERRIDES
    ======================================================== */
 .light, [data-theme="light"] {
+  color-scheme: light;
   /* BACKGROUNDS */
   --bg-app: var(--tc-neutral-0);
   --bg-base: var(--tc-neutral-0);

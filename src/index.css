@@ -188,10 +188,50 @@
     filter: brightness(0.48) saturate(0.7);
   }
 
-  /* Full color restoration when hovered / expanded */
+  /* Sonner Full color restoration when hovered / expanded */
   [data-sonner-toaster][data-expanded="true"] [data-sonner-toast],
   [data-sonner-toaster]:hover [data-sonner-toast] {
     filter: brightness(1) saturate(1) !important;
+  }
+
+  /* ========================================================
+     THEMED SCROLLBARS & NATIVE CONTROLS
+     ======================================================== */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-base) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-base);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
+  }
+
+  /* Number input spin buttons dark/light theme integration */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    opacity: 0.6;
+    cursor: pointer;
+    margin: 0;
+    transition: opacity var(--tc-duration-fast);
+  }
+
+  input[type="number"]:hover::-webkit-inner-spin-button,
+  input[type="number"]:hover::-webkit-outer-spin-button {
+    opacity: 1;
   }
   
   .brand-glow {

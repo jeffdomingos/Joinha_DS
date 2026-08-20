@@ -107,7 +107,7 @@ export function HITLApprovalBanner({
           </p>
 
           {impactSummary && (
-            <div className="mt-2.5 inline-block rounded-md bg-surface p-2.5 text-xs text-foreground font-mono border border-border/80">
+            <div className="mt-2.5 inline-block rounded-md bg-surface p-2.5 text-xs text-foreground font-mono">
               <strong className="text-foreground font-sans font-semibold">Impacto Estimado: </strong>
               {impactSummary}
             </div>

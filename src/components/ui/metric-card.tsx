@@ -90,6 +90,8 @@ export interface MetricCardProps {
   }
   chartVariant?: 1 | 2 | 3 | 4 | 5 | 6
   sparklineData?: number[]
+  /** Caption anchored under the sparkline (e.g. "Últimos 7 dias") so the curve reads as a real timeframe. */
+  sparklinePeriod?: string
   icon?: React.ReactNode
   targetProgress?: number
   className?: string
@@ -120,6 +122,7 @@ export function MetricCard({
   change,
   chartVariant = 1,
   sparklineData,
+  sparklinePeriod,
   icon,
   targetProgress,
   className,
@@ -176,7 +179,7 @@ export function MetricCard({
           {/* Sparkline Curve */}
           {sparklineData && sparklineData.length > 1 && (
             <div className="my-1 -mx-1">
-              <Sparkline data={sparklineData} chartVariant={chartVariant} height={36} />
+              <Sparkline data={sparklineData} chartVariant={chartVariant} height={36} periodLabel={sparklinePeriod} />
             </div>
           )}
 

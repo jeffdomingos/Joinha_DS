@@ -138,6 +138,40 @@ Elas também seguem a mesma estrutura estrutural de Variante Sólida (`-bg` + `-
 
 ---
 
+## 📦 Disciplina de Caixas e Bordas (Box Fatigue)
+
+Referência: Antigravity, Linear, Stripe Docs — sistemas de alto nível reservam borda/moldura para casos específicos, nunca como padrão default de agrupamento.
+
+**Regra:** uma borda (`border` + `rounded-*` + `bg-surface*`) só se justifica em duas situações:
+1. **Delimita um asset ou componente do DS sendo exibido** (um preview ao vivo, um token de cor/radius/elevação sendo ilustrado, uma tabela de dados real).
+2. **É um elemento genuinamente interativo** (botão, swatch clicável, card de seleção, trigger de modal).
+
+Texto puramente informativo — título de página, parágrafo de introdução, callout de "quando usar", hero de seção — **nunca** leva caixa. Use apenas tipografia, espaçamento (`space-y-*`, `gap-*`) e, no máximo, um `border-b`/`border-l` sutil como divisor. Ao agrupar 2-3 blocos de texto lado a lado, prefira `md:divide-x md:divide-border/40` com padding interno em vez de cards individuais.
+
+**Anti-padrão "card-in-card":** nunca desenhe uma borda dentro de outra borda já visível (card de seção envolvendo grid de sub-cards). A borda externa já delimita a seção — bordas internas nesse caso são redundantes e competem visualmente com o conteúdo. Isso vale tanto para composição de página quanto para a implementação interna de um componente (ex: um `Dialog` cujo conteúdo interno também desenha sua própria borda idêntica).
+
+**Perguntas antes de aplicar borda:** Esse elemento está exibindo um asset/dado real, ou é interativo? Se não, a borda deve sair.
+
+## 🏷️ Disciplina de Cor em Badges & Tags
+
+Duas perguntas antes de colorir um `Badge`/`Tag`:
+1. **Essa informação precisa de tratamento de badge/pill, ou é só texto correndo?** Números de versão, contadores e labels de metadado (`v1.0`, "3 itens") geralmente não precisam — texto mudo (`text-muted-foreground`) resolve.
+2. **Se precisa, a cor escolhida carrega significado real?** `variant="success/warning/danger/info"` do `Badge` é **estritamente semântico de status** — nunca use para decorar ou diferenciar visualmente opções que não têm hierarquia de severidade entre si (ex: três opções de densidade "Compact/Default/Comfortable" não são um erro, um aviso e uma info — todas devem ser `neutral`). O sinal mais forte de cor arbitrária é um grupo de irmãos (badges/tags lado a lado) com cores diferentes sem lógica categórica entre elas.
+
+`Tag` (`purple`/`pink`/`teal`/`indigo`/`gray`) é **categórico**, não semântico — use para classificar dados reais (setor, plano, tipo), nunca como variedade visual decorativa num hero ou header.
+
+## 🧭 Arquitetura de Navegação da Sidebar
+
+- **Drill-down, não scroll infinito:** grupos de navegação extensos (component catalog) usam navegação em duas camadas — nível topo lista só os grupos (nome + contagem + chevron), selecionar um navega para dentro mostrando só os itens daquele grupo, com uma linha "← Voltar" no topo. Isso substitui uma lista longa de 50+ itens sempre visível.
+- **Transição:** implementada com duas camadas `position: absolute; inset: 0` dentro de um container `relative overflow-hidden`, cada uma deslizando via `transform: translateX()` independente (nunca uma trilha `flex` compartilhada com math de porcentagem relativa entre painéis — isso é frágil a erro de alinhamento). Cada painel sempre ocupa exatamente a caixa do container, sem depender do tamanho do outro.
+- **Sem navegação só-por-ícone:** a sidebar não tem um modo "rail" com todos os itens reduzidos a ícones. Colapsar esconde a navegação por completo (`collapsed` → painel de navegação não renderiza).
+- **Colapso via `react-resizable-panels`:** a largura é controlada por quem envolve a `Sidebar` (um `ResizablePanel` com `collapsedSize={0}`), não pela própria Sidebar. Ao colapsar totalmente, o logo/toggle que ficavam no header da Sidebar precisam de um novo lar — use o componente exportado `SidebarCollapseTrigger` (não recrie essa marcação ad-hoc no portal).
+- **Breadcrumb reflete o estado:** o crumb de marca ("Joinha") só aparece no breadcrumb do Header quando a Sidebar está colapsada (e portanto o logo dela saiu de tela). Quando expandida, a Sidebar já mostra a marca — repeti-la no breadcrumb é redundante.
+
+## 🧱 Bento Grid para Galerias de Componentes
+
+Ao exibir muitos componentes lado a lado (ex: Component Lab), não force uma grade rígida onde todo card tem a mesma proporção — `CSS Grid` com `grid-auto-flow: dense` e spans (`col-span-2`, `row-span-2`) decididos **pelo que o preview de cada componente realmente renderiza**: previews largos (splits horizontais, barras de status) ganham `col-span-2`; previews com empilhamento vertical real (métrica + sparkline) ganham `row-span-2`; o resto fica 1×1. Nunca dê mais espaço a um card cujo preview é só um placeholder de texto — o espaço extra ficaria vazio.
+
 ## 🤖 Regras Estritas para Agentes de IA
 
 1. **Nunca use cores HEX ou RGB codificadas rigidamente (hardcoded).**

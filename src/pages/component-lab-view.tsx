@@ -340,7 +340,7 @@ export function ComponentLabView({
           <Badge variant="success" size="sm" dot>Ativo</Badge>
           <Badge variant="warning" size="sm">Pendente</Badge>
           <Badge variant="danger" size="sm">Erro</Badge>
-          <Badge variant="info" size="sm">v1.0</Badge>
+          <Badge variant="neutral" size="sm">v1.0</Badge>
         </div>
       ),
     },
@@ -640,7 +640,7 @@ export function ComponentLabView({
       categoryLabel: "Layout & Nav",
       description: "Estrutura shell completa para aplicações SaaS com suporte a sidebar e header.",
       renderPreview: () => (
-        <Badge variant="info" size="sm">Container Shell Ativo</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Container Shell Ativo</span>
       ),
     },
     {
@@ -651,7 +651,7 @@ export function ComponentLabView({
       categoryLabel: "Layout & Nav",
       description: "Barra lateral de navegação colapsável com workspace switcher e badges.",
       renderPreview: () => (
-        <Badge variant="neutral" size="sm">Sidebar Integrada</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Sidebar Integrada</span>
       ),
     },
     {
@@ -662,7 +662,7 @@ export function ComponentLabView({
       categoryLabel: "Layout & Nav",
       description: "Cabeçalho com breadcrumbs, busca rápida, notificações e alternador de tema.",
       renderPreview: () => (
-        <Badge variant="neutral" size="sm">Header com Breadcrumbs</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Header com Breadcrumbs</span>
       ),
     },
 
@@ -681,6 +681,7 @@ export function ComponentLabView({
           chartVariant={1}
           change={{ value: "+14.2%", trend: "up" }}
           sparklineData={[28, 31, 35, 40, 48.9]}
+          sparklinePeriod="Últimos 5 dias"
           className="p-3 text-xs w-full"
         />
       ),
@@ -753,7 +754,7 @@ export function ComponentLabView({
       categoryLabel: "Visualização",
       description: "Container e componentes de gráficos Recharts integrados com tokens CSS de cor.",
       renderPreview: () => (
-        <Badge variant="info" size="sm">Recharts CSS Tokens</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Recharts CSS Tokens</span>
       ),
     },
     {
@@ -764,7 +765,7 @@ export function ComponentLabView({
       categoryLabel: "Visualização",
       description: "Tabela densa empresarial com ordenação, paginação e suporte a densidade paramétrica.",
       renderPreview: () => (
-        <Badge variant="success" size="sm">DataTable Paramétrica</Badge>
+        <span className="text-xs font-medium text-muted-foreground">DataTable Paramétrica</span>
       ),
     },
 
@@ -791,7 +792,7 @@ export function ComponentLabView({
       categoryLabel: "Onboarding",
       description: "Checklist de ativação e onboarding com progresso visual e estados completados.",
       renderPreview: () => (
-        <Badge variant="info" size="sm">Checklist com Progresso</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Checklist com Progresso</span>
       ),
     },
     {
@@ -866,7 +867,7 @@ export function ComponentLabView({
       categoryLabel: "XAI & HITL",
       description: "Banner de interceptação humana para ações críticas com Aprovar, Rejeitar e Editar.",
       renderPreview: () => (
-        <Badge variant="warning" size="sm">Interceptação Humana Ativa</Badge>
+        <span className="text-xs font-medium text-muted-foreground">Interceptação Humana Ativa</span>
       ),
     },
     {
@@ -912,6 +913,22 @@ export function ComponentLabView({
     },
   ]
 
+  // BENTO GRID SPANS — decided by what each component's own preview actually renders,
+  // not by category. Wide = preview content reads better with horizontal room
+  // (split panels, full-width banners/bars, button rows). Tall = preview has real
+  // vertical stacking (title + value + chart). Unlisted ids default to a 1x1 cell.
+  const bentoSpan: Record<string, string> = {
+    button: "md:col-span-2",
+    accordion: "md:col-span-2",
+    resizable: "md:col-span-2",
+    "banner-announcement": "md:col-span-2",
+    "confidence-meter": "md:col-span-2",
+    "reasoning-trace": "md:col-span-2",
+    "agent-status-hud": "md:col-span-2",
+    "metric-card": "md:row-span-2",
+    "ai-diff-viewer": "md:col-span-2 md:row-span-2",
+  }
+
   const categories = [
     { id: "all", label: "Todos (50)", count: componentCatalog.length },
     { id: "primitives", label: "Primitivos & Controles", count: 18 },
@@ -946,7 +963,7 @@ export function ComponentLabView({
             <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-heading">
               Laboratório Interativo de Componentes
             </h1>
-            <Badge variant="info" size="sm">{componentCatalog.length} Componentes</Badge>
+            <Badge variant="neutral" size="sm">{componentCatalog.length} Componentes</Badge>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
             Explore, teste variantes em tempo real e copie o comando CLI de instalação de qualquer componente do Joinha DS.
@@ -1054,13 +1071,16 @@ export function ComponentLabView({
 
       {/* Scoped Density Wrapper for Component Sandbox */}
       <div data-density={labDensity} className="space-y-12">
-      {/* DYNAMIC FILTERED COMPONENT CARDS GRID */}
+      {/* DYNAMIC FILTERED COMPONENT CARDS GRID (Bento: span decided by what each preview actually renders) */}
       {filteredComponents.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 [grid-auto-flow:dense]">
           {filteredComponents.map((item) => (
             <div
               key={item.id}
-              className="p-4 rounded-(--tc-radius-xl) surface-card border border-border hover:border-primary/40 transition-all duration-200 flex flex-col justify-between gap-3 group shadow-xs"
+              className={cn(
+                "p-4 rounded-(--tc-radius-xl) surface-card border border-border hover:border-primary/40 transition-all duration-200 flex flex-col gap-3 group shadow-xs",
+                bentoSpan[item.id]
+              )}
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
@@ -1088,7 +1108,7 @@ export function ComponentLabView({
               </div>
 
               {/* Interactive Mini-Preview */}
-              <div className="p-3 rounded-(--tc-radius-lg) bg-surface/70 border border-border/80 min-h-[56px] flex items-center justify-center overflow-hidden">
+              <div className="flex-1 p-3 rounded-(--tc-radius-lg) bg-surface/70 border border-border/80 min-h-[56px] flex items-center justify-center overflow-hidden">
                 {item.renderPreview(helpers)}
               </div>
 

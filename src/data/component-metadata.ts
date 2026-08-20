@@ -337,9 +337,9 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     description: "Rótulo categórico e contextual com 6 tons de croma controlado (Chroma Budget).",
     whenToUse: "Metadados, etiquetas e categorização de registros em lote com croma controlado (ex: Enterprise, OKLCH, IA).",
     importStatement: `import { Tag } from "@/components/ui/tag"`,
-    usageCode: `<Tag color="purple">IA Generativa</Tag>`,
+    usageCode: `<Tag variant="purple">IA Generativa</Tag>`,
     props: [
-      { name: "color", type: '"purple" | "teal" | "pink" | "indigo" | "amber" | "slate"', defaultValue: '"slate"', description: "Cor da família cromática contida." },
+      { name: "variant", type: '"purple" | "teal" | "pink" | "indigo" | "gray"', defaultValue: '"gray"', description: "Cor da família cromática contida." },
     ],
     accessibility: {
       wcagLevel: "AA",
@@ -347,7 +347,7 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     examples: [
       {
         title: "Tags de Categoria",
-        code: `<Tag color="teal">OKLCH</Tag>`,
+        code: `<Tag variant="teal">OKLCH</Tag>`,
       },
     ],
   },
@@ -695,11 +695,12 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
   </SidebarGroup>
 </Sidebar>`,
     props: [
-      { name: "collapsed", type: "boolean", defaultValue: "false", description: "Define se o menu lateral está expandido (256px) ou recolhido (64px)." },
-      { name: "onToggleCollapse", type: "() => void", defaultValue: "undefined", description: "Função disparada ao clicar no botão de expandir/recolher." },
+      { name: "collapsed", type: "boolean", defaultValue: "false", description: "Quando true, esconde a lista de navegação por completo — só a linha de topo (logo, divisor, botão de alternância) permanece visível como alça para expandir de novo. A largura em si é controlada por quem envolve a Sidebar (ex: um ResizablePanel)." },
+      { name: "onToggleCollapse", type: "() => void", defaultValue: "undefined", description: "Disparado ao clicar no botão de recolher/expandir dentro do próprio header da sidebar (ícone à direita do logo, após o divisor)." },
       { name: "activeItem", type: "string", defaultValue: '"dashboard"', description: "ID do item de navegação atualmente selecionado." },
       { name: "onSelectItem", type: "(id: string) => void", defaultValue: "undefined", description: "Callback disparado ao clicar em qualquer item da sidebar." },
-      { name: "brandTitle", type: "string", defaultValue: '"Joinha DS"', description: "Título exibido no cabeçalho da marca." },
+      { name: "showUserProfile", type: "boolean", defaultValue: "true", description: "Exibe o card de perfil/conta no rodapé. Desative em portais sem área logada." },
+      { name: "brandTitle", type: "string", defaultValue: '"Joinha"', description: "Título exibido no cabeçalho da marca." },
     ],
     accessibility: {
       role: "navigation",
@@ -997,12 +998,14 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
   value="R$ 48.920"
   change={{ value: "+14.2%", trend: "up", period: "vs. mês anterior" }}
   sparklineData={[28, 31, 35, 40, 48.9]}
+  sparklinePeriod="Últimos 5 dias"
 />`,
     props: [
       { name: "title", type: "string", description: "Título da métrica." },
       { name: "value", type: "string", description: "Valor formatado." },
       { name: "change", type: "{ value: string; trend: 'up' | 'down' | 'neutral'; period?: string }", description: "Variação percentual." },
       { name: "sparklineData", type: "number[]", description: "Array numérico para micro-gráfico." },
+      { name: "sparklinePeriod", type: "string", description: "Legenda pequena ancorada na sparkline (ex: 'Últimos 7 dias') para deixar explícito que a curva tem um eixo de tempo real." },
     ],
     accessibility: {
       role: "region",

@@ -283,10 +283,10 @@ export function ComponentDetailView({
       case "tag":
         return (
           <div className="flex flex-wrap items-center gap-2">
-            <Tag color="purple">IA Generativa</Tag>
-            <Tag color="teal">OKLCH</Tag>
-            <Tag color="pink">Enterprise</Tag>
-            <Tag color="indigo">Design System</Tag>
+            <Tag variant="purple">IA Generativa</Tag>
+            <Tag variant="teal">OKLCH</Tag>
+            <Tag variant="pink">Enterprise</Tag>
+            <Tag variant="indigo">Design System</Tag>
           </div>
         )
       case "skeleton":
@@ -784,6 +784,7 @@ export function ComponentDetailView({
               value="R$ 48.920"
               change={{ value: "+14.2%", trend: "up", period: "vs. mês anterior" }}
               sparklineData={[28, 31, 35, 40, 48.9]}
+              sparklinePeriod="Últimos 5 dias"
             />
           </div>
         )
@@ -1039,7 +1040,7 @@ export function ComponentDetailView({
   return (
     <div className="space-y-8">
       {/* Component Header & Installation Hub */}
-      <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4 shadow-sm">
+      <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2.5">
@@ -1102,10 +1103,8 @@ export function ComponentDetailView({
 
         {/* Component When to Use & Usage Recommendation Hub */}
         {metadata.whenToUse && (
-          <div className="p-3.5 rounded-(--tc-radius-lg) border border-border/80 bg-surface/60 flex items-start gap-3 mt-3">
-            <div className="p-1.5 rounded-md bg-surface-hover text-muted-foreground border border-border shrink-0 mt-0.5">
-              <Compass className="w-4 h-4" />
-            </div>
+          <div className="flex items-start gap-3 pt-3 border-t border-border/60">
+            <Compass className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <span className="type-label-xs text-muted-foreground uppercase font-bold tracking-wider text-[10px]">
                 Quando Utilizar (Uso Recomendado)
@@ -1120,7 +1119,7 @@ export function ComponentDetailView({
 
       {/* Main Interactive Documentation Hub (Tabs) */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="bg-surface-card border border-border p-1 w-full sm:w-auto grid grid-cols-2 sm:inline-flex">
+        <TabsList className="bg-surface-card p-1 w-full sm:w-auto grid grid-cols-2 sm:inline-flex">
           <TabsTrigger value="preview" className="text-xs gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-muted-foreground" />
             <span>Preview & Playground</span>
@@ -1328,7 +1327,7 @@ export function ComponentDetailView({
 
         {/* 4. ACESSIBILIDADE */}
         <TabsContent value="a11y" className="space-y-6">
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center gap-2 text-foreground font-bold text-sm border-b border-border/80 pb-3">
               <ShieldCheck className="w-4 h-4 text-success" />
               <span className="type-heading-card">Conformidade WCAG 2.2 AA & Padrões WAI-ARIA</span>
@@ -1340,7 +1339,7 @@ export function ComponentDetailView({
             </p>
 
             {metadata.accessibility.keyboardShortcuts && (
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2">
                 <h4 className="type-heading-card text-xs font-bold text-heading flex items-center gap-1.5">
                   <Keyboard className="w-3.5 h-3.5 text-primary" />
                   Navegação e Atalhos por Teclado
@@ -1357,7 +1356,7 @@ export function ComponentDetailView({
             )}
 
             {metadata.accessibility.ariaAttributes && (
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2">
                 <h4 className="type-heading-card text-xs font-bold text-heading">Atributos ARIA Implementados</h4>
                 <div className="divide-y divide-border/60 border border-border/80 rounded-lg overflow-hidden bg-surface">
                   {metadata.accessibility.ariaAttributes.map((aria, idx) => (
@@ -1375,7 +1374,7 @@ export function ComponentDetailView({
         {/* 5. ANATOMIA ATÔMICA & SUB-COMPONENTES */}
         {metadata.subComponents && metadata.subComponents.length > 0 && (
           <TabsContent value="anatomy" className="space-y-6">
-            <div className="p-4 rounded-(--tc-radius-xl) border border-border bg-surface/40 space-y-1">
+            <div className="space-y-1 pb-3 border-b border-border/60">
               <h3 className="type-heading-card text-sm font-bold text-heading flex items-center gap-2">
                 <Layers className="w-4 h-4 text-muted-foreground" />
                 <span>Hierarquia Atômica & Compound Components</span>

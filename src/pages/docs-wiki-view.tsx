@@ -61,35 +61,35 @@ export function DocsWikiView({
   ]
 
   return (
-    <div className="space-y-8 animate-in fade-in-50 duration-300">
-      {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-(--tc-radius-2xl) border border-border bg-(--bg-surface-elevated)/80 backdrop-blur-md relative overflow-hidden shadow-xl [box-shadow:var(--surface-highlight)]">
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="info" size="sm" className="gap-1 font-mono">
-              <Sparkles className="w-3 h-3" />
-              Joinha DS Wiki v1.0
-            </Badge>
-            <Tag color="purple" size="sm">50 Componentes</Tag>
-            <Tag color="teal" size="sm">OKLCH Perceptual</Tag>
-            <Tag color="pink" size="sm">WCAG 2.2 AA</Tag>
-          </div>
-
-          <h1 className="text-2xl sm:text-4xl font-bold font-display tracking-tight text-heading">
-            Documentação Oficial & Compêndio de Engenharia
-          </h1>
-
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-            Bem-vindo à fonte única de verdade (SSOT) do <strong>Joinha Design System</strong>. Esta wiki é 100% construída utilizando os próprios componentes da biblioteca (*dogfooding*), com tokens perceptuais em OKLCH, física de luz dark-first e arquitetura preparada para humanos e Agentes de IA.
-          </p>
-        </div>
-      </div>
-
+    <div className="space-y-14 animate-in fade-in-50 duration-300">
       {/* Main Content Sections */}
       {(activeSection === "docs-overview" || !activeSection.startsWith("docs-")) && (
-        <section className="space-y-6 animate-in fade-in-50 duration-200">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
+        <section className="space-y-12 animate-in fade-in-50 duration-200">
+          {/* Header Banner — only on the wiki landing page, not repeated on every sub-section */}
+          <div className="relative overflow-hidden">
+            <div className="relative z-10 max-w-3xl space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge variant="neutral" size="sm" className="gap-1 font-mono">
+                  <Sparkles className="w-3 h-3" />
+                  Joinha DS Wiki v1.0
+                </Badge>
+                <Tag variant="gray" size="sm">50 Componentes</Tag>
+                <Tag variant="gray" size="sm">OKLCH Perceptual</Tag>
+                <Tag variant="gray" size="sm">WCAG 2.2 AA</Tag>
+              </div>
+
+              <h1 className="text-2xl sm:text-4xl font-bold font-display tracking-tight text-heading">
+                Documentação Oficial & Compêndio de Engenharia
+              </h1>
+
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Bem-vindo à fonte única de verdade (SSOT) do <strong>Joinha Design System</strong>. Esta wiki é 100% construída utilizando os próprios componentes da biblioteca (*dogfooding*), com tokens perceptuais em OKLCH, física de luz dark-first e arquitetura preparada para humanos e Agentes de IA.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-0 md:divide-x md:divide-border/40">
+            <div className="space-y-2 md:pr-8">
               <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
                 <Palette className="w-4 h-4 text-muted-foreground" />
                 1. Espaço de Cores OKLCH
@@ -99,7 +99,7 @@ export function DocsWikiView({
               </p>
             </div>
 
-            <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
+            <div className="space-y-2 md:px-8">
               <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
                 <Layers className="w-4 h-4 text-muted-foreground" />
                 2. Elevação Dark-First (5 Níveis)
@@ -109,7 +109,7 @@ export function DocsWikiView({
               </p>
             </div>
 
-            <div className="p-5 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-2.5">
+            <div className="space-y-2 md:pl-8">
               <div className="flex items-center gap-2 text-foreground font-bold font-display text-sm">
                 <ShieldCheck className="w-4 h-4 text-muted-foreground" />
                 3. Acessibilidade WCAG 2.2 AA
@@ -121,7 +121,7 @@ export function DocsWikiView({
           </div>
 
           {/* Typography Scale Section */}
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-muted-foreground" />
@@ -130,20 +130,20 @@ export function DocsWikiView({
               <Badge variant="neutral" size="sm">3 Famílias Especializadas</Badge>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-0 md:divide-x md:divide-border/40">
+              <div className="space-y-2 md:pr-8">
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Display / Títulos</span>
                 <p className="text-2xl font-bold font-display text-foreground tracking-tight">Cabin (Gill Sans)</p>
                 <p className="text-xs text-muted-foreground">Títulos de páginas, cabeçalhos de seções e valores numéricos em destaque hero.</p>
               </div>
 
-              <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
+              <div className="space-y-2 md:px-8">
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Interface / Corpo</span>
                 <p className="text-xl font-medium font-sans text-foreground">Plus Jakarta Sans</p>
                 <p className="text-xs text-muted-foreground">Textos corridos, botões, formulários, badges, tags e células de tabelas.</p>
               </div>
 
-              <div className="p-4 rounded-lg bg-surface border border-border/60 space-y-2">
+              <div className="space-y-2 md:pl-8">
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Dados / Numérico</span>
                 <p className="text-xl font-bold font-mono text-foreground">JetBrains Mono</p>
                 <p className="text-xs text-muted-foreground">Colunas financeiras tabulares, identificadores (IDs), atalhos de teclado e código.</p>
@@ -167,9 +167,13 @@ export function DocsWikiView({
 
       {/* 2. TOKENS DE DESIGN */}
       {activeSection === "docs-tokens" && (
-        <section className="space-y-6 animate-in fade-in-50 duration-200">
+        <section className="space-y-12 animate-in fade-in-50 duration-200">
+          <h1 className="text-2xl font-bold font-display tracking-tight text-heading">
+            Tokens de Design & OKLCH
+          </h1>
+
           {/* Brand Colors Grid */}
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Palette className="w-4 h-4 text-muted-foreground" />
@@ -200,7 +204,7 @@ export function DocsWikiView({
           </div>
 
           {/* Semantic Status Colors */}
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <h3 className="text-base font-bold font-display text-heading">Cores Semânticas de Estado (Jewel Tones)</h3>
               <Badge variant="success" size="sm">WCAG 2.2 AA Garantido</Badge>
@@ -228,7 +232,7 @@ export function DocsWikiView({
           </div>
 
           {/* Surface Elevations */}
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Superfícies Dark-First & Elevação
             </h3>
@@ -250,7 +254,7 @@ export function DocsWikiView({
           </div>
 
           {/* Border Radius Tokens */}
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Tokens de Raio de Borda (Corner Radius)
             </h3>
@@ -298,8 +302,12 @@ export function DocsWikiView({
 
       {/* 3. ENTERPRISE LAYOUT */}
       {activeSection === "docs-layout" && (
-        <section className="space-y-6 animate-in fade-in-50 duration-200">
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+        <section className="space-y-12 animate-in fade-in-50 duration-200">
+          <h1 className="text-2xl font-bold font-display tracking-tight text-heading">
+            Enterprise Layout & Densidade
+          </h1>
+
+          <div className="space-y-4">
             <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Matriz de Densidade Paramétrica (`data-density`)
             </h3>
@@ -307,28 +315,28 @@ export function DocsWikiView({
               O Joinha DS orquestra a densidade de interfaces na raiz do DOM (`&lt;html data-density="..."&gt;`), permitindo que a mesma aplicação atenda desde operadores fiscais e telemetria até gestores executivos:
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-lg bg-surface border border-border space-y-2">
-                <Badge variant="info" size="sm">Compact (32px)</Badge>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-x-0 md:divide-x md:divide-border/40">
+              <div className="space-y-2 md:pr-6">
+                <Badge variant="neutral" size="sm">Compact (32px)</Badge>
                 <p className="text-xs text-foreground font-semibold">Operacional / Fiscal / Tabelas Densas</p>
                 <p className="text-[11px] text-muted-foreground">Linhas de 32px, padding reduzido de 4px e tipografia de 12px para maximizar dados visíveis por polegada.</p>
               </div>
 
-              <div className="p-4 rounded-lg bg-surface border border-border space-y-2">
+              <div className="space-y-2 md:px-6">
                 <Badge variant="neutral" size="sm">Default (40px)</Badge>
                 <p className="text-xs text-foreground font-semibold">Padrão SaaS Moderno</p>
                 <p className="text-[11px] text-muted-foreground">Linhas de 40px, padding de 10px e tipografia equilibrada de 13-14px para uso diário.</p>
               </div>
 
-              <div className="p-4 rounded-lg bg-surface border border-border space-y-2">
-                <Badge variant="warning" size="sm">Comfortable (48px)</Badge>
+              <div className="space-y-2 md:pl-6">
+                <Badge variant="neutral" size="sm">Comfortable (48px)</Badge>
                 <p className="text-xs text-foreground font-semibold">Executivo / Apresentações / Telas Leves</p>
                 <p className="text-[11px] text-muted-foreground">Linhas de 48px, padding de 14px e tipografia de 15-16px para leitura relaxada.</p>
               </div>
             </div>
           </div>
 
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+          <div className="space-y-4">
             <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Container Queries (`@container`) vs. Media Queries
             </h3>
@@ -362,8 +370,12 @@ export function DocsWikiView({
 
       {/* 4. XAI & HITL */}
       {activeSection === "docs-xai" && (
-        <section className="space-y-6 animate-in fade-in-50 duration-200">
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+        <section className="space-y-8 animate-in fade-in-50 duration-200">
+          <h1 className="text-2xl font-bold font-display tracking-tight text-heading">
+            Padrões XAI & HITL
+          </h1>
+
+          <div className="space-y-4">
             <h3 className="text-base font-bold font-display text-heading border-b border-border/80 pb-3">
               Ergonomia de Confiança & Padrões Human-in-the-Loop
             </h3>
@@ -428,24 +440,28 @@ export function DocsWikiView({
 
       {/* 5. SHADCN CLI */}
       {activeSection === "docs-cli" && (
-        <section className="space-y-6 animate-in fade-in-50 duration-200">
-          <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-surface-card space-y-4">
+        <section className="space-y-8 animate-in fade-in-50 duration-200">
+          <h1 className="text-2xl font-bold font-display tracking-tight text-heading">
+            Instalação via CLI
+          </h1>
+
+          <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-border/80 pb-3">
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-base font-bold font-display text-heading">Instalação Modular via CLI Oficial</h3>
               </div>
-              <Badge variant="info" size="sm">Shadcn Compatible</Badge>
+              <Badge variant="neutral" size="sm">Shadcn Compatible</Badge>
             </div>
 
             <p className="text-xs text-muted-foreground leading-relaxed">
               Todos os 50 componentes do Joinha DS estão disponíveis em manifestos JSON compatíveis com a CLI do Shadcn. Você pode instalá-los individualmente no seu projeto React/Next.js/Vite:
             </p>
 
-            <div className="space-y-3 font-mono text-xs">
-              <div className="p-3 rounded-lg bg-surface border border-border/80 space-y-1.5">
+            <div className="space-y-4 font-mono text-xs divide-y divide-border/60">
+              <div className="space-y-1.5">
                 <span className="text-[11px] font-sans font-semibold text-foreground block">1. Configurar Tokens do Joinha DS:</span>
-                <div className="flex items-center justify-between bg-surface-card p-2 rounded border border-border/60 text-muted-foreground">
+                <div className="flex items-center justify-between bg-surface-hover/50 rounded-(--tc-radius-md) p-2.5 text-muted-foreground">
                   <code>npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/tokens.json</code>
                   <Button
                     variant="ghost"
@@ -458,9 +474,9 @@ export function DocsWikiView({
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-surface border border-border/80 space-y-1.5">
+              <div className="space-y-1.5 pt-4">
                 <span className="text-[11px] font-sans font-semibold text-foreground block">2. Instalar Componente Individual (ex: Button):</span>
-                <div className="flex items-center justify-between bg-surface-card p-2 rounded border border-border/60 text-muted-foreground">
+                <div className="flex items-center justify-between bg-surface-hover/50 rounded-(--tc-radius-md) p-2.5 text-muted-foreground">
                   <code>npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/button.json</code>
                   <Button
                     variant="ghost"

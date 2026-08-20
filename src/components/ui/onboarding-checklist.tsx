@@ -73,7 +73,7 @@ export function OnboardingChecklist({
                 {isAllDone ? (
                   <Badge variant="success" size="sm">Concluído 🎉</Badge>
                 ) : (
-                  <Badge variant="info" size="sm">{progressPercent}%</Badge>
+                  <Badge variant="neutral" size="sm">{progressPercent}%</Badge>
                 )}
               </div>
               {subtitle && isExpanded && (
@@ -123,10 +123,10 @@ export function OnboardingChecklist({
             <div
               key={step.id}
               className={cn(
-                "group flex items-start gap-3 p-3 rounded-(--tc-radius-md) border transition-all duration-200 ease-(--tc-ease-smooth)",
+                "group flex items-start gap-3 p-3 rounded-(--tc-radius-md) transition-all duration-200 ease-(--tc-ease-smooth)",
                 step.completed
-                  ? "bg-surface/30 border-border/50 opacity-80"
-                  : "bg-surface border-border hover:border-primary/40 hover:bg-surface-elevated/50"
+                  ? "bg-surface/30 opacity-80"
+                  : "bg-surface/60 hover:bg-surface-hover/60"
               )}
             >
               <div className="mt-0.5 shrink-0">

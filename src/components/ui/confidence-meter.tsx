@@ -161,7 +161,7 @@ export function ReasoningTrace({
                   </div>
                 </div>
                 {step.detail && (
-                  <p className="mt-0.5 text-[11px] text-muted-foreground leading-relaxed font-mono bg-surface/60 p-1.5 rounded border border-border/40">
+                  <p className="mt-0.5 text-[11px] text-muted-foreground leading-relaxed font-mono bg-surface/60 p-1.5 rounded">
                     {step.detail}
                   </p>
                 )}

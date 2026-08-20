@@ -7,6 +7,8 @@ export interface SparklineProps {
   height?: number
   className?: string
   filled?: boolean
+  /** Small caption anchored to the sparkline (e.g. "Últimos 7 dias") so the curve reads as a real timeframe, not a decorative shape. */
+  periodLabel?: string
 }
 
 const chartColorMap: Record<number, string> = {
@@ -24,6 +26,7 @@ export function Sparkline({
   height = 40,
   className,
   filled = true,
+  periodLabel,
 }: SparklineProps) {
   const gradientId = useId()
   const strokeColor = chartColorMap[chartVariant] || chartColorMap[1]
@@ -57,6 +60,7 @@ export function Sparkline({
   }
 
   const areaPath = `${linePath} L ${width},${height} L 0,${height} Z`
+  const endPoint = points[points.length - 1]
 
   return (
     <div className={cn("w-full overflow-hidden", className)}>
@@ -89,7 +93,17 @@ export function Sparkline({
           strokeLinejoin="round"
           className="transition-all duration-300"
         />
+
+        {/* Endpoint anchor — ties the curve to "this is the value shown above", not an abstract shape */}
+        <circle cx={endPoint.x} cy={endPoint.y} r="4" fill="var(--bg-surface)" stroke={strokeColor} strokeWidth="2" />
+        <circle cx={endPoint.x} cy={endPoint.y} r="1.75" fill={strokeColor} />
       </svg>
+
+      {periodLabel && (
+        <span className="block mt-1 text-[9px] font-medium text-muted-foreground/80 tracking-wide">
+          {periodLabel}
+        </span>
+      )}
     </div>
   )
 }

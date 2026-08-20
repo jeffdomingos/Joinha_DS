@@ -258,6 +258,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
           icon={<DollarSign className="w-4 h-4" />}
           change={{ value: "+14.2%", trend: "up", period: "vs mês anterior" }}
           sparklineData={[28, 31, 35, 33, 40, 44, 48.9]}
+          sparklinePeriod="Últimos 7 dias"
         />
         <MetricCard
           title="Assinantes Ativos"
@@ -266,6 +267,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
           icon={<Users className="w-4 h-4" />}
           change={{ value: "+8.6%", trend: "up", period: "vs mês anterior" }}
           sparklineData={[1100, 1160, 1220, 1280, 1340, 1390, 1428]}
+          sparklinePeriod="Últimos 7 dias"
         />
         <MetricCard
           title="Meta Q1 (ARR)"
@@ -282,6 +284,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
           icon={<Activity className="w-4 h-4" />}
           change={{ value: "-0.4%", trend: "down", period: "vs mês anterior", isPositive: true }}
           sparklineData={[2.4, 2.1, 1.9, 1.8, 1.5, 1.3, 1.2]}
+          sparklinePeriod="Últimos 7 dias"
         />
       </div>
 

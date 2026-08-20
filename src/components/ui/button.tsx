@@ -13,7 +13,7 @@ const buttonVariants = cva(
         primary: "border-gradient-primary text-primary-foreground font-semibold hover:brightness-110 shadow-sm",
         secondary: "border-gradient-secondary text-secondary-foreground hover:brightness-110 shadow-xs",
         destructive: "border-gradient-destructive text-destructive-foreground font-semibold hover:brightness-110 shadow-sm",
-        outline: "border-gradient-outline bg-transparent text-foreground hover:bg-foreground/[0.06] hover:brightness-125",
+        outline: "border-gradient-outline text-foreground hover:brightness-115 shadow-xs",
         ghost: "hover:bg-foreground/[0.06] hover:text-foreground",
         navItem: "border border-transparent bg-transparent text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-transparent data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold data-[active=true]:border-primary/30 data-[active=true]:shadow-sm",
       },

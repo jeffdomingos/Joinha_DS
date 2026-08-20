@@ -490,6 +490,201 @@ function App() {
             </div>
           </section>
 
+          {/* Interactive Elevation & Surface Architecture Showcase (@fourzerothree model) */}
+          <section className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-primary" />
+                  <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                    Engenharia de Elevação & Superfícies (OKLCH Dark Mode)
+                  </h2>
+                  <Badge variant="info" size="sm">Modelo @fourzerothree</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Demonstração física de profundidade no eixo Z por elevação uniforme de luminância (ΔL ≈ +4%) e chanfro especular superior (<code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono text-foreground">--surface-highlight</code>).
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* 1. Visual Nested Box Model (Exactly like @fourzerothree diagram) */}
+              <div className="lg:col-span-7 flex flex-col items-center justify-center p-6 sm:p-10 rounded-(--tc-radius-2xl) border border-border bg-(--bg-base) shadow-2xl relative overflow-hidden">
+                
+                {/* Background Grid Accent */}
+                <div className="absolute inset-0 bg-[radial-gradient(oklch(67%_0.17_53_/_0.04)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+
+                {/* Layer 0: Base Bg Container */}
+                <div className="w-full max-w-[500px] p-6 sm:p-7 rounded-(--tc-radius-xl) bg-(--bg-base) border border-border/80 shadow-sm flex flex-col gap-5 relative transition-all duration-200">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Base Bg (Canvas)
+                    </span>
+                    <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-surface border border-border text-foreground">
+                      L = 14% · C = 0.008
+                    </span>
+                  </div>
+
+                  {/* Layer 1: Surface 1 (Cards / Sidebar) */}
+                  <div className="w-full p-5 sm:p-6 rounded-(--tc-radius-lg) bg-(--bg-surface) border border-border/70 shadow-md [box-shadow:var(--surface-highlight)] flex flex-col gap-4 transition-all duration-200 hover:border-primary/40">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
+                        Surface 1 (Cards / Panels)
+                      </span>
+                      <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-(--bg-surface-elevated) border border-border text-primary font-semibold">
+                        L = 18% (ΔL +4%)
+                      </span>
+                    </div>
+
+                    {/* Layer 2: Surface 2 (Dropdowns / Menus) */}
+                    <div className="w-full p-4 sm:p-5 rounded-(--tc-radius-md) bg-(--bg-surface-elevated) border border-border/80 shadow-lg [box-shadow:var(--surface-highlight)] flex flex-col gap-3.5 transition-all duration-200 hover:border-primary/40">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
+                          Surface 2 (Dropdowns / Menus)
+                        </span>
+                        <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-(--bg-surface-modal) border border-border text-foreground">
+                          L = 22% (ΔL +4%)
+                        </span>
+                      </div>
+
+                      {/* Layer 3: Surface 3 (Modals / Overlays) */}
+                      <div className="w-full p-4 rounded-(--tc-radius-sm) bg-(--bg-surface-modal) border border-border shadow-xl [box-shadow:var(--surface-highlight)] flex flex-col gap-3 transition-all duration-200 hover:border-primary/40">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
+                            Surface 3 (Modals & Overlays)
+                          </span>
+                          <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-(--bg-surface-hover) border border-border text-foreground">
+                            L = 26% (ΔL +4%)
+                          </span>
+                        </div>
+
+                        {/* Layer 4: Surface 4 (Toast / Alerta Flutuante) */}
+                        <div className="w-full p-3 rounded bg-(--bg-surface-hover) border border-border/90 shadow-2xl flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                            <span className="font-mono text-[11px] font-bold text-foreground">
+                              Surface 4 (Toasts / Alertas)
+                            </span>
+                          </div>
+                          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-(--bg-surface) text-primary font-bold">
+                            L = 30% (Topo Z)
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-4 text-center">
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    Estrutura de Profundidade Perceptual · @fourzerothree Architecture
+                  </span>
+                </div>
+              </div>
+
+              {/* 2. Side Inspector Card (Especificação Técnica dos Níveis) */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="p-6 rounded-(--tc-radius-xl) border border-border bg-(--bg-surface) [box-shadow:var(--surface-highlight)] space-y-5">
+                  <div className="flex items-center justify-between pb-3 border-b border-border">
+                    <h3 className="type-ui-dense font-semibold text-foreground">
+                      Matriz de Elevação Semântica
+                    </h3>
+                    <Badge variant="success" size="sm">OKLCH Warm Tinting</Badge>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {[
+                      {
+                        level: "Level 0",
+                        name: "--bg-base",
+                        oklch: "oklch(14% 0.008 53)",
+                        role: "Canvas / Viewport de Fundo",
+                        delta: "Base (Nunca #000)",
+                        color: "bg-(--bg-base)",
+                      },
+                      {
+                        level: "Level 1",
+                        name: "--bg-surface",
+                        oklch: "oklch(18% 0.010 53)",
+                        role: "Cards, Sidebar & Tabelas",
+                        delta: "ΔL = +4%",
+                        color: "bg-(--bg-surface)",
+                      },
+                      {
+                        level: "Level 2",
+                        name: "--bg-surface-elevated",
+                        oklch: "oklch(22% 0.012 53)",
+                        role: "Menus, Popovers & Dropdowns",
+                        delta: "ΔL = +4%",
+                        color: "bg-(--bg-surface-elevated)",
+                      },
+                      {
+                        level: "Level 3",
+                        name: "--bg-surface-modal",
+                        oklch: "oklch(26% 0.014 53)",
+                        role: "Diálogos & Modais (⌘K)",
+                        delta: "ΔL = +4%",
+                        color: "bg-(--bg-surface-modal)",
+                      },
+                      {
+                        level: "Level 4",
+                        name: "--bg-surface-hover",
+                        oklch: "oklch(30% 0.014 53)",
+                        role: "Toasts, Tooltips & Estados Ativos",
+                        delta: "ΔL = +4%",
+                        color: "bg-(--bg-surface-hover)",
+                      },
+                    ].map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2.5 rounded-(--tc-radius-md) border border-border bg-surface-elevated/60 flex items-center justify-between gap-3 hover:border-primary/40 transition-colors"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={cn(
+                              "w-6 h-6 rounded-(--tc-radius-sm) border border-border shrink-0 shadow-inner",
+                              item.color
+                            )}
+                          />
+                          <div className="flex flex-col min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-mono font-bold text-xs text-foreground truncate">
+                                {item.name}
+                              </span>
+                              <span className="text-[10px] font-mono text-muted-foreground">
+                                ({item.level})
+                              </span>
+                            </div>
+                            <span className="text-[11px] text-muted-foreground truncate">
+                              {item.role}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col items-end shrink-0">
+                          <span className="font-mono text-xs font-semibold text-primary">
+                            {item.delta}
+                          </span>
+                          <span className="font-mono text-[10px] text-muted-foreground">
+                            {item.oklch.split(" ")[0].replace("oklch(", "")}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="p-3 rounded-(--tc-radius-md) bg-primary/10 border border-primary/20 flex items-start gap-2.5">
+                    <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <p className="text-xs text-foreground leading-relaxed">
+                      <strong className="text-primary font-semibold">Chroma Tinting Ativo:</strong> Todos os neutros contêm fração cromática de <code className="font-mono text-primary">h=53</code>, eliminando o cinza estéril e conferindo calor aveludado sem desviar para marrom.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
         {/* Surface & Lighting Lab / Playground */}
         <section className="space-y-4 p-6 rounded-(--tc-radius-xl) border border-border bg-surface-elevated/40">
           <div className="flex items-center gap-2 pb-2 border-b border-border">

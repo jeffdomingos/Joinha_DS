@@ -165,56 +165,33 @@
 
 @layer utilities {
   .border-gradient-subtle {
-    border: 1px solid transparent !important;
-    background: 
-      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
-      radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
+    border: 1px solid var(--border-base) !important;
+    box-shadow: inset 0 1px 0 0 oklch(100% 0 0 / 0.09) !important;
   }
 
   .border-gradient-outline {
-    position: relative;
-    border: 1px solid transparent !important;
-  }
-  .border-gradient-outline::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(100% 100% at 0% 0%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    border: 1px solid var(--border-base) !important;
+    box-shadow: inset 0 1px 0 0 oklch(100% 0 0 / 0.07);
   }
 
   .border-gradient-secondary {
-    border: 1px solid transparent !important;
-    background: 
-      linear-gradient(var(--action-secondary-bg), var(--action-secondary-bg)) padding-box,
-      radial-gradient(100% 100% at 0% 0%, var(--btn-secondary-border-start) 0%, var(--btn-secondary-border-end) 100%) border-box !important;
+    border: 1px solid var(--border-base) !important;
+    box-shadow: inset 0 1px 0 0 oklch(100% 0 0 / 0.12) !important;
   }
 
   .border-gradient-primary {
-    border: 1px solid transparent !important;
-    background: 
-      linear-gradient(var(--action-primary-bg), var(--action-primary-bg)) padding-box,
-      radial-gradient(100% 100% at 0% 0%, var(--btn-primary-border-start) 0%, var(--btn-primary-border-end) 100%) border-box !important;
+    border: 1px solid var(--btn-primary-border-mid) !important;
+    box-shadow: inset 0 1px 0 0 var(--btn-primary-border-start) !important;
   }
 
   .border-gradient-destructive {
-    border: 1px solid transparent !important;
-    background: 
-      linear-gradient(var(--status-danger-bg), var(--status-danger-bg)) padding-box,
-      radial-gradient(100% 100% at 0% 0%, var(--btn-destructive-border-start) 0%, var(--btn-destructive-border-end) 100%) border-box !important;
+    border: 1px solid var(--btn-destructive-border-mid) !important;
+    box-shadow: inset 0 1px 0 0 var(--btn-destructive-border-start) !important;
   }
 
   .border-gradient-sunken {
-    border: 1px solid transparent !important;
-    box-shadow: var(--tc-input-inner-shadow, inset 1px 2px 3px 0 oklch(0% 0 0 / 0.20));
-    background: 
-      linear-gradient(var(--bg-app), var(--bg-app)) padding-box,
-      radial-gradient(100% 100% at 100% 100%, var(--border-gradient-start) 0%, var(--border-gradient-end) 100%) border-box !important;
+    border: 1px solid var(--border-base) !important;
+    box-shadow: var(--tc-input-inner-shadow, inset 1px 2px 3px 0 oklch(0% 0 0 / 0.20)) !important;
   }
 
   /* Sonner Stacked Depth Physics */

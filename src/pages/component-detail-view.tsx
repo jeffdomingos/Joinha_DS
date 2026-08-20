@@ -426,12 +426,12 @@ export function ComponentDetailView({
         )
       case "sidebar":
         return (
-          <div className="w-full max-w-xs h-72 border border-border rounded-lg overflow-hidden shadow-sm">
+          <div className="w-full max-w-xs h-80 rounded-xl border border-border overflow-hidden shadow-md bg-surface">
             <Sidebar
               collapsed={false}
               onToggleCollapse={() => toast.info("Recolher clicado")}
               activeItem="comp-sidebar"
-              className="h-full w-full"
+              className="h-full w-full border-r-0 shadow-none bg-transparent"
             />
           </div>
         )
@@ -832,7 +832,7 @@ export function ComponentDetailView({
             {/* Canvas Stage with density wrapper */}
             <div
               data-density={density}
-              className="p-8 sm:p-12 min-h-[220px] flex items-center justify-center bg-(--bg-base)/50"
+              className="p-8 sm:p-12 min-h-[260px] flex items-center justify-center bg-(--bg-base) border-t border-border/40"
             >
               {renderLiveComponent()}
             </div>

@@ -45,6 +45,7 @@
   --color-surface: var(--bg-surface);
   --color-surface-hover: var(--bg-surface-hover);
   --color-surface-elevated: var(--bg-surface-elevated);
+  --color-surface-modal: var(--bg-surface-modal);
 
   --radius-sm: var(--tc-radius-sm);
   --radius-md: var(--tc-radius-md);
@@ -242,7 +243,7 @@
   .bg-surface-elevated, .bg-popover, .dropdown-content, [data-surface="elevated"] {
     --surface-current: var(--bg-surface-elevated);
   }
-  .bg-surface-modal, .dialog-content, [data-surface="modal"] {
+  .bg-surface-modal, .dialog-content, .sheet-content, [data-surface="modal"] {
     --surface-current: var(--bg-surface-modal);
   }
 

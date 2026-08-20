@@ -28,7 +28,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "sheet-content fixed z-50 gap-4 bg-surface-modal p-6 elevation-3 border-border shadow-2xl [box-shadow:var(--surface-highlight)] type-ui-base",
+  "sheet-content fixed z-50 gap-4 bg-surface-modal bg-(--bg-surface-modal) p-6 elevation-3 border-border shadow-2xl [box-shadow:var(--surface-highlight)] type-ui-base",
   {
     variants: {
       side: {

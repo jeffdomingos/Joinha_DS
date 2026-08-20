@@ -961,62 +961,50 @@ export function ComponentLabView({
         </div>
       </div>
 
-      {/* Category Pills & Search Bar */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-surface-card p-3 rounded-(--tc-radius-xl) border border-border shadow-xs">
-        <div className="flex flex-wrap items-center gap-1.5">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => setSelectedCategory(cat.id)}
-              className={cn(
-                "px-3 py-1.5 rounded-(--tc-radius-md) text-xs font-medium transition-all cursor-pointer",
-                selectedCategory === cat.id
-                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                  : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
-              )}
-            >
-              {cat.label}
-            </button>
-          ))}
+      {/* Unified Filter & Density Toolbar */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-surface-card p-3.5 rounded-(--tc-radius-xl) border border-border shadow-xs">
+        {/* Active Category Context & Counter */}
+        <div className="flex items-center gap-2.5">
+          <Badge variant="info" size="sm" className="font-semibold px-2.5 py-0.5">
+            {categories.find((c) => c.id === selectedCategory)?.label || "Todos os Componentes"}
+          </Badge>
+          <span className="text-xs text-muted-foreground">
+            Mostrando <strong className="text-foreground">{filteredComponents.length}</strong> de{" "}
+            <strong className="text-foreground">{componentCatalog.length}</strong> componentes
+            {searchQuery && (
+              <span> para &quot;<span className="text-primary font-mono">{searchQuery}</span>&quot;</span>
+            )}
+          </span>
         </div>
 
-        <div className="relative w-full md:w-64">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-          <Input
-            placeholder="Filtrar componentes (ex: button, diff)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8 pr-7 h-8 text-xs bg-surface"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs cursor-pointer p-0.5"
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      </div>
+        {/* Right Controls: Search + Density + Reset */}
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+          {/* Quick Search */}
+          <div className="relative w-full sm:w-64">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+            <Input
+              placeholder="Filtrar por nome ou tag..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-8 pr-7 h-8 text-xs bg-surface border-border"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs cursor-pointer p-0.5"
+                title="Limpar busca"
+              >
+                ✕
+              </button>
+            )}
+          </div>
 
-      {/* Filter & Density Control Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-muted-foreground px-1">
-        <span>
-          Mostrando <strong className="text-foreground">{filteredComponents.length}</strong> de{" "}
-          <strong className="text-foreground">{componentCatalog.length}</strong> componentes
-          {searchQuery && (
-            <span> correspondentes a &quot;<span className="text-primary font-mono">{searchQuery}</span>&quot;</span>
-          )}
-        </span>
-
-        <div className="flex items-center gap-3">
           {/* Scoped Lab Density Switcher */}
-          <div className="inline-flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface-card border border-border">
+          <div className="inline-flex items-center p-0.5 rounded-(--tc-radius-md) bg-surface border border-border">
             <span className="text-[10px] font-mono text-muted-foreground px-2 flex items-center gap-1">
               <SlidersHorizontal className="w-3 h-3 text-muted-foreground" />
-              <span>Densidade:</span>
+              <span className="hidden sm:inline">Densidade:</span>
             </span>
             <button
               type="button"
@@ -1058,20 +1046,6 @@ export function ComponentLabView({
               Comfortable
             </button>
           </div>
-
-          {(selectedCategory !== "all" || searchQuery) && (
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCategory("all")
-                setSearchQuery("")
-              }}
-              className="flex items-center gap-1 text-primary hover:underline font-medium cursor-pointer"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>Resetar</span>
-            </button>
-          )}
         </div>
       </div>
 

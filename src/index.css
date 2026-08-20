@@ -161,6 +161,20 @@
     pointer-events: none;
   }
 
+  .border-gradient-secondary {
+    border: 1px solid transparent !important;
+    background: 
+      linear-gradient(var(--action-secondary-bg), var(--action-secondary-bg)) padding-box,
+      linear-gradient(
+        135deg, 
+        var(--border-gradient-start) 0%, 
+        var(--border-gradient-start) 10%,
+        var(--border-gradient-mid) 35%, 
+        var(--border-gradient-end) 50%,
+        var(--border-gradient-end) 100%
+      ) border-box !important;
+  }
+
   .border-gradient-primary {
     border: 1px solid transparent !important;
     background: 

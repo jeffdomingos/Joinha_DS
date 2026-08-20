@@ -122,8 +122,8 @@ export function Sidebar({
                 collapsed && "justify-center px-1"
               )}
             >
-              {/* Brand Avatar with Glow */}
-              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shadow-(--tc-shadow-glow) shrink-0">
+              {/* Brand Avatar */}
+              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0">
                 <Sparkles className="w-4 h-4 text-primary-foreground" />
               </div>
 

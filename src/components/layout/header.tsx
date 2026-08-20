@@ -152,7 +152,7 @@ export function Header({
             variant="primary"
             size="sm"
             onClick={onNewAction}
-            className="h-8 px-3 text-xs flex items-center gap-1.5 cursor-pointer font-semibold shadow-(--tc-shadow-glow)"
+            className="h-8 px-3 text-xs flex items-center gap-1.5 cursor-pointer font-semibold"
           >
             <Plus className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Novo Registro</span>

@@ -262,7 +262,7 @@ function App() {
             className={cn(
               "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
               viewMode === "dashboard"
-                ? "bg-primary text-primary-foreground shadow-(--tc-shadow-glow)"
+                ? "bg-primary text-primary-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
@@ -275,7 +275,7 @@ function App() {
             className={cn(
               "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
               viewMode === "components"
-                ? "bg-primary text-primary-foreground shadow-(--tc-shadow-glow)"
+                ? "bg-primary text-primary-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >

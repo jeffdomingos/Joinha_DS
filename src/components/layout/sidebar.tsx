@@ -112,7 +112,7 @@ export function Sidebar({
       )}
     >
       {/* Top Header: Brand & Workspace Switcher */}
-      <div className="h-16 shrink-0 px-3 border-b border-border flex items-center">
+      <div className="h-14 shrink-0 px-3 border-b border-border flex items-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button

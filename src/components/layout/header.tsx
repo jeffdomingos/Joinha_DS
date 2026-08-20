@@ -44,12 +44,12 @@ export function Header({
   return (
     <header
       className={cn(
-        "h-16 shrink-0 border-b border-border bg-background/80 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4 sticky top-0 z-20",
+        "h-14 shrink-0 border-b border-border bg-background/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4 sticky top-0 z-20",
         className
       )}
     >
       {/* Left: Mobile Menu Trigger + Breadcrumbs */}
-      <div className="flex items-center gap-3 min-w-0">
+      <div className="flex items-center gap-3 min-w-0 h-full">
         {onOpenMobileMenu && (
           <button
             type="button"
@@ -82,7 +82,7 @@ export function Header({
       </div>
 
       {/* Right: Quick Search Bar + Actions */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 h-full">
         {/* Quick Search Input */}
         <div className="relative hidden md:block w-64">
           <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />

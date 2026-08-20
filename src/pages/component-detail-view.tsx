@@ -858,20 +858,20 @@ export function ComponentDetailView({
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Laranja</span>
             </div>
 
-            {/* 2. Símbolo Branco em Fundo Escuro */}
+            {/* 2. Símbolo Branco em Fundo Escuro Preto */}
             <div className="flex flex-col items-center gap-2">
-              <div className="p-4 rounded-2xl bg-background border border-border flex items-center justify-center">
+              <div className="p-4 rounded-2xl bg-black border border-neutral-800 flex items-center justify-center">
                 <BrandSymbol variant="white" className="w-12 h-12" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Escuro</span>
             </div>
 
-            {/* 3. Símbolo Laranja Monocromático */}
+            {/* 3. Símbolo Preto em Fundo Muito Claro */}
             <div className="flex flex-col items-center gap-2">
-              <div className="p-4 rounded-2xl bg-surface-elevated border border-border flex items-center justify-center">
-                <BrandSymbol variant="orange" className="w-12 h-12" />
+              <div className="p-4 rounded-2xl bg-white border border-neutral-200 flex items-center justify-center">
+                <BrandSymbol variant="black" className="w-12 h-12" />
               </div>
-              <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Laranja Monocromático</span>
+              <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Preto em Fundo Muito Claro</span>
             </div>
           </div>
         )

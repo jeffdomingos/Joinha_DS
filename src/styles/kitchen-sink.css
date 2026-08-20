@@ -271,7 +271,7 @@ h2 {
 }
 
 .type-heading-section {
-  font-family: var(--tc-font-sans);
+  font-family: var(--tc-font-display);
   font-size: var(--tc-font-size-500);
   line-height: var(--tc-leading-tight);
   font-weight: var(--tc-weight-semibold);
@@ -279,7 +279,7 @@ h2 {
 }
 
 .type-heading-item {
-  font-family: var(--tc-font-sans);
+  font-family: var(--tc-font-display);
   font-size: var(--tc-font-size-400);
   line-height: var(--tc-leading-normal);
   font-weight: var(--tc-weight-medium);

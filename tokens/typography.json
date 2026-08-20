@@ -2,7 +2,8 @@
   "typography": {
     "primitives": {
       "family": {
-        "sans": "'Cabin Variable', system-ui, -apple-system, sans-serif",
+        "display": "'Cabin Variable', 'Cabin', sans-serif",
+        "sans": "'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
         "mono": "'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace"
       },
       "size": {
@@ -36,7 +37,7 @@
     },
     "semantics": {
       "display-metric": {
-        "family": "{typography.primitives.family.sans}",
+        "family": "{typography.primitives.family.display}",
         "size": "{typography.primitives.size.700}",
         "leading": "1.15",
         "weight": "{typography.primitives.weight.bold}",
@@ -44,21 +45,21 @@
         "tabular": true
       },
       "heading-page": {
-        "family": "{typography.primitives.family.sans}",
+        "family": "{typography.primitives.family.display}",
         "size": "{typography.primitives.size.600}",
         "leading": "{typography.primitives.leading.tight}",
         "weight": "{typography.primitives.weight.semibold}",
         "tracking": "{typography.primitives.tracking.tight}"
       },
       "heading-section": {
-        "family": "{typography.primitives.family.sans}",
+        "family": "{typography.primitives.family.display}",
         "size": "{typography.primitives.size.500}",
         "leading": "{typography.primitives.leading.tight}",
         "weight": "{typography.primitives.weight.semibold}",
         "tracking": "{typography.primitives.tracking.normal}"
       },
       "heading-item": {
-        "family": "{typography.primitives.family.sans}",
+        "family": "{typography.primitives.family.display}",
         "size": "{typography.primitives.size.400}",
         "leading": "{typography.primitives.leading.normal}",
         "weight": "{typography.primitives.weight.medium}",

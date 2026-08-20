@@ -39,7 +39,7 @@ export function BannerAnnouncement({
       role="region"
       aria-label="Anúncio de novidade"
       className={cn(
-        "relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-(--tc-radius-lg) bg-surface-elevated/70 border border-primary/30 [box-shadow:0_0_16px_oklch(67%_0.17_53_/_0.08)] backdrop-blur-xs transition-all duration-300 ease-(--tc-ease-smooth)",
+        "relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-(--tc-radius-lg) bg-surface-elevated/70 border border-primary/30 [box-shadow:0_0_16px_oklch(67%_0.17_53_/_0.08)] backdrop-blur-xs transition-all duration-300 ease-(--tc-ease-smooth)",
         className
       )}
       {...props}

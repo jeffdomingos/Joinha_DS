@@ -71,28 +71,28 @@ export function HITLApprovalBanner({
       role="alertdialog"
       aria-labelledby="hitl-banner-title"
       className={cn(
-        "relative rounded-(--tc-radius-xl) border bg-(--bg-surface-elevated) p-4 sm:p-5 text-foreground transition-all duration-300",
+        "relative overflow-hidden rounded-(--tc-radius-xl) border bg-(--bg-surface-elevated) p-4 sm:p-5 text-foreground transition-all duration-300",
         config.border,
         config.glow,
         className
       )}
       {...props}
     >
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-        <div className="flex items-start gap-3.5">
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+        <div className="flex items-start gap-3.5 min-w-0 flex-1">
           <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border", config.bg, config.border)}>
             <Icon className="h-5 w-5 text-foreground" />
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1.5 min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={config.badge} size="sm" className="gap-1 font-semibold">
+              <Badge variant={config.badge} size="sm" className="gap-1 font-semibold shrink-0">
                 <Lock className="h-2.5 w-2.5" />
                 {config.badgeText}
               </Badge>
-              <span className="text-[11px] font-mono text-muted-foreground">· {actionType}</span>
+              <span className="text-[11px] font-mono text-muted-foreground truncate">· {actionType}</span>
               {resourceCount !== undefined && (
-                <Badge variant="neutral" size="sm" className="font-mono text-[10px]">
+                <Badge variant="neutral" size="sm" className="font-mono text-[10px] shrink-0">
                   {resourceCount} recursos afetados
                 </Badge>
               )}
@@ -116,7 +116,7 @@ export function HITLApprovalBanner({
         </div>
 
         {/* Action Controls */}
-        <div className="flex flex-wrap sm:flex-col lg:flex-row items-center gap-2 shrink-0 self-end sm:self-start">
+        <div className="flex flex-wrap items-center justify-start sm:justify-end gap-2 shrink-0 pt-2 md:pt-0">
           {onEdit && (
             <Button
               variant="outline"

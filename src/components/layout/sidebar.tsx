@@ -126,6 +126,10 @@ export interface SidebarProps {
   onToggleCollapse: () => void
   activeItem?: string
   onSelectItem?: (id: string) => void
+  showWorkspaceSwitcher?: boolean
+  brandTitle?: string
+  brandSubtitle?: string
+  workspacesList?: Array<{ id: string; name: string; plan: string }>
   className?: string
 }
 
@@ -134,9 +138,13 @@ export function Sidebar({
   onToggleCollapse,
   activeItem = "dashboard",
   onSelectItem,
+  showWorkspaceSwitcher = false,
+  brandTitle = "Joinha DS",
+  brandSubtitle = "Design System v1.0",
+  workspacesList = workspaces,
   className,
 }: SidebarProps) {
-  const [selectedWorkspace, setSelectedWorkspace] = React.useState(workspaces[0])
+  const [selectedWorkspace, setSelectedWorkspace] = React.useState(workspacesList[0] || workspaces[0])
 
   return (
     <aside
@@ -146,67 +154,97 @@ export function Sidebar({
         className
       )}
     >
-      {/* Top Header: Brand & Workspace Switcher */}
+      {/* Top Header: Brand (with optional Workspace Switcher) */}
       <div className="min-h-[56px] h-14 shrink-0 px-3 py-2.5 border-b border-border flex items-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              className={cn(
-                "w-full flex items-center gap-3 p-2 rounded-(--tc-radius-md) hover:bg-surface-hover hover:border-gradient-subtle transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary text-left cursor-pointer",
-                collapsed && "justify-center px-1"
-              )}
-            >
-              {/* Brand Avatar */}
-              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1">
-                <BrandSymbol className="h-5.5 w-auto text-primary-foreground" />
-              </div>
-
-              {!collapsed && (
-                <div className="flex flex-1 items-center justify-between min-w-0">
-                  <div className="flex flex-col min-w-0">
-                    <span className="font-display font-bold text-sm tracking-tight text-foreground truncate">
-                      {selectedWorkspace.name}
-                    </span>
-                    <span className="text-[11px] text-muted-foreground truncate font-medium">
-                      {selectedWorkspace.plan} Workspace
-                    </span>
-                  </div>
-                  <ChevronsUpDown className="w-4 h-4 text-muted-foreground shrink-0 ml-1" />
-                </div>
-              )}
-            </button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="start" className="w-56">
-            <DropdownMenuLabel className="text-xs text-muted-foreground font-mono">
-              Alternar Organização
-            </DropdownMenuLabel>
-            {workspaces.map((ws) => (
-              <DropdownMenuItem
-                key={ws.id}
-                onClick={() => setSelectedWorkspace(ws)}
-                className="flex items-center justify-between cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-primary" />
-                  <div className="flex flex-col">
-                    <span className="font-medium text-xs">{ws.name}</span>
-                    <span className="text-[10px] text-muted-foreground">{ws.plan}</span>
-                  </div>
-                </div>
-                {selectedWorkspace.id === ws.id && (
-                  <Check className="w-3.5 h-3.5 text-primary" />
+        {showWorkspaceSwitcher ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className={cn(
+                  "w-full flex items-center gap-3 p-2 rounded-(--tc-radius-md) hover:bg-surface-hover hover:border-gradient-subtle transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary text-left cursor-pointer",
+                  collapsed && "justify-center px-1"
                 )}
+              >
+                {/* Brand Avatar */}
+                <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1 shadow-xs">
+                  <BrandSymbol className="h-5.5 w-auto text-primary-foreground" />
+                </div>
+
+                {!collapsed && (
+                  <div className="flex flex-1 items-center justify-between min-w-0">
+                    <div className="flex flex-col min-w-0">
+                      <span className="font-display font-bold text-sm tracking-tight text-foreground truncate">
+                        {selectedWorkspace.name}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground truncate font-medium">
+                        {selectedWorkspace.plan} Workspace
+                      </span>
+                    </div>
+                    <ChevronsUpDown className="w-4 h-4 text-muted-foreground shrink-0 ml-1" />
+                  </div>
+                )}
+              </button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-mono">
+                Alternar Organização
+              </DropdownMenuLabel>
+              {workspacesList.map((ws) => (
+                <DropdownMenuItem
+                  key={ws.id}
+                  onClick={() => setSelectedWorkspace(ws)}
+                  className="flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-primary" />
+                    <div className="flex flex-col">
+                      <span className="font-medium text-xs">{ws.name}</span>
+                      <span className="text-[10px] text-muted-foreground">{ws.plan}</span>
+                    </div>
+                  </div>
+                  {selectedWorkspace.id === ws.id && (
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                  )}
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="gap-2 cursor-pointer text-primary">
+                <Plus className="w-4 h-4" />
+                <span className="text-xs font-semibold">Novo Workspace</span>
               </DropdownMenuItem>
-            ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 cursor-pointer text-primary">
-              <Plus className="w-4 h-4" />
-              <span className="text-xs font-semibold">Novo Workspace</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          /* Clean, dedicated DS Brand Header */
+          <div
+            className={cn(
+              "w-full flex items-center gap-3 p-1.5 rounded-(--tc-radius-md)",
+              collapsed && "justify-center px-0"
+            )}
+          >
+            <div className="w-8 h-8 rounded-(--tc-radius-md) bg-primary flex items-center justify-center text-primary-foreground font-bold font-display shrink-0 p-1 shadow-xs">
+              <BrandSymbol className="h-5.5 w-auto text-primary-foreground" />
+            </div>
+
+            {!collapsed && (
+              <div className="flex flex-col min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-display font-bold text-sm tracking-tight text-foreground truncate">
+                    {brandTitle}
+                  </span>
+                  <Badge variant="info" size="sm" className="text-[9px] py-0 px-1 font-mono">
+                    v1.0
+                  </Badge>
+                </div>
+                <span className="text-[11px] text-muted-foreground truncate font-medium">
+                  {brandSubtitle}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Navigation List */}

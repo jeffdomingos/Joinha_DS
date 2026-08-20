@@ -11,6 +11,9 @@ export interface AppLayoutProps {
   onNewAction?: () => void
   activeNavItem?: string
   onSelectNavItem?: (id: string) => void
+  showWorkspaceSwitcher?: boolean
+  brandTitle?: string
+  brandSubtitle?: string
   className?: string
 }
 
@@ -22,6 +25,9 @@ export function AppLayout({
   onNewAction,
   activeNavItem = "dashboard",
   onSelectNavItem,
+  showWorkspaceSwitcher = false,
+  brandTitle = "Joinha DS",
+  brandSubtitle = "Design System v1.0",
   className,
 }: AppLayoutProps) {
   const [collapsed, setCollapsed] = React.useState(false)
@@ -38,6 +44,9 @@ export function AppLayout({
           onSelectNavItem?.(id)
           setMobileOpen(false)
         }}
+        showWorkspaceSwitcher={showWorkspaceSwitcher}
+        brandTitle={brandTitle}
+        brandSubtitle={brandSubtitle}
         className="hidden lg:flex"
       />
 
@@ -56,6 +65,9 @@ export function AppLayout({
               onSelectNavItem?.(id)
               setMobileOpen(false)
             }}
+            showWorkspaceSwitcher={showWorkspaceSwitcher}
+            brandTitle={brandTitle}
+            brandSubtitle={brandSubtitle}
             className="relative z-50 h-full shadow-2xl"
           />
         </div>

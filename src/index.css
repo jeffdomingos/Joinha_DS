@@ -125,7 +125,7 @@
   .border-gradient-subtle {
     border: 1px solid transparent !important;
     background: 
-      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      linear-gradient(var(--bg-fill, var(--bg-surface)), var(--bg-fill, var(--bg-surface))) padding-box,
       linear-gradient(
         135deg, 
         var(--border-gradient-start) 0%, 

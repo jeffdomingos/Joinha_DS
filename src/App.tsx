@@ -58,6 +58,18 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
+import { Separator } from "@/components/ui/separator"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -1581,6 +1593,155 @@ function App() {
                     </div>
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Navegação, Abas & Estruturação (Lote 3) */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <LayoutDashboard className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Navegação, Abas & Estruturação
+                </h2>
+                <Badge variant="info" size="sm">Fase 5 · Lote 3</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Segmented controls por abas, seções sanfonadas expansíveis, divisores com label central e paginação numérica.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 1. Tabs & Segmented Control (7 cols) */}
+            <div className="lg:col-span-7 p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-border">
+                <span className="type-ui-dense font-semibold text-foreground">Abas de Navegação (Tabs)</span>
+                <Badge variant="neutral" size="sm">Segmented Pill</Badge>
+              </div>
+
+              <Tabs defaultValue="api" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="general">Geral</TabsTrigger>
+                  <TabsTrigger value="api">Chaves API</TabsTrigger>
+                  <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="general" className="p-4 rounded-(--tc-radius-md) bg-surface border border-border space-y-3">
+                  <span className="text-xs font-semibold text-foreground">Configurações Gerais do Workspace</span>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Altere o nome da organização, o domínio customizado e o fuso horário padrão para relatórios.
+                  </p>
+                  <div className="flex gap-2">
+                    <Input defaultValue="Tem Como Prod" />
+                    <Button variant="primary" size="sm">Salvar</Button>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="api" className="p-4 rounded-(--tc-radius-md) bg-surface border border-border space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-foreground">Chave Secreta de Produção</span>
+                    <Badge variant="success" size="sm">Ativa</Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Input defaultValue="tc_live_98a7df89a7sdf987as9df" readOnly className="font-mono text-xs" />
+                    <Button variant="secondary" size="sm" onClick={() => toast.info("Chave copiada para a área de transferência!")}>
+                      Copiar
+                    </Button>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Nunca compartilhe suas chaves secretas em repositórios públicos ou scripts de cliente.
+                  </p>
+                </TabsContent>
+
+                <TabsContent value="webhooks" className="p-4 rounded-(--tc-radius-md) bg-surface border border-border space-y-3">
+                  <span className="text-xs font-semibold text-foreground">Endpoints de Eventos</span>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Cadastre URLs HTTP para receber eventos em tempo real de faturas pagas e novos assinantes.
+                  </p>
+                  <Button variant="outline" size="sm" className="w-full">
+                    + Adicionar Novo Endpoint
+                  </Button>
+                </TabsContent>
+              </Tabs>
+
+              {/* Separators with Labels */}
+              <div className="pt-2">
+                <Separator label="OU ACESSE PELO TERMINAL" />
+                <div className="p-3 rounded-md bg-(--bg-base) border border-border text-center">
+                  <code className="font-mono text-xs text-primary">npx @temcomo/cli login --token=tc_live_...</code>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Accordion & Standalone Pagination (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Accordion */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Perguntas Frequentes (Accordion)</span>
+                  <Badge variant="neutral" size="sm">Colapsável</Badge>
+                </div>
+
+                <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>Como funciona o croma no Dark Mode?</AccordionTrigger>
+                    <AccordionContent>
+                      Adotamos um Chroma Budget rigoroso: os neutros contêm fração cromática de h=53 (Warm Dark) e os status operam em Muted Jewels (C ≈ 0.10) para evitar poluição neon.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-2">
+                    <AccordionTrigger>Como instalar componentes via CLI?</AccordionTrigger>
+                    <AccordionContent>
+                      Nosso Registry JSON expõe todos os manifestos em public/r/. Basta rodar: npx shadcn@latest add https://.../component.json.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger>Qual o critério de acessibilidade?</AccordionTrigger>
+                    <AccordionContent>
+                      Todos os pares de cores seguem contraste estrito WCAG 2.2 AA (mínimo de 4.5:1 para texto normal e 3:1 para controles gráficos).
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+
+              {/* Standalone Pagination Card */}
+              <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-border">
+                  <span className="type-ui-dense font-semibold text-foreground">Paginação Standalone</span>
+                  <span className="text-[11px] font-mono text-muted-foreground">Página 2 de 12</span>
+                </div>
+
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); toast.info("Página Anterior"); }} />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" onClick={(e) => { e.preventDefault(); }}>1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" isActive onClick={(e) => { e.preventDefault(); }}>2</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" onClick={(e) => { e.preventDefault(); }}>3</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" onClick={(e) => { e.preventDefault(); }}>12</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationNext href="#" onClick={(e) => { e.preventDefault(); toast.info("Próxima Página"); }} />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             </div>
           </div>

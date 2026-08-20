@@ -63,11 +63,11 @@ Organizado em 4 lotes temáticos para implementação incremental:
 * [x] **Radio Group & Choice Cards (`<RadioGroup />`):** Seleção exclusiva com suporte a cards interativos de planos e faturamento.
 * [x] **Slider (`<Slider />`):** Controle deslizante de valores/ranges numéricos e limites de planos.
 
-### 📦 Lote 3: Navegação, Abas & Estruturação
-* [ ] **Tabs / Segmented Control (`<Tabs />`):** Abas com transição suave e indicador de seleção ativo.
-* [ ] **Accordion (`<Accordion />`):** Seções colapsáveis com animação fluida para configurações e FAQs.
-* [ ] **Separator / Divider (`<Separator />`):** Divisórias horizontais/verticais com suporte a label central.
-* [ ] **Standalone Pagination (`<Pagination />`):** Controlador de paginação isolado com seletor de linhas e salto de página.
+### 🟢 Lote 3: Navegação, Abas & Estruturação (Concluído)
+* [x] **Tabs / Segmented Control (`<Tabs />`):** Abas com transição suave e indicador de seleção ativo.
+* [x] **Accordion (`<Accordion />`):** Seções colapsáveis com animação fluida para configurações e FAQs.
+* [x] **Separator / Divider (`<Separator />`):** Divisórias horizontais/verticais com suporte a label central.
+* [x] **Standalone Pagination (`<Pagination />`):** Controlador de paginação isolado com seletor de linhas e salto de página.
 
 ### 📦 Lote 4: Exibição de Dados & Produtividade
 * [ ] **Avatar & AvatarGroup (`<Avatar />` + `<AvatarGroup />`):** Foto, iniciais, status dot e empilhamento com contador `+N`.

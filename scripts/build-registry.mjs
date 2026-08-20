@@ -474,6 +474,66 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "tabs",
+    type: "registry:ui",
+    title: "Tabs",
+    description: "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+    dependencies: ["@radix-ui/react-tabs"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/tabs.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/tabs.tsx"),
+      },
+    ],
+  },
+  {
+    name: "accordion",
+    type: "registry:ui",
+    title: "Accordion",
+    description: "A vertically stacked set of interactive headings that each reveal a section of content.",
+    dependencies: ["@radix-ui/react-accordion", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/accordion.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/accordion.tsx"),
+      },
+    ],
+  },
+  {
+    name: "separator",
+    type: "registry:ui",
+    title: "Separator",
+    description: "Visually or semantically separates content with optional label support.",
+    dependencies: ["@radix-ui/react-separator"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/separator.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/separator.tsx"),
+      },
+    ],
+  },
+  {
+    name: "pagination",
+    type: "registry:ui",
+    title: "Pagination",
+    description: "Pagination with page navigation, previous/next buttons and ellipsis.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "button"],
+    files: [
+      {
+        path: "components/ui/pagination.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/pagination.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

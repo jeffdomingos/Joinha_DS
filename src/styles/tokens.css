@@ -95,8 +95,8 @@
   --tc-chart-6: oklch(72% 0.15 280);
 
   /* --- TYPOGRAPHY PRIMITIVES --- */
-  --tc-font-sans: 'Cabin Variable', system-ui, -apple-system, sans-serif;
-  --tc-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --tc-font-sans: 'Cabin', system-ui, -apple-system, sans-serif;
+  --tc-font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --tc-font-size-100: 0.75rem;
   --tc-font-size-200: 0.875rem;

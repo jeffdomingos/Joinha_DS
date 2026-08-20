@@ -36,24 +36,6 @@
   --radius-md: var(--tc-radius-md);
   --radius-lg: var(--tc-radius-lg);
   --radius-xl: var(--tc-radius-xl);
-
-  --spacing-control-h-sm: var(--tc-control-h-sm);
-  --spacing-control-h-md: var(--tc-control-h-md);
-  --spacing-control-h-lg: var(--tc-control-h-lg);
-  
-  --spacing-control-px-sm: var(--tc-control-px-sm);
-  --spacing-control-px-md: var(--tc-control-px-md);
-  --spacing-control-px-lg: var(--tc-control-px-lg);
-  
-  --spacing-floating-container-p: var(--tc-floating-container-p);
-  --spacing-floating-item-px: var(--tc-floating-item-px);
-  --spacing-floating-item-py: var(--tc-floating-item-py);
-  --spacing-floating-item-gap: var(--tc-floating-item-gap);
-  --spacing-floating-min-w: var(--tc-floating-min-w);
-  
-  --spacing-form-stack-gap: var(--tc-form-stack-gap);
-  --spacing-form-label-gap: var(--tc-form-label-gap);
-  --spacing-card-p: var(--tc-card-p);
 }
 
 @import "./styles/tokens.css";

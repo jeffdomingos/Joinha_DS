@@ -60,24 +60,24 @@ function App() {
         <section className="space-y-6">
           <h2 className="text-xl font-semibold border-b border-border pb-2">Forms & Inputs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col gap-form-stack-gap surface-card surface-base shadow-sm p-card-p">
-              <div className="flex flex-col gap-form-label-gap">
+            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-base shadow-sm p-(--tc-card-p)">
+              <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Standard Input</label>
                 <Input placeholder="Enter your text here..." />
               </div>
-              <div className="flex flex-col gap-form-label-gap">
+              <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Error State</label>
                 <Input placeholder="Invalid input" error />
                 <p className="text-xs text-destructive">This field is required.</p>
               </div>
-              <div className="flex flex-col gap-form-label-gap">
+              <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Numeric (tabular-nums)</label>
                 <Input type="number" placeholder="0.00" className="type-data-mono" />
               </div>
             </div>
 
-            <div className="flex flex-col gap-form-stack-gap surface-card surface-panel shadow-md p-card-p">
-              <div className="flex flex-col gap-form-label-gap">
+            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel shadow-md p-(--tc-card-p)">
+              <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Select</label>
                 <Select>
                   <SelectTrigger>
@@ -91,9 +91,9 @@ function App() {
                 </Select>
               </div>
 
-              <div className="flex flex-col gap-form-label-gap">
+              <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Inline Form Action</label>
-                <div className="flex items-center gap-floating-item-gap">
+                <div className="flex items-center gap-(--tc-floating-item-gap)">
                   <Input placeholder="Email address" />
                   <Button variant="primary">Subscribe</Button>
                 </div>

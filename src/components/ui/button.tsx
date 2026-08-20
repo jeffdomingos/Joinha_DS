@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md type-ui-base ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-floating-item-gap",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md type-ui-base ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-(--tc-floating-item-gap)",
   {
     variants: {
       variant: {
@@ -17,10 +17,10 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
       },
       size: {
-        default: "h-control-h-md px-control-px-md",
-        sm: "h-control-h-sm px-control-px-sm rounded-md",
-        lg: "h-control-h-lg px-control-px-lg rounded-md",
-        icon: "h-control-h-md w-control-h-md",
+        default: "h-(--tc-control-h-md) px-(--tc-control-px-md)",
+        sm: "h-(--tc-control-h-sm) px-(--tc-control-px-sm) rounded-md",
+        lg: "h-(--tc-control-h-lg) px-(--tc-control-px-lg) rounded-md",
+        icon: "h-(--tc-control-h-md) w-(--tc-control-h-md)",
       },
     },
     defaultVariants: {

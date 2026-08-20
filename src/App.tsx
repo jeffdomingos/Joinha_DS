@@ -175,11 +175,6 @@ export function App() {
       breadcrumbs={getBreadcrumbs()}
       activeNavItem={activeNavItem}
       onSelectNavItem={handleSelectNav}
-      onNewAction={() => {
-        const cmd = "npx shadcn@latest add https://raw.githubusercontent.com/jeffdomingos/Joinha_DS/master/public/r/index.json"
-        navigator.clipboard.writeText(cmd)
-        toast.success("Comando CLI do Registro copiado!", { description: cmd })
-      }}
     >
       {/* Top Hero Header */}
       <div className="border-b border-border pb-5 mb-8">

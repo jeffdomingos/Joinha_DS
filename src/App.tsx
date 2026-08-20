@@ -43,8 +43,71 @@ import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon, BarChart3, DollarSign, Users, Target, Activity } from "lucide-react"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from "@/components/ui/chart"
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon, BarChart3, DollarSign, Users, Target, Activity, TrendingUp } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+const revenueChartConfig = {
+  revenue: {
+    label: "Receita Real (MRR)",
+    color: "var(--chart-1)",
+  },
+  projected: {
+    label: "Projeção / Meta",
+    color: "var(--chart-2)",
+  },
+} satisfies ChartConfig
+
+const revenueData = [
+  { month: "Jan", revenue: 28400, projected: 26000 },
+  { month: "Fev", revenue: 31200, projected: 30000 },
+  { month: "Mar", revenue: 35800, projected: 34000 },
+  { month: "Abr", revenue: 39400, projected: 38500 },
+  { month: "Mai", revenue: 44100, projected: 42000 },
+  { month: "Jun", revenue: 48920, projected: 46000 },
+]
+
+const channelChartConfig = {
+  direct: {
+    label: "Direto",
+    color: "var(--chart-1)",
+  },
+  organic: {
+    label: "Orgânico (SEO)",
+    color: "var(--chart-2)",
+  },
+  referral: {
+    label: "Indicação",
+    color: "var(--chart-3)",
+  },
+  social: {
+    label: "Social / Ads",
+    color: "var(--chart-5)",
+  },
+} satisfies ChartConfig
+
+const channelData = [
+  { channel: "Direto", visitors: 4200, fill: "var(--chart-1)" },
+  { channel: "Orgânico", visitors: 6800, fill: "var(--chart-2)" },
+  { channel: "Indicação", visitors: 3100, fill: "var(--chart-3)" },
+  { channel: "Social", visitors: 2400, fill: "var(--chart-5)" },
+]
 
 const mockSubscriptions: DataTableRecord[] = [
   {
@@ -550,6 +613,118 @@ function App() {
               change={{ value: "-0.4%", trend: "down", period: "vs mês anterior", isPositive: true }}
               sparklineData={[2.4, 2.1, 1.9, 1.8, 1.5, 1.3, 1.2]}
             />
+          </div>
+
+          {/* Interactive Full Charts Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+            {/* Interactive Area Chart (Revenue Trajectory) */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <h3 className="type-heading-item font-semibold text-foreground">
+                    Evolução da Receita (MRR vs. Projeção)
+                  </h3>
+                  <span className="text-xs text-muted-foreground">
+                    Valores acumulados nos últimos 6 meses
+                  </span>
+                </div>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-(--status-success-subtle) px-2 py-0.5 rounded-(--tc-radius-sm) border border-(--status-success-border)">
+                  <TrendingUp className="w-3.5 h-3.5" /> +72.2% H1
+                </span>
+              </div>
+
+              <ChartContainer config={revenueChartConfig} className="h-[240px] w-full">
+                <AreaChart data={revenueData} margin={{ left: -20, right: 10, top: 10, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0.0} />
+                    </linearGradient>
+                    <linearGradient id="fillProjected" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(val) => `R$ ${val / 1000}k`}
+                    tickMargin={8}
+                  />
+                  <ChartTooltip
+                    cursor={{ stroke: "var(--border-strong)", strokeWidth: 1 }}
+                    content={<ChartTooltipContent indicator="dot" />}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="projected"
+                    stroke="var(--chart-2)"
+                    strokeWidth={2}
+                    strokeDasharray="4 4"
+                    fillOpacity={1}
+                    fill="url(#fillProjected)"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="var(--chart-1)"
+                    strokeWidth={2.5}
+                    fillOpacity={1}
+                    fill="url(#fillRevenue)"
+                  />
+                  <ChartLegend content={<ChartLegendContent />} />
+                </AreaChart>
+              </ChartContainer>
+            </div>
+
+            {/* Interactive Bar Chart (Acquisition Channels) */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <h3 className="type-heading-item font-semibold text-foreground">
+                    Aquisição de Assinantes por Canal
+                  </h3>
+                  <span className="text-xs text-muted-foreground">
+                    Distribuição por origem de tráfego
+                  </span>
+                </div>
+                <span className="text-xs font-mono font-medium text-muted-foreground">
+                  Total: 16.5k
+                </span>
+              </div>
+
+              <ChartContainer config={channelChartConfig} className="h-[240px] w-full">
+                <BarChart data={channelData} margin={{ left: -20, right: 10, top: 10, bottom: 0 }}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="channel"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <ChartTooltip
+                    cursor={{ fill: "var(--bg-surface-hover)" }}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="visitors"
+                    radius={[6, 6, 0, 0]}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </div>
           </div>
         </section>
       </div>

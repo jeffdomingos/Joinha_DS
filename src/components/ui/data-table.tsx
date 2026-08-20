@@ -290,11 +290,11 @@ export function DataTable({ data, className }: DataTableProps) {
                       <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-xs shrink-0 border border-border">
                         {row.customer.name.charAt(0)}
                       </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="font-semibold text-foreground truncate">
+                      <div className="flex flex-col min-w-0 gap-1">
+                        <span className="font-semibold text-foreground truncate leading-none">
                           {row.customer.name}
                         </span>
-                        <span className="text-xs text-muted-foreground truncate font-medium">
+                        <span className="text-xs text-muted-foreground truncate font-medium leading-none">
                           {row.customer.email}
                         </span>
                       </div>
@@ -335,11 +335,11 @@ export function DataTable({ data, className }: DataTableProps) {
 
                   {/* MRR Currency with tabular figures */}
                   <TableCell className="text-right">
-                    <div className="flex flex-col items-end">
-                      <span className="type-data-mono font-medium text-foreground">
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="type-data-mono font-medium text-foreground leading-none">
                         {formatCurrency(row.mrr)}
                       </span>
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-[11px] text-muted-foreground font-medium leading-none">
                         /{row.billingCycle === "Monthly" ? "mês" : "ano"}
                       </span>
                     </div>

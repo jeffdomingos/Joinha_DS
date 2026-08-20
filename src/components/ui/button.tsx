@@ -13,8 +13,8 @@ const buttonVariants = cva(
         primary: "border-gradient-primary text-primary-foreground font-semibold hover:brightness-110 shadow-sm brand-glow",
         secondary: "border-gradient-secondary text-secondary-foreground hover:brightness-110 shadow-xs",
         destructive: "border-gradient-destructive text-destructive-foreground font-semibold hover:brightness-110 shadow-sm",
-        outline: "border-gradient-outline bg-transparent hover:bg-accent hover:text-accent-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        outline: "border-gradient-outline bg-transparent text-foreground hover:bg-foreground/[0.06] hover:brightness-125 transition-all",
+        ghost: "hover:bg-foreground/[0.06] hover:text-foreground",
       },
       size: {
         default: "h-(--tc-control-h-md) px-(--tc-control-px-md)",

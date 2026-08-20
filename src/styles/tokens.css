@@ -201,8 +201,18 @@
      ======================================================== */
 
   /* GLOBAL ACCESSIBILITY */
-  --focus-ring: var(--tc-brand-500);
+  --focus-ring: var(--tc-brand-300);  /* Subtle focus ring — distinto mas não vibra como o CTA */
   --focus-offset: 2px;
+
+  /* ACCENT HIERARCHY (Os Três Laranjas)
+     brand-500 (C=0.17) → CTA hero / confirmação explícita (Checkbox, Switch)
+     brand-600 (C=0.15) → Seleção sólida UI (sem uso direto por enquanto, reservado)
+     brand-400 (C=0.15) → Ícone anchor de orientação, hover de nav item
+     brand-300 (C=0.12) → Focus ring, borda de sub-item ativo
+  */
+  --accent-action:  var(--tc-brand-500); /* oklch(67% 0.17 53) — Botão CTA, Checkbox */
+  --accent-ui:      var(--tc-brand-400); /* oklch(74% 0.15 53) — Ícone anchor, hover nav */
+  --accent-subtle:  var(--tc-brand-300); /* oklch(80% 0.12 53) — Focus ring, borda sub-item */
 
   /* BACKGROUNDS (Elevação por Luminância - Modelo Four Zero Three) */
   --bg-app: var(--tc-neutral-1000);              /* Canvas Base: L=14% */
@@ -239,7 +249,7 @@
   --tc-input-inner-shadow: inset 1px 2px 3px 0 oklch(0% 0 0 / 0.40);
 
   /* ACTIONS / BUTTONS (Solid Paring) */
-  --action-primary-bg: var(--tc-brand-500);
+  --action-primary-bg: var(--accent-action);      /* CTA hero: brand-500 sólido */
   --action-primary-hover: var(--tc-brand-400);
   --action-primary-active: var(--tc-brand-600);
   --action-primary-fg: var(--tc-neutral-0);

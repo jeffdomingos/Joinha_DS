@@ -121,7 +121,7 @@ export const SidebarMenuButton = React.forwardRef<
         <Icon
           className={cn(
             "w-4 h-4 shrink-0 transition-colors",
-            isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary"
+            isActive ? "text-primary-ui" : "text-muted-foreground group-hover:text-primary-ui"
           )}
         />
       )}
@@ -180,7 +180,7 @@ export const SidebarMenuSubButton = React.forwardRef<
     className={cn(
       "w-full text-left px-2 py-1 type-body-sm text-[11px] rounded-(--tc-radius-sm) transition-colors flex items-center justify-between cursor-pointer group",
       isActive
-        ? "bg-surface-hover text-foreground font-semibold border-l-2 border-primary -ml-[2px]"
+        ? "bg-surface-hover text-foreground font-semibold border-l-2 border-primary-subtle -ml-[2px]"
         : "text-muted-foreground hover:text-foreground hover:bg-surface-hover",
       className
     )}

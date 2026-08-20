@@ -12,7 +12,9 @@
   --color-background: var(--bg-app);
   --color-foreground: var(--text-primary);
   
-  --color-primary: var(--action-primary-bg);
+  --color-primary: var(--accent-action);            /* brand-500: CTA hero, Checkbox, Switch */
+  --color-primary-ui: var(--accent-ui);             /* brand-400: ícone anchor nav, hover */
+  --color-primary-subtle: var(--accent-subtle);     /* brand-300: focus ring, borda sub-item */
   --color-primary-foreground: var(--action-primary-fg);
   
   --color-secondary: var(--action-secondary-bg);

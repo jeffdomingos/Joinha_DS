@@ -167,11 +167,11 @@
       linear-gradient(var(--action-secondary-bg), var(--action-secondary-bg)) padding-box,
       linear-gradient(
         135deg, 
-        var(--border-gradient-start) 0%, 
-        var(--border-gradient-start) 10%,
-        var(--border-gradient-mid) 35%, 
-        var(--border-gradient-end) 50%,
-        var(--border-gradient-end) 100%
+        var(--btn-secondary-border-start) 0%, 
+        var(--btn-secondary-border-start) 10%,
+        var(--btn-secondary-border-mid) 35%, 
+        var(--btn-secondary-border-end) 50%,
+        var(--btn-secondary-border-end) 100%
       ) border-box !important;
   }
 

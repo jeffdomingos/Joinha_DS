@@ -218,6 +218,9 @@
   --action-secondary-hover: var(--tc-neutral-700);
   --action-secondary-active: var(--tc-neutral-900);
   --action-secondary-fg: var(--tc-neutral-100);
+  --btn-secondary-border-start: oklch(100% 0 0 / 0.28);
+  --btn-secondary-border-mid: var(--tc-neutral-700);
+  --btn-secondary-border-end: var(--tc-neutral-950);
 
   --action-subtle-bg: transparent;
   --action-subtle-hover: var(--tc-neutral-900);
@@ -322,6 +325,9 @@
   --action-secondary-hover: var(--tc-neutral-200);
   --action-secondary-active: var(--tc-neutral-300);
   --action-secondary-fg: var(--tc-neutral-900);
+  --btn-secondary-border-start: oklch(100% 0 0 / 0.95);
+  --btn-secondary-border-mid: var(--tc-neutral-200);
+  --btn-secondary-border-end: var(--tc-neutral-300);
 
   --action-subtle-bg: transparent;
   --action-subtle-hover: var(--tc-neutral-50);

@@ -127,25 +127,15 @@
   }
   
   .border-gradient-subtle {
-    position: relative;
-    border-color: transparent !important;
-  }
-  .border-gradient-subtle::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg, 
-      oklch(100% 0 0 / 0.25) 0%, 
-      var(--border-base) 40%, 
-      oklch(100% 0 0 / 0.04) 100%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    border: 1px solid transparent !important;
+    background: 
+      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      linear-gradient(
+        135deg, 
+        oklch(100% 0 0 / 0.22) 0%, 
+        var(--border-base) 45%, 
+        oklch(100% 0 0 / 0.03) 100%
+      ) border-box !important;
   }
   
   .brand-glow {

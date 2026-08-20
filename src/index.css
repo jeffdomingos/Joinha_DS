@@ -123,7 +123,7 @@
 
 @layer utilities {
   .surface-highlight {
-    box-shadow: inset 0 1px 0 0 oklch(100% 0 0 / 0.07);
+    box-shadow: inset 0 1px 0 0 oklch(100% 0 0 / 0.04);
   }
   
   .border-gradient-subtle {
@@ -148,22 +148,22 @@
   
   .elevation-1 {
     box-shadow: var(--tc-shadow-sm);
-    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.02), transparent);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.01), transparent);
   }
   
   .elevation-2 {
     box-shadow: var(--tc-shadow-md);
-    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.035), transparent);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.015), transparent);
   }
   
   .elevation-3 {
     box-shadow: var(--tc-shadow-lg);
-    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.05), transparent);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.02), transparent);
   }
 
   .elevation-4 {
     box-shadow: var(--tc-shadow-xl);
-    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.065), transparent);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.025), transparent);
   }
   
   /* --- MOTION & MICRO-INTERACTIONS --- */

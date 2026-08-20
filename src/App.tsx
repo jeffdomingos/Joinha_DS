@@ -15,7 +15,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal, Download, Trash, FileEdit } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle } from "lucide-react"
 
 function App() {
   return (
@@ -129,7 +151,105 @@ function App() {
             </DropdownMenu>
           </div>
         </section>
+
+        {/* Overlays & Notifications */}
+        <section className="space-y-6">
+          <h2 className="text-xl font-semibold border-b border-border pb-2">Overlays & Notifications</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <h3 className="type-ui-dense font-semibold text-muted-foreground">Modals & Dialogs</h3>
+              <div className="flex gap-4">
+                {/* Standard Dialog */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="secondary">
+                      <Settings className="w-4 h-4" /> Configurações
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Configurações do Perfil</DialogTitle>
+                      <DialogDescription>
+                        Atualize suas informações. Clique em salvar quando terminar.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col gap-(--tc-form-stack-gap) py-4">
+                      <div className="flex flex-col gap-(--tc-form-label-gap)">
+                        <label className="type-ui-dense font-semibold">Nome de exibição</label>
+                        <Input defaultValue="Jefferson Domingos" />
+                      </div>
+                      <div className="flex flex-col gap-(--tc-form-label-gap)">
+                        <label className="type-ui-dense font-semibold">Email</label>
+                        <Input defaultValue="jefferson@example.com" />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button variant="primary">Salvar alterações</Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+
+                {/* Alert Dialog */}
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive">
+                      <Trash className="w-4 h-4" /> Excluir Projeto
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Você tem certeza absoluta?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Esta ação não pode ser desfeita. Isso excluirá permanentemente o seu
+                        projeto e removerá os dados de nossos servidores.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction>Excluir permanentemente</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="type-ui-dense font-semibold text-muted-foreground">Toasts (Sonner)</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => toast.success("Projeto salvo com sucesso!")}
+                  className="justify-start"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-success" /> Success
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => toast.error("Falha ao conectar com o servidor.")}
+                  className="justify-start"
+                >
+                  <AlertCircle className="w-4 h-4 text-destructive" /> Error
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => toast.warning("Sua assinatura expira em 3 dias.")}
+                  className="justify-start"
+                >
+                  <AlertTriangle className="w-4 h-4 text-warning" /> Warning
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => toast.info("Nova atualização disponível.")}
+                  className="justify-start"
+                >
+                  <Info className="w-4 h-4 text-info" /> Info
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
+      <Toaster />
     </div>
   )
 }

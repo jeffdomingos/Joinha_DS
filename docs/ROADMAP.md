@@ -34,7 +34,7 @@ Este documento registra a visão, propósito e o plano de evolução do **Tem Co
 
 ### 🟢 Fase 3: Componentes Nucleares de SaaS (Base Shadcn UI)
 * [x] Botões, Inputs, Selects e Dropdowns estilizados com a temática "Joinha".
-* [ ] Modais, Diálogos de Confirmação e Toasts padronizados.
+* [x] Modais, Diálogos de Confirmação e Toasts padronizados.
 * [ ] Data Tables densas (tabelas de dados) com filtros, ordenação e uso inteligente dos badges de status e tags categóricas.
 * [ ] Cards de métricas com integração nativa das cores da série Data Viz (`--chart-*`).
 

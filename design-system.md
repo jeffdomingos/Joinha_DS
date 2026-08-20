@@ -107,6 +107,7 @@ Para manter essa certificação, todo elemento visual deve respeitar rigorosamen
 - **Rótulos (Labels):** É proibido instanciar o componente `Button` com apenas um ícone (variante `icon`) sem fornecer a prop nativa `aria-label` para leitores de tela.
 - **Anel de Foco (Focus Ring):** Não remova o anel de foco nativo das classes utilitárias ou do CSS (`outline: 2px solid var(--focus-ring)`). O foco visível é uma exigência WCAG de navegação por teclado.
 - **Gerenciamento de Erros:** Campos de input em estado de erro (prop `error={true}`) recebem `aria-invalid="true"` automaticamente, mas devem sempre ser acompanhados por um texto auxiliar (`aria-describedby`) legível.
+- **Overlays e Focus Trap:** O componente `Dialog` deve ser usado para formulários, configurações e fluxos obstrutivos, aprisionando o foco do teclado internamente. O componente `AlertDialog` deve ser reservado EXCLUSIVAMENTE para ações irreversíveis ou críticas (perda de dados), e seu foco de teclado inicial DEVE OBRIGATORIAMENTE abrir no botão de cancelamento (ação não destrutiva). Ambos devem devolver o foco ao elemento que disparou a ação após fechados.
 
 1. **Uso Obrigatório de Pares Casados (Bg/Fg)**:
    * **Nenhum token de background pode ser usado isoladamente.** Se um elemento receber `--bg-surface`, seu texto interno DEVE receber `--text-primary`, `--text-secondary` ou similar.

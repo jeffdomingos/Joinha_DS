@@ -20,6 +20,15 @@
   --color-destructive: var(--status-danger-bg);
   --color-destructive-foreground: var(--status-danger-fg);
   
+  --color-success: var(--status-success-bg);
+  --color-success-foreground: var(--status-success-fg);
+  
+  --color-warning: var(--status-warning-bg);
+  --color-warning-foreground: var(--status-warning-fg);
+  
+  --color-info: var(--status-info-bg);
+  --color-info-foreground: var(--status-info-fg);
+  
   --color-muted: var(--bg-surface-hover);
   --color-muted-foreground: var(--text-muted);
   
@@ -41,15 +50,6 @@
 @import "./styles/tokens.css";
 @import "./styles/kitchen-sink.css" layer(components);
 
-@layer components {
-  .dropdown-content[data-state="open"] {
-    animation: microFadeIn var(--tc-duration-fast) var(--tc-ease-spring) forwards;
-  }
-  .dropdown-content[data-state="closed"] {
-    animation: microFadeOut var(--tc-duration-fast) var(--tc-ease-smooth) forwards;
-  }
-}
-
 @keyframes microFadeIn {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
@@ -57,6 +57,46 @@
 @keyframes microFadeOut {
   from { opacity: 1; transform: scale(1); }
   to { opacity: 0; transform: scale(0.96); }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to { opacity: 1; backdrop-filter: blur(4px); }
+}
+@keyframes overlayFadeOut {
+  from { opacity: 1; backdrop-filter: blur(4px); }
+  to { opacity: 0; backdrop-filter: blur(0); }
+}
+@keyframes dialogZoomIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes dialogZoomOut {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+}
+
+@layer components {
+  .dropdown-content[data-state="open"] {
+    animation: microFadeIn var(--tc-duration-fast) var(--tc-ease-spring) forwards;
+  }
+  .dropdown-content[data-state="closed"] {
+    animation: microFadeOut var(--tc-duration-fast) var(--tc-ease-smooth) forwards;
+  }
+  
+  .dialog-overlay[data-state="open"] {
+    animation: overlayFadeIn var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
+  }
+  .dialog-overlay[data-state="closed"] {
+    animation: overlayFadeOut var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
+  }
+  
+  .dialog-content[data-state="open"] {
+    animation: dialogZoomIn var(--tc-duration-normal) var(--tc-ease-spring) forwards;
+  }
+  .dialog-content[data-state="closed"] {
+    animation: dialogZoomOut var(--tc-duration-normal) var(--tc-ease-smooth) forwards;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -114,6 +154,16 @@
   .elevation-2 {
     box-shadow: var(--tc-shadow-md);
     background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.035), transparent);
+  }
+  
+  .elevation-3 {
+    box-shadow: var(--tc-shadow-lg);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.05), transparent);
+  }
+
+  .elevation-4 {
+    box-shadow: var(--tc-shadow-xl);
+    background-image: linear-gradient(180deg, oklch(100% 0 0 / 0.065), transparent);
   }
   
   /* --- MOTION & MICRO-INTERACTIONS --- */

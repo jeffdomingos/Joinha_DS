@@ -39,7 +39,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-50 min-w-(--tc-floating-min-w) overflow-hidden rounded-lg border border-input bg-popover p-(--tc-floating-container-p) text-popover-foreground shadow-lg data-[state=open]:micro-fade-in data-[state=closed]:micro-fade-out data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "dropdown-content z-50 min-w-(--tc-floating-min-w) overflow-hidden rounded-lg border border-input bg-popover p-(--tc-floating-container-p) text-popover-foreground shadow-lg",
       className
     )}
     {...props}
@@ -56,7 +56,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-(--tc-floating-min-w) overflow-hidden rounded-lg border border-input bg-popover p-(--tc-floating-container-p) text-popover-foreground shadow-md surface-highlight data-[state=open]:micro-fade-in data-[state=closed]:micro-fade-out data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "dropdown-content z-50 min-w-(--tc-floating-min-w) overflow-hidden rounded-lg border border-input bg-popover p-(--tc-floating-container-p) text-popover-foreground shadow-md surface-highlight",
         className
       )}
       {...props}

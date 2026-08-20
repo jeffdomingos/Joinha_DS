@@ -41,6 +41,24 @@
 @import "./styles/tokens.css";
 @import "./styles/kitchen-sink.css" layer(components);
 
+@layer components {
+  .dropdown-content[data-state="open"] {
+    animation: microFadeIn var(--tc-duration-fast) var(--tc-ease-spring) forwards;
+  }
+  .dropdown-content[data-state="closed"] {
+    animation: microFadeOut var(--tc-duration-fast) var(--tc-ease-smooth) forwards;
+  }
+}
+
+@keyframes microFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes microFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
@@ -112,35 +130,5 @@
   .micro-hover-lift:hover {
     transform: translateY(-0.125rem);
     filter: brightness(1.05);
-  }
-  
-  .micro-fade-in {
-    animation: microFadeIn var(--tc-duration-fast) var(--tc-ease-spring) forwards;
-  }
-  
-  @keyframes microFadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.96);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .micro-fade-out {
-    animation: microFadeOut var(--tc-duration-fast) var(--tc-ease-smooth) forwards;
-  }
-  
-  @keyframes microFadeOut {
-    from {
-      opacity: 1;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(0.96);
-    }
   }
 }

@@ -38,7 +38,7 @@ Este documento registra a visão, propósito e o plano de evolução do **Tem Co
 * [x] Data Tables densas (tabelas de dados) com filtros, ordenação e uso inteligente dos badges de status e tags categóricas.
 * [x] Cards de métricas com integração nativa das cores da série Data Viz (`--chart-*`).
 
-### ⚪ Fase 4: Templates e Distribuição
-* [ ] Criação do layout base consolidado de SaaS (Sidebar expansível, Header global e Área principal de Conteúdo).
+### ⚪ Fase 4: Templates e Distribuição (Em Andamento)
+* [x] Criação do layout base consolidado de SaaS (Sidebar expansível, Header global e Área principal de Conteúdo).
 * [ ] Configuração do repositório como um GitHub Template (`Use this template`) pronto para clonagem e início imediato de projetos.
 * [ ] Estruturação de um Registry JSON no padrão Shadcn, possibilitando a instalação modular de componentes diretamente via CLI (ex: `npx shadcn-ui@latest add https://.../button.json`).

@@ -43,6 +43,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
+import { AppLayout } from "@/components/layout/app-layout"
 import {
   ChartContainer,
   ChartTooltip,
@@ -60,7 +61,7 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts"
-import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Sun, Moon, Database, Tag as TagIcon, BarChart3, DollarSign, Users, Target, Activity, TrendingUp } from "lucide-react"
+import { MoreHorizontal, Download, Trash, FileEdit, Settings, CheckCircle2, AlertTriangle, Info, AlertCircle, Sparkles, Database, Tag as TagIcon, DollarSign, Users, Target, Activity, TrendingUp, LayoutDashboard, Layers } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const revenueChartConfig = {
@@ -186,6 +187,8 @@ const mockSubscriptions: DataTableRecord[] = [
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark")
+  const [activeNavItem, setActiveNavItem] = useState("dashboard")
+  const [viewMode, setViewMode] = useState<"dashboard" | "components">("dashboard")
   const [hasBorder, setHasBorder] = useState(true)
   const [hasGradientBorder, setHasGradientBorder] = useState(true)
   const [hasElevation, setHasElevation] = useState(true)
@@ -210,33 +213,288 @@ function App() {
     hasGlow && "brand-glow"
   )
 
+  const breadcrumbs = [
+    { label: "Tem Como" },
+    { label: viewMode === "dashboard" ? "Dashboard Analítico" : "Laboratório de Componentes" },
+  ]
+
   return (
-    <div className="min-h-screen bg-background text-foreground p-8 md:p-12 lg:p-16 flex justify-center">
-      <div className="w-full max-w-4xl space-y-12">
-        <header className="border-b border-border pb-6 flex items-start justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Joinha DS: Phase 3</h1>
-            <p className="text-muted-foreground mt-2">
-              React Components Implementation (Shadcn UI + Radix + Tailwind v4)
-            </p>
+    <AppLayout
+      theme={theme}
+      onToggleTheme={toggleTheme}
+      breadcrumbs={breadcrumbs}
+      activeNavItem={activeNavItem}
+      onSelectNavItem={(id) => {
+        setActiveNavItem(id)
+        if (id === "dashboard" || id === "analytics" || id === "customers" || id === "billing") {
+          setViewMode("dashboard")
+        } else {
+          setViewMode("components")
+        }
+      }}
+      onNewAction={() => {
+        toast.info("Ação Global Acionada", {
+          description: "Modal de novo registro ou assinatura pronto para abertura.",
+        })
+      }}
+    >
+      {/* Top Banner / Mode Switcher */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
+              {viewMode === "dashboard" ? "Painel de Gestão & Receita" : "Laboratório de Componentes (Joinha DS)"}
+            </h1>
+            <Badge variant="info" size="sm">Fase 4: App Shell</Badge>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={toggleTheme}
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            {theme === "dark" ? (
-              <>
-                <Sun className="w-4 h-4 text-warning" /> Light Mode
-              </>
-            ) : (
-              <>
-                <Moon className="w-4 h-4 text-primary" /> Dark Mode
-              </>
+          <p className="text-sm text-muted-foreground mt-1">
+            {viewMode === "dashboard"
+              ? "Visão unificada de métricas, gráficos interativos e tabela densa de clientes."
+              : "Primitivos de UI estilizados com Shadcn UI + Tailwind v4 e tokens OKLCH."}
+          </p>
+        </div>
+
+        {/* View Mode Toggle Switch */}
+        <div className="inline-flex items-center p-1 rounded-(--tc-radius-md) bg-surface-card border border-border shrink-0 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={() => setViewMode("dashboard")}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
+              viewMode === "dashboard"
+                ? "bg-primary text-primary-foreground shadow-(--tc-shadow-glow)"
+                : "text-muted-foreground hover:text-foreground"
             )}
-          </Button>
-        </header>
+          >
+            <LayoutDashboard className="w-3.5 h-3.5" />
+            Dashboard SaaS
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode("components")}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-(--tc-radius-sm) text-xs font-semibold transition-all cursor-pointer",
+              viewMode === "components"
+                ? "bg-primary text-primary-foreground shadow-(--tc-shadow-glow)"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Layers className="w-3.5 h-3.5" />
+            Componentes & Lab
+          </button>
+        </div>
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="space-y-10">
+          {/* 1. Metric Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <MetricCard
+              title="Receita Recorrente (MRR)"
+              value="R$ 48.920"
+              chartVariant={1}
+              icon={<DollarSign className="w-4 h-4" />}
+              change={{ value: "+14.2%", trend: "up", period: "vs mês anterior" }}
+              sparklineData={[28, 31, 35, 33, 40, 44, 48.9]}
+            />
+            <MetricCard
+              title="Assinantes Ativos"
+              value="1.428"
+              chartVariant={2}
+              icon={<Users className="w-4 h-4" />}
+              change={{ value: "+8.6%", trend: "up", period: "vs mês anterior" }}
+              sparklineData={[1100, 1160, 1220, 1280, 1340, 1390, 1428]}
+            />
+            <MetricCard
+              title="Meta Q1 (ARR)"
+              value="84.5%"
+              chartVariant={3}
+              icon={<Target className="w-4 h-4" />}
+              change={{ value: "+5.1%", trend: "up", period: "acima da projeção" }}
+              targetProgress={84.5}
+            />
+            <MetricCard
+              title="Taxa de Churn"
+              value="1.2%"
+              chartVariant={4}
+              icon={<Activity className="w-4 h-4" />}
+              change={{ value: "-0.4%", trend: "down", period: "vs mês anterior", isPositive: true }}
+              sparklineData={[2.4, 2.1, 1.9, 1.8, 1.5, 1.3, 1.2]}
+            />
+          </div>
+
+          {/* 2. Interactive Charts Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Interactive Area Chart */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-col gap-0.5">
+                  <h3 className="type-heading-item font-semibold text-foreground">
+                    Evolução da Receita (MRR vs. Projeção)
+                  </h3>
+                  <span className="text-xs text-muted-foreground">
+                    Valores acumulados nos últimos 6 meses
+                  </span>
+                </div>
+                <Badge variant="success" size="sm" className="whitespace-nowrap shrink-0 font-semibold">
+                  <TrendingUp className="w-3.5 h-3.5" /> +72.2% H1
+                </Badge>
+              </div>
+
+              <ChartContainer config={revenueChartConfig} className="h-[240px] w-full">
+                <AreaChart data={revenueData} margin={{ left: 6, right: 12, top: 10, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.42} />
+                      <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    width={60}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(val) => `R$ ${val / 1000}k`}
+                    tickMargin={4}
+                  />
+                  <ChartTooltip
+                    cursor={{ stroke: "var(--border-strong)", strokeWidth: 1 }}
+                    content={<ChartTooltipContent indicator="dot" />}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="projected"
+                    stroke="var(--chart-2)"
+                    strokeWidth={2}
+                    strokeDasharray="4 4"
+                    fill="none"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="var(--chart-1)"
+                    strokeWidth={2.5}
+                    fillOpacity={1}
+                    fill="url(#fillRevenue)"
+                  />
+                  <ChartLegend content={<ChartLegendContent />} />
+                </AreaChart>
+              </ChartContainer>
+            </div>
+
+            {/* Interactive Bar Chart */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <h3 className="type-heading-item font-semibold text-foreground">
+                    Aquisição de Assinantes por Canal
+                  </h3>
+                  <span className="text-xs text-muted-foreground">
+                    Distribuição por origem de tráfego
+                  </span>
+                </div>
+                <span className="text-xs font-mono font-medium text-muted-foreground">
+                  Total: 16.5k
+                </span>
+              </div>
+
+              <ChartContainer config={channelChartConfig} className="h-[240px] w-full">
+                <BarChart data={channelData} margin={{ left: 0, right: 12, top: 10, bottom: 0 }}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="channel"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    width={40}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(val) => `${val / 1000}k`}
+                    tickMargin={4}
+                  />
+                  <ChartTooltip
+                    cursor={{ fill: "var(--bg-surface-hover)" }}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="visitors"
+                    radius={[6, 6, 0, 0]}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </div>
+          </div>
+
+          {/* 3. Dense Data Table Section */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Database className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display">Tabela de Gestão de Clientes</h2>
+              </div>
+              <span className="text-xs text-muted-foreground font-mono">
+                Ordenação, filtros e paginação nativa
+              </span>
+            </div>
+
+            <DataTable data={mockSubscriptions} />
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-12">
+          {/* Controls Playground */}
+          <section className="p-4 rounded-xl border border-border bg-surface-card space-y-3">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+              Playground de Customização
+            </h2>
+            <div className="flex flex-wrap gap-4 text-xs font-medium">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasBorder}
+                  onChange={(e) => setHasBorder(e.target.checked)}
+                  className="rounded border-border text-primary"
+                />
+                Exibir Bordas
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasGradientBorder}
+                  onChange={(e) => setHasGradientBorder(e.target.checked)}
+                  disabled={!hasBorder}
+                  className="rounded border-border text-primary disabled:opacity-50"
+                />
+                Bordas com Gradiente Sutil (.border-gradient-subtle)
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasElevation}
+                  onChange={(e) => setHasElevation(e.target.checked)}
+                  className="rounded border-border text-primary"
+                />
+                Elevação 2 (.elevation-2)
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasGlow}
+                  onChange={(e) => setHasGlow(e.target.checked)}
+                  className="rounded border-border text-primary"
+                />
+                Brand Glow (.brand-glow)
+              </label>
+            </div>
+          </section>
 
         {/* Surface & Lighting Lab / Playground */}
         <section className="space-y-4 p-6 rounded-(--tc-radius-xl) border border-border bg-surface-elevated/40">
@@ -545,190 +803,12 @@ function App() {
             </div>
           </div>
         </section>
-
-        {/* Dense Data Table Section */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-border pb-2">
-            <div className="flex items-center gap-2">
-              <Database className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-semibold">Dense Data Table (SaaS Management)</h2>
-            </div>
-            <span className="text-xs text-muted-foreground font-mono">
-              h-10 density · JetBrains Mono · WCAG Compliant
-            </span>
-          </div>
-
-          <DataTable data={mockSubscriptions} />
-        </section>
-
-        {/* Analytics & Metric Cards (Data Viz Series) */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-border pb-2">
-            <div className="flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-semibold">Metric Cards & Data Viz Series (--chart-*)</h2>
-            </div>
-            <span className="text-xs text-muted-foreground font-mono">
-              OKLCH Perceptual Series · Smooth SVG Sparklines
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* KPI 1: MRR (Chart 1 - Laranja Brand) */}
-            <MetricCard
-              title="Receita Recorrente (MRR)"
-              value="R$ 48.920"
-              chartVariant={1}
-              icon={<DollarSign className="w-4 h-4" />}
-              change={{ value: "+14.2%", trend: "up", period: "vs mês anterior" }}
-              sparklineData={[28, 31, 35, 33, 40, 44, 48.9]}
-            />
-
-            {/* KPI 2: Clientes Ativos (Chart 2 - Ciano) */}
-            <MetricCard
-              title="Assinantes Ativos"
-              value="1.428"
-              chartVariant={2}
-              icon={<Users className="w-4 h-4" />}
-              change={{ value: "+8.6%", trend: "up", period: "vs mês anterior" }}
-              sparklineData={[1100, 1160, 1220, 1280, 1340, 1390, 1428]}
-            />
-
-            {/* KPI 3: Meta Trimestral (Chart 3 - Magenta) */}
-            <MetricCard
-              title="Meta Q1 (ARR)"
-              value="84.5%"
-              chartVariant={3}
-              icon={<Target className="w-4 h-4" />}
-              change={{ value: "+5.1%", trend: "up", period: "acima da projeção" }}
-              targetProgress={84.5}
-            />
-
-            {/* KPI 4: Taxa de Churn (Chart 4 - Âmbar) */}
-            <MetricCard
-              title="Taxa de Churn"
-              value="1.2%"
-              chartVariant={4}
-              icon={<Activity className="w-4 h-4" />}
-              change={{ value: "-0.4%", trend: "down", period: "vs mês anterior", isPositive: true }}
-              sparklineData={[2.4, 2.1, 1.9, 1.8, 1.5, 1.3, 1.2]}
-            />
-          </div>
-
-          {/* Interactive Full Charts Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
-            {/* Interactive Area Chart (Revenue Trajectory) */}
-            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex flex-col gap-0.5">
-                  <h3 className="type-heading-item font-semibold text-foreground">
-                    Evolução da Receita (MRR vs. Projeção)
-                  </h3>
-                  <span className="text-xs text-muted-foreground">
-                    Valores acumulados nos últimos 6 meses
-                  </span>
-                </div>
-                <Badge variant="success" size="sm" className="whitespace-nowrap shrink-0 font-semibold">
-                  <TrendingUp className="w-3.5 h-3.5" /> +72.2% H1
-                </Badge>
-              </div>
-
-              <ChartContainer config={revenueChartConfig} className="h-[240px] w-full">
-                <AreaChart data={revenueData} margin={{ left: 6, right: 12, top: 10, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.42} />
-                      <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0.0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                  />
-                  <YAxis
-                    width={60}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(val) => `R$ ${val / 1000}k`}
-                    tickMargin={4}
-                  />
-                  <ChartTooltip
-                    cursor={{ stroke: "var(--border-strong)", strokeWidth: 1 }}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="projected"
-                    stroke="var(--chart-2)"
-                    strokeWidth={2}
-                    strokeDasharray="4 4"
-                    fill="none"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="var(--chart-1)"
-                    strokeWidth={2.5}
-                    fillOpacity={1}
-                    fill="url(#fillRevenue)"
-                  />
-                  <ChartLegend content={<ChartLegendContent />} />
-                </AreaChart>
-              </ChartContainer>
-            </div>
-
-            {/* Interactive Bar Chart (Acquisition Channels) */}
-            <div className="p-6 rounded-(--tc-radius-lg) surface-card border-gradient-subtle elevation-1 flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <div className="flex flex-col gap-0.5">
-                  <h3 className="type-heading-item font-semibold text-foreground">
-                    Aquisição de Assinantes por Canal
-                  </h3>
-                  <span className="text-xs text-muted-foreground">
-                    Distribuição por origem de tráfego
-                  </span>
-                </div>
-                <span className="text-xs font-mono font-medium text-muted-foreground">
-                  Total: 16.5k
-                </span>
-              </div>
-
-              <ChartContainer config={channelChartConfig} className="h-[240px] w-full">
-                <BarChart data={channelData} margin={{ left: 0, right: 12, top: 10, bottom: 0 }}>
-                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="channel"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                  />
-                  <YAxis
-                    width={40}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(val) => `${val / 1000}k`}
-                    tickMargin={4}
-                  />
-                  <ChartTooltip
-                    cursor={{ fill: "var(--bg-surface-hover)" }}
-                    content={<ChartTooltipContent hideLabel />}
-                  />
-                  <Bar
-                    dataKey="visitors"
-                    radius={[6, 6, 0, 0]}
-                  />
-                </BarChart>
-              </ChartContainer>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      )}
       <Toaster />
-    </div>
+    </AppLayout>
   )
 }
 
 export default App
+

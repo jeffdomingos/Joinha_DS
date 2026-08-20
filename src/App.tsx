@@ -60,7 +60,7 @@ function App() {
         <section className="space-y-6">
           <h2 className="text-xl font-semibold border-b border-border pb-2">Forms & Inputs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-base shadow-sm p-(--tc-card-p)">
+            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-base shadow-sm p-(--tc-card-p) surface-highlight border-gradient-subtle">
               <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Standard Input</label>
                 <Input placeholder="Enter your text here..." />
@@ -76,7 +76,7 @@ function App() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel shadow-md p-(--tc-card-p)">
+            <div className="flex flex-col gap-(--tc-form-stack-gap) surface-card surface-panel elevation-2 p-(--tc-card-p) surface-highlight border-gradient-subtle">
               <div className="flex flex-col gap-(--tc-form-label-gap)">
                 <label className="type-ui-dense font-semibold">Select</label>
                 <Select>

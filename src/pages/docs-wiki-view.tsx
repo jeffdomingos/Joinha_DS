@@ -67,7 +67,7 @@ export function DocsWikiView({
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="info" size="sm" className="gap-1 font-mono">
-              <Sparkles className="w-3 h-3 text-primary" />
+              <Sparkles className="w-3 h-3" />
               Joinha DS Wiki v1.0
             </Badge>
             <Tag color="purple" size="sm">50 Componentes</Tag>
@@ -259,7 +259,7 @@ export function DocsWikiView({
               {radiusTokens.map((rad) => (
                 <div key={rad.token} className="p-3 rounded-lg border border-border/80 bg-surface space-y-2">
                   <div
-                    className="h-10 w-full bg-primary/15 border border-primary/40 flex items-center justify-center text-xs font-mono font-bold text-primary"
+                    className="h-10 w-full bg-surface-hover border border-border flex items-center justify-center text-xs font-mono font-bold text-foreground"
                     style={{ borderRadius: rad.size }}
                   >
                     {rad.size}

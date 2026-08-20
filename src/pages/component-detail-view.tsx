@@ -1122,7 +1122,7 @@ export function ComponentDetailView({
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="bg-surface-card border border-border p-1 w-full sm:w-auto grid grid-cols-2 sm:inline-flex">
           <TabsTrigger value="preview" className="text-xs gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <Sparkles className="w-3.5 h-3.5 text-muted-foreground" />
             <span>Preview & Playground</span>
           </TabsTrigger>
           <TabsTrigger value="code" className="text-xs gap-1.5">
@@ -1139,7 +1139,7 @@ export function ComponentDetailView({
           </TabsTrigger>
           {metadata.subComponents && metadata.subComponents.length > 0 && (
             <TabsTrigger value="anatomy" className="text-xs gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-primary" />
+              <Layers className="w-3.5 h-3.5 text-muted-foreground" />
               <span>Anatomia & Sub-componentes</span>
               <Badge variant="neutral" size="sm" className="text-[9px] px-1 py-0 h-4 font-mono">
                 {metadata.subComponents.length}
@@ -1154,7 +1154,7 @@ export function ComponentDetailView({
           <div className="rounded-(--tc-radius-xl) border border-border bg-surface-card overflow-hidden shadow-xs">
             <div className="flex items-center justify-between p-3 border-b border-border bg-surface/50">
               <span className="type-heading-card text-xs font-semibold text-foreground flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <Sparkles className="w-3.5 h-3.5 text-muted-foreground" />
                 Preview Interativo
               </span>
 

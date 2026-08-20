@@ -37,11 +37,11 @@ import {
 const revenueChartConfig = {
   revenue: {
     label: "Receita Real (MRR)",
-    color: "var(--chart-1)",
+    color: "var(--chart-2)",
   },
   projected: {
     label: "Projeção / Meta",
-    color: "var(--chart-2)",
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig
 
@@ -57,27 +57,27 @@ const revenueData = [
 const channelChartConfig = {
   direct: {
     label: "Direto",
-    color: "var(--chart-1)",
+    color: "var(--chart-2)",
   },
   organic: {
     label: "Orgânico (SEO)",
-    color: "var(--chart-2)",
+    color: "var(--chart-3)",
   },
   paid: {
     label: "Mídia Paga",
-    color: "var(--chart-3)",
+    color: "var(--chart-4)",
   },
   referral: {
     label: "Indicação",
-    color: "var(--chart-4)",
+    color: "var(--chart-5)",
   },
 } satisfies ChartConfig
 
 const channelData = [
-  { channel: "Direto", visitors: 6200, fill: "var(--chart-1)" },
-  { channel: "Orgânico", visitors: 4800, fill: "var(--chart-2)" },
-  { channel: "Mídia Paga", visitors: 3400, fill: "var(--chart-3)" },
-  { channel: "Indicações", visitors: 2100, fill: "var(--chart-4)" },
+  { channel: "Direto", visitors: 6200, fill: "var(--chart-2)" },
+  { channel: "Orgânico", visitors: 4800, fill: "var(--chart-3)" },
+  { channel: "Mídia Paga", visitors: 3400, fill: "var(--chart-4)" },
+  { channel: "Indicações", visitors: 2100, fill: "var(--chart-5)" },
 ]
 
 const mockSubscriptions: DataTableRecord[] = [
@@ -254,7 +254,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
         <MetricCard
           title="Receita Recorrente (MRR)"
           value="R$ 48.920"
-          chartVariant={1}
+          chartVariant={2}
           icon={<DollarSign className="w-4 h-4" />}
           change={{ value: "+14.2%", trend: "up", period: "vs mês anterior" }}
           sparklineData={[28, 31, 35, 33, 40, 44, 48.9]}
@@ -307,8 +307,8 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
             <AreaChart data={revenueData} margin={{ left: 6, right: 12, top: 10, bottom: 0 }}>
               <defs>
                 <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.42} />
-                  <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0.0} />
+                  <stop offset="0%" stopColor="var(--chart-2)" stopOpacity={0.42} />
+                  <stop offset="100%" stopColor="var(--chart-2)" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -332,7 +332,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
               <Area
                 type="monotone"
                 dataKey="projected"
-                stroke="var(--chart-2)"
+                stroke="var(--chart-3)"
                 strokeWidth={2}
                 strokeDasharray="4 4"
                 fill="none"
@@ -340,7 +340,7 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
               <Area
                 type="monotone"
                 dataKey="revenue"
-                stroke="var(--chart-1)"
+                stroke="var(--chart-2)"
                 strokeWidth={2.5}
                 fillOpacity={1}
                 fill="url(#fillRevenue)"

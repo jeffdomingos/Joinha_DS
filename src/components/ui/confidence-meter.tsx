@@ -51,7 +51,7 @@ export function ConfidenceMeter({
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 text-xs">
-          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <Sparkles className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="font-semibold text-foreground">{label}</span>
         </div>
 
@@ -113,7 +113,7 @@ export function ReasoningTrace({
         className="flex w-full items-center justify-between p-3 text-left hover:bg-surface-elevated/40 transition-colors cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <Sparkles className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="font-semibold text-foreground">{title}</span>
           <Badge variant="neutral" size="sm" className="font-mono text-[10px]">
             {steps.length} etapas

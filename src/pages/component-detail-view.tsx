@@ -853,7 +853,7 @@ export function ComponentDetailView({
             {/* 1. Símbolo Branco sobre Fundo Laranja Padrão */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-primary shadow-lg shadow-primary/25 border border-primary/40 flex items-center justify-center">
-                <BrandSymbol variant="white" className="w-12 h-12" />
+                <BrandSymbol variant="white" className="h-12 w-auto" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Laranja</span>
             </div>
@@ -861,7 +861,7 @@ export function ComponentDetailView({
             {/* 2. Símbolo Branco em Fundo Escuro Preto */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-black border border-neutral-800 flex items-center justify-center">
-                <BrandSymbol variant="white" className="w-12 h-12" />
+                <BrandSymbol variant="white" className="h-12 w-auto" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Branco em Fundo Escuro</span>
             </div>
@@ -869,7 +869,7 @@ export function ComponentDetailView({
             {/* 3. Símbolo Preto em Fundo Muito Claro */}
             <div className="flex flex-col items-center gap-2">
               <div className="p-4 rounded-2xl bg-white border border-neutral-200 flex items-center justify-center">
-                <BrandSymbol variant="black" className="w-12 h-12" />
+                <BrandSymbol variant="black" className="h-12 w-auto" />
               </div>
               <span className="type-body-sm text-[11px] text-muted-foreground font-mono">Preto em Fundo Muito Claro</span>
             </div>

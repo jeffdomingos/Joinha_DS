@@ -13,6 +13,7 @@ import {
   ChevronRight,
   BookOpen,
   Info,
+  Compass,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -742,6 +743,23 @@ export function ComponentDetailView({
             </div>
           </div>
         </div>
+
+        {/* Component When to Use & Usage Recommendation Hub */}
+        {metadata.whenToUse && (
+          <div className="p-3.5 rounded-(--tc-radius-lg) border border-border/80 bg-surface/60 flex items-start gap-3 mt-3">
+            <div className="p-1.5 rounded-md bg-primary/10 text-primary shrink-0 mt-0.5">
+              <Compass className="w-4 h-4" />
+            </div>
+            <div className="space-y-0.5">
+              <span className="type-label-xs text-muted-foreground uppercase font-bold tracking-wider text-[10px]">
+                Quando Utilizar (Uso Recomendado)
+              </span>
+              <p className="type-body-sm text-xs text-foreground font-medium leading-relaxed">
+                {metadata.whenToUse}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Interactive Documentation Hub (Tabs) */}

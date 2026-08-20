@@ -45,8 +45,8 @@ export function BannerAnnouncement({
       {...props}
     >
       <div className="flex items-start sm:items-center gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary border border-primary/20">
-          <Sparkles className="h-4 w-4" />
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface-hover text-foreground border border-border">
+          <Sparkles className="h-4 w-4 text-muted-foreground" />
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {badgeText && (

@@ -16,9 +16,20 @@ Para manter uma densidade previsível de SaaS (como ferramentas profissionais) e
 3. **Lei do Alinhamento de Controles:** Inputs, Botões, Selects e Triggers adjacentes na mesma linha **DEVEM compartilhar a mesma altura semântica** (`--tc-control-h-md` na maioria das vezes) e o mesmo raio de borda (`--radius-md`).
 4. **Lei dos Agrupamentos Flex:** Todo componente composto (ex: ícone + texto, input + botão) deve ser construído com `flex items-center` (ou `flex-row` no CSS base) acompanhado de um `gap` proporcional explícito. **É estritamente proibido** o uso de margens direcionais (`margin-right` ou `margin-left`) no filho para empurrar conteúdo.
 
-## 🎨 Arquitetura de Cores (OKLCH)
+## 🎨 Arquitetura de Cores (OKLCH) & Disciplina 60-30-10
 
 Nosso sistema utiliza **OKLCH** para garantir percepção de cor uniforme. O tema primário e padrão é o **Dark Mode**, com cores neutras que contêm um leve aquecimento cromático para harmonizar com nossa marca (Laranja #e27100).
+
+### 🏛️ Regra 60-30-10 de Superfícies & Disciplina de Uso da Cor Accent
+Toda a interface do Joinha DS é governada pela proporção clássica de superfícies de produtos SaaS profissionais:
+
+- **60% Superfícies Neutras de Fundo (Dominante):** Telas, canvas, modais, gavetas e fundos de cards (`--bg-app`, `--bg-surface`, `--bg-surface-elevated`).
+- **30% Estrutura Secundária (Neutros de Apoio):** Bordas, divisores, fundos hover, textos muted, badges neutros e ícones de suporte (`--border-border`, `--bg-surface-hover`, `--text-muted-foreground`).
+- **10% Accent (Laranja da Marca - `#e27100` / `oklch(67% 0.17 53)`):** RESERVADO EXCLUSIVAMENTE para guiar a intenção e a próxima ação do usuário.
+
+> **🛑 DIRETRIZ INVIOLÁVEL DA COR ACCENT:**
+> A cor Laranja (Brand) existe **EXCLUSIVAMENTE** para guiar a próxima ação do usuário, **NUNCA para decorar a interface**. 
+> Se o elemento não for um **gatilho de ação principal** (`<Button variant="primary">`), um **estado de seleção ativa** (`data-active="true"`, `data-[state=checked]`, tab ativa, nav item ativo) ou um **anel de foco por teclado** (`focus-visible:ring-primary`), ele **DEVE SER RESOLVIDO NA ESCALA NEUTRA**. Ícones de títulos, bordas decorativas e banners explicativos não levam cor accent.
 
 O sistema opera em duas camadas estruturais:
 

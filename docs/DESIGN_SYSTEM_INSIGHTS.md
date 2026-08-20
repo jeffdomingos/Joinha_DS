@@ -42,6 +42,15 @@ Estabelecemos a regra de que **o Laranja da Marca é a única cor de alto impact
 [ Neutros de Fundo ]      → C ≈ 0.008 ~ 0.014 (Cinzas aquecidos aveludados com h=53)
 ```
 
+### A Regra 60-30-10 de Superfícies & Disciplina de Uso da Cor Accent
+Estipulamos a proporção matemática estrita de superfícies para evitar a poluição visual ("arcade effect"):
+
+1. **60% Dominante (Superfícies Neutras):** Fundo de telas, canvas, cartões e modais (`bg-background`, `bg-surface`, `bg-surface-elevated`).
+2. **30% Estrutura Secundária (Neutros de Apoio):** Bordas, divisores, hovers, textos muted e ícones decorativos (`border-border`, `bg-surface-hover`, `text-muted-foreground`).
+3. **10% Accent (Laranja da Marca - `#e27100` / `bg-primary`):** Reservado **EXCLUSIVAMENTE** para orientar a próxima ação do usuário.
+
+> **Regra de Ouro:** A cor Laranja nunca é usada para decorar a interface (como em ícones de títulos, bordas passivas ou tags informativas). Se o elemento não for um gatilho de ação principal (`Button primary`), um estado de seleção ativa (`data-active="true"`, `checked`) ou anel de foco por teclado (`focus-visible`), ele **é obrigatoriamente resolvido na escala neutra**.
+
 ---
 
 ## 2. O Modelo Mental do Dark Mode: Elevação por Luminância

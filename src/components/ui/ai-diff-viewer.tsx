@@ -57,7 +57,7 @@ export function AIDiffViewer({
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 border-b border-border/80 bg-surface/50 font-sans">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" />
+          <Sparkles className="h-4 w-4 text-muted-foreground" />
           <span className="font-semibold text-xs text-foreground tracking-tight">{title}</span>
           <div className="flex items-center gap-1 font-mono text-[11px]">
             <Badge variant="success" size="sm" className="px-1.5 py-0 h-5">

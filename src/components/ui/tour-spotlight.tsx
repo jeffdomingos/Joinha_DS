@@ -73,8 +73,8 @@ export function TourSpotlight({
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/15 text-primary border border-primary/30">
-              <Sparkles className="h-4 w-4" />
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-surface-hover text-foreground border border-border">
+              <Sparkles className="h-4 w-4 text-muted-foreground" />
             </div>
             <div>
               <div className="flex items-center gap-2">

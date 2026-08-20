@@ -197,7 +197,7 @@ export function Header({
               className="h-8 px-2.5 text-xs hidden lg:flex items-center gap-1.5 cursor-pointer font-mono text-muted-foreground hover:text-primary hover:border-primary"
               title="Copiar comando de instalação do registro Shadcn CLI"
             >
-              <Terminal className="w-3.5 h-3.5 text-primary" />
+              <Terminal className="w-3.5 h-3.5 text-muted-foreground" />
               <span>CLI</span>
             </Button>
 

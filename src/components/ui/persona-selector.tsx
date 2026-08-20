@@ -60,8 +60,8 @@ export function PersonaSelector({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-xl p-6 bg-(--bg-surface-modal) border-border text-foreground">
         <DialogHeader className="space-y-2">
-          <div className="flex items-center gap-2.5 text-primary">
-            <Sparkles className="h-5 w-5 shrink-0 translate-y-[0.5px]" />
+          <div className="flex items-center gap-2.5 text-foreground">
+            <Sparkles className="h-5 w-5 shrink-0 text-muted-foreground translate-y-[0.5px]" />
             <DialogTitle className="text-lg font-bold font-display tracking-tight leading-none">
               Personalize sua Experiência
             </DialogTitle>

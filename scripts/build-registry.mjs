@@ -339,6 +339,21 @@ const registryItems = [
       },
     ],
   },
+  {
+    name: "skeleton",
+    type: "registry:ui",
+    title: "Skeleton",
+    description: "Accessible directional shimmer skeleton screen component calibrated for OKLCH luminance elevation.",
+    dependencies: [],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/skeleton.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/skeleton.tsx"),
+      },
+    ],
+  },
 ]
 
 // 1. Write individual component JSON files

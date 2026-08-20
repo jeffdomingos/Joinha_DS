@@ -11,7 +11,8 @@
 4. [Tipografia em 3 Níveis e Paridade Numérica](#4-tipografia-em-3-níveis-e-paridade-numérica)
 5. [Padrões Canônicos de Interação e Componentes](#5-padrões-canônicos-de-interação-e-componentes)
 6. [Física de Movimento e Micro-Interações](#6-física-de-movimento-e-micro-interações)
-7. [Arquitetura de Distribuição e Filosofia Agent-Native](#7-arquitetura-de-distribuição-e-filosofia-agent-native)
+7. [Skeleton Screens & Percepção de Performance](#7-skeleton-screens--percepção-de-performance-nng--oklch)
+8. [Arquitetura de Distribuição e Filosofia Agent-Native](#8-arquitetura-de-distribuição-e-filosofia-agent-native)
 
 ---
 
@@ -125,10 +126,22 @@ Registramos no tema as equações Bézier cúbicas inspiradas na física de soft
 
 ---
 
-## 7. Arquitetura de Distribuição e Filosofia Agent-Native
+## 7. Skeleton Screens & Percepção de Performance (NN/g + OKLCH)
+
+Baseado nos estudos de usabilidade do **Nielsen Norman Group (NN/g)**:
+- **Redução do Tempo Percebido (*Perceived Wait Time*):** Em vez de `animate-pulse` que apenas oscila opacidade, adotamos um **shimmer direcional contínuo de 1.8s** deslizando da esquerda para a direita (sentido natural de leitura).
+- **Paridade Geométrica (0px CLS):** O esqueleto espelha exatamente a altura e raio dos componentes reais (`h-4`, `h-8`, `h-10`, `rounded-full`).
+- **Calibração OKLCH:**
+  - Base do Skeleton: `oklch(21% 0.009 53)` (faixa de transição entre o card $L=18\%$ e o menu $L=22\%$).
+  - Feixe do Shimmer: `oklch(25% 0.012 53)`.
+- **Acessibilidade Rigorosa:** `aria-hidden="true"` nos blocos e desativação automática da animação via media query `prefers-reduced-motion`.
+
+---
+
+## 8. Arquitetura de Distribuição e Filosofia Agent-Native
 
 1. **GitHub Template:** Estruturado com `.github/template.yml` para clonagem e bootstrap instantâneo de novos SaaS.
-2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 20 componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
+2. **Shadcn Registry JSON (`public/r/`):** Script automatizado [`scripts/build-registry.mjs`](file:///c:/Users/Jefferson/dev/personal/Joinha_DS/scripts/build-registry.mjs) que exporta 22 componentes compatíveis com o schema oficial, permitindo instalação modular via `npx shadcn@latest add https://.../component.json`.
 3. **Fonte Única de Verdade (`design-system.md`):** Regras explícitas com restrições invioláveis para que Agentes de IA (Claude, GPT, Gemini) gerem telas e componentes com 100% de conformidade, sem inventar cores hexadecimais ou quebrar hierarquias visuais.
 
 ---

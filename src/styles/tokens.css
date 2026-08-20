@@ -292,6 +292,11 @@
   --chart-4: var(--tc-chart-4);
   --chart-5: var(--tc-chart-5);
   --chart-6: var(--tc-chart-6);
+
+  /* SKELETON & SHIMMER (NN/g + OKLCH Model) */
+  --skeleton-bg-base: oklch(21% 0.009 53);
+  --skeleton-shimmer-highlight: oklch(25% 0.012 53);
+  --skeleton-duration: 1.8s;
 }
 
 /* ========================================================
@@ -373,4 +378,8 @@
 
   --tag-indigo-subtle: oklch(95% 0.03 270);
   --tag-indigo-text: oklch(35% 0.1 270);
+
+  /* SKELETON (Light Mode) */
+  --skeleton-bg-base: oklch(92% 0.006 53);
+  --skeleton-shimmer-highlight: oklch(96% 0.004 53);
 }

@@ -41,6 +41,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Tag } from "@/components/ui/tag"
+import { Skeleton } from "@/components/ui/skeleton"
 import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
 import { MetricCard } from "@/components/ui/metric-card"
 import { AppLayout } from "@/components/layout/app-layout"
@@ -193,6 +194,7 @@ function App() {
   const [hasGradientBorder, setHasGradientBorder] = useState(true)
   const [hasElevation, setHasElevation] = useState(true)
   const [hasGlow, setHasGlow] = useState(false)
+  const [isSkeletonLoading, setIsSkeletonLoading] = useState(true)
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark"
@@ -993,6 +995,193 @@ function App() {
                 <Tag variant="pink" size="lg">Large Tag</Tag>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Skeleton Screens & Loading Performance (NN/g + OKLCH Model) */}
+        <section className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold font-display tracking-tight text-foreground">
+                  Skeleton Screens & Percepção de Performance
+                </h2>
+                <Badge variant="info" size="sm">NN/g + Shimmer Direcional</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Transição suave de carregamento no sentido de leitura da esquerda para a direita (1.8s) com paridade geométrica rigorosa (0px CLS).
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 p-1.5 px-3 rounded-(--tc-radius-md) bg-surface-card border border-border shrink-0 self-start sm:self-auto">
+              <span className="text-xs font-semibold text-foreground">Simular Carregamento</span>
+              <Switch
+                checked={isSkeletonLoading}
+                onCheckedChange={setIsSkeletonLoading}
+                aria-label="Alternar estado de carregamento"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            {/* 1. Metric Card Skeleton vs Real */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border flex flex-col justify-between gap-5 h-full">
+              <div className="flex items-center justify-between">
+                <span className="type-ui-dense font-semibold text-muted-foreground">Card de Métrica (KPI)</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">h-4 / h-8 / rounded-full</span>
+              </div>
+
+              {isSkeletonLoading ? (
+                <div aria-busy="true" aria-live="polite" className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-8 w-8 rounded-md" />
+                  </div>
+                  <Skeleton className="h-9 w-36" />
+                  <div className="flex items-center justify-between pt-2">
+                    <Skeleton className="h-5 w-24 rounded-full" />
+                    <Skeleton className="h-6 w-20" />
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4 animate-in fade-in duration-300">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground font-medium">Receita Recorrente</span>
+                    <div className="w-8 h-8 rounded-md bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
+                      <DollarSign className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <span className="text-3xl font-bold font-display text-foreground tracking-tight">R$ 48.920</span>
+                  <div className="flex items-center justify-between pt-2">
+                    <Badge variant="success" size="sm">+14.2%</Badge>
+                    <span className="text-xs text-muted-foreground font-mono">vs mês anterior</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 2. User Profile Card Skeleton vs Real */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border flex flex-col justify-between gap-5 h-full">
+              <div className="flex items-center justify-between">
+                <span className="type-ui-dense font-semibold text-muted-foreground">Card de Usuário / Equipe</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">rounded-full / w-12</span>
+              </div>
+
+              {isSkeletonLoading ? (
+                <div aria-busy="true" aria-live="polite" className="space-y-4">
+                  <div className="flex items-center gap-3.5">
+                    <Skeleton className="w-12 h-12 rounded-full shrink-0" />
+                    <div className="space-y-2 flex-1 min-w-0">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </div>
+                  </div>
+                  <Skeleton className="h-9 w-full rounded-md" />
+                </div>
+              ) : (
+                <div className="space-y-4 animate-in fade-in duration-300">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold font-display flex items-center justify-center text-sm shrink-0">
+                      JD
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="font-semibold text-sm text-foreground truncate">Jefferson Domingos</span>
+                      <span className="text-xs text-muted-foreground truncate">Product Engineer · Admin</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Gerenciar Permissões
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            {/* 3. Form Input Skeleton vs Real */}
+            <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border flex flex-col justify-between gap-5 h-full">
+              <div className="flex items-center justify-between">
+                <span className="type-ui-dense font-semibold text-muted-foreground">Formulário / Ação</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">h-10 input / CTA</span>
+              </div>
+
+              {isSkeletonLoading ? (
+                <div aria-busy="true" aria-live="polite" className="space-y-3.5">
+                  <div className="space-y-2">
+                    <Skeleton className="h-3.5 w-20" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+                  <div className="flex gap-2">
+                    <Skeleton className="h-9 w-20 rounded-md" />
+                    <Skeleton className="h-9 w-28 rounded-md" />
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-3.5 animate-in fade-in duration-300">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-foreground">Nome do Projeto</label>
+                    <Input defaultValue="Joinha Design System" />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">Cancelar</Button>
+                    <Button variant="primary" size="sm">Salvar Alterações</Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Table Rows Skeleton */}
+          <div className="p-6 rounded-(--tc-radius-lg) surface-card border border-border space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="type-ui-dense font-semibold text-muted-foreground">Linhas de Tabela Orgânicas (Simulação com Larguras Naturais)</span>
+              <Badge variant="neutral" size="sm">3 Linhas de Dados</Badge>
+            </div>
+
+            {isSkeletonLoading ? (
+              <div aria-busy="true" aria-live="polite" className="space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-center justify-between gap-4 p-3 rounded-md bg-surface-elevated/40 border border-border/40">
+                    <div className="flex items-center gap-3 flex-1">
+                      <Skeleton className="w-8 h-8 rounded-full shrink-0" />
+                      <div className="space-y-1.5 flex-1 max-w-[200px]">
+                        <Skeleton className="h-3.5 w-full" />
+                        <Skeleton className="h-2.5 w-2/3" />
+                      </div>
+                    </div>
+                    <Skeleton className="h-5 w-20 rounded-sm hidden sm:block" />
+                    <Skeleton className="h-5 w-16 rounded-full hidden sm:block" />
+                    <Skeleton className="h-4 w-24 font-mono hidden md:block" />
+                    <Skeleton className="h-8 w-8 rounded-md shrink-0" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-3 animate-in fade-in duration-300">
+                {[
+                  { name: "Acme Corp", email: "contact@acme.com", plan: "Enterprise", status: "Ativo", mrr: "R$ 4.200,00" },
+                  { name: "Fintech Horizon", email: "billing@horizon.io", plan: "Pro", status: "Em Teste", mrr: "R$ 1.890,00" },
+                  { name: "Nexus Lab", email: "ops@nexus.dev", plan: "Starter", status: "Ativo", mrr: "R$ 490,00" },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between gap-4 p-3 rounded-md bg-surface-elevated/40 border border-border/40">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground font-bold text-xs flex items-center justify-center shrink-0 border border-border">
+                        {item.name.charAt(0)}
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-semibold text-xs text-foreground truncate">{item.name}</span>
+                        <span className="text-[11px] text-muted-foreground truncate">{item.email}</span>
+                      </div>
+                    </div>
+                    <Tag variant="purple" size="sm" className="hidden sm:inline-flex">{item.plan}</Tag>
+                    <Badge variant={item.status === "Ativo" ? "success" : "info"} size="sm" className="hidden sm:inline-flex">{item.status}</Badge>
+                    <span className="text-xs font-mono font-medium text-foreground hidden md:block">{item.mrr}</span>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
         </div>

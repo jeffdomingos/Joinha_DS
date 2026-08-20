@@ -266,6 +266,16 @@
       "registryDependencies": [
         "utils"
       ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Accessible directional shimmer skeleton screen component calibrated for OKLCH luminance elevation.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
     }
   ]
 }

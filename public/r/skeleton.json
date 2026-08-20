@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "Accessible directional shimmer skeleton screen component calibrated for OKLCH luminance elevation.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/skeleton.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {}\n\nexport function Skeleton({ className, ...props }: SkeletonProps) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"skeleton-shimmer rounded-md pointer-events-none select-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n"
+    }
+  ]
+}

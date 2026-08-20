@@ -139,6 +139,25 @@
   --tc-shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.1), 0 4px 6px -4px oklch(0% 0 0 / 0.1);
   --tc-shadow-glow: 0 0 0 2px oklch(0% 0 0 / 0), 0 0 12px 0 var(--tc-brand-500);
 
+  /* --- SPACING & BOX MODEL --- */
+  --tc-control-h-sm: 2rem;
+  --tc-control-h-md: 2.25rem;
+  --tc-control-h-lg: 2.5rem;
+  
+  --tc-control-px-sm: 0.625rem;
+  --tc-control-px-md: 0.75rem;
+  --tc-control-px-lg: 1rem;
+  
+  --tc-floating-container-p: 0.375rem;
+  --tc-floating-item-px: 0.625rem;
+  --tc-floating-item-py: 0.375rem;
+  --tc-floating-item-gap: 0.5rem;
+  --tc-floating-min-w: 12.5rem;
+  
+  --tc-form-stack-gap: 1rem;
+  --tc-form-label-gap: 0.375rem;
+  --tc-card-p: 1.5rem;
+
   /* ========================================================
      2. SEMANTIC TOKENS (Dark Mode Default)
      ======================================================== */

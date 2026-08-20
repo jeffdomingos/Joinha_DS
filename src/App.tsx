@@ -60,24 +60,24 @@ function App() {
         <section className="space-y-6">
           <h2 className="text-xl font-semibold border-b border-border pb-2">Forms & Inputs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4 surface-card surface-base shadow-sm">
-              <div className="space-y-2">
+            <div className="flex flex-col gap-form-stack-gap surface-card surface-base shadow-sm p-card-p">
+              <div className="flex flex-col gap-form-label-gap">
                 <label className="type-ui-dense font-semibold">Standard Input</label>
                 <Input placeholder="Enter your text here..." />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-form-label-gap">
                 <label className="type-ui-dense font-semibold">Error State</label>
                 <Input placeholder="Invalid input" error />
                 <p className="text-xs text-destructive">This field is required.</p>
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-form-label-gap">
                 <label className="type-ui-dense font-semibold">Numeric (tabular-nums)</label>
                 <Input type="number" placeholder="0.00" className="type-data-mono" />
               </div>
             </div>
 
-            <div className="space-y-4 surface-card surface-panel shadow-md">
-              <div className="space-y-2">
+            <div className="flex flex-col gap-form-stack-gap surface-card surface-panel shadow-md p-card-p">
+              <div className="flex flex-col gap-form-label-gap">
                 <label className="type-ui-dense font-semibold">Select</label>
                 <Select>
                   <SelectTrigger>
@@ -91,9 +91,9 @@ function App() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
+              <div className="flex flex-col gap-form-label-gap">
                 <label className="type-ui-dense font-semibold">Inline Form Action</label>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-floating-item-gap">
                   <Input placeholder="Email address" />
                   <Button variant="primary">Subscribe</Button>
                 </div>
@@ -109,21 +109,21 @@ function App() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  Options <MoreHorizontal className="w-4 h-4 ml-2" />
+                  Options <MoreHorizontal className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
+              <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <FileEdit className="w-4 h-4 mr-2" /> Edit Profile
+                  <FileEdit className="w-4 h-4" /> Edit Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Download className="w-4 h-4 mr-2" /> Download Data
+                  <Download className="w-4 h-4" /> Download Data
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-destructive focus:bg-destructive focus:text-destructive-foreground">
-                  <Trash className="w-4 h-4 mr-2" /> Delete Account
+                  <Trash className="w-4 h-4" /> Delete Account
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

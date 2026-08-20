@@ -2,6 +2,20 @@
 
 Bem-vindo ao **Tem Como: Joinha DS**, a arquitetura de base para nossas ferramentas de gestão e produtos SaaS. Este documento estabelece as regras estritas de uso de cores, convenções de nomenclatura e diretrizes para implementação.
 
+### Os 3 Pilares Principais
+1. **Tipografia Modular & Acessível:** `rem` para dimensionamento, entrelinhas fixas por token.
+2. **Cores Semânticas OKLCH:** Contraste mínimo estrito, mapeamento 1-para-1 com intenção (ex: `--status-danger-bg`).
+3. **Componentes Agentes-First:** Tags HTML previsíveis e utilitários limitados, evitando *spaghetti css* de IAs.
+
+## 📐 Diretrizes Globais de Box Model e Espaçamento
+
+Para manter uma densidade previsível de SaaS (como ferramentas profissionais) e evitar componentes quebrados criados por agentes de IA, todas as margens e paddings estão restritas à **Matriz Global de Espaçamento**. É obrigatório seguir as "4 Leis do Box Model":
+
+1. **Lei da Zona de Proteção (Safe Padding):** Nenhum texto ou elemento filho pode ter menos de `10px` a `12px` de distância da borda lateral do componente pai. Utilize os tokens `--tc-control-px-*`.
+2. **Lei dos Menus Flutuantes:** Dropdowns, Popovers, Context Menus e Tooltips **NUNCA** renderizam texto diretamente encostado na borda do container. O overlay pai deve sempre receber `--tc-floating-container-p` (padding interno mínimo) e os itens clicáveis filhos devem receber `--tc-floating-item-*` com raio `--radius-sm`.
+3. **Lei do Alinhamento de Controles:** Inputs, Botões, Selects e Triggers adjacentes na mesma linha **DEVEM compartilhar a mesma altura semântica** (`--tc-control-h-md` na maioria das vezes) e o mesmo raio de borda (`--radius-md`).
+4. **Lei dos Agrupamentos Flex:** Todo componente composto (ex: ícone + texto, input + botão) deve ser construído com `flex items-center` (ou `flex-row` no CSS base) acompanhado de um `gap` proporcional explícito. **É estritamente proibido** o uso de margens direcionais (`margin-right` ou `margin-left`) no filho para empurrar conteúdo.
+
 ## 🎨 Arquitetura de Cores (OKLCH)
 
 Nosso sistema utiliza **OKLCH** para garantir percepção de cor uniforme. O tema primário e padrão é o **Dark Mode**, com cores neutras que contêm um leve aquecimento cromático para harmonizar com nossa marca (Laranja #e27100).

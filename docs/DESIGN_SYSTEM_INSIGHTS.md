@@ -47,9 +47,35 @@ Estipulamos a proporção matemática estrita de superfícies para evitar a polu
 
 1. **60% Dominante (Superfícies Neutras):** Fundo de telas, canvas, cartões e modais (`bg-background`, `bg-surface`, `bg-surface-elevated`).
 2. **30% Estrutura Secundária (Neutros de Apoio):** Bordas, divisores, hovers, textos muted e ícones decorativos (`border-border`, `bg-surface-hover`, `text-muted-foreground`).
-3. **10% Accent (Laranja da Marca - `#e27100` / `bg-primary`):** Reservado **EXCLUSIVAMENTE** para orientar a próxima ação do usuário.
+3. **10% Accent (Laranja da Marca - `#e27100` / `bg-primary`):** Reservado para orientar a intenção do usuário, em dois regimes distintos de intensidade:
 
-> **Regra de Ouro:** A cor Laranja nunca é usada para decorar a interface (como em ícones de títulos, bordas passivas ou tags informativas). Se o elemento não for um gatilho de ação principal (`Button primary`), um estado de seleção ativa (`data-active="true"`, `checked`) ou anel de foco por teclado (`focus-visible`), ele **é obrigatoriamente resolvido na escala neutra**.
+> **Regra de Ouro — Decoração vs. Intenção:** A cor Laranja nunca é usada para decorar a interface (como em ícones de títulos, bordas passivas ou tags informativas). Se o elemento não for um gatilho de ação (`Button primary`), um estado de seleção ativa ou anel de foco por teclado (`focus-visible`), ele **é obrigatoriamente resolvido na escala neutra**.
+
+### Os Dois Regimes de Accent
+
+| Regime | Uso | Intensidade | Exemplos |
+|---|---|---|---|
+| **Accent de Ação** | Guia a *próxima* ação — futuro-orientado | Sólido, 100% (`bg-primary`, `text-primary`) | `Button primary`, `Checkbox checked`, `Switch on` |
+| **Accent de Orientação** | Mostra *onde o usuário está* — presente-orientado | Suave, single anchor (`border-primary` OU ícone `text-primary`) | Nav item ativo, sub-item ativo, coluna ordenada |
+
+### Regra "Single Accent Anchor" (Estados de Orientação)
+
+Em estados de seleção/ativo que comunicam posição (não ação), o accent deve aparecer em **apenas um vetor visual**. Usar fundo + texto + borda simultaneamente com laranja aumenta o "chroma weight" sem acrescentar semântica — apenas polui:
+
+```
+✅ CORRETO — Single Anchor:
+   Nav item ativo → ícone laranja (text-primary) + bg-surface-hover + text-foreground + border-border-strong
+   Sub-item ativo → border-l-2 border-primary + bg-surface-hover + text-foreground (borda é o anchor)
+   Coluna ordenada → ícone ArrowUp/Down text-primary (único vetor, correto)
+   Pagination ativa → bg-surface-elevated + font-bold + border-border-strong (sem laranja, distinção por elevação)
+
+❌ ERRADO — Multi-Anchor redundante:
+   Nav item ativo → bg-primary/10 + text-primary + border-primary/30 (3 vetores laranja simultâneos)
+   Sub-item ativo → bg-primary/10 + text-primary + border-l-2 border-primary (idem)
+   Pagination ativa → bg-primary/10 + text-primary + border-primary/50 (idem)
+```
+
+
 
 ---
 

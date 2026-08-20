@@ -52,7 +52,7 @@ const PaginationLink = ({
         size,
       }),
       "h-8 min-w-8 text-xs font-mono select-none cursor-pointer flex items-center justify-center",
-      isActive && "border-primary/50 text-primary bg-primary/10 font-bold",
+      isActive && "border-border-strong text-foreground bg-surface-elevated font-bold",
       className
     )}
     {...props}

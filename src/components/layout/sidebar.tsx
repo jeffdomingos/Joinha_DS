@@ -180,7 +180,7 @@ export const SidebarMenuSubButton = React.forwardRef<
     className={cn(
       "w-full text-left px-2 py-1 type-body-sm text-[11px] rounded-(--tc-radius-sm) transition-colors flex items-center justify-between cursor-pointer group",
       isActive
-        ? "bg-primary/10 text-primary font-semibold border-l-2 border-primary -ml-[2px]"
+        ? "bg-surface-hover text-foreground font-semibold border-l-2 border-primary -ml-[2px]"
         : "text-muted-foreground hover:text-foreground hover:bg-surface-hover",
       className
     )}

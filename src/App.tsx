@@ -12,7 +12,6 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { Badge } from "@/components/ui/badge"
 import {
   LayoutDashboard,
   BookOpen,
@@ -169,25 +168,6 @@ export function App() {
       activeNavItem={activeNavItem}
       onSelectNavItem={handleSelectNav}
     >
-      {/* Top Hero Header */}
-      <div className="border-b border-border pb-5 mb-8">
-        <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
-            {viewMode === "docs" && "Joinha Design System — Documentação"}
-            {viewMode === "lab" && "Laboratório de Componentes (Live Labs)"}
-            {viewMode === "templates-dashboard" && "Template: SaaS Executive Dashboard"}
-          </h1>
-          {viewMode === "docs" && <Badge variant="info" size="sm">v1.0.0 Oficial</Badge>}
-          {viewMode === "lab" && <Badge variant="info" size="sm">50 Componentes</Badge>}
-          {viewMode === "templates-dashboard" && <Badge variant="success" size="sm">Template Live</Badge>}
-        </div>
-        <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-3xl">
-          {viewMode === "docs" && "Fundamentos de design, tokens em OKLCH, física de luz dark-first, padrões XAI e compêndio de engenharia."}
-          {viewMode === "lab" && "Explore os 50 componentes modulares, teste variantes interativamente e copie comandos de instalação via CLI."}
-          {viewMode === "templates-dashboard" && "Aplicação SaaS de referência 100% construída com componentes do Joinha DS para validação de composição e densidade."}
-        </p>
-      </div>
-
       {/* Main View Router */}
       {viewMode === "docs" && (
         <DocsWikiView

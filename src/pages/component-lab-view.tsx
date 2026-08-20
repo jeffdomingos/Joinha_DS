@@ -952,15 +952,8 @@ export function ComponentLabView({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2">
-          {onOpenCommand && (
-            <Button variant="outline" size="sm" onClick={onOpenCommand} className="gap-1.5 text-xs font-sans">
-              <Search className="w-3.5 h-3.5" />
-              <span>Buscar Componente</span>
-              <kbd className="font-mono text-[10px] bg-muted/80 px-1 py-0.5 rounded border border-border/60 text-muted-foreground">⌘K</kbd>
-            </Button>
-          )}
           {onStartTour && (
-            <Button variant="primary" size="sm" onClick={onStartTour} className="gap-1.5 text-xs font-semibold">
+            <Button variant="primary" size="sm" onClick={onStartTour} className="gap-1.5 text-xs font-semibold cursor-pointer">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Tour Interativo</span>
             </Button>

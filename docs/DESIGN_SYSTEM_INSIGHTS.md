@@ -125,7 +125,7 @@ Texto claro sobre fundo escuro difrata nos olhos humanos e parece até 10% mais 
 
 | Nível | Família | Papel Semântico | Regra Obrigatória |
 | :--- | :--- | :--- | :--- |
-| **Display** | `Cabin` | Headings, hero metrics, títulos de seções | Gill Sans Heritage, tracking tight |
+| **Display** | `Cabin` | Headings, hero metrics, títulos de seções | Tracking tight |
 | **Interface** | `Plus Jakarta Sans` | Corpo de texto, botões, formulários, badges | Alta legibilidade em corpos densos |
 | **Dados** | `JetBrains Mono` | Colunas de tabelas, moedas, métricas, atalhos | **Obrigatoriedade de `tabular-nums`** para alinhamento vertical exato de dígitos |
 

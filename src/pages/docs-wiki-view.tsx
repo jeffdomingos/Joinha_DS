@@ -133,7 +133,7 @@ export function DocsWikiView({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-0 md:divide-x md:divide-border/40">
               <div className="space-y-2 md:pr-8">
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Display / Títulos</span>
-                <p className="text-2xl font-bold font-display text-foreground tracking-tight">Cabin (Gill Sans)</p>
+                <p className="text-2xl font-bold font-display text-foreground tracking-tight">Cabin</p>
                 <p className="text-xs text-muted-foreground">Títulos de páginas, cabeçalhos de seções e valores numéricos em destaque hero.</p>
               </div>
 

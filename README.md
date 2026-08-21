@@ -71,7 +71,7 @@ O índice completo de componentes e metadados está disponível em [`public/r/in
 ### 2. Tipografia em 3 Níveis
 | Papel | Família | Propósito |
 | :--- | :--- | :--- |
-| **Display / Headings** | `Cabin` (Gill Sans Heritage) | Títulos, cabeçalhos de páginas e métricas hero. |
+| **Display / Headings** | `Cabin` | Títulos, cabeçalhos de páginas e métricas hero. |
 | **UI / Body** | `Plus Jakarta Sans` | Textos de corpo, botões, formulários, badges e tabelas. |
 | **Data / Numbers** | `JetBrains Mono` | Colunas financeiras, contadores, timestamps e atalhos (`⌘K`). |
 

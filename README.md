@@ -84,7 +84,7 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 
 ---
 
-## 🧩 Catálogo de Componentes e Blocos (50 Componentes)
+## 🧩 Catálogo de Componentes e Blocos (47 Componentes)
 
 ### UI Primitives & Controles
 - **`Button`**: Variantes `primary`, `secondary`, `outline`, `ghost`, `destructive` e `navItem` (contorno sem preenchimento no hover, ativação com `isActive`).
@@ -132,9 +132,10 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 ### Enterprise Layout Engine & Painéis Densos
 - **`Resizable` (`<ResizablePanelGroup />`)**: Painéis redimensionáveis Master-Detail baseados em `react-resizable-panels`.
 - **`FloatingToolbar`**: Dock flutuante glassmorphic persistente com atalhos de densidade, tema, busca `⌘K` e minimizador.
-- **`Sidebar`**: Barra lateral expansível (256px) e retrátil em trilho (68px).
+- **`Sidebar`**: Barra lateral redimensionável por arrasto, navegação em drill-down (grupos → itens) e colapso total via `react-resizable-panels`.
 - **`Header`**: Cabeçalho global com breadcrumbs, busca rápida `⌘K`, central de notificações, alternador de tema e densidade.
-- **`AppLayout`**: Shell mestre integrando Sidebar, Header global e área responsiva com drawer mobile.
+- **`AppLayout`**: Shell mestre integrando Sidebar, Header global, área responsiva com drawer mobile e o watermark de atribuição.
+- **`Attribution`**: Rodapé de crédito discreto ("Powered by...") que abre um diálogo "Sobre" com produto, estúdio, desenvolvedor e contatos — embutido automaticamente no `AppLayout`.
 
 ### XAI (Explainable AI) & Padrões Human-in-the-Loop (HITL)
 - **`ConfidenceMeter` & `ReasoningTrace`**: Score de certeza matemática da IA com cadeia de raciocínio (*Chain-of-Thought*) e fontes citadas.

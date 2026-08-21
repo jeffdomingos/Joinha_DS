@@ -81,6 +81,7 @@ import { HintBeacon } from "@/components/ui/hint-beacon"
 import { BannerAnnouncement } from "@/components/ui/banner-announcement"
 import { PersonaSelector } from "@/components/ui/persona-selector"
 import { BrandSymbol } from "@/components/ui/brand-symbol"
+import { DSAttribution } from "@/components/ui/attribution"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -511,7 +512,7 @@ export function ComponentLabView({
       ),
     },
 
-    // --- 2. NAVIGATION & LAYOUT (10) ---
+    // --- 2. NAVIGATION & LAYOUT (11) ---
     {
       id: "tabs",
       name: "Tabs",
@@ -664,6 +665,15 @@ export function ComponentLabView({
       renderPreview: () => (
         <span className="text-xs font-medium text-muted-foreground">Header com Breadcrumbs</span>
       ),
+    },
+    {
+      id: "attribution",
+      name: "Attribution",
+      cliName: "attribution",
+      category: "nav_layout",
+      categoryLabel: "Layout & Nav",
+      description: "Rodapé de crédito discreto que abre um diálogo 'Sobre' com produto, estúdio, desenvolvedor e contatos.",
+      renderPreview: () => <DSAttribution productName="Preview" />,
     },
 
     // --- 3. DATA VISUALIZATION (7) ---
@@ -930,12 +940,12 @@ export function ComponentLabView({
   }
 
   const categories = [
-    { id: "all", label: "Todos (50)", count: componentCatalog.length },
+    { id: "all", label: `Todos (${componentCatalog.length})`, count: componentCatalog.length },
     { id: "primitives", label: "Primitivos & Controles", count: 18 },
-    { id: "nav_layout", label: "Navegação & Layout", count: 10 },
+    { id: "nav_layout", label: "Navegação & Layout", count: 11 },
     { id: "data_viz", label: "Visualização de Dados", count: 7 },
     { id: "onboarding", label: "Onboarding UX", count: 5 },
-    { id: "xai_hitl", label: "XAI & HITL", count: 5 },
+    { id: "xai_hitl", label: "XAI & HITL", count: 6 },
   ]
 
   // REACTIVE FILTERING LOGIC

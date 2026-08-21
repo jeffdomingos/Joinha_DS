@@ -606,6 +606,48 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     ],
   },
 
+  attribution: {
+    id: "attribution",
+    name: "Attribution",
+    cliName: "attribution",
+    category: "nav_layout",
+    categoryLabel: "Navegação & Layout",
+    description: "Rodapé de crédito discreto ('Powered by...') que abre um diálogo 'Sobre' com produto, estúdio, desenvolvedor, contatos e direitos reservados.",
+    whenToUse: "Obrigatório em qualquer solução construída sobre o AppLayout — já vem embutido nele, não precisa ser adicionado manualmente. Não remova nem esconda ao customizar o shell.",
+    importStatement: `import { DSAttribution } from "@/components/ui/attribution"`,
+    usageCode: `<DSAttribution productName="Meu Produto" productId="MeuProduto" productVersion="v1.0" />`,
+    props: [
+      { name: "productName", type: "string", defaultValue: '"Joinha DS"', description: "Nome do produto/app construído sobre o DS. Exibido ao usuário — cada projeto rebranda isso." },
+      { name: "productId", type: "string", defaultValue: "productName sem espaços", description: "Slug URL-safe usado no link rastreável jeffdomingos.com/to/{productId}. O rótulo visível continua só 'jeffdomingos.com'." },
+      { name: "productVersion", type: "string", defaultValue: '"v1.0"', description: "Versão exibida no diálogo 'Sobre'." },
+    ],
+    accessibility: {
+      role: "dialog",
+      wcagLevel: "AA",
+      ariaAttributes: [
+        { attribute: "role=dialog", purpose: "O conteúdo 'Sobre' é um Dialog Radix com foco preso e retorno de foco ao fechar." },
+      ],
+    },
+    subComponents: [
+      {
+        name: "DSAttribution",
+        level: "molecule",
+        description: "Botão de rodapé mudo + Dialog com identidade completa (estúdio, desenvolvedor, e-mail, site, Instagram, GitHub, direitos reservados).",
+        tokensUsed: ["--text-muted", "--brand-mark", "<Dialog>"],
+      },
+    ],
+    examples: [
+      {
+        title: "Crédito Padrão do Joinha DS",
+        code: `<DSAttribution />`,
+      },
+      {
+        title: "Produto Rebrandado com Tracking",
+        code: `<DSAttribution productName="Acme SaaS" productId="AcmeSaaS" />`,
+      },
+    ],
+  },
+
   header: {
     id: "header",
     name: "Header",

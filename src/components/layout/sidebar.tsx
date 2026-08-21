@@ -378,7 +378,7 @@ const defaultNavGroups: NavGroup[] = [
         id: "lab-all",
         label: "Galeria Geral (Showcase)",
         icon: Layers,
-        badge: { text: "50", variant: "neutral" },
+        badge: { text: "47", variant: "neutral" },
       },
       {
         id: "template-dashboard",
@@ -428,6 +428,7 @@ const defaultNavGroups: NavGroup[] = [
       { id: "comp-empty-state", label: "EmptyState", icon: LayoutGrid },
       { id: "comp-banner-announcement", label: "BannerAnnouncement", icon: LayoutGrid },
       { id: "comp-floating-toolbar", label: "FloatingToolbar", icon: LayoutGrid },
+      { id: "comp-attribution", label: "Attribution", icon: LayoutGrid },
     ],
   },
   {

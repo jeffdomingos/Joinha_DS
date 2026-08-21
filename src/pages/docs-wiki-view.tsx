@@ -73,7 +73,7 @@ export function DocsWikiView({
                   <Sparkles className="w-3 h-3" />
                   Joinha DS Wiki v1.0
                 </Badge>
-                <Tag variant="gray" size="sm">50 Componentes</Tag>
+                <Tag variant="gray" size="sm">47 Componentes</Tag>
                 <Tag variant="gray" size="sm">OKLCH Perceptual</Tag>
                 <Tag variant="gray" size="sm">WCAG 2.2 AA</Tag>
               </div>

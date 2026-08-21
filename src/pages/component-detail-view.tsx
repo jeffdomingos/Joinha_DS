@@ -104,6 +104,7 @@ import { PersonaSelector } from "@/components/ui/persona-selector"
 import { OnboardingChecklist } from "@/components/ui/onboarding-checklist"
 import { Header } from "@/components/layout/header"
 import { Sidebar } from "@/components/layout/sidebar"
+import { DSAttribution } from "@/components/ui/attribution"
 import {
   Table,
   TableHeader,
@@ -449,6 +450,12 @@ export function ComponentDetailView({
               onToggleTheme={() => toast.info("Alternador de tema clicado")}
               onOpenCommand={() => toast.info("Gatilho ⌘K clicado")}
             />
+          </div>
+        )
+      case "attribution":
+        return (
+          <div className="w-full flex items-center justify-center p-4">
+            <DSAttribution productName="Preview" productId="ComponentPreview" />
           </div>
         )
       case "sidebar":

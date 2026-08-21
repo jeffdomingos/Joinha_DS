@@ -378,7 +378,7 @@ const defaultNavGroups: NavGroup[] = [
         id: "lab-all",
         label: "Galeria Geral (Showcase)",
         icon: Layers,
-        badge: { text: "47", variant: "neutral" },
+        badge: { text: "48", variant: "neutral" },
       },
       {
         id: "template-dashboard",
@@ -393,6 +393,8 @@ const defaultNavGroups: NavGroup[] = [
     section: "Componentes",
     icon: Box,
     items: [
+      { id: "comp-accordion", label: "Accordion", icon: Box },
+      { id: "comp-alert", label: "Alert", icon: Box },
       { id: "comp-button", label: "Button", icon: Box },
       { id: "comp-input", label: "Input", icon: Box },
       { id: "comp-textarea", label: "Textarea", icon: Box },
@@ -463,6 +465,7 @@ const defaultNavGroups: NavGroup[] = [
     icon: Sparkles,
     items: [
       { id: "comp-confidence-meter", label: "ConfidenceMeter", icon: Sparkles },
+      { id: "comp-reasoning-trace", label: "ReasoningTrace", icon: Sparkles },
       { id: "comp-hitl-approval-banner", label: "HITLApprovalBanner", icon: Sparkles },
       { id: "comp-ai-diff-viewer", label: "AIDiffViewer", icon: Sparkles },
       { id: "comp-agent-status-hud", label: "AgentStatusHUD", icon: Sparkles },

@@ -160,7 +160,7 @@ export function App() {
       case "docs-cli":
         return [{ label: "Documentação" }, { label: "Instalação via Shadcn CLI" }]
       case "lab-primitives":
-        return [{ label: "Component Lab" }, { label: "Primitivos & Controles (18)" }]
+        return [{ label: "Component Lab" }, { label: "Primitivos & Controles (19)" }]
       case "lab-layout":
         return [{ label: "Component Lab" }, { label: "Navegação & Layout (11)" }]
       case "lab-data":
@@ -172,7 +172,7 @@ export function App() {
       case "template-dashboard":
         return [{ label: "Templates" }, { label: "SaaS Executive Dashboard" }]
       default:
-        return [{ label: "Component Lab" }, { label: "Galeria Geral (47)" }]
+        return [{ label: "Component Lab" }, { label: "Galeria Geral (48)" }]
     }
   }
 
@@ -283,7 +283,7 @@ export function App() {
           <CommandGroup heading="Laboratório & Galeria">
             <CommandItem onSelect={() => { setViewMode("lab"); setLabCategory("all"); setActiveNavItem("lab-all"); setOpenCommand(false); }}>
               <Layers className="mr-2 h-4 w-4 text-primary" />
-              <span>Galeria Geral (Todos os 47 Componentes)</span>
+              <span>Galeria Geral (Todos os 48 Componentes)</span>
             </CommandItem>
           </CommandGroup>
 

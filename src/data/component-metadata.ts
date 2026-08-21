@@ -1407,6 +1407,32 @@ export const COMPONENT_METADATA_MAP: Record<string, ComponentMetadata> = {
     ],
   },
 
+  "reasoning-trace": {
+    id: "reasoning-trace",
+    name: "ReasoningTrace",
+    cliName: "confidence-meter",
+    category: "xai_hitl",
+    categoryLabel: "XAI & HITL",
+    description: "Acordeão de rastreamento do raciocínio lógico (Chain-of-Thought) passo a passo de um agente de IA.",
+    whenToUse: "Detalhar, passo a passo, a cadeia de raciocínio (Chain-of-Thought) que levou um agente de IA a uma conclusão.",
+    importStatement: `import { ReasoningTrace } from "@/components/ui/confidence-meter"`,
+    usageCode: `<ReasoningTrace steps={[{ label: "Consultando base de conhecimento", detail: "4 fontes analisadas" }]} executionTimeMs={42} />`,
+    props: [
+      { name: "steps", type: "ReasoningStep[]", description: "Passos sequenciais do raciocínio." },
+      { name: "executionTimeMs", type: "number", description: "Tempo total de execução em milissegundos." },
+    ],
+    accessibility: {
+      role: "group",
+      wcagLevel: "AA",
+    },
+    examples: [
+      {
+        title: "Rastreamento de 1 Passo",
+        code: `<ReasoningTrace steps={[{ label: "Consultando base de conhecimento" }]} executionTimeMs={42} />`,
+      },
+    ],
+  },
+
   "hitl-approval-banner": {
     id: "hitl-approval-banner",
     name: "HITLApprovalBanner",

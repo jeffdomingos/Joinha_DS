@@ -84,7 +84,7 @@ O arquivo [`design-system.md`](./design-system.md) serve como fonte única de ve
 
 ---
 
-## 🧩 Catálogo de Componentes e Blocos (47 Componentes)
+## 🧩 Catálogo de Componentes e Blocos (48 Componentes)
 
 ### UI Primitives & Controles
 - **`Button`**: Variantes `primary`, `secondary`, `outline`, `ghost`, `destructive` e `navItem` (contorno sem preenchimento no hover, ativação com `isActive`).

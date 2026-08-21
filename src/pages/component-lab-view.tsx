@@ -376,6 +376,19 @@ export function ComponentLabView({
       ),
     },
     {
+      id: "sonner",
+      name: "Sonner",
+      cliName: "sonner",
+      category: "primitives",
+      categoryLabel: "Primitivos",
+      description: "Gerenciador de notificações toast empilháveis com física fluida e cores semânticas OKLCH.",
+      renderPreview: () => (
+        <Button variant="outline" size="sm" onClick={() => toast.success("Dados atualizados!")}>
+          Disparar Toast
+        </Button>
+      ),
+    },
+    {
       id: "tooltip",
       name: "Tooltip",
       cliName: "tooltip",
@@ -941,7 +954,7 @@ export function ComponentLabView({
 
   const categories = [
     { id: "all", label: `Todos (${componentCatalog.length})`, count: componentCatalog.length },
-    { id: "primitives", label: "Primitivos & Controles", count: 18 },
+    { id: "primitives", label: "Primitivos & Controles", count: 19 },
     { id: "nav_layout", label: "Navegação & Layout", count: 11 },
     { id: "data_viz", label: "Visualização de Dados", count: 7 },
     { id: "onboarding", label: "Onboarding UX", count: 5 },

@@ -202,7 +202,7 @@ O Joinha DS é o design system oficial da **Tem Como**, estúdio de design e des
 
 - **Designer & Desenvolvedor:** Jeff Domingos
 - **E-mail:** [jeffsalb@gmail.com](mailto:jeffsalb@gmail.com)
-- **Website:** [jeffdomingos.com](https://jeffdomingos.com)
+- **Website:** [jeffdomingos.com/to/JoinhaDS](https://jeffdomingos.com/to/JoinhaDS)
 - **Instagram:** [@jeffdomingos.design](https://instagram.com/jeffdomingos.design)
 
 ## 📄 Licença

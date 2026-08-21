@@ -155,7 +155,7 @@ export function DocsWikiView({
             <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">Sobre</span>
             <p className="text-xs text-muted-foreground leading-relaxed">
               O Joinha DS é o design system oficial da <strong className="text-foreground font-semibold">Tem Como</strong>, estúdio de design e desenvolvimento de produtos fundado por{" "}
-              <a href="https://jeffdomingos.com" target="_blank" rel="noreferrer" className="text-foreground font-semibold hover:text-primary hover:underline">Jeff Domingos</a>.{" "}
+              <a href="https://jeffdomingos.com/to/JoinhaDS" target="_blank" rel="noreferrer" className="text-foreground font-semibold hover:text-primary hover:underline">Jeff Domingos</a>.{" "}
               <a href="https://instagram.com/jeffdomingos.design" target="_blank" rel="noreferrer" className="hover:text-primary hover:underline">@jeffdomingos.design</a>
               {" · "}
               <a href="mailto:jeffsalb@gmail.com" className="hover:text-primary hover:underline">jeffsalb@gmail.com</a>

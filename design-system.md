@@ -2,7 +2,7 @@
 
 Bem-vindo ao **Tem Como: Joinha DS**, a arquitetura de base para nossas ferramentas de gestão e produtos SaaS. Este documento estabelece as regras estritas de uso de cores, convenções de nomenclatura e diretrizes para implementação.
 
-O Joinha DS é o design system oficial da **Tem Como**, estúdio de design e desenvolvimento de produtos fundado por **Jeff Domingos** ([jeffdomingos.com](https://jeffdomingos.com) · [@jeffdomingos.design](https://instagram.com/jeffdomingos.design)).
+O Joinha DS é o design system oficial da **Tem Como**, estúdio de design e desenvolvimento de produtos fundado por **Jeff Domingos** ([jeffdomingos.com/to/JoinhaDS](https://jeffdomingos.com/to/JoinhaDS) · [@jeffdomingos.design](https://instagram.com/jeffdomingos.design)).
 
 ### Os 3 Pilares Principais
 1. **Tipografia Modular & Acessível:** `rem` para dimensionamento, entrelinhas fixas por token.

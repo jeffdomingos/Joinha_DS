@@ -15,6 +15,14 @@
       "registryDependencies": []
     },
     {
+      "name": "icons",
+      "type": "registry:ui",
+      "title": "Brand Icons",
+      "description": "Inline SVG brand-mark icons not covered by lucide-react (e.g. GitHub), shared across components instead of duplicated per usage site.",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
       "name": "tokens",
       "type": "registry:style",
       "title": "Joinha Tokens (OKLCH)",
@@ -241,7 +249,8 @@
         "button",
         "input",
         "dropdown-menu",
-        "badge"
+        "badge",
+        "icons"
       ]
     },
     {
@@ -282,7 +291,8 @@
       "registryDependencies": [
         "utils",
         "dialog",
-        "brand-symbol"
+        "brand-symbol",
+        "icons"
       ]
     },
     {

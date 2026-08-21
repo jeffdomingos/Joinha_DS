@@ -8,6 +8,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { BrandSymbol } from "@/components/ui/brand-symbol"
+import { GithubIcon } from "@/components/ui/icons"
 import { cn } from "@/lib/utils"
 
 /* ========================================================
@@ -23,6 +24,8 @@ const STUDIO = {
   websiteLabel: "jeffdomingos.com",
   instagram: "https://instagram.com/jeffdomingos.design",
   instagramHandle: "@jeffdomingos.design",
+  githubRepo: "https://github.com/jeffdomingos/Joinha_DS",
+  githubLabel: "jeffdomingos/Joinha_DS",
 } as const
 
 export interface DSAttributionProps {
@@ -59,7 +62,7 @@ export function DSAttribution({
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-sm">
-          <DialogHeader>
+          <DialogHeader className="space-y-2">
             <DialogTitle>Sobre o {productName}</DialogTitle>
             <DialogDescription>
               Construído com o <strong className="text-foreground">Joinha DS</strong> ({productVersion}), o design system oficial da{" "}
@@ -67,7 +70,7 @@ export function DSAttribution({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="flex items-stretch justify-between gap-4 pt-1">
+          <div className="flex items-stretch justify-between gap-4">
             <div className="space-y-3 text-xs flex-1 min-w-0">
               <div>
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">
@@ -102,6 +105,15 @@ export function DSAttribution({
                   <AtSign className="w-3.5 h-3.5 shrink-0" />
                   <span>{STUDIO.instagramHandle}</span>
                 </a>
+                <a
+                  href={STUDIO.githubRepo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <GithubIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{STUDIO.githubLabel}</span>
+                </a>
               </div>
             </div>
 
@@ -110,7 +122,7 @@ export function DSAttribution({
             </div>
           </div>
 
-          <p className="text-[11px] text-muted-foreground/70 leading-relaxed pt-2 mt-3 border-t border-border/60">
+          <p className="text-[11px] text-muted-foreground/70 leading-relaxed pt-3 border-t border-border/60">
             © {year} {STUDIO.studioName}. Todos os direitos reservados.
           </p>
         </DialogContent>

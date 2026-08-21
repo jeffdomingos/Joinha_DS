@@ -37,6 +37,21 @@ const registryItems = [
     ],
   },
   {
+    name: "icons",
+    type: "registry:ui",
+    title: "Brand Icons",
+    description: "Inline SVG brand-mark icons not covered by lucide-react (e.g. GitHub), shared across components instead of duplicated per usage site.",
+    dependencies: [],
+    registryDependencies: [],
+    files: [
+      {
+        path: "components/ui/icons.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/icons.tsx"),
+      },
+    ],
+  },
+  {
     name: "tokens",
     type: "registry:style",
     title: "Joinha Tokens (OKLCH)",
@@ -300,7 +315,7 @@ const registryItems = [
     title: "SaaS Header",
     description: "Global application header with breadcrumbs, quick search ⌘K, notifications, theme toggle and CTA.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["utils", "button", "input", "dropdown-menu", "badge"],
+    registryDependencies: ["utils", "button", "input", "dropdown-menu", "badge", "icons"],
     files: [
       {
         path: "components/layout/header.tsx",
@@ -345,7 +360,7 @@ const registryItems = [
     title: "DS Attribution",
     description: "Muted footer credit line that opens an 'About' dialog with product, studio, developer and contact info. Every solution built on the Joinha DS ships this.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["utils", "dialog", "brand-symbol"],
+    registryDependencies: ["utils", "dialog", "brand-symbol", "icons"],
     files: [
       {
         path: "components/ui/attribution.tsx",

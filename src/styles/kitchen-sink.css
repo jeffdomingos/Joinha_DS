@@ -1,4 +1,10 @@
 /* Reset & Base Kitchen Sink Styles (Removed unlayered * wildcard to not override Tailwind @layer utilities) */
+/* Wrapped in @layer components directly (not relying on the @import ... layer(components) modifier in
+   index.css, which was silently not applying — every rule in this file was leaking out unlayered and
+   therefore beating ALL Tailwind @layer utilities classes regardless of specificity, since unlayered
+   author CSS always wins over layered author CSS per the CSS Cascade spec. That's what caused e.g. the
+   bare `h2 { margin-top: 40px; margin-bottom: 20px }` below to override every Dialog title's margin. */
+@layer components {
 
 body {
   font-family: var(--tc-font-sans);
@@ -391,4 +397,6 @@ h2 {
     display: none !important;
   }
 }
+
+} /* end @layer components */
 

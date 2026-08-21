@@ -111,6 +111,13 @@ export function AppLayout({
             <div className="max-w-7xl mx-auto space-y-8">
               {children}
             </div>
+
+            {/* Footer credit — every solution built on the Joinha DS ships this. Lives in
+                the normal page flow (scrolls away with content), not pinned on screen; the
+                full credit (studio, developer, contacts, rights) lives behind the click. */}
+            <div className="max-w-7xl mx-auto mt-10 pt-4 border-t border-border/40 flex justify-end">
+              <DSAttribution productName={brandTitle} />
+            </div>
           </main>
         </ResizablePanel>
       </ResizablePanelGroup>
@@ -138,14 +145,6 @@ export function AppLayout({
           />
         </div>
       )}
-
-      {/* Attribution watermark — every solution built on the Joinha DS ships this.
-          Deliberately tiny and muted so it never competes with the product's own
-          chrome; the full credit (studio, developer, contacts, rights) lives behind
-          the click, in the "Sobre" dialog. */}
-      <div className="fixed bottom-2 right-3 z-10">
-        <DSAttribution productName={brandTitle} />
-      </div>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import type { PanelImperativeHandle } from "react-resizable-panels"
 import { Sidebar, SidebarCollapseTrigger } from "./sidebar"
 import { Header } from "./header"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
+import { DSAttribution } from "@/components/ui/attribution"
 import { cn } from "@/lib/utils"
 
 export interface AppLayoutProps {
@@ -137,6 +138,14 @@ export function AppLayout({
           />
         </div>
       )}
+
+      {/* Attribution watermark — every solution built on the Joinha DS ships this.
+          Deliberately tiny and muted so it never competes with the product's own
+          chrome; the full credit (studio, developer, contacts, rights) lives behind
+          the click, in the "Sobre" dialog. */}
+      <div className="fixed bottom-2 right-3 z-10">
+        <DSAttribution productName={brandTitle} />
+      </div>
     </div>
   )
 }

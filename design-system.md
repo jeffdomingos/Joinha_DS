@@ -4,6 +4,8 @@ Bem-vindo ao **Tem Como: Joinha DS**, a arquitetura de base para nossas ferramen
 
 O Joinha DS é o design system oficial da **Tem Como**, estúdio de design e desenvolvimento de produtos fundado por **Jeff Domingos** ([jeffdomingos.com/to/JoinhaDS](https://jeffdomingos.com/to/JoinhaDS) · [@jeffdomingos.design](https://instagram.com/jeffdomingos.design)).
 
+> **📌 Regra Obrigatória de Atribuição:** toda solução construída sobre o `AppLayout` do Joinha DS carrega o componente `<DSAttribution />` (`src/components/ui/attribution.tsx`) — um watermark discreto no canto da tela (`Powered by {produto} · © {ano} Tem Como`) que abre um diálogo "Sobre" com produto, estúdio, desenvolvedor, contatos e direitos reservados. Já vem embutido no `AppLayout`, então nenhum projeto novo precisa adicioná-lo manualmente — **não remova nem esconda esse componente** ao customizar o shell.
+
 ### Os 3 Pilares Principais
 1. **Tipografia Modular & Acessível:** `rem` para dimensionamento, entrelinhas fixas por token.
 2. **Cores Semânticas OKLCH:** Contraste mínimo estrito, mapeamento 1-para-1 com intenção (ex: `--status-danger-bg`).

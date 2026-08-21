@@ -285,7 +285,7 @@ const registryItems = [
     title: "SaaS Sidebar",
     description: "Collapsible SaaS navigation rail with workspaces, route groups, badges, and user profile footer.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["utils", "button", "badge", "tag", "dropdown-menu"],
+    registryDependencies: ["utils", "button", "badge", "tag", "dropdown-menu", "brand-symbol"],
     files: [
       {
         path: "components/layout/sidebar.tsx",
@@ -313,9 +313,9 @@ const registryItems = [
     name: "app-layout",
     type: "registry:block",
     title: "App Layout Shell",
-    description: "Unified master layout connecting sidebar, global header, and scrollable content area with mobile drawer.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["utils", "sidebar", "header"],
+    description: "Unified master layout connecting sidebar, global header, and scrollable content area with mobile drawer. Draggable/collapsible sidebar via react-resizable-panels, and ships the DS attribution watermark.",
+    dependencies: ["lucide-react", "react-resizable-panels"],
+    registryDependencies: ["utils", "sidebar", "header", "resizable", "attribution"],
     files: [
       {
         path: "components/layout/app-layout.tsx",
@@ -336,6 +336,21 @@ const registryItems = [
         path: "components/ui/brand-symbol.tsx",
         type: "registry:ui",
         content: readFileSafe("src/components/ui/brand-symbol.tsx"),
+      },
+    ],
+  },
+  {
+    name: "attribution",
+    type: "registry:ui",
+    title: "DS Attribution",
+    description: "Muted footer credit line that opens an 'About' dialog with product, studio, developer and contact info. Every solution built on the Joinha DS ships this.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils", "dialog", "brand-symbol"],
+    files: [
+      {
+        path: "components/ui/attribution.tsx",
+        type: "registry:ui",
+        content: readFileSafe("src/components/ui/attribution.tsx"),
       },
     ],
   },

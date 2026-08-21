@@ -988,7 +988,7 @@ export function ComponentLabView({
           <Badge variant="info" size="sm" className="font-semibold px-2.5 py-0.5">
             {categories.find((c) => c.id === selectedCategory)?.label || "Todos os Componentes"}
           </Badge>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-xs text-(--text-secondary)">
             Mostrando <strong className="text-foreground">{filteredComponents.length}</strong> de{" "}
             <strong className="text-foreground">{componentCatalog.length}</strong> componentes
             {searchQuery && (

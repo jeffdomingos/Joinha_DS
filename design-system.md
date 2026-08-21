@@ -121,6 +121,8 @@ Ferramentas SaaS exigem hierarquia visual clara e controle rígido de contraste.
 
 > **Por que não usar branco puro no corpo de texto?** Em telas escuras, texto a `L=100%`/`96%` sobre fundo a `L=14%` gera *halation* (sangramento de luz na retina) em sessões de leitura longa. `--text-primary` foi deliberadamente descido para `L=93%`, reservando o pico de `L=96%` só para elementos que precisam de destaque pontual (`--text-heading`).
 
+> **⚠️ Regra do Salto de Ênfase (Emphasis Jump):** `--text-muted` (`L=50%`) é reservado a placeholder/dado desativado — **nunca** use como cor-base de um parágrafo de prosa real (descrição de modal, texto de boas-vindas, corpo explicativo). Um `<strong>`/`<b>` nesse contexto normalmente salta direto para `--text-primary` (`L=93%`) para se destacar, e esse salto de 43 pontos de luminância numa frase só cria uma sensação de "vazamento de luz" — como se faltasse espaçamento entre o trecho em destaque e o resto do texto, mesmo quando o espaçamento está correto. **Prosa real usa `--text-secondary` (`L=78%`) como base**, não `--text-muted`; a ênfase inline então salta pra `--text-primary`, uma diferença de só ~15 pontos, perceptível mas não agressiva. `--text-muted` continua correto para legendas, timestamps e texto genuinamente secundário/auxiliar que não precisa competir por atenção. Componentes shadcn primitivos que usam `--text-muted` como default para descrição (`DialogDescription`, `AlertDialogDescription`) foram corrigidos para `--text-secondary`.
+
 ### Botões e Ações (Actions)
 - **Primary**: Ação principal da tela (ex: "Salvar", "Criar"). Use `--action-primary-bg`.
 - **Secondary**: Ações secundárias que necessitam de destaque sutil. Use `--action-secondary-bg`.

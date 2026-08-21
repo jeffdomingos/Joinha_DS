@@ -57,11 +57,12 @@ export function DSAttribution({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <div className="flex items-center gap-2.5 mb-1">
-              <div className="w-8 h-8 rounded-(--tc-radius-md) bg-brand-mark flex items-center justify-center shrink-0 p-1 shadow-xs">
-                <BrandSymbol variant="white" className="w-5 h-5" />
-              </div>
-              <DialogTitle>Sobre o {productName}</DialogTitle>
+            <div className="flex items-center gap-2 mb-1">
+              <BrandSymbol
+                variant="raw"
+                className="w-6 h-6 text-(--brand-mark) fill-(--brand-mark) shrink-0"
+              />
+              <DialogTitle className="leading-none">Sobre o {productName}</DialogTitle>
             </div>
             <DialogDescription>
               Construído com o <strong className="text-foreground">Joinha DS</strong> ({productVersion}), o design system oficial da{" "}

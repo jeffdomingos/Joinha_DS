@@ -126,7 +126,7 @@ export function AgentStatusHUD({
       </div>
 
       {latencyMs !== undefined && (
-        <div className="text-right font-mono text-[11px] text-muted-foreground shrink-0">
+        <div className="text-right font-mono text-[11px] text-(--text-secondary) shrink-0">
           <span>Latência: <strong className="text-foreground">{latencyMs}ms</strong></span>
         </div>
       )}

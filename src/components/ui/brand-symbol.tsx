@@ -9,7 +9,7 @@ export interface BrandSymbolProps extends React.SVGProps<SVGSVGElement> {
 export function BrandSymbol({ className, variant = "raw", ...props }: BrandSymbolProps) {
   const svgElement = (
     <svg
-      viewBox="27 77 662 1047"
+      viewBox="0 0 766.64 1122.45"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(

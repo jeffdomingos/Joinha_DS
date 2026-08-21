@@ -58,10 +58,7 @@ export function DSAttribution({
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <div className="flex items-center gap-2 mb-1">
-              <BrandSymbol
-                variant="raw"
-                className="w-6 h-6 text-(--brand-mark) fill-(--brand-mark) shrink-0"
-              />
+              <BrandSymbol variant="raw" className="h-5 w-auto shrink-0" />
               <DialogTitle className="leading-none">Sobre o {productName}</DialogTitle>
             </div>
             <DialogDescription>

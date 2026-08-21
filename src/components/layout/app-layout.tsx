@@ -116,7 +116,7 @@ export function AppLayout({
                 the normal page flow (scrolls away with content), not pinned on screen; the
                 full credit (studio, developer, contacts, rights) lives behind the click. */}
             <div className="max-w-7xl mx-auto mt-10 pt-4 border-t border-border/40 flex justify-end">
-              <DSAttribution productName={brandTitle} />
+              <DSAttribution productName={brandTitle} productId="JoinhaDS" />
             </div>
           </main>
         </ResizablePanel>

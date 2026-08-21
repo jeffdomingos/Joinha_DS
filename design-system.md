@@ -46,6 +46,11 @@ Para interação, use a **hierarquia de três acentos de interface** (nenhum toc
 
 **Regra do Single Accent Anchor:** em qualquer estado de seleção (nav ativo, sub-item, paginação, item de comando selecionado), apenas **um** elemento carrega a cor accent (tipicamente o ícone). Fundo e texto resolvem em neutro — evita que a cor "grite" em múltiplas camadas do mesmo componente.
 
+> **🥇 REGRA DE OURO: A Hierarquia dos Três Laranjas de Interface**
+> **Nunca mapeie botões, superfícies de ação ou qualquer elemento de UI diretamente para `brand.500` / `--tc-brand-500`.** Esse valor é exclusivo do Brand Mark (logo/símbolo). Consuma sempre o token semântico correspondente: `--action-primary-bg` (que resolve para `--accent-action` / `brand-600`) para CTAs e botões primários, `--accent-ui` (`brand-400`) para ícones-âncora e hovers de navegação, `--accent-subtle` (`brand-300`) para focus rings e bordas de sub-item. Um agente (humano ou IA) que mapear um botão para `brand.500`/`brand-500` está violando essa regra, mesmo que o resultado visual pareça "mais vibrante" — o objetivo é justamente reservar o pico de croma para a marca, não para interação.
+>
+> **Governança de `tokens/colors.json`:** este arquivo é a fonte de referência agnóstica de framework e deve espelhar exatamente a hierarquia semântica de `src/styles/tokens.css`. Não existe hoje um script de build que sincronize `colors.json` → `tokens.css` automaticamente (`tokens.css` é a implementação real, editada diretamente) — qualquer mudança na hierarquia de acento em um dos dois arquivos **deve** ser replicada manualmente no outro, sob risco de um agente consumidor externo (que só lê `colors.json`) mapear cores incorretamente.
+
 O sistema opera em duas camadas estruturais:
 
 1. **Tokens Primitivos (`--tc-color-*`)**: Valores brutos da escala de cor. **Não use estes tokens diretamente na UI.**

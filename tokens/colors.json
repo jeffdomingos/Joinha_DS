@@ -92,10 +92,16 @@
     "5": "oklch(65% 0.090 145)",
     "6": "oklch(68% 0.095 260)"
   },
+  "accent": {
+    "brandMark": "{brand.500}",
+    "action": "{brand.600}",
+    "ui": "{brand.400}",
+    "subtle": "{brand.300}"
+  },
   "semantic": {
     "dark": {
       "accessibility": {
-        "focusRing": "{brand.500}",
+        "focusRing": "{accent.action}",
         "focusOffset": "2px"
       },
       "bg": {
@@ -117,13 +123,13 @@
         "subtle": "{neutral.900}",
         "base": "{neutral.800}",
         "strong": "{neutral.700}",
-        "focus": "{brand.500}"
+        "focus": "{accent.action}"
       },
       "action": {
         "primary": {
-          "bg": "{brand.500}",
-          "hover": "{brand.400}",
-          "active": "{brand.600}",
+          "bg": "{accent.action}",
+          "hover": "oklch(63% 0.15 53)",
+          "active": "{brand.700}",
           "fg": "{neutral.0}"
         },
         "secondary": {
@@ -137,6 +143,15 @@
           "hover": "{neutral.900}",
           "active": "{neutral.800}",
           "fg": "{neutral.300}"
+        }
+      },
+      "btn": {
+        "primary": {
+          "border": {
+            "start": "{brand.300}",
+            "mid": "{accent.action}",
+            "end": "{brand.700}"
+          }
         }
       },
       "status": {

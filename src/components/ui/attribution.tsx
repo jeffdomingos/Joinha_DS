@@ -67,7 +67,7 @@ export function DSAttribution({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="flex items-end justify-between gap-4 pt-1">
+          <div className="flex items-stretch justify-between gap-4 pt-1">
             <div className="space-y-3 text-xs flex-1 min-w-0">
               <div>
                 <span className="text-[10px] font-sans uppercase text-muted-foreground font-semibold tracking-wider">
@@ -105,7 +105,9 @@ export function DSAttribution({
               </div>
             </div>
 
-            <BrandSymbol variant="raw" className="h-14 w-auto shrink-0 opacity-15" />
+            <div className="flex items-center justify-end shrink-0">
+              <BrandSymbol variant="raw" className="h-full w-auto opacity-15" />
+            </div>
           </div>
 
           <p className="text-[11px] text-muted-foreground/70 leading-relaxed pt-2 mt-3 border-t border-border/60">

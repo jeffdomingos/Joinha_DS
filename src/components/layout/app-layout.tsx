@@ -108,15 +108,19 @@ export function AppLayout({
               className
             )}
           >
-            <div className="max-w-7xl mx-auto space-y-8">
-              {children}
-            </div>
+            {/* min-h-full + flex-col faz o footer colar no rodape do viewport quando o
+                conteudo nao enche a area (flex-1 do conteudo empurra o footer pra baixo) --
+                mas se o conteudo passar da altura disponivel, o footer volta a fluir
+                normalmente logo depois dele (rola junto), sem ficar preso no meio da tela. */}
+            <div className="min-h-full flex flex-col max-w-7xl mx-auto">
+              <div className="flex-1 space-y-8">
+                {children}
+              </div>
 
-            {/* Footer credit — every solution built on the Joinha DS ships this. Lives in
-                the normal page flow (scrolls away with content), not pinned on screen; the
-                full credit (studio, developer, contacts, rights) lives behind the click. */}
-            <div className="max-w-7xl mx-auto mt-10 pt-4 border-t border-border/40 flex justify-end">
-              <DSAttribution productName={brandTitle} productId="JoinhaDS" />
+              {/* Footer credit — every solution built on the Joinha DS ships this. */}
+              <div className="mt-10 pt-4 border-t border-border/40 flex justify-end">
+                <DSAttribution productName={brandTitle} productId="JoinhaDS" />
+              </div>
             </div>
           </main>
         </ResizablePanel>

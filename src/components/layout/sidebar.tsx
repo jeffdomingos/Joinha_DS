@@ -216,14 +216,9 @@ export function SidebarBrandHeader({
       </div>
       {!collapsed && (
         <div className="flex flex-col min-w-0">
-          <div className="flex items-center gap-1.5">
-            <span className="type-heading-card font-bold text-sm tracking-tight text-foreground truncate">
-              {brandTitle}
-            </span>
-            <Badge variant="neutral" size="sm" className="text-[9px] py-0 px-1 font-medium font-sans">
-              v1.0
-            </Badge>
-          </div>
+          <span className="type-heading-card font-bold text-sm tracking-tight text-foreground truncate">
+            {brandTitle}
+          </span>
           <span className="type-body-sm text-[11px] text-muted-foreground truncate">
             {brandSubtitle}
           </span>

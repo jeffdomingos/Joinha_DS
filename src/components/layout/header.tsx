@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Menu,
   Terminal,
+  Settings,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -119,6 +120,51 @@ export function HeaderThemeToggle({ theme, onToggleTheme }: HeaderThemeTogglePro
         </>
       )}
     </Button>
+  )
+}
+
+/** Átomo: Menu de Configurações do App (engrenagem) -- area dedicada pra ajustes que
+    sao configuracao interna do app consumidor (ex: tema claro/escuro), em vez de
+    expor cada ajuste como um botao solto no header. Cresce aqui dentro conforme o
+    app ganha mais preferencias (densidade, notificacoes, etc). */
+export interface HeaderSettingsMenuProps {
+  theme: "dark" | "light"
+  onToggleTheme: () => void
+}
+
+export function HeaderSettingsMenu({ theme, onToggleTheme }: HeaderSettingsMenuProps) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-8 w-8 cursor-pointer"
+          aria-label="Configurações"
+          title="Configurações"
+        >
+          <Settings className="w-4 h-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuLabel className="type-label-xs text-muted-foreground">
+          Aparência
+        </DropdownMenuLabel>
+        <DropdownMenuItem onClick={onToggleTheme} className="gap-2 cursor-pointer">
+          {theme === "dark" ? (
+            <>
+              <Sun className="w-4 h-4 text-warning" />
+              <span>Modo claro</span>
+            </>
+          ) : (
+            <>
+              <Moon className="w-4 h-4 text-foreground" />
+              <span>Modo escuro</span>
+            </>
+          )}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

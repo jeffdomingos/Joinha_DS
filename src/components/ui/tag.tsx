@@ -15,6 +15,14 @@ const tagVariants = cva(
           "bg-(--tag-teal-subtle) text-(--tag-teal-text) border-(--tag-teal-border)",
         indigo:
           "bg-(--tag-indigo-subtle) text-(--tag-indigo-text) border-(--tag-indigo-border)",
+        // Reaproveita os tokens de STATUS (warning=ambar, success=verde) em vez de
+        // inventar OKLCH novo -- util pra tags que precisam de amarelo/verde sem sair
+        // da paleta ja existente do DS (ex: representar branding de plataformas
+        // externas como InHire=amarelo, Greenhouse=verde).
+        amber:
+          "bg-(--status-warning-subtle) text-(--status-warning-text) border-(--status-warning-border)",
+        green:
+          "bg-(--status-success-subtle) text-(--status-success-text) border-(--status-success-border)",
         gray:
           "bg-muted/60 text-muted-foreground border-border",
       },

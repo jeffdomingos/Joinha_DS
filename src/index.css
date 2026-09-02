@@ -192,6 +192,16 @@
 }
 
 @layer base {
+  /* AppLayout usa h-screen + overflow-y-auto no <main> como UNICO scroll container
+     da pagina (pra footer colar embaixo, ver app-layout.tsx) -- sem isso aqui, o
+     body/html pode ficar 1px+ mais alto que o viewport (reflow de fonte, spinner
+     de scrollbar nativo, etc) e o navegador/WebView abre um SEGUNDO scrollbar
+     proprio por fora do tematizado, ficando duas barras de rolagem lado a lado. */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   html {
     font-family: var(--tc-font-sans);
     -webkit-font-smoothing: antialiased;

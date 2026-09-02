@@ -219,7 +219,7 @@ export function SidebarBrandHeader({
           <span className="type-heading-card font-bold text-sm tracking-tight text-foreground truncate">
             {brandTitle}
           </span>
-          <span className="type-body-sm text-[11px] text-muted-foreground truncate">
+          <span className="type-body-sm text-[11px] text-muted-foreground truncate -mt-0.5">
             {brandSubtitle}
           </span>
         </div>

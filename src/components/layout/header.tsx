@@ -48,7 +48,7 @@ export function HeaderBreadcrumbs({
             <span
               className={cn(
                 "truncate font-medium transition-colors",
-                isLast ? "text-foreground font-semibold" : "hover:text-foreground cursor-pointer"
+                isLast ? "text-muted-foreground" : "hover:text-foreground cursor-pointer"
               )}
             >
               {crumb.label}

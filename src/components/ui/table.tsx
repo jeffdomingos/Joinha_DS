@@ -1,18 +1,27 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
-    <table
-      ref={ref}
-      className={cn("w-full caption-bottom type-ui-base", className)}
-      {...props}
-    />
-  </div>
-))
+export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+  /** className/style do <div> que envolve a <table> (o container de scroll de verdade --
+      overflow-auto ja vem por padrao aqui). Existe pra permitir max-height + sticky thead
+      (ver DataTable): sticky gruda no scroll container mais PROXIMO, entao um <div> extra
+      por fora deste teria altura livre nesse aqui e o sticky nao funcionaria -- precisa
+      ser o MESMO div que recebe overflow/max-height, nao um segundo por fora. */
+  containerClassName?: string
+  containerStyle?: React.CSSProperties
+}
+
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
+  ({ className, containerClassName, containerStyle, ...props }, ref) => (
+    <div className={cn("relative w-full overflow-auto", containerClassName)} style={containerStyle}>
+      <table
+        ref={ref}
+        className={cn("w-full caption-bottom type-ui-base", className)}
+        {...props}
+      />
+    </div>
+  )
+)
 Table.displayName = "Table"
 
 const TableHeader = React.forwardRef<

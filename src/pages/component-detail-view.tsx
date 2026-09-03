@@ -114,7 +114,7 @@ import {
   TableCell,
 } from "@/components/ui/table"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
+import { DataTable, type DataTableColumn, type DataTableFilter } from "@/components/ui/data-table"
 import {
   Pagination,
   PaginationContent,
@@ -695,7 +695,16 @@ export function ComponentDetailView({
 
       /* --- 3. VISUALIZAÇÃO DE DADOS --- */
       case "data-table": {
-        const sampleDataTableData: DataTableRecord[] = [
+        interface SampleCustomer {
+          id: string
+          customer: { name: string; email: string }
+          plan: "Starter" | "Pro" | "Enterprise" | "Custom"
+          status: "active" | "trialing" | "past_due" | "canceled"
+          mrr: number
+          billingCycle: "Monthly" | "Annual"
+          joinedDate: string
+        }
+        const sampleDataTableData: SampleCustomer[] = [
           {
             id: "CUST-001",
             customer: { name: "Jefferson Domingos", email: "jeff@joinha.ds" },
@@ -733,9 +742,80 @@ export function ComponentDetailView({
             joinedDate: "2023-11-05",
           },
         ]
+        const sampleColumns: DataTableColumn<SampleCustomer>[] = [
+          {
+            id: "customer",
+            header: "Cliente",
+            sortValue: (r) => r.customer.name,
+            cell: (r) => (
+              <div className="flex flex-col gap-0.5">
+                <span className="font-semibold text-foreground">{r.customer.name}</span>
+                <span className="text-xs text-muted-foreground">{r.customer.email}</span>
+              </div>
+            ),
+          },
+          {
+            id: "plan",
+            header: "Plano",
+            sortValue: (r) => r.plan,
+            cell: (r) => {
+              const variant = r.plan === "Enterprise" ? "purple" : r.plan === "Pro" ? "teal" : r.plan === "Custom" ? "pink" : "gray"
+              return <Tag variant={variant} size="sm">{r.plan}</Tag>
+            },
+          },
+          {
+            id: "status",
+            header: "Status",
+            sortValue: (r) => r.status,
+            cell: (r) => {
+              const labels: Record<SampleCustomer["status"], string> = {
+                active: "Ativo", trialing: "Em Teste", past_due: "Atrasado", canceled: "Cancelado",
+              }
+              const variants: Record<SampleCustomer["status"], "success" | "info" | "warning" | "danger"> = {
+                active: "success", trialing: "info", past_due: "warning", canceled: "danger",
+              }
+              return <Badge variant={variants[r.status]} dot size="sm">{labels[r.status]}</Badge>
+            },
+          },
+          {
+            id: "mrr",
+            header: "MRR",
+            align: "right",
+            sortValue: (r) => r.mrr,
+            cell: (r) => (
+              <span className="type-data-mono font-medium text-foreground">
+                {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(r.mrr)}
+              </span>
+            ),
+          },
+        ]
+        const sampleFilters: DataTableFilter<SampleCustomer>[] = [
+          {
+            id: "status",
+            label: "Status",
+            options: [
+              { value: "all", label: "Todos Status" },
+              { value: "active", label: "Ativo" },
+              { value: "trialing", label: "Em Teste" },
+              { value: "past_due", label: "Atrasado" },
+              { value: "canceled", label: "Cancelado" },
+            ],
+            predicate: (r, v) => v === "all" || r.status === v,
+          },
+        ]
         return (
           <div className="w-full">
-            <DataTable data={sampleDataTableData} />
+            <DataTable
+              data={sampleDataTableData}
+              columns={sampleColumns}
+              getRowId={(r) => r.id}
+              searchPlaceholder="Buscar cliente, email ou ID..."
+              searchableText={(r) => `${r.customer.name} ${r.customer.email} ${r.id}`}
+              filters={sampleFilters}
+              defaultSort={{ columnId: "mrr", order: "desc" }}
+              pageSizeOptions={[5, 10, 20]}
+              defaultPageSize={5}
+            />
           </div>
         )
       }

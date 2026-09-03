@@ -7,8 +7,6 @@ import {
   TableHead,
   TableCell,
 } from "./table"
-import { Badge } from "./badge"
-import { Tag } from "./tag"
 import { Button } from "./button"
 import { Input } from "./input"
 import {
@@ -26,121 +24,135 @@ import {
   SelectContent,
   SelectItem,
 } from "./select"
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "./dropdown-menu"
-import {
-  ArrowUpDown,
-  ArrowUp,
-  ArrowDown,
-  Search,
-  MoreHorizontal,
-  FilterX,
-  FileEdit,
-  Copy,
-  Trash2,
-} from "lucide-react"
+import { ArrowUpDown, ArrowUp, ArrowDown, Search, FilterX } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-export interface DataTableRecord {
+export interface DataTableColumn<T> {
+  /** Identificador unico da coluna -- usado como key de sort e nas props de sortField/onSort. */
   id: string
-  customer: {
-    name: string
-    email: string
-    avatar?: string
-  }
-  plan: "Starter" | "Pro" | "Enterprise" | "Custom"
-  status: "active" | "trialing" | "past_due" | "canceled"
-  mrr: number
-  billingCycle: "Monthly" | "Annual"
-  joinedDate: string
+  header: React.ReactNode
+  cell: (row: T) => React.ReactNode
+  /** Presente = coluna ordenavel (cabecalho clicavel, mostra icone de sort). Ausente = coluna estatica. */
+  sortValue?: (row: T) => string | number
+  align?: "left" | "right" | "center"
+  className?: string
+  headerClassName?: string
 }
 
-interface DataTableProps {
-  data: DataTableRecord[]
+export interface DataTableFilter<T> {
+  id: string
+  label: string
+  /** Primeira opcao deve ser o valor "todos" (ex: {value: "all", label: "Todas as fontes"}) --
+      nao ha comportamento especial embutido pra "all", a logica de match e toda do predicate. */
+  options: { value: string; label: string }[]
+  predicate: (row: T, value: string) => boolean
+}
+
+export interface DataTableProps<T> {
+  data: T[]
+  columns: DataTableColumn<T>[]
+  getRowId: (row: T) => string
+  searchPlaceholder?: string
+  /** Texto usado pela busca livre -- omitir remove a caixa de busca. */
+  searchableText?: (row: T) => string
+  filters?: DataTableFilter<T>[]
+  defaultSort?: { columnId: string; order: "asc" | "desc" }
+  pageSizeOptions?: number[]
+  defaultPageSize?: number
+  emptyMessage?: string
   className?: string
 }
 
-type SortField = "customer" | "plan" | "status" | "mrr" | "joinedDate"
 type SortOrder = "asc" | "desc"
 
-export function DataTable({ data, className }: DataTableProps) {
+/**
+ * Tabela generica com busca, filtros (Select) e ordenacao client-side, parametrizada
+ * por `columns` -- nao assume nenhum dominio especifico (era hardcoded pra "assinaturas
+ * de cliente" antes; qualquer app que precise de tabela com sort/filtro/paginacao usa
+ * esta, definindo suas proprias colunas/filtros). Filtragem e ordenacao sao O(n log n)
+ * em memoria -- adequado pra datasets de ate alguns milhares de linhas; datasets maiores
+ * devem paginar/filtrar no servidor em vez de usar este componente com `data` completo.
+ */
+export function DataTable<T>({
+  data,
+  columns,
+  getRowId,
+  searchPlaceholder = "Buscar...",
+  searchableText,
+  filters = [],
+  defaultSort,
+  pageSizeOptions = [10, 25, 50],
+  defaultPageSize = 25,
+  emptyMessage = "Nenhum registro encontrado.",
+  className,
+}: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState<string>("all")
-  const [planFilter, setPlanFilter] = useState<string>("all")
-  const [sortField, setSortField] = useState<SortField>("mrr")
-  const [sortOrder, setSortOrder] = useState<SortOrder>("desc")
+  const [filterValues, setFilterValues] = useState<Record<string, string>>(
+    () => Object.fromEntries(filters.map((f) => [f.id, f.options[0]?.value ?? "all"]))
+  )
+  const [sortColumnId, setSortColumnId] = useState<string | undefined>(defaultSort?.columnId)
+  const [sortOrder, setSortOrder] = useState<SortOrder>(defaultSort?.order ?? "asc")
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(defaultPageSize)
 
-  // 1. Filtering Logic
   const filteredData = useMemo(() => {
-    return data.filter((item) => {
-      const matchesSearch =
-        item.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.id.toLowerCase().includes(searchTerm.toLowerCase())
-
-      const matchesStatus =
-        statusFilter === "all" ? true : item.status === statusFilter
-
-      const matchesPlan =
-        planFilter === "all" ? true : item.plan.toLowerCase() === planFilter.toLowerCase()
-
-      return matchesSearch && matchesStatus && matchesPlan
-    })
-  }, [data, searchTerm, statusFilter, planFilter])
-
-  // 2. Sorting Logic
-  const sortedData = useMemo(() => {
-    return [...filteredData].sort((a, b) => {
-      let comparison = 0
-      if (sortField === "customer") {
-        comparison = a.customer.name.localeCompare(b.customer.name)
-      } else if (sortField === "plan") {
-        comparison = a.plan.localeCompare(b.plan)
-      } else if (sortField === "status") {
-        comparison = a.status.localeCompare(b.status)
-      } else if (sortField === "mrr") {
-        comparison = a.mrr - b.mrr
-      } else if (sortField === "joinedDate") {
-        comparison = new Date(a.joinedDate).getTime() - new Date(b.joinedDate).getTime()
+    const term = searchTerm.trim().toLowerCase()
+    return data.filter((row) => {
+      if (term && searchableText && !searchableText(row).toLowerCase().includes(term)) {
+        return false
       }
+      return filters.every((f) => {
+        const value = filterValues[f.id] ?? f.options[0]?.value
+        if (value === undefined) return true
+        return f.predicate(row, value)
+      })
+    })
+  }, [data, searchTerm, filterValues, filters, searchableText])
 
+  const sortColumn = columns.find((c) => c.id === sortColumnId)
+
+  const sortedData = useMemo(() => {
+    if (!sortColumn?.sortValue) return filteredData
+    const sorted = [...filteredData].sort((a, b) => {
+      const va = sortColumn.sortValue!(a)
+      const vb = sortColumn.sortValue!(b)
+      const comparison = typeof va === "number" && typeof vb === "number"
+        ? va - vb
+        : String(va).localeCompare(String(vb))
       return sortOrder === "asc" ? comparison : -comparison
     })
-  }, [filteredData, sortField, sortOrder])
+    return sorted
+  }, [filteredData, sortColumn, sortOrder])
 
-  // 3. Pagination Logic
   const totalRecords = sortedData.length
   const totalPages = Math.max(1, Math.ceil(totalRecords / pageSize))
+  const safePage = Math.min(currentPage, totalPages)
   const paginatedData = useMemo(() => {
-    const start = (currentPage - 1) * pageSize
+    const start = (safePage - 1) * pageSize
     return sortedData.slice(start, start + pageSize)
-  }, [sortedData, currentPage, pageSize])
+  }, [sortedData, safePage, pageSize])
 
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+  const handleSort = (columnId: string) => {
+    if (sortColumnId === columnId) {
+      setSortOrder((o) => (o === "asc" ? "desc" : "asc"))
     } else {
-      setSortField(field)
-      setSortOrder("desc")
+      setSortColumnId(columnId)
+      setSortOrder("asc")
     }
+    setCurrentPage(1)
   }
 
   const handleResetFilters = () => {
     setSearchTerm("")
-    setStatusFilter("all")
-    setPlanFilter("all")
+    setFilterValues(Object.fromEntries(filters.map((f) => [f.id, f.options[0]?.value ?? "all"])))
     setCurrentPage(1)
   }
 
-  const getSortIcon = (field: SortField) => {
-    if (sortField !== field) return <ArrowUpDown className="w-3.5 h-3.5 opacity-50 ml-1.5" />
+  const hasActiveFilters =
+    !!searchTerm || filters.some((f) => filterValues[f.id] !== (f.options[0]?.value ?? "all"))
+
+  const getSortIcon = (columnId: string) => {
+    if (sortColumnId !== columnId) return <ArrowUpDown className="w-3.5 h-3.5 opacity-50 ml-1.5" />
     return sortOrder === "asc" ? (
       <ArrowUp className="w-3.5 h-3.5 text-primary ml-1.5" />
     ) : (
@@ -148,243 +160,107 @@ export function DataTable({ data, className }: DataTableProps) {
     )
   }
 
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(val)
-  }
+  const alignClass = (align?: "left" | "right" | "center") =>
+    align === "right" ? "text-right" : align === "center" ? "text-center" : ""
 
   return (
-    <div className={`space-y-4 ${className || ""}`}>
-      {/* Table Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
-        <div className="flex flex-1 items-center gap-2.5 max-w-md">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-            <Input
-              placeholder="Buscar cliente, email ou ID..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setCurrentPage(1)
-              }}
-              className="pl-9 h-9 text-xs"
-            />
-          </div>
-        </div>
+    <div className={cn("space-y-4", className)}>
+      {(searchableText || filters.length > 0) && (
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+          {searchableText && (
+            <div className="flex flex-1 items-center gap-2.5 max-w-md">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  placeholder={searchPlaceholder}
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value)
+                    setCurrentPage(1)
+                  }}
+                  className="pl-9 h-9 text-xs"
+                />
+              </div>
+            </div>
+          )}
 
-        <div className="flex items-center gap-2">
-          {/* Status Filter */}
-          <Select
-            value={statusFilter}
-            onValueChange={(val) => {
-              setStatusFilter(val)
-              setCurrentPage(1)
-            }}
-          >
-            <SelectTrigger className="h-9 w-[130px] text-xs">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Todos Status</SelectItem>
-              <SelectItem value="active">Ativo</SelectItem>
-              <SelectItem value="trialing">Em Teste</SelectItem>
-              <SelectItem value="past_due">Atrasado</SelectItem>
-              <SelectItem value="canceled">Cancelado</SelectItem>
-            </SelectContent>
-          </Select>
+          {filters.length > 0 && (
+            <div className="flex items-center gap-2">
+              {filters.map((f) => (
+                <Select
+                  key={f.id}
+                  value={filterValues[f.id] ?? f.options[0]?.value}
+                  onValueChange={(val) => {
+                    setFilterValues((prev) => ({ ...prev, [f.id]: val }))
+                    setCurrentPage(1)
+                  }}
+                >
+                  <SelectTrigger className="h-9 w-[150px] text-xs">
+                    <SelectValue placeholder={f.label} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {f.options.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ))}
 
-          {/* Plan Filter */}
-          <Select
-            value={planFilter}
-            onValueChange={(val) => {
-              setPlanFilter(val)
-              setCurrentPage(1)
-            }}
-          >
-            <SelectTrigger className="h-9 w-[130px] text-xs">
-              <SelectValue placeholder="Plano" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Todos Planos</SelectItem>
-              <SelectItem value="starter">Starter</SelectItem>
-              <SelectItem value="pro">Pro</SelectItem>
-              <SelectItem value="enterprise">Enterprise</SelectItem>
-              <SelectItem value="custom">Custom</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {(searchTerm || statusFilter !== "all" || planFilter !== "all") && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleResetFilters}
-              className="h-9 px-2 text-muted-foreground hover:text-foreground"
-              title="Limpar filtros"
-            >
-              <FilterX className="w-4 h-4" />
-            </Button>
+              {hasActiveFilters && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleResetFilters}
+                  className="h-9 px-2 text-muted-foreground hover:text-foreground"
+                  title="Limpar filtros"
+                >
+                  <FilterX className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
           )}
         </div>
-      </div>
+      )}
 
-      {/* Main Table Surface */}
       <div className="rounded-(--tc-radius-lg) border-gradient-subtle elevation-1 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort("customer")}
-              >
-                <div className="flex items-center">
-                  Cliente {getSortIcon("customer")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort("plan")}
-              >
-                <div className="flex items-center">
-                  Plano {getSortIcon("plan")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort("status")}
-              >
-                <div className="flex items-center">
-                  Status {getSortIcon("status")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none text-right"
-                onClick={() => handleSort("mrr")}
-              >
-                <div className="flex items-center justify-end">
-                  MRR {getSortIcon("mrr")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort("joinedDate")}
-              >
-                <div className="flex items-center">
-                  Data de Início {getSortIcon("joinedDate")}
-                </div>
-              </TableHead>
-              <TableHead className="w-[50px] text-center">Ações</TableHead>
+              {columns.map((col) => (
+                <TableHead
+                  key={col.id}
+                  className={cn(
+                    col.sortValue && "cursor-pointer select-none",
+                    alignClass(col.align),
+                    col.headerClassName
+                  )}
+                  onClick={col.sortValue ? () => handleSort(col.id) : undefined}
+                >
+                  <div className={cn("flex items-center", col.align === "right" && "justify-end")}>
+                    {col.header}
+                    {col.sortValue && getSortIcon(col.id)}
+                  </div>
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedData.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="h-32 text-center text-muted-foreground"
-                >
-                  Nenhum registro encontrado para os filtros selecionados.
+                <TableCell colSpan={columns.length} className="h-32 text-center text-muted-foreground">
+                  {emptyMessage}
                 </TableCell>
               </TableRow>
             ) : (
               paginatedData.map((row) => (
-                <TableRow key={row.id}>
-                  {/* Customer Info */}
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-xs shrink-0 border border-border">
-                        {row.customer.name.charAt(0)}
-                      </div>
-                      <div className="flex flex-col min-w-0 gap-1">
-                        <span className="font-semibold text-foreground truncate leading-tight">
-                          {row.customer.name}
-                        </span>
-                        <span className="text-xs text-muted-foreground truncate font-medium leading-tight">
-                          {row.customer.email}
-                        </span>
-                      </div>
-                    </div>
-                  </TableCell>
-
-                  {/* Plan Tag */}
-                  <TableCell>
-                    {row.plan === "Enterprise" && (
-                      <Tag variant="purple" size="sm">Enterprise</Tag>
-                    )}
-                    {row.plan === "Pro" && (
-                      <Tag variant="teal" size="sm">Pro</Tag>
-                    )}
-                    {row.plan === "Starter" && (
-                      <Tag variant="gray" size="sm">Starter</Tag>
-                    )}
-                    {row.plan === "Custom" && (
-                      <Tag variant="pink" size="sm">Custom</Tag>
-                    )}
-                  </TableCell>
-
-                  {/* Status Badge with accessible indicators */}
-                  <TableCell>
-                    {row.status === "active" && (
-                      <Badge variant="success" dot size="sm">Ativo</Badge>
-                    )}
-                    {row.status === "trialing" && (
-                      <Badge variant="info" dot size="sm">Em Teste</Badge>
-                    )}
-                    {row.status === "past_due" && (
-                      <Badge variant="warning" dot size="sm">Atrasado</Badge>
-                    )}
-                    {row.status === "canceled" && (
-                      <Badge variant="danger" dot size="sm">Cancelado</Badge>
-                    )}
-                  </TableCell>
-
-                  {/* MRR Currency with tabular figures */}
-                  <TableCell className="text-right">
-                    <div className="flex flex-col items-end gap-1">
-                      <span className="type-data-mono font-medium text-foreground leading-tight">
-                        {formatCurrency(row.mrr)}
-                      </span>
-                      <span className="text-[11px] text-muted-foreground font-medium leading-tight">
-                        /{row.billingCycle === "Monthly" ? "mês" : "ano"}
-                      </span>
-                    </div>
-                  </TableCell>
-
-                  {/* Joined Date */}
-                  <TableCell className="type-data-mono text-xs text-muted-foreground">
-                    {new Date(row.joinedDate).toLocaleDateString("pt-BR")}
-                  </TableCell>
-
-                  {/* Row Actions Menu */}
-                  <TableCell className="text-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                          aria-label="Abrir menu de ações"
-                        >
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <FileEdit className="w-4 h-4" /> Editar Assinatura
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Copy className="w-4 h-4" /> Copiar ID ({row.id})
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-destructive focus:bg-destructive/10 focus:text-destructive">
-                          <Trash2 className="w-4 h-4" /> Cancelar Assinatura
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+                <TableRow key={getRowId(row)}>
+                  {columns.map((col) => (
+                    <TableCell key={col.id} className={cn(alignClass(col.align), col.className)}>
+                      {col.cell(row)}
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))
             )}
@@ -392,16 +268,15 @@ export function DataTable({ data, className }: DataTableProps) {
         </Table>
       </div>
 
-      {/* Pagination Footer */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground pt-1">
         <div className="flex items-center gap-2">
           <span>Mostrando</span>
           <span className="font-semibold text-foreground">
-            {totalRecords === 0 ? 0 : (currentPage - 1) * pageSize + 1}
+            {totalRecords === 0 ? 0 : (safePage - 1) * pageSize + 1}
           </span>
           <span>a</span>
           <span className="font-semibold text-foreground">
-            {Math.min(currentPage * pageSize, totalRecords)}
+            {Math.min(safePage * pageSize, totalRecords)}
           </span>
           <span>de</span>
           <span className="font-semibold text-foreground">{totalRecords}</span>
@@ -422,9 +297,11 @@ export function DataTable({ data, className }: DataTableProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="5">5</SelectItem>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="20">20</SelectItem>
+                {pageSizeOptions.map((size) => (
+                  <SelectItem key={size} value={String(size)}>
+                    {size}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -436,16 +313,16 @@ export function DataTable({ data, className }: DataTableProps) {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault()
-                    if (currentPage > 1) setCurrentPage((p) => p - 1)
+                    if (safePage > 1) setCurrentPage((p) => p - 1)
                   }}
-                  className={currentPage <= 1 ? "pointer-events-none opacity-40" : ""}
+                  className={safePage <= 1 ? "pointer-events-none opacity-40" : ""}
                 />
               </PaginationItem>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                 <PaginationItem key={pageNum}>
                   <PaginationLink
                     href="#"
-                    isActive={currentPage === pageNum}
+                    isActive={safePage === pageNum}
                     onClick={(e) => {
                       e.preventDefault()
                       setCurrentPage(pageNum)
@@ -460,9 +337,9 @@ export function DataTable({ data, className }: DataTableProps) {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault()
-                    if (currentPage < totalPages) setCurrentPage((p) => p + 1)
+                    if (safePage < totalPages) setCurrentPage((p) => p + 1)
                   }}
-                  className={currentPage >= totalPages ? "pointer-events-none opacity-40" : ""}
+                  className={safePage >= totalPages ? "pointer-events-none opacity-40" : ""}
                 />
               </PaginationItem>
             </PaginationContent>

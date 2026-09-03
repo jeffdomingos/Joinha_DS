@@ -13,7 +13,17 @@ import {
 import { MetricCard } from "@/components/ui/metric-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { DataTable, type DataTableRecord } from "@/components/ui/data-table"
+import { Tag } from "@/components/ui/tag"
+import { DataTable, type DataTableColumn, type DataTableFilter } from "@/components/ui/data-table"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import { MoreHorizontal, FileEdit, Copy, Trash2 } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import {
@@ -80,7 +90,17 @@ const channelData = [
   { channel: "Indicações", visitors: 2100, fill: "var(--chart-5)" },
 ]
 
-const mockSubscriptions: DataTableRecord[] = [
+interface Subscription {
+  id: string
+  customer: { name: string; email: string; avatar?: string }
+  plan: "Starter" | "Pro" | "Enterprise" | "Custom"
+  status: "active" | "trialing" | "past_due" | "canceled"
+  mrr: number
+  billingCycle: "Monthly" | "Annual"
+  joinedDate: string
+}
+
+const mockSubscriptions: Subscription[] = [
   {
     id: "SUB-8941",
     customer: {
@@ -158,6 +178,128 @@ const mockSubscriptions: DataTableRecord[] = [
     mrr: 490,
     billingCycle: "Monthly",
     joinedDate: "2026-03-07",
+  },
+]
+
+function formatCurrency(val: number) {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(val)
+}
+
+const subscriptionColumns: DataTableColumn<Subscription>[] = [
+  {
+    id: "customer",
+    header: "Cliente",
+    sortValue: (r) => r.customer.name,
+    cell: (r) => (
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-xs shrink-0 border border-border">
+          {r.customer.name.charAt(0)}
+        </div>
+        <div className="flex flex-col min-w-0 gap-1">
+          <span className="font-semibold text-foreground truncate leading-tight">{r.customer.name}</span>
+          <span className="text-xs text-muted-foreground truncate font-medium leading-tight">{r.customer.email}</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "plan",
+    header: "Plano",
+    sortValue: (r) => r.plan,
+    cell: (r) => {
+      const variant = r.plan === "Enterprise" ? "purple" : r.plan === "Pro" ? "teal" : r.plan === "Custom" ? "pink" : "gray"
+      return <Tag variant={variant} size="sm">{r.plan}</Tag>
+    },
+  },
+  {
+    id: "status",
+    header: "Status",
+    sortValue: (r) => r.status,
+    cell: (r) => {
+      const labels: Record<Subscription["status"], string> = {
+        active: "Ativo", trialing: "Em Teste", past_due: "Atrasado", canceled: "Cancelado",
+      }
+      const variants: Record<Subscription["status"], "success" | "info" | "warning" | "danger"> = {
+        active: "success", trialing: "info", past_due: "warning", canceled: "danger",
+      }
+      return <Badge variant={variants[r.status]} dot size="sm">{labels[r.status]}</Badge>
+    },
+  },
+  {
+    id: "mrr",
+    header: "MRR",
+    align: "right",
+    sortValue: (r) => r.mrr,
+    cell: (r) => (
+      <div className="flex flex-col items-end gap-1">
+        <span className="type-data-mono font-medium text-foreground leading-tight">{formatCurrency(r.mrr)}</span>
+        <span className="text-[11px] text-muted-foreground font-medium leading-tight">
+          /{r.billingCycle === "Monthly" ? "mês" : "ano"}
+        </span>
+      </div>
+    ),
+  },
+  {
+    id: "joinedDate",
+    header: "Data de Início",
+    sortValue: (r) => r.joinedDate,
+    cell: (r) => (
+      <span className="type-data-mono text-xs text-muted-foreground">
+        {new Date(r.joinedDate).toLocaleDateString("pt-BR")}
+      </span>
+    ),
+  },
+  {
+    id: "actions",
+    header: "Ações",
+    align: "center",
+    className: "w-[50px]",
+    cell: (r) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground" aria-label="Abrir menu de ações">
+            <MoreHorizontal className="w-4 h-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Ações</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem><FileEdit className="w-4 h-4" /> Editar Assinatura</DropdownMenuItem>
+          <DropdownMenuItem><Copy className="w-4 h-4" /> Copiar ID ({r.id})</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="text-destructive focus:bg-destructive/10 focus:text-destructive">
+            <Trash2 className="w-4 h-4" /> Cancelar Assinatura
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
+  },
+]
+
+const subscriptionFilters: DataTableFilter<Subscription>[] = [
+  {
+    id: "status",
+    label: "Status",
+    options: [
+      { value: "all", label: "Todos Status" },
+      { value: "active", label: "Ativo" },
+      { value: "trialing", label: "Em Teste" },
+      { value: "past_due", label: "Atrasado" },
+      { value: "canceled", label: "Cancelado" },
+    ],
+    predicate: (r, v) => v === "all" || r.status === v,
+  },
+  {
+    id: "plan",
+    label: "Plano",
+    options: [
+      { value: "all", label: "Todos Planos" },
+      { value: "Starter", label: "Starter" },
+      { value: "Pro", label: "Pro" },
+      { value: "Enterprise", label: "Enterprise" },
+      { value: "Custom", label: "Custom" },
+    ],
+    predicate: (r, v) => v === "all" || r.plan === v,
   },
 ]
 
@@ -410,7 +552,18 @@ export function DashboardView({ onNavigateToDocs, onNavigateToLab }: DashboardVi
           </span>
         </div>
 
-        <DataTable data={mockSubscriptions} />
+        <DataTable
+          data={mockSubscriptions}
+          columns={subscriptionColumns}
+          getRowId={(r) => r.id}
+          searchPlaceholder="Buscar cliente, email ou ID..."
+          searchableText={(r) => `${r.customer.name} ${r.customer.email} ${r.id}`}
+          filters={subscriptionFilters}
+          defaultSort={{ columnId: "mrr", order: "desc" }}
+          pageSizeOptions={[5, 10, 20]}
+          defaultPageSize={5}
+          emptyMessage="Nenhum registro encontrado para os filtros selecionados."
+        />
       </div>
 
       {/* 4. Quick Links Footer Card */}

@@ -9,6 +9,7 @@ import {
 } from "./table"
 import { Button } from "./button"
 import { Input } from "./input"
+import { Slider } from "./slider"
 import {
   Pagination,
   PaginationContent,
@@ -39,7 +40,8 @@ export interface DataTableColumn<T> {
   headerClassName?: string
 }
 
-export interface DataTableFilter<T> {
+export interface DataTableSelectFilter<T> {
+  type?: "select"
   id: string
   label: string
   /** Primeira opcao deve ser o valor "todos" (ex: {value: "all", label: "Todas as fontes"}) --
@@ -47,6 +49,22 @@ export interface DataTableFilter<T> {
   options: { value: string; label: string }[]
   predicate: (row: T, value: string) => boolean
 }
+
+export interface DataTableRangeFilter<T> {
+  type: "range"
+  id: string
+  label: string
+  min: number
+  max: number
+  step?: number
+  /** Valor inicial (equivale a "sem filtro aplicado") -- default = min. */
+  defaultValue?: number
+  /** Formata o valor exibido ao lado do slider (ex: (v) => `${v}/10`). Default: String(v). */
+  formatValue?: (value: number) => string
+  predicate: (row: T, value: number) => boolean
+}
+
+export type DataTableFilter<T> = DataTableSelectFilter<T> | DataTableRangeFilter<T>
 
 export interface DataTableProps<T> {
   data: T[]
@@ -71,13 +89,18 @@ export interface DataTableProps<T> {
 
 type SortOrder = "asc" | "desc"
 
+function valorPadraoFiltro<T>(f: DataTableFilter<T>): string | number {
+  return f.type === "range" ? f.defaultValue ?? f.min : f.options[0]?.value ?? "all"
+}
+
 /**
- * Tabela generica com busca, filtros (Select) e ordenacao client-side, parametrizada
- * por `columns` -- nao assume nenhum dominio especifico (era hardcoded pra "assinaturas
- * de cliente" antes; qualquer app que precise de tabela com sort/filtro/paginacao usa
- * esta, definindo suas proprias colunas/filtros). Filtragem e ordenacao sao O(n log n)
- * em memoria -- adequado pra datasets de ate alguns milhares de linhas; datasets maiores
- * devem paginar/filtrar no servidor em vez de usar este componente com `data` completo.
+ * Tabela generica com busca, filtros (Select ou range numerico) e ordenacao
+ * client-side, parametrizada por `columns` -- nao assume nenhum dominio especifico
+ * (era hardcoded pra "assinaturas de cliente" antes; qualquer app que precise de
+ * tabela com sort/filtro/paginacao usa esta, definindo suas proprias colunas/filtros).
+ * Filtragem e ordenacao sao O(n log n) em memoria -- adequado pra datasets de ate
+ * alguns milhares de linhas; datasets maiores devem paginar/filtrar no servidor em
+ * vez de usar este componente com `data` completo.
  */
 export function DataTable<T>({
   data,
@@ -94,8 +117,8 @@ export function DataTable<T>({
   maxBodyHeight = "60vh",
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [filterValues, setFilterValues] = useState<Record<string, string>>(
-    () => Object.fromEntries(filters.map((f) => [f.id, f.options[0]?.value ?? "all"]))
+  const [filterValues, setFilterValues] = useState<Record<string, string | number>>(
+    () => Object.fromEntries(filters.map((f) => [f.id, valorPadraoFiltro(f)]))
   )
   const [sortColumnId, setSortColumnId] = useState<string | undefined>(defaultSort?.columnId)
   const [sortOrder, setSortOrder] = useState<SortOrder>(defaultSort?.order ?? "asc")
@@ -109,9 +132,10 @@ export function DataTable<T>({
         return false
       }
       return filters.every((f) => {
-        const value = filterValues[f.id] ?? f.options[0]?.value
-        if (value === undefined) return true
-        return f.predicate(row, value)
+        const value = filterValues[f.id] ?? valorPadraoFiltro(f)
+        return f.type === "range"
+          ? f.predicate(row, value as number)
+          : f.predicate(row, value as string)
       })
     })
   }, [data, searchTerm, filterValues, filters, searchableText])
@@ -151,12 +175,12 @@ export function DataTable<T>({
 
   const handleResetFilters = () => {
     setSearchTerm("")
-    setFilterValues(Object.fromEntries(filters.map((f) => [f.id, f.options[0]?.value ?? "all"])))
+    setFilterValues(Object.fromEntries(filters.map((f) => [f.id, valorPadraoFiltro(f)])))
     setCurrentPage(1)
   }
 
   const hasActiveFilters =
-    !!searchTerm || filters.some((f) => filterValues[f.id] !== (f.options[0]?.value ?? "all"))
+    !!searchTerm || filters.some((f) => filterValues[f.id] !== valorPadraoFiltro(f))
 
   const getSortIcon = (columnId: string) => {
     if (sortColumnId !== columnId) return <ArrowUpDown className="w-3.5 h-3.5 opacity-50 ml-1.5" />
@@ -192,28 +216,51 @@ export function DataTable<T>({
           )}
 
           {filters.length > 0 && (
-            <div className="flex items-center gap-2">
-              {filters.map((f) => (
-                <Select
-                  key={f.id}
-                  value={filterValues[f.id] ?? f.options[0]?.value}
-                  onValueChange={(val) => {
-                    setFilterValues((prev) => ({ ...prev, [f.id]: val }))
-                    setCurrentPage(1)
-                  }}
-                >
-                  <SelectTrigger className="h-9 w-[150px] text-xs">
-                    <SelectValue placeholder={f.label} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {f.options.map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ))}
+            <div className="flex items-center gap-3 flex-wrap">
+              {filters.map((f) => {
+                if (f.type === "range") {
+                  const value = (filterValues[f.id] as number) ?? valorPadraoFiltro(f)
+                  return (
+                    <div key={f.id} className="flex items-center gap-2 h-9">
+                      <span className="text-xs text-muted-foreground whitespace-nowrap">
+                        {f.label}: <span className="font-semibold text-foreground">{f.formatValue ? f.formatValue(value) : value}</span>
+                      </span>
+                      <Slider
+                        className="w-24"
+                        min={f.min}
+                        max={f.max}
+                        step={f.step ?? 1}
+                        value={[value]}
+                        onValueChange={([v]) => {
+                          setFilterValues((prev) => ({ ...prev, [f.id]: v }))
+                          setCurrentPage(1)
+                        }}
+                      />
+                    </div>
+                  )
+                }
+                return (
+                  <Select
+                    key={f.id}
+                    value={String(filterValues[f.id] ?? f.options[0]?.value)}
+                    onValueChange={(val) => {
+                      setFilterValues((prev) => ({ ...prev, [f.id]: val }))
+                      setCurrentPage(1)
+                    }}
+                  >
+                    <SelectTrigger className="h-9 w-[150px] text-xs">
+                      <SelectValue placeholder={f.label} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {f.options.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )
+              })}
 
               {hasActiveFilters && (
                 <Button

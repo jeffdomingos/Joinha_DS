@@ -10,6 +10,7 @@ import {
 import { Button } from "./button"
 import { Input } from "./input"
 import { Slider } from "./slider"
+import { Skeleton } from "./skeleton"
 import {
   Pagination,
   PaginationContent,
@@ -85,7 +86,16 @@ export interface DataTableProps<T> {
       dela, como antes). Default "60vh": mesmo com paginacao limitando linhas, uma pagina
       cheia (ate 100 linhas) ainda pode nao caber numa janela pequena. */
   maxBodyHeight?: string | null
+  /** true enquanto os dados ainda estao sendo buscados -- mostra linhas de skeleton em
+      vez do corpo real ou da mensagem de "nenhum registro" (que sem isso aparece cedo
+      demais: `data` comeca vazio ate a resposta chegar, entao a tabela mostra "vazio"
+      por um instante antes de preencher, como se a busca nao tivesse achado nada). */
+  loading?: boolean
+  /** Linhas de skeleton exibidas enquanto `loading`. Default 8. */
+  skeletonRows?: number
 }
+
+const LARGURAS_SKELETON = ["w-20", "w-32", "w-24", "w-14", "w-28", "w-16"]
 
 type SortOrder = "asc" | "desc"
 
@@ -115,6 +125,8 @@ export function DataTable<T>({
   emptyMessage = "Nenhum registro encontrado.",
   className,
   maxBodyHeight = "60vh",
+  loading = false,
+  skeletonRows = 8,
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState("")
   const [filterValues, setFilterValues] = useState<Record<string, string | number>>(
@@ -311,7 +323,19 @@ export function DataTable<T>({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedData.length === 0 ? (
+            {loading ? (
+              Array.from({ length: skeletonRows }).map((_, rowIdx) => (
+                <TableRow key={`skeleton-${rowIdx}`} className="hover:bg-transparent">
+                  {columns.map((col, colIdx) => (
+                    <TableCell key={col.id} className={cn(alignClass(col.align), col.className)}>
+                      <Skeleton
+                        className={cn("h-4", LARGURAS_SKELETON[(rowIdx + colIdx) % LARGURAS_SKELETON.length])}
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : paginatedData.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-32 text-center text-muted-foreground">
                   {emptyMessage}
@@ -332,6 +356,7 @@ export function DataTable<T>({
         </Table>
       </div>
 
+      {!loading && (
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground pt-1">
         <div className="flex items-center gap-2">
           <span>Mostrando</span>
@@ -410,6 +435,7 @@ export function DataTable<T>({
           </Pagination>
         </div>
       </div>
+      )}
     </div>
   )
 }

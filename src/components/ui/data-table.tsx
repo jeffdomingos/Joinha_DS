@@ -61,6 +61,12 @@ export interface DataTableProps<T> {
   defaultPageSize?: number
   emptyMessage?: string
   className?: string
+  /** Altura maxima do CORPO da tabela antes de rolar internamente (cabecalho fica fixo
+      via sticky) -- qualquer valor CSS valido (ex: "60vh", "480px"). `null` desativa o
+      scroll interno e deixa a tabela crescer livremente (pagina inteira rola por cima
+      dela, como antes). Default "60vh": mesmo com paginacao limitando linhas, uma pagina
+      cheia (ate 100 linhas) ainda pode nao caber numa janela pequena. */
+  maxBodyHeight?: string | null
 }
 
 type SortOrder = "asc" | "desc"
@@ -85,6 +91,7 @@ export function DataTable<T>({
   defaultPageSize = 25,
   emptyMessage = "Nenhum registro encontrado.",
   className,
+  maxBodyHeight = "60vh",
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState("")
   const [filterValues, setFilterValues] = useState<Record<string, string>>(
@@ -225,47 +232,57 @@ export function DataTable<T>({
       )}
 
       <div className="rounded-(--tc-radius-lg) border-gradient-subtle elevation-1 overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="hover:bg-transparent">
-              {columns.map((col) => (
-                <TableHead
-                  key={col.id}
-                  className={cn(
-                    col.sortValue && "cursor-pointer select-none",
-                    alignClass(col.align),
-                    col.headerClassName
-                  )}
-                  onClick={col.sortValue ? () => handleSort(col.id) : undefined}
-                >
-                  <div className={cn("flex items-center", col.align === "right" && "justify-end")}>
-                    {col.header}
-                    {col.sortValue && getSortIcon(col.id)}
-                  </div>
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedData.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-32 text-center text-muted-foreground">
-                  {emptyMessage}
-                </TableCell>
+        <div
+          className={cn(maxBodyHeight && "overflow-y-auto")}
+          style={maxBodyHeight ? { maxHeight: maxBodyHeight } : undefined}
+        >
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                {columns.map((col) => (
+                  <TableHead
+                    key={col.id}
+                    className={cn(
+                      col.sortValue && "cursor-pointer select-none",
+                      alignClass(col.align),
+                      // Sticky no <th> (nao no <tr>/<thead>) -- mais confiavel em
+                      // layout de tabela. Fundo OPACO (nao o /40 default do
+                      // TableHeader): com sticky, linhas passam por baixo ao rolar,
+                      // transparencia deixaria o texto delas visivel atras dos labels.
+                      maxBodyHeight && "sticky top-0 z-10 bg-surface-elevated",
+                      col.headerClassName
+                    )}
+                    onClick={col.sortValue ? () => handleSort(col.id) : undefined}
+                  >
+                    <div className={cn("flex items-center", col.align === "right" && "justify-end")}>
+                      {col.header}
+                      {col.sortValue && getSortIcon(col.id)}
+                    </div>
+                  </TableHead>
+                ))}
               </TableRow>
-            ) : (
-              paginatedData.map((row) => (
-                <TableRow key={getRowId(row)}>
-                  {columns.map((col) => (
-                    <TableCell key={col.id} className={cn(alignClass(col.align), col.className)}>
-                      {col.cell(row)}
-                    </TableCell>
-                  ))}
+            </TableHeader>
+            <TableBody>
+              {paginatedData.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-32 text-center text-muted-foreground">
+                    {emptyMessage}
+                  </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+              ) : (
+                paginatedData.map((row) => (
+                  <TableRow key={getRowId(row)}>
+                    {columns.map((col) => (
+                      <TableCell key={col.id} className={cn(alignClass(col.align), col.className)}>
+                        {col.cell(row)}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground pt-1">
